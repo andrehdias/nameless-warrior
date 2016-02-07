@@ -4,6 +4,8 @@ O projeto consiste em um RPG feito totalmente com tecnologias WEB e com temátic
 
 Se você quiser ajudar no levantamento de informações para o jogo, responda o [formulário](http://goo.gl/forms/6TgY9Ag6F3)!
 
+Para acompanhar o andamento do projeto, siga esse repositório e também a board do [trello](https://trello.com/b/PuE28a1W)!
+
 ## Tecnologias
 
 * [Phaser](http://phaser.io) - Framework em Javascript que utiliza tecnologias HTML5 para fazer jogos no browser.
@@ -17,7 +19,12 @@ Por ser um projeto de TCC, o jogo passará por toda uma fase prévia de análise
 ![Splash Screen](images/startscreen.png)
 
 ## História
+	Ver no documento separado sobre [História](docs/history.md)
+
+## Inteligência Artificial
 
 ## Classes
 
-## Atributos e habilidades 
+## Atributos e habilidades
+
+## Mapas 
