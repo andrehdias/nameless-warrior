@@ -24,30 +24,30 @@ Ver no documento separado sobre [História](docs/history.md)
 
 ## Classes
 	
-	* Guerreiro
-	* Mago
-	* Arqueiro
+* Guerreiro
+* Mago
+* Arqueiro
 
 ## Atributos, Status e Habilidades
 	
-	Como uma das propostas do projeto é ter uma inteligencia artificial avançada, tanto o personagem criado pelo jogador quanto os NPC(non-player characters) e monstros terão os mesmos atributos e status.
+Como uma das propostas do projeto é ter uma inteligencia artificial avançada, tanto o personagem criado pelo jogador quanto os NPC(non-player characters) e monstros terão os mesmos atributos e status.
 
-	### Atributos		
+### Atributos		
 
-		* Força
-		* Constituição
-		* Destreza
-		* Inteligência
-		* Sabedoria
-		* Carisma
+	* Força
+	* Constituição
+	* Destreza
+	* Inteligência
+	* Sabedoria
+	* Carisma
 
-	### Status
+### Status
 
-		* HP
-		* Mana
-		* Fome
-		* Stamina
-		* Sono
+	* HP
+	* Mana
+	* Fome
+	* Stamina
+	* Sono
 
 ## Inteligência Artificial
 
