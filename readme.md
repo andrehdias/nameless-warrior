@@ -8,6 +8,14 @@ Se você quiser ajudar no levantamento de informações para o jogo, responda o 
 
 * [Phaser](http://phaser.io) - Framework em Javascript que utiliza tecnologias HTML5 para fazer jogos no browser.
 
+## Identidade Visual
+
+Por ser um projeto de TCC, o jogo passará por toda uma fase prévia de análise. Para isso, já estou trabalhando em uma prévia da identidade visual do jogo:
+
+![Logo](http://imgur.com/mJfh2Dl)
+
+![Splash Screen](http://imgur.com/hZ132HW)
+
 ## História
 
 ## Classes
