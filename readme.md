@@ -34,20 +34,20 @@ Como uma das propostas do projeto é ter uma inteligencia artificial avançada, 
 
 ### Atributos		
 
-	* Força
-	* Constituição
-	* Destreza
-	* Inteligência
-	* Sabedoria
-	* Carisma
+* Força
+* Constituição
+* Destreza
+* Inteligência
+* Sabedoria
+* Carisma
 
 ### Status
 
-	* HP
-	* Mana
-	* Fome
-	* Stamina
-	* Sono
+* HP
+* Mana
+* Stamina
+* Fome
+* Sono
 
 ## Inteligência Artificial
 
