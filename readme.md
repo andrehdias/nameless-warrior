@@ -19,7 +19,8 @@ Por ser um projeto de TCC, o jogo passará por toda uma fase prévia de análise
 ![Splash Screen](images/startscreen.png)
 
 ## História
-	Ver no documento separado sobre [História](docs/history.md)
+
+Ver no documento separado sobre [História](docs/history.md)
 
 ## Inteligência Artificial
 
