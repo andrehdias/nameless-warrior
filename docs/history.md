@@ -9,7 +9,7 @@ Durante uma tempestuosa noite, entre intervalos curtos de relampagos e trovões,
 Ao dar a primeira olhada em volta, ele/ela encontra (sua espada de guerreiro, seu cajado de mago, seu arco de arqueiro) enconstado em toco próximo.
 Quando recupera totamente a visão, ele se vê cercado por pequenos globins o encarando, esperando a melhor oportunidade para ataca-lo.
 
-### Primeira Batalha | Tutorial de Combate
+### Primeira Batalha e Tutorial de Combate
 
 Ao fim da incessante batalha, (apelido) sai andando pela floresta. Após algum tempo caminhando, o dia finalmente amanhece e ele/ela acaba chegando em uma pequena cidade, com um alto muro de madeira, e pesados portões abertos com guardas armados observando cada movimento seu. Ao perguntar a um deles qual era o nome da cidade, ele gentilmente responde:
 
