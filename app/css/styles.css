@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -54,13 +55,98 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "RPGSystem";
+  src: url('../../fonts/fonts/RPGSystem.ttf') format('truetype');
+}
+main {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+main:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
 body {
   background-color: #333;
 }
 
-h1 {
-  font-size: 50px;
-  font-family: helvetica;
+header {
+  span: 12 of 12;
+}
+header .logo {
   text-align: center;
+  margin: 1.69492%;
+}
+header .logo img {
+  width: 50%;
+}
+header nav {
+  font-family: "RPGSystem";
   color: #c9c9c9;
+  font-size: 22px;
+  margin: 0.84746% 0;
+  text-align: center;
+}
+header nav ul {
+  list-style: none;
+}
+header nav ul li {
+  display: inline;
+  cursor: pointer;
+  margin: 0.42373%;
+  -moz-transition-property: text-decoration;
+  -o-transition-property: text-decoration;
+  -webkit-transition-property: text-decoration;
+  transition-property: text-decoration;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}
+header nav ul li:hover {
+  text-decoration: underline;
+}
+
+section {
+  font-family: "Open Sans";
+  color: #c9c9c9;
+  text-align: center;
+  line-height: 25px;
+  width: 100%;
+}
+section p {
+  font-size: 20px;
+}
+section #phaser {
+  margin: 0 auto;
+}
+
+button {
+  border: none;
+  padding: 6px;
+  margin: 0.42373%;
+  color: #fff;
+  background-color: #5368EE;
+  cursor: pointer;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}
+button:hover {
+  background-color: #8191f3;
 }

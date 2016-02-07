@@ -1,12 +1,108 @@
+@import "compass/css3";
+@import "compass/utilities/general/clearfix";
 @import "compass/reset";
+@import "susy"; 
 
-body {
-	background-color: #333;
+@include border-box-sizing;
+
+@include font-face("RPGSystem", font-files("fonts/RPGSystem.ttf"));
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+$susy: (
+  columns: 12,
+  container: 100%,
+  gutters: 1/4,
+  global-box-sizing: border-box
+);
+
+$white: #fff;
+$black: #000;
+$grey: #c9c9c9;
+
+$blue: #5368EE;
+$light-blue: lighten( $blue, 10% );
+
+$green: #7ABE42;
+$light-green: lighten( $green, 10% );
+
+$background: #333;
+
+$menu-font: "RPGSystem";
+$content-font: "Open Sans";
+
+main {
+	@include container;
 }
 
-h1 {
-	font-size: 50px;
-	font-family: helvetica;
+body {
+	background-color: $background;
+}
+
+header {
+	span: 12 of 12;
+
+	.logo {		
+		text-align: center;
+		margin: gutter();
+		img {
+			width: 50%;
+		}
+	}
+
+	nav {
+		font-family: $menu-font;	
+		color: $grey;
+		font-size: 22px;
+		margin: gutter()/2 0;
+		text-align: center;
+
+		ul {
+			list-style: none;
+
+			li {
+				display: inline;
+				cursor: pointer;
+				margin: gutter()/4;
+
+				@include transition-property(text-decoration);
+				@include transition-duration(1s);
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
+
+section {
+	font-family: $content-font;
+	color: $grey;
 	text-align: center;
-	color: #c9c9c9;
+	line-height: 25px;
+	width: 100%;
+
+	p {
+		font-size: 20px;	
+	}
+
+	#phaser {
+		margin: 0 auto;
+	}
+}
+
+button {
+	border: none;
+	padding: 6px;
+	margin: gutter()/4;
+	color: $white;
+	background-color: $blue;
+	cursor: pointer;
+
+	@include transition-property(background-color);
+	@include transition-duration(1s);	
+
+	&:hover {
+		background-color: $light-blue
+	}
 }
