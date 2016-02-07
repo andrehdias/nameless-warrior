@@ -1,4 +1,4 @@
-# Nameless Warrior
+# Nameless Warrior :video_game: :european_castle:
 
 O projeto consiste em um RPG feito totalmente com tecnologias WEB e com temáticas semelhantes aos jogos clássicos do gênero. Além disso, há uma proposta em trazer uma inteligência artificial um pouco mais avançada, apesar do visual bem simples do jogo.
 
@@ -12,9 +12,9 @@ Se você quiser ajudar no levantamento de informações para o jogo, responda o 
 
 Por ser um projeto de TCC, o jogo passará por toda uma fase prévia de análise. Para isso, já estou trabalhando em uma prévia da identidade visual do jogo:
 
-![Logo](http://imgur.com/mJfh2Dl)
+![Logo](images/logo.png)
 
-![Splash Screen](http://imgur.com/hZ132HW)
+![Splash Screen](images/startscreen.png)
 
 ## História
 
