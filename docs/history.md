@@ -3,9 +3,9 @@
 Ao adentrar o site do jogo, o jogador tem a opção de criar seu personagem, preenchendo dados de login(email e senha ou facebook), escolhendo uma classe, apelido, sexo e um sprite para o personagem. O sprite pode ser o padrão de cada classe, um qualquer que o usuário pode enviar, ou editado no próprio site pelo jogador. Após isso, o jogo é iniciado.
 
 
-## INICIO DA HISTÓRIA
+## Início da História
 
-Durante uma tempestuosa noite, entre intervalos curtos de relampagos e trovões, nosso herói/heroína acorda todo encharcado no meio da floresta, totalmente molhado, sozinho e sentado à beira de uma arvore. Com um esforço imenso ele/ela tenta se lembrar quem era, mas a única coisa que sabia era que seu corpo doia muito. 
+Durante uma tempestuosa noite, entre intervalos curtos de relampagos e trovões, nosso herói/heroína acorda todo encharcado no meio da floresta, totalmente sozinho e sentado à beira de uma arvore. Com um esforço imenso ele/ela tenta se lembrar quem era, mas a única coisa que sabia era que seu corpo doia muito. 
 Ao dar a primeira olhada em volta, ele/ela encontra (sua espada de guerreiro, seu cajado de mago, seu arco de arqueiro) enconstado em toco próximo.
 Quando recupera totamente a visão, ele se vê cercado por pequenos globins o encarando, esperando a melhor oportunidade para ataca-lo.
 
@@ -31,14 +31,14 @@ Ao fim da incessante batalha, (apelido) sai andando pela floresta. Após algum t
 
 ### Opções de visita na cidade
 
-	- Taverna
+- Taverna
 
-	- Loja de itens
+- Loja de itens
 
-	- Médico
+- Médico
 
-	- Imobiliária (2 terrenos e uma casa a venda)
+- Imobiliária (2 terrenos e uma casa a venda)
 
-	- 5 Casas de pessoas aleatórias
+- 5 Casas de pessoas aleatórias
 
 Após isso, o jogador tem certa liberdade para explorar a cidade e as dungeons que existem em volta dela. Há opções para conversar com vários NPCs, pegar missões, comprar itens, equipamentos, casa e seguir a história do jogo.
