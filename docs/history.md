@@ -14,7 +14,7 @@ Quando recupera totamente a visão, ele se vê cercado por pequenos globins o en
 Ao fim da incessante batalha, (apelido) sai andando pela floresta. Após algum tempo caminhando, o dia finalmente amanhece e ele/ela acaba chegando em uma pequena cidade, com um alto muro de madeira, e pesados portões abertos com guardas armados observando cada movimento seu. Ao perguntar a um deles qual era o nome da cidade, ele gentilmente responde:
 
 
-## DIÁLOGO | GUARDA DE VARNELL -->
+## DIÁLOGO | GUARDA DA CIDADE
 - Bem-vindo a Varnell forasteiro! O que o traz a nossa cidade?
 
 	- Eu acordei próximo daqui no meio da floresta, e não consigo me lembrar nada, nem meu nome
@@ -29,7 +29,7 @@ Ao fim da incessante batalha, (apelido) sai andando pela floresta. Após algum t
 
 ## APRESENTAÇÃO DO MAPA DA CIDADE | TUTORIAL MENU
 
-### INÍCIO DAS OPÇÕES DE VISITA NA CIDADE
+### Opções de visita na cidade
 
 	- Taverna
 
