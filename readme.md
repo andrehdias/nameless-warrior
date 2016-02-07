@@ -22,10 +22,33 @@ Por ser um projeto de TCC, o jogo passará por toda uma fase prévia de análise
 
 Ver no documento separado sobre [História](docs/history.md)
 
-## Inteligência Artificial
-
 ## Classes
+	
+	* Guerreiro
+	* Mago
+	* Arqueiro
 
-## Atributos e habilidades
+## Atributos, Status e Habilidades
+	
+	Como uma das propostas do projeto é ter uma inteligencia artificial avançada, tanto o personagem criado pelo jogador quanto os NPC(non-player characters) e monstros terão os mesmos atributos e status.
+
+	### Atributos		
+
+		* Força
+		* Constituição
+		* Destreza
+		* Inteligência
+		* Sabedoria
+		* Carisma
+
+	### Status
+
+		* HP
+		* Mana
+		* Fome
+		* Stamina
+		* Sono
+
+## Inteligência Artificial
 
 ## Mapas 
