@@ -9,12 +9,12 @@ Durante uma tempestuosa noite, entre intervalos curtos de relampagos e trovões,
 Ao dar a primeira olhada em volta, ele/ela encontra (sua espada de guerreiro, seu cajado de mago, seu arco de arqueiro) enconstado em toco próximo.
 Quando recupera totamente a visão, ele se vê cercado por pequenos globins o encarando, esperando a melhor oportunidade para ataca-lo.
 
-## PRIMEIRA BATALHA | TUTORIAL DE COMBATE
+### Primeira Batalha | Tutorial de Combate
 
 Ao fim da incessante batalha, (apelido) sai andando pela floresta. Após algum tempo caminhando, o dia finalmente amanhece e ele/ela acaba chegando em uma pequena cidade, com um alto muro de madeira, e pesados portões abertos com guardas armados observando cada movimento seu. Ao perguntar a um deles qual era o nome da cidade, ele gentilmente responde:
 
 
-## DIÁLOGO | GUARDA DA CIDADE
+### Diálogo com guarda da cidade
 - Bem-vindo a Varnell forasteiro! O que o traz a nossa cidade?
 
 	- Eu acordei próximo daqui no meio da floresta, e não consigo me lembrar nada, nem meu nome
@@ -27,7 +27,7 @@ Ao fim da incessante batalha, (apelido) sai andando pela floresta. Após algum t
 		- Que grosseria! Sinta-se livre para adentrar a cidade, mas se tratar mais alguém assim estaremos de olho em você!
 
 
-## APRESENTAÇÃO DO MAPA DA CIDADE | TUTORIAL MENU
+### Apresentação do Mapa e resto do Menu do jogo
 
 ### Opções de visita na cidade
 
