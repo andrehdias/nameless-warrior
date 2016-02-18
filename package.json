@@ -16,7 +16,6 @@
   "devDependencies": {
     "browser-sync": "^2.11.1",
     "gulp": "^3.9.0",
-    "gulp-compass": "^2.1.0",
-    "gulp-webserver": "^0.9.1"
+    "gulp-compass": "^2.1.0"
   }
 }

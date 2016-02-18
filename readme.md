@@ -54,5 +54,5 @@ Como uma das propostas do projeto é ter uma inteligencia artificial avançada, 
 
 ## Inteligência Artificial
 
-A ideia de inteligência artificial que o jogo passará é de que os inimigos e NPCs tem ações parecidades com o personagem. Assim, personagens não controlados pelo jogador também dormirão, lutarão, sentirão fome. Por exemplo: um monstro carnívoro poderá lutar com outros monstros de níveis inferiores quando sentir fome, criando assim todo um ecossistema no cenário do jogo.
-Além dessa partes dos status e comportamento, existirão árvores de decisão que irão definir como os NPCs e as quests(missões) respondem as escolhas do jogador. 
+A ideia de inteligência artificial que o jogo passará é de que os inimigos e NPCs tem ações parecidas com o personagem. Assim, personagens não controlados pelo jogador também dormirão, lutarão, sentirão fome. Por exemplo: um monstro carnívoro poderá lutar com outros monstros de níveis inferiores quando sentir fome, criando assim todo um ecossistema no cenário do jogo.
+Além dessa partes dos status e comportamento, existirão árvores de decisão que irão definir como os NPCs e as quests(missões) respondem as escolhas do jogador, mundo do jogo com ciclos de dia/noite, chuva, sol, entre outros.
