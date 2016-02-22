@@ -5,7 +5,7 @@
 
 @include border-box-sizing;
 
-@include font-face("RPGSystem", font-files("fonts/RPGSystem.ttf"));
+@include font-face("RPGSystem", font-files("RPGSystem.ttf"));
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 $susy: (
@@ -25,7 +25,9 @@ $light-blue: lighten( $blue, 10% );
 $green: #7ABE42;
 $light-green: lighten( $green, 10% );
 
-$background: #333;
+$dark-grey: #333;
+
+$background: #000;
 
 $menu-font: "RPGSystem";
 $content-font: "Open Sans";
@@ -36,6 +38,10 @@ main {
 
 body {
 	background-color: $background;
+
+	&.grey-bg {
+		background-color: $dark-grey;
+	}
 }
 
 header {
@@ -43,7 +49,7 @@ header {
 
 	.logo {		
 		text-align: center;
-		margin: gutter();
+		margin: gutter()/4;
 		img {
 			width: 50%;
 		}
@@ -53,7 +59,7 @@ header {
 		font-family: $menu-font;	
 		color: $grey;
 		font-size: 22px;
-		margin: gutter()/2 0;
+		margin: gutter()/4 0 gutter();
 		text-align: center;
 
 		ul {
@@ -70,6 +76,11 @@ header {
 				&:hover {
 					text-decoration: underline;
 				}
+
+				a {
+					text-decoration: none;
+					color: $grey;
+				}
 			}
 		}
 	}
@@ -78,16 +89,18 @@ header {
 section {
 	font-family: $content-font;
 	color: $grey;
-	text-align: center;
 	line-height: 25px;
 	width: 100%;
+	margin-top: gutter();
 
 	p {
 		font-size: 20px;	
 	}
 
 	#phaser {
-		margin: 0 auto;
+		canvas {
+			margin: 0 auto;
+		}
 	}
 }
 

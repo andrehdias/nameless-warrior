@@ -9,7 +9,7 @@ gulp.task('serve', ['compass'], function() {
   });
 
   gulp.watch("app/sass/*.scss", ['compass']);
-  gulp.watch("app/*.html").on('change', browserSync.reload);
+  gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', browserSync.reload);
 });
 
 // Compile compass into CSS & auto-inject into browsers

@@ -63,7 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 @font-face {
   font-family: "RPGSystem";
-  src: url('../../fonts/fonts/RPGSystem.ttf') format('truetype');
+  src: url('../../fonts/RPGSystem.ttf') format('truetype');
 }
 main {
   max-width: 100%;
@@ -77,6 +77,9 @@ main:after {
 }
 
 body {
+  background-color: #000;
+}
+body.grey-bg {
   background-color: #333;
 }
 
@@ -85,7 +88,7 @@ header {
 }
 header .logo {
   text-align: center;
-  margin: 1.69492%;
+  margin: 0.42373%;
 }
 header .logo img {
   width: 50%;
@@ -94,7 +97,7 @@ header nav {
   font-family: "RPGSystem";
   color: #c9c9c9;
   font-size: 22px;
-  margin: 0.84746% 0;
+  margin: 0.42373% 0 1.69492%;
   text-align: center;
 }
 header nav ul {
@@ -116,18 +119,22 @@ header nav ul li {
 header nav ul li:hover {
   text-decoration: underline;
 }
+header nav ul li a {
+  text-decoration: none;
+  color: #c9c9c9;
+}
 
 section {
   font-family: "Open Sans";
   color: #c9c9c9;
-  text-align: center;
   line-height: 25px;
   width: 100%;
+  margin-top: 1.69492%;
 }
 section p {
   font-size: 20px;
 }
-section #phaser {
+section #phaser canvas {
   margin: 0 auto;
 }
 
