@@ -1,0 +1,23 @@
+[
+	{
+		"name": "",
+		"gender": "",
+		"strength": 10,
+		"constitution": 10,
+		"dexterity": 10,
+		"intelligence": 10,
+		"charisma": 10,
+		"life": 100,
+		"mana": 100,
+		"stamina": 50,
+		"hunger": 10,
+		"sleep": 10,
+		"level": 1,
+		"sprite": "dragon.png",
+		"phrases": {
+			"phrase1": "hello",
+			"phrase2": "hello"
+		}
+	}
+]
+
