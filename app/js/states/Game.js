@@ -4,15 +4,24 @@ NWarrior.Game = function(){};
 
 NWarrior.Game.prototype = {
 	preload: function() {
-		this.game.load.spritesheet('player', 'img/char.png', 29, 32);			
+		this.game.load.spritesheet('player', 'img/char2.png', 31, 32);			
+		this.game.load.spritesheet('npc', 'img/char3.png', 31, 32);			
 		this.game.load.tilemap('sampleMap', 'tiles/sample_map.json', null, Phaser.Tilemap.TILED_JSON);	
 		this.game.load.image('tiles', 'tiles/RPGpack_sheet.png');
+		this.game.load.audio('backgroundMusic', 'audio/RetroMystic.ogg');
+
+		//hud
+		this.game.load.image('settings', 'img/wrench.png');
+		this.game.load.image('audio', 'img/audioOn.png');
 	},
 
 	create: function() {				
-		this.game.time.advancedTiming = true;
+		this.game.time.advancedTiming = true;		
 
-		this.game.stage.backgroundColor = '#787878';
+
+		this.music = this.game.add.audio('backgroundMusic');
+		this.music.play('', 0, 1, true);
+
 
 		this.map = this.game.add.tilemap('sampleMap');
 		
@@ -21,36 +30,70 @@ NWarrior.Game.prototype = {
 
     this.game.world.setBounds(0, 0, game_width, game_height);
 
-		this.map.addTilesetImage('RPGpack_sheet', 'tiles');
-
+		this.map.addTilesetImage('RPGpack_sheet', 'tiles');		
 
 		this.ground = this.map.createLayer("ground");		
 		this.ground.resizeWorld();
 		this.water = this.map.createLayer("water");
 		this.water.resizeWorld();
 		this.object = this.map.createLayer("object");		                   
-		this.object.resizeWorld();
-		
+		this.object.resizeWorld();		
 
-    this.player = this.game.add.sprite(200, 50, 'player');
+
+    this.player = this.game.add.sprite(280, 50, 'player');
     this.game.physics.arcade.enable(this.player);            
     this.player.body.collideWorldBounds = true;    
     utils.walkAnimations(this.player);
     this.game.camera.follow(this.player);
 
+
+    this.npc = this.game.add.sprite(450, 150, 'npc');
+    this.game.physics.arcade.enable(this.npc);            
+    this.npc.body.collideWorldBounds = true;    
+    utils.walkAnimations(this.npc);    
+    this.npc.frame = 4;
+    this.npc.enableBody = true;
+    this.npc.body.immovable = true;
+
+
+		this.hud = new NWarrior.Hud();
+    this.hud.showHUD(this.game, this.music);
+
+    var settings = this.game.add.sprite(750, 10, 'settings');
+		var audio = this.game.add.sprite(710, 10, 'audio');
+
+    audio.fixedToCamera = true;
+		audio.scale.setTo(0.7, 0.7);
+		settings.fixedToCamera = true;
+		settings.scale.setTo(0.7, 0.7);
+
+		audio.inputEnabled = true;
+		audio.events.onInputDown.add(this.turnAudio, this);
 	},
 
 	update: function() {
-		this.game.physics.arcade.collide(this.player, this.water);
+		this.game.physics.arcade.collide(this.player, this.npc);
 
 		this.player.body.velocity.x = 0;
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
-	 	utils.walkCursors(this.cursors, this.player);			  	 	
+	 	utils.walkCursors(this.cursors, this.player);			  	 		 	
 	},
 
 	render: function() {
-		this.game.debug.text(this.game.time.fps || '--', 2, 14, "#000"); 
+		this.game.debug.text(this.game.time.fps || '--', 10, 580, "#000"); 
+	},
+
+	showMessage: function() {
+		console.log("olá forasteiro!");
+	},
+
+	turnAudio: function(audio) {
+		if(this.music.mute == true) {
+			this.music.mute = false;
+		} else {
+			this.music.mute = true;
+		}
 	}
 }

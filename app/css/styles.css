@@ -63,7 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 @font-face {
   font-family: "RPGSystem";
-  src: url('../../fonts/RPGSystem.ttf') format('truetype');
+  src: url('../../fonts/rpgsystem-webfont.woff') format('woff');
 }
 main {
   max-width: 100%;

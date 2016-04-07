@@ -1,10 +1,7 @@
-var Character = function() {
- 	this.name; 	
- 	this.sprite;
-}
+var NWarrior = NWarrior || {};
 
-Character.prototype = {
-	init: function() {
-		
-	}
-};
+NWarrior.Character = function(){};
+
+NWarrior.Character.prototype = {
+	
+}

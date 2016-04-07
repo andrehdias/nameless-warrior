@@ -1,11 +1,12 @@
 var NWarrior = NWarrior || {};
 
-NWarrior.Preload = function(){};
+NWarrior.Boot = function(){};
 
-NWarrior.Preload.prototype = {
+NWarrior.Boot.prototype = {
 	preload: function() {
 		this.game.load.script('utils', 'js/lib/utils.js');
-		this.game.load.script('character', 'js/lib/character.js');
+		this.game.load.script('character', 'js/lib/character.js');		
+		this.game.load.script('hud', 'js/lib/hud.js');
 	},
 
 	create: function() {
