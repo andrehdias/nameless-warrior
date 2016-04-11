@@ -41,34 +41,25 @@ NWarrior.Game.prototype = {
 
 
     this.player = this.game.add.sprite(280, 50, 'player');
+    this.player.frame = 1;
     this.game.physics.arcade.enable(this.player);            
     this.player.body.collideWorldBounds = true;    
     utils.walkAnimations(this.player);
     this.game.camera.follow(this.player);
 
-
-    this.npc = this.game.add.sprite(450, 150, 'npc');
-    this.game.physics.arcade.enable(this.npc);            
-    this.npc.body.collideWorldBounds = true;    
-    utils.walkAnimations(this.npc);    
-    this.npc.frame = 4;
-    this.npc.enableBody = true;
-    this.npc.body.immovable = true;
-
+    this.npcClass = new NWarrior.Npc();
+    this.npc = this.npcClass.init(this.game);	 	
 
 		this.hud = new NWarrior.Hud();
-    this.hud.showHUD(this.game, this.music);
-
-    var settings = this.game.add.sprite(750, 10, 'settings');
-		var audio = this.game.add.sprite(710, 10, 'audio');
+    this.hud.showHUD(this.game);
+    
+		var audio = this.game.add.sprite(730, 10, 'audio');
 
     audio.fixedToCamera = true;
-		audio.scale.setTo(0.7, 0.7);
-		settings.fixedToCamera = true;
-		settings.scale.setTo(0.7, 0.7);
+		audio.scale.setTo(0.7, 0.7);		
 
 		audio.inputEnabled = true;
-		audio.events.onInputDown.add(this.turnAudio, this);
+		audio.events.onInputDown.add(this.turnAudio, this);		
 	},
 
 	update: function() {
@@ -78,7 +69,8 @@ NWarrior.Game.prototype = {
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
-	 	utils.walkCursors(this.cursors, this.player);			  	 		 	
+	 	utils.walkCursors(this.cursors, this.player);			  	
+
 	},
 
 	render: function() {

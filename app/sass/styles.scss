@@ -5,7 +5,7 @@
 
 @include border-box-sizing;
 
-@include font-face("RPGSystem", font-files("rpgsystem-webfont.woff"));
+@include font-face("RPGSystem", font-files("rpgsystem-webfont.ttf"));
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 $susy: (
@@ -47,6 +47,8 @@ body {
 header {
 	span: 12 of 12;
 
+	margin-top: 235px;
+
 	.logo {		
 		text-align: center;
 		margin: gutter()/4;
@@ -70,11 +72,10 @@ header {
 				cursor: pointer;
 				margin: gutter()/4;
 
-				@include transition-property(text-decoration);
-				@include transition-duration(1s);
+				@include transition(color 1s);				
 
-				&:hover {
-					text-decoration: underline;
+				&:hover {					
+					color: $black;
 				}
 
 				a {
@@ -101,21 +102,5 @@ section {
 		canvas {
 			margin: 0 auto;
 		}
-	}
-}
-
-button {
-	border: none;
-	padding: 6px;
-	margin: gutter()/4;
-	color: $white;
-	background-color: $blue;
-	cursor: pointer;
-
-	@include transition-property(background-color);
-	@include transition-duration(1s);	
-
-	&:hover {
-		background-color: $light-blue
 	}
 }

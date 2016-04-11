@@ -63,7 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 @font-face {
   font-family: "RPGSystem";
-  src: url('../../fonts/rpgsystem-webfont.woff') format('woff');
+  src: url('../../fonts/rpgsystem-webfont.ttf') format('truetype');
 }
 main {
   max-width: 100%;
@@ -85,6 +85,7 @@ body.grey-bg {
 
 header {
   span: 12 of 12;
+  margin-top: 235px;
 }
 header .logo {
   text-align: center;
@@ -107,17 +108,13 @@ header nav ul li {
   display: inline;
   cursor: pointer;
   margin: 0.42373%;
-  -moz-transition-property: text-decoration;
-  -o-transition-property: text-decoration;
-  -webkit-transition-property: text-decoration;
-  transition-property: text-decoration;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
+  -moz-transition: color 1s;
+  -o-transition: color 1s;
+  -webkit-transition: color 1s;
+  transition: color 1s;
 }
 header nav ul li:hover {
-  text-decoration: underline;
+  color: #000;
 }
 header nav ul li a {
   text-decoration: none;
@@ -136,24 +133,4 @@ section p {
 }
 section #phaser canvas {
   margin: 0 auto;
-}
-
-button {
-  border: none;
-  padding: 6px;
-  margin: 0.42373%;
-  color: #fff;
-  background-color: #5368EE;
-  cursor: pointer;
-  -moz-transition-property: background-color;
-  -o-transition-property: background-color;
-  -webkit-transition-property: background-color;
-  transition-property: background-color;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
-}
-button:hover {
-  background-color: #8191f3;
 }
