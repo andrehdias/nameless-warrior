@@ -2,25 +2,67 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+
 	<title>Nameless Warrior</title>
 
 	<link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="grey-bg">
+
+<body class="rpg-background">
 		<header>
 			<div class="logo">
-				<img src="img/logo.png" alt="">
-			</div>
-			<nav>
-				<ul>
-					<li><a href="game.html">Jogar</a></li>
-					<li>Sobre</li>					
-					<li>Mapa</li>
-					<li>Contato/Criador</li>					
-				</ul>
-			</nav>
+				<h1>Nameless Warrior</h1>
+			</div>			
+
+			<ul class="menu inline">				
+				<li><a href="">Home</a></li>
+				<li><a href="javascript:;" data-target="popbox-login" class="login open-popbox">Login</a></li>
+				<li><a href="javascript:;" data-target="popbox-signup" class="signup open-popbox">Criar Conta</a></li>
+			</ul>			
 		</header>
 
-		<script src="js/phaser.min.js"></script>		
-</body>
+		<section class="content intro">			
+			<img src="img/logo.png" class="logo-img" alt="">
+
+			<ul class="content-menu inline">
+				<li>
+					<a href="">						
+						<img src="img/icon-sword.png" alt="">Sobre
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<img src="img/icon-sword.png" alt="">História						
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<img src="img/icon-sword.png" alt="">Contato					
+					</a>
+				</li>
+			</ul>
+		</section>		
+
+		<section class="popbox" id="popbox-login">
+			<h3 class="popbox_title">Fazer Login</h3>
+
+			<input type="text" name="email" placeholder="Email">
+
+			<input type="text" name="password" placeholder="Senha">
+
+			<button class="btn green">Entrar</button>
+		</section>
+
+		<section class="popbox" id="popbox-signup">
+			<h3 class="popbox_title">Cadastrar-se</h3>
+
+			<input type="text" name="email" placeholder="Email">
+
+			<input type="text" name="password" placeholder="Senha">
+
+			<button class="btn green">Cadastrar</button>
+		</section>
+
+		<script src="js/app.js"></script>
 </html>

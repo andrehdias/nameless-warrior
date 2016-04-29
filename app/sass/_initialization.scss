@@ -1,0 +1,16 @@
+@import "compass/css3";
+@import "compass/utilities/general/clearfix";
+@import "compass/reset";
+@import "susy"; 
+
+@include border-box-sizing;
+
+@include font-face("RPGSystem", "../fonts/rpgsystem-webfont.ttf");
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+$susy: (
+  columns: 12,
+  container: 100%,
+  gutters: 1/4,
+  global-box-sizing: border-box
+);

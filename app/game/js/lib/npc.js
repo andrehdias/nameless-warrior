@@ -19,9 +19,7 @@ NWarrior.Npc.prototype = {
 
 	walk: function(npc) {
 		setInterval(function() {
-			var direction = Math.floor(Math.random() * (10 - 1)) + 1;
-			console.log(direction)
-			clearInterval(this);
+			var direction = Math.floor(Math.random() * (6 - 1)) + 1;			
 			
 			switch(direction){
 				case 1:
@@ -51,7 +49,7 @@ NWarrior.Npc.prototype = {
 		      npc.body.velocity.x = 50;
 		      npc.animations.play('right');
 					break;
-				case direction > 4:
+				case 5:
 					npc.body.velocity.x = 0;
 		  		npc.body.velocity.y = 0;
 	      	npc.animations.stop();

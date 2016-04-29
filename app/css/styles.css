@@ -63,74 +63,202 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 @font-face {
   font-family: "RPGSystem";
-  src: url('../../fonts/rpgsystem-webfont.ttf') format('truetype');
+  src: "../fonts/rpgsystem-webfont.ttf";
 }
-main {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  font-family: "Open Sans";
+  background-color: #fff;
 }
-main:after {
-  content: " ";
-  display: block;
-  clear: both;
+body.rpg-background {
+  background: url("../img/valley_ruins.jpg");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-body {
-  background-color: #000;
+a {
+  text-decoration: none;
+  color: #fff;
 }
-body.grey-bg {
-  background-color: #333;
+
+ul.inline li {
+  display: table;
+  float: left;
+}
+ul.inline li a {
+  display: table-cell;
 }
 
 header {
   span: 12 of 12;
-  margin-top: 235px;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(51, 51, 51, 0.9);
+  position: fixed;
+  top: 0;
+  color: #fff;
 }
 header .logo {
-  text-align: center;
-  margin: 0.42373%;
+  float: left;
+  width: 20%;
+  display: table;
+  height: 100%;
+  padding-left: 20px;
+}
+header .logo h1 {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  font-size: 22px;
 }
 header .logo img {
-  width: 50%;
+  width: 100%;
 }
-header nav {
-  font-family: "RPGSystem";
-  color: #c9c9c9;
-  font-size: 22px;
-  margin: 0.42373% 0 1.69492%;
-  text-align: center;
+header .menu {
+  float: right;
+  height: 100%;
 }
-header nav ul {
-  list-style: none;
+header .menu li {
+  height: 100%;
 }
-header nav ul li {
-  display: inline;
-  cursor: pointer;
-  margin: 0.42373%;
-  -moz-transition: color 1s;
-  -o-transition: color 1s;
-  -webkit-transition: color 1s;
-  transition: color 1s;
+header .menu li a {
+  vertical-align: middle;
+  padding: 0 20px;
+  height: 100%;
+  width: 100%;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
 }
-header nav ul li:hover {
-  color: #000;
+header .menu li a:hover {
+  background-color: #5368EE;
 }
-header nav ul li a {
-  text-decoration: none;
-  color: #c9c9c9;
+header .menu li a.login {
+  background-color: #7ABE42;
+}
+header .menu li a.signup {
+  background-color: #e80510;
 }
 
 section {
   font-family: "Open Sans";
-  color: #c9c9c9;
+  color: #000;
   line-height: 25px;
-  width: 100%;
-  margin-top: 1.69492%;
-}
-section p {
-  font-size: 20px;
+  text-align: center;
+  color: #333;
 }
 section #phaser canvas {
+  margin: 40px auto;
+}
+section.content {
+  width: 83.05085%;
+  float: left;
+  float: none;
   margin: 0 auto;
+  padding: 20px;
+}
+section.intro {
+  color: #fff;
+  padding: 60px 0;
+  min-height: 800px;
+}
+section.intro .logo-img {
+  width: 100%;
+}
+section.intro .content-menu {
+  width: 100%;
+  float: left;
+  margin-left: 0;
+  margin-right: 0;
+  height: 60px;
+  background-color: #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+section.intro .content-menu li {
+  height: 100%;
+  padding: 0 10px;
+}
+section.intro .content-menu li a {
+  height: 100%;
+  vertical-align: middle;
+}
+section.intro .content-menu li a img {
+  margin: 0 5px -10px;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: transform;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+section.intro .content-menu li:hover img {
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.btn {
+  height: 40px;
+  width: 100px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}
+.btn.green {
+  background-color: #7ABE42;
+}
+.btn.green:hover {
+  background-color: #95cb68;
+}
+
+.popbox {
+  position: fixed;
+  z-index: 999;
+  width: 32.20339%;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.9);
+  top: -400px;
+  right: 0;
+  padding: 20px;
+  text-align: left;
+  -moz-transition-property: top;
+  -o-transition-property: top;
+  -webkit-transition-property: top;
+  transition-property: top;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}
+.popbox_title {
+  text-align: left;
+  font-size: 20px;
+}
+.popbox input {
+  width: 100%;
+  height: 50px;
+  margin: 5px 0;
+}
+.popbox.active {
+  top: 60px;
 }

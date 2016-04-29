@@ -1,0 +1,87 @@
+body {
+	font-family: $content-font;
+	background-color: $white;
+
+	&.rpg-background{
+		background: url('../img/valley_ruins.jpg');		
+		background-size: auto 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: $white;
+}
+
+ul.inline {
+	li {
+		display: table;
+		float: left;
+
+		a {
+			display: table-cell;
+		}
+	}
+}
+
+header {
+	span: 12 of 12;	
+	width: 100%;
+	height: 60px;	
+	background-color: rgba($dark-grey, 0.9);	
+	position: fixed;
+	top: 0;
+	color: $white;
+
+	.logo {			
+		float: left;
+		width: 20%;		
+		display: table;
+		height: 100%;
+		padding-left: 20px;
+
+		h1 {			
+			display: table-cell;
+			vertical-align: middle;
+			height: 100%;
+			font-size: 22px;
+		}
+
+		img {
+			width: 100%;
+		}
+	}
+
+	.menu {
+		float: right;			
+		height: 100%;
+
+		li {
+			height: 100%;	
+
+			a {
+				vertical-align: middle;
+				padding: 0 20px;
+				height: 100%;
+				width: 100%;
+
+				@include transition-property(background-color);
+				@include transition-duration(1s);
+
+				&:hover {
+					background-color: $blue;
+				}
+
+				&.login {
+					background-color: $green;
+				}
+
+				&.signup {
+					background-color: $red;					
+				}
+			}
+		}
+	}
+}

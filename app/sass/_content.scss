@@ -1,0 +1,80 @@
+section {		
+	font-family: $content-font;
+	color: $black;
+	line-height: 25px;	
+	text-align: center;
+	color: $dark-grey;
+
+	#phaser {
+		canvas {
+			margin: 40px auto;
+		}
+	}
+
+	&.content {
+		@include span(10 of 12 no-gutters);
+		float: none;		
+		margin: 0 auto;			
+		padding: 20px;			
+	}
+
+	&.intro {		
+		color: $white;
+		padding: 60px 0;
+		min-height: 800px;						
+
+		.logo-img {
+			width: 100%;
+		}
+
+		.content-menu {
+			@include span(12 of 12 no-gutters);
+			height: 60px;
+			background-color: $dark-grey;
+			@include border-radius(10px);
+
+			li{
+				height: 100%;
+				padding: 0 10px;
+
+				a {
+					height: 100%;
+					vertical-align: middle;
+
+					img {
+						margin: 0 5px -10px;
+						@include transition-property(transform);
+						@include transition-duration(0.5s);
+					}
+				}
+
+				&:hover {
+					img {
+						@include rotate(360deg);
+					}					
+				}
+			}
+		}
+	}
+}
+
+.btn {
+	height: 40px;
+	width: 100px;
+	background-color: $black;
+	color: $white;
+	border: none;
+	cursor: pointer;
+	margin: 10px 0;
+
+	@include transition-property(background-color);
+	@include transition-duration(1s);	
+
+	&.green {
+		background-color: $green;
+
+		&:hover {
+			background-color: $light-green;
+		}
+	}
+}
