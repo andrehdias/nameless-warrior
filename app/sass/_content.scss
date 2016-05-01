@@ -16,32 +16,61 @@ section {
 		float: none;		
 		margin: 0 auto;			
 		padding: 20px;			
+
+		.content-box {
+			@include span(12 of 12 no-gutters);
+			@include border-radius(10px);
+
+			background-color: rgba($white, 0.7);
+			min-height: 400px;						
+			margin: 10px 0;
+			position: relative;
+		
+			&::before {
+				content: "";
+				width: 0; 
+				height: 0;
+				position: absolute;
+				top: -10px;
+				border-left: 10px solid transparent;
+				border-right: 10px solid transparent;				
+				border-bottom: 10px solid rgba($white, 0.7);
+			}
+		}
 	}
 
 	&.intro {		
 		color: $white;
 		padding: 60px 0;
-		min-height: 800px;						
 
 		.logo-img {
-			width: 100%;
+			width: 90%;
 		}
 
 		.content-menu {
-			@include span(12 of 12 no-gutters);
-			height: 60px;
-			background-color: $dark-grey;
-			@include border-radius(10px);
+			vertical-align: middle;
+			margin: 0 auto;	
+			display: table;
+			height: 100%;
+
+			&__wrapper {
+				@include span(12 of 12 no-gutters);
+				height: 60px;
+				background-color: $dark-grey;
+				@include border-radius(10px);				
+			}
 
 			li{
 				height: 100%;
 				padding: 0 10px;
+				display: table;
 
 				a {
 					height: 100%;
 					vertical-align: middle;
 
 					img {
+						width: 32px;
 						margin: 0 5px -10px;
 						@include transition-property(transform);
 						@include transition-duration(0.5s);

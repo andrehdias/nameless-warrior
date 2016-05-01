@@ -16,7 +16,6 @@
 			</div>			
 
 			<ul class="menu inline">				
-				<li><a href="">Home</a></li>
 				<li><a href="javascript:;" data-target="popbox-login" class="login open-popbox">Login</a></li>
 				<li><a href="javascript:;" data-target="popbox-signup" class="signup open-popbox">Criar Conta</a></li>
 			</ul>			
@@ -24,24 +23,30 @@
 
 		<section class="content intro">			
 			<img src="img/logo.png" class="logo-img" alt="">
+			
+			<div class="content-menu__wrapper">
+				<ul class="content-menu inline">
+					<li>
+						<a href="javascript:;" class="open-contentBox active" data-target="box-sobre">
+							<img src="img/icon-shield.png" alt="">Sobre
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="open-contentBox" data-target="box-sobre">						
+							<img src="img/icon-sword.png" alt="">História
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="open-contentBox" data-target="box-sobre">
+							<img src="img/icon-sword.png" alt="">Contato					
+						</a>
+					</li>
+				</ul>				
+			</div>
 
-			<ul class="content-menu inline">
-				<li>
-					<a href="">						
-						<img src="img/icon-sword.png" alt="">Sobre
-					</a>
-				</li>
-				<li>
-					<a href="">
-						<img src="img/icon-sword.png" alt="">História						
-					</a>
-				</li>
-				<li>
-					<a href="">
-						<img src="img/icon-sword.png" alt="">Contato					
-					</a>
-				</li>
-			</ul>
+			<section class="content-box" id="box-sobre">
+				
+			</section>
 		</section>		
 
 		<section class="popbox" id="popbox-login">
@@ -63,6 +68,8 @@
 
 			<button class="btn green">Cadastrar</button>
 		</section>
-
+				
+		<script src="js/lib/utils.js"></script>
+		<script src="js/lib/popbox.js"></script>
 		<script src="js/app.js"></script>
 </html>

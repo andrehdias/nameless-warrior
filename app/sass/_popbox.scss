@@ -1,7 +1,7 @@
 .popbox {
 	position: fixed;
 	z-index: 999;
-	@include span(4 of 12 no-gutters);
+	width: 400px;
 	background-color: rgba($white, 0.9);
 	top: -400px;
 	right: 0;
