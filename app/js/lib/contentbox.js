@@ -1,0 +1,7 @@
+ContentBox = function() {
+
+}
+
+ContentBox.prototype = {
+	
+}
