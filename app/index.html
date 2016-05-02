@@ -16,8 +16,8 @@
 			</div>			
 
 			<ul class="menu inline">				
-				<li><a href="javascript:;" data-target="popbox-login" class="login open-popbox">Login</a></li>
-				<li><a href="javascript:;" data-target="popbox-signup" class="signup open-popbox">Criar Conta</a></li>
+				<li><a href="javascript:;" data-target="formbox-login" class="login open-formbox">Login</a></li>
+				<li><a href="javascript:;" data-target="formbox-signup" class="signup open-formbox">Criar Conta</a></li>
 			</ul>			
 		</header>
 
@@ -27,30 +27,44 @@
 			<div class="content-menu__wrapper">
 				<ul class="content-menu inline">
 					<li>
-						<a href="javascript:;" class="open-contentBox active" data-target="box-sobre">
-							<img src="img/icon-shield.png" alt="">Sobre
+						<a href="javascript:;" class="open-contentBox active" data-target="box-about">
+							<img src="img/icon-sword.png" alt="">Sobre
 						</a>
 					</li>
 					<li>
-						<a href="javascript:;" class="open-contentBox" data-target="box-sobre">						
-							<img src="img/icon-sword.png" alt="">História
+						<a href="javascript:;" class="open-contentBox" data-target="box-history">						
+							<img src="img/icon-shield.png" alt="">História
 						</a>
 					</li>
 					<li>
-						<a href="javascript:;" class="open-contentBox" data-target="box-sobre">
-							<img src="img/icon-sword.png" alt="">Contato					
+						<a href="javascript:;" class="open-contentBox" data-target="box-contact">
+							<img src="img/icon-scepter.png" alt="">Contato					
 						</a>
 					</li>
 				</ul>				
 			</div>
 
-			<section class="content-box" id="box-sobre">
-				
+			<section class="content-box active" id="box-about">
+				<span class="arrow"></span>
+
+				<h1>Sobre</h1>
+			</section>
+
+			<section class="content-box" id="box-history">
+				<span class="arrow"></span>
+
+				<h1>História</h1>
+			</section>
+
+			<section class="content-box" id="box-contact">
+				<span class="arrow"></span>
+
+				<h1>Contato</h1>
 			</section>
 		</section>		
 
-		<section class="popbox" id="popbox-login">
-			<h3 class="popbox_title">Fazer Login</h3>
+		<section class="formbox" id="formbox-login">
+			<h3 class="formbox_title">Fazer Login</h3>
 
 			<input type="text" name="email" placeholder="Email">
 
@@ -59,8 +73,8 @@
 			<button class="btn green">Entrar</button>
 		</section>
 
-		<section class="popbox" id="popbox-signup">
-			<h3 class="popbox_title">Cadastrar-se</h3>
+		<section class="formbox" id="formbox-signup">
+			<h3 class="formbox_title">Cadastrar-se</h3>
 
 			<input type="text" name="email" placeholder="Email">
 
@@ -70,6 +84,6 @@
 		</section>
 				
 		<script src="js/lib/utils.js"></script>
-		<script src="js/lib/popbox.js"></script>
+		<script src="js/lib/boxes.js"></script>
 		<script src="js/app.js"></script>
 </html>

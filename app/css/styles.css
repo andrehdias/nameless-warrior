@@ -67,13 +67,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 body {
   font-family: "Open Sans";
-  background-color: #fff;
 }
 body.rpg-background {
   background: url("../img/valley_ruins.jpg");
-  background-size: auto 100%;
-  background-position: center;
+  background-size: 100% auto;
+  background-position: top;
   background-repeat: no-repeat;
+  background-color: #000;
 }
 
 a {
@@ -89,12 +89,18 @@ ul.inline li a {
   display: table-cell;
 }
 
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
 header {
   span: 12 of 12;
   width: 100%;
   height: 60px;
   background-color: rgba(51, 51, 51, 0.9);
   position: fixed;
+  z-index: 99;
   top: 0;
   color: #fff;
 }
@@ -109,7 +115,6 @@ header .logo h1 {
   display: table-cell;
   vertical-align: middle;
   height: 100%;
-  font-size: 22px;
 }
 header .logo img {
   width: 100%;
@@ -151,6 +156,12 @@ section {
   line-height: 25px;
   text-align: center;
   color: #333;
+  padding: 0 15px;
+}
+section h1 {
+  text-align: left;
+  margin: 15px 0;
+  color: #000;
 }
 section #phaser canvas {
   margin: 40px auto;
@@ -170,20 +181,35 @@ section.content .content-box {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  min-height: 400px;
+  -moz-transition-property: max-height;
+  -o-transition-property: max-height;
+  -webkit-transition-property: max-height;
+  transition-property: max-height;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+  background-color: white;
   margin: 10px 0;
   position: relative;
+  display: none;
+  z-index: 1;
 }
-section.content .content-box::before {
-  content: "";
+section.content .content-box .arrow {
   width: 0;
   height: 0;
   position: absolute;
   top: -10px;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 10px solid white;
+}
+section.content .content-box.active {
+  display: block;
+  min-height: 400px;
+}
+section.content .content-box.active .arrow {
+  content: "";
 }
 section.intro {
   color: #fff;
@@ -199,10 +225,7 @@ section.intro .content-menu {
   height: 100%;
 }
 section.intro .content-menu__wrapper {
-  width: 100%;
-  float: left;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 auto;
   height: 60px;
   background-color: #333;
   -moz-border-radius: 10px;
@@ -211,7 +234,7 @@ section.intro .content-menu__wrapper {
 }
 section.intro .content-menu li {
   height: 100%;
-  padding: 0 10px;
+  padding: 0 5px;
   display: table;
 }
 section.intro .content-menu li a {
@@ -220,7 +243,7 @@ section.intro .content-menu li a {
 }
 section.intro .content-menu li a img {
   width: 32px;
-  margin: 0 5px -10px;
+  margin: 0 0 -10px;
   -moz-transition-property: -moz-transform;
   -o-transition-property: -o-transform;
   -webkit-transition-property: -webkit-transform;
@@ -261,11 +284,11 @@ section.intro .content-menu li:hover img {
   background-color: #95cb68;
 }
 
-.popbox {
+.formbox {
   position: fixed;
-  z-index: 999;
+  z-index: 9;
   width: 400px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(83, 104, 238, 0.9);
   top: -400px;
   right: 0;
   padding: 20px;
@@ -279,15 +302,16 @@ section.intro .content-menu li:hover img {
   -webkit-transition-duration: 1s;
   transition-duration: 1s;
 }
-.popbox_title {
+.formbox_title {
   text-align: left;
   font-size: 20px;
+  color: #fff;
 }
-.popbox input {
+.formbox input {
   width: 100%;
   height: 50px;
   margin: 5px 0;
 }
-.popbox.active {
+.formbox.active {
   top: 60px;
 }
