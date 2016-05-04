@@ -1,12 +1,31 @@
+html {
+	height: 100%;
+}
+
 body {
 	font-family: $content-font;
+	min-height: 100%;
 
 	&.rpg-background{
 		background: url('../img/valley_ruins.jpg');		
-		background-size: 100% auto;
-		background-position: top;
+		background-size: auto 100%;
+		background-position: top center;
 		background-repeat: no-repeat;
 		background-color: $black;		
+	}
+
+}
+
+.overlay {
+	min-width: 100%;
+	min-height: 100%;
+	background-color: rgba($black, 0.9);		
+	position: fixed;
+	z-index: 9;
+	display: none;
+
+	&.active {
+		display: block;
 	}
 }
 
@@ -15,78 +34,29 @@ a {
 	color: $white;
 }
 
-ul.inline {
-	li {
-		display: table;
-		float: left;
-
-		a {
-			display: table-cell;
-		}
-	}
-}
-
 h1 {				
 	font-size: 22px;
 	font-weight: bold;
 }
 
-header {
-	span: 12 of 12;	
-	width: 100%;
-	height: 60px;	
-	background-color: rgba($dark-grey, 0.9);	
-	position: fixed;
-	z-index: 99;
-	top: 0;
+.btn {
+	height: 40px;
+	width: 100px;
+	background-color: $black;
 	color: $white;
+	border: none;
+	cursor: pointer;
+	margin: 10px 0;
+	font-size: 15px;
 
-	.logo {			
-		float: left;
-		width: 50%;		
-		display: table;
-		height: 100%;
-		padding-left: 20px;
+	@include transition-property(background-color);
+	@include transition-duration(1s);	
 
-		h1 {			
-			display: table-cell;
-			vertical-align: middle;
-			height: 100%;		
-		}
+	&.green {
+		background-color: $green;
 
-		img {
-			width: 100%;
-		}
-	}
-
-	.menu {
-		float: right;			
-		height: 100%;
-
-		li {
-			height: 100%;	
-
-			a {
-				vertical-align: middle;
-				padding: 0 20px;
-				height: 100%;
-				width: 100%;
-
-				@include transition-property(background-color);
-				@include transition-duration(1s);
-
-				&:hover {
-					background-color: $blue;
-				}
-
-				&.login {
-					background-color: $green;
-				}
-
-				&.signup {
-					background-color: $red;					
-				}
-			}
+		&:hover {
+			background-color: $light-green;
 		}
 	}
 }

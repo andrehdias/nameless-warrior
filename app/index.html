@@ -10,59 +10,21 @@
 </head>
 
 <body class="rpg-background">
-		<header>
-			<div class="logo">
-				<h1>Nameless Warrior</h1>
-			</div>			
+		<div class="overlay"></div>
+		<a href="https://github.com/andrehNSFW/nameless-warrior"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>		
 
-			<ul class="menu inline">				
-				<li><a href="javascript:;" data-target="formbox-login" class="login open-formbox">Login</a></li>
-				<li><a href="javascript:;" data-target="formbox-signup" class="signup open-formbox">Criar Conta</a></li>
-			</ul>			
-		</header>
+		<section class="content">			
+			<div class="intro">
+				<img src="img/logo.png" class="logo-img" alt="">					
 
-		<section class="content intro">			
-			<img src="img/logo.png" class="logo-img" alt="">
-			
-			<div class="content-menu__wrapper">
-				<ul class="content-menu inline">
-					<li>
-						<a href="javascript:;" class="open-contentBox active" data-target="box-about">
-							<img src="img/icon-sword.png" alt="">Sobre
-						</a>
-					</li>
-					<li>
-						<a href="javascript:;" class="open-contentBox" data-target="box-history">						
-							<img src="img/icon-shield.png" alt="">História
-						</a>
-					</li>
-					<li>
-						<a href="javascript:;" class="open-contentBox" data-target="box-contact">
-							<img src="img/icon-scepter.png" alt="">Contato					
-						</a>
-					</li>
-				</ul>				
+				<ul class="menu">				
+					<li><a href="javascript:;" data-target="formbox-login" class="login open-formbox">Login</a></li>
+					<li><a href="javascript:;" data-target="formbox-signup" class="signup open-formbox">Criar Conta</a></li>
+				</ul>							
 			</div>
+		</section>
 
-			<section class="content-box active" id="box-about">
-				<span class="arrow"></span>
-
-				<h1>Sobre</h1>
-			</section>
-
-			<section class="content-box" id="box-history">
-				<span class="arrow"></span>
-
-				<h1>História</h1>
-			</section>
-
-			<section class="content-box" id="box-contact">
-				<span class="arrow"></span>
-
-				<h1>Contato</h1>
-			</section>
-		</section>		
-
+		<!-- Form Boxes -->
 		<section class="formbox" id="formbox-login">
 			<h3 class="formbox_title">Fazer Login</h3>
 
@@ -79,6 +41,8 @@
 			<input type="text" name="email" placeholder="Email">
 
 			<input type="text" name="password" placeholder="Senha">
+
+			<input type="text" name="repeat-password" placeholder="Repetir Senha">
 
 			<button class="btn green">Cadastrar</button>
 		</section>

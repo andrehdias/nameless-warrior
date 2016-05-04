@@ -65,15 +65,32 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: "RPGSystem";
   src: "../fonts/rpgsystem-webfont.ttf";
 }
+html {
+  height: 100%;
+}
+
 body {
   font-family: "Open Sans";
+  min-height: 100%;
 }
 body.rpg-background {
   background: url("../img/valley_ruins.jpg");
-  background-size: 100% auto;
-  background-position: top;
+  background-size: auto 100%;
+  background-position: top center;
   background-repeat: no-repeat;
   background-color: #000;
+}
+
+.overlay {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  z-index: 9;
+  display: none;
+}
+.overlay.active {
+  display: block;
 }
 
 a {
@@ -81,56 +98,20 @@ a {
   color: #fff;
 }
 
-ul.inline li {
-  display: table;
-  float: left;
-}
-ul.inline li a {
-  display: table-cell;
-}
-
 h1 {
   font-size: 22px;
   font-weight: bold;
 }
 
-header {
-  span: 12 of 12;
-  width: 100%;
-  height: 60px;
-  background-color: rgba(51, 51, 51, 0.9);
-  position: fixed;
-  z-index: 99;
-  top: 0;
+.btn {
+  height: 40px;
+  width: 100px;
+  background-color: #000;
   color: #fff;
-}
-header .logo {
-  float: left;
-  width: 50%;
-  display: table;
-  height: 100%;
-  padding-left: 20px;
-}
-header .logo h1 {
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
-}
-header .logo img {
-  width: 100%;
-}
-header .menu {
-  float: right;
-  height: 100%;
-}
-header .menu li {
-  height: 100%;
-}
-header .menu li a {
-  vertical-align: middle;
-  padding: 0 20px;
-  height: 100%;
-  width: 100%;
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 15px;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
   -webkit-transition-property: background-color;
@@ -140,14 +121,11 @@ header .menu li a {
   -webkit-transition-duration: 1s;
   transition-duration: 1s;
 }
-header .menu li a:hover {
-  background-color: #5368EE;
-}
-header .menu li a.login {
+.btn.green {
   background-color: #7ABE42;
 }
-header .menu li a.signup {
-  background-color: #e80510;
+.btn.green:hover {
+  background-color: #95cb68;
 }
 
 section {
@@ -167,49 +145,15 @@ section #phaser canvas {
   margin: 40px auto;
 }
 section.content {
-  width: 83.05085%;
+  width: 91.52542%;
   float: left;
   float: none;
   margin: 0 auto;
   padding: 20px;
-}
-section.content .content-box {
-  width: 100%;
-  float: left;
-  margin-left: 0;
-  margin-right: 0;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  -moz-transition-property: max-height;
-  -o-transition-property: max-height;
-  -webkit-transition-property: max-height;
-  transition-property: max-height;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
-  background-color: white;
-  margin: 10px 0;
-  position: relative;
-  display: none;
-  z-index: 1;
-}
-section.content .content-box .arrow {
-  width: 0;
-  height: 0;
   position: absolute;
-  top: -10px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid white;
-}
-section.content .content-box.active {
-  display: block;
-  min-height: 400px;
-}
-section.content .content-box.active .arrow {
-  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 section.intro {
   color: #fff;
@@ -218,56 +162,22 @@ section.intro {
 section.intro .logo-img {
   width: 90%;
 }
-section.intro .content-menu {
-  vertical-align: middle;
-  margin: 0 auto;
-  display: table;
-  height: 100%;
-}
-section.intro .content-menu__wrapper {
-  margin: 0 auto;
-  height: 60px;
-  background-color: #333;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-section.intro .content-menu li {
-  height: 100%;
-  padding: 0 5px;
-  display: table;
-}
-section.intro .content-menu li a {
-  height: 100%;
-  vertical-align: middle;
-}
-section.intro .content-menu li a img {
-  width: 32px;
-  margin: 0 0 -10px;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  -webkit-transition-property: -webkit-transform;
-  transition-property: transform;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  -webkit-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-}
-section.intro .content-menu li:hover img {
-  -moz-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
 
-.btn {
-  height: 40px;
-  width: 100px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin: 10px 0;
+.menu {
+  height: 60px;
+  margin: 0 auto;
+  list-style: none;
+}
+.menu li {
+  height: 100%;
+  margin: 0 5px;
+  display: inline-block;
+}
+.menu li a {
+  vertical-align: middle;
+  padding: 10px 20px;
+  height: 100%;
+  width: 100%;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
   -webkit-transition-property: background-color;
@@ -277,20 +187,22 @@ section.intro .content-menu li:hover img {
   -webkit-transition-duration: 1s;
   transition-duration: 1s;
 }
-.btn.green {
+.menu li a.login {
   background-color: #7ABE42;
 }
-.btn.green:hover {
-  background-color: #95cb68;
+.menu li a.signup {
+  background-color: #940000;
 }
 
 .formbox {
   position: fixed;
-  z-index: 9;
-  width: 400px;
+  margin: 0 auto;
+  z-index: 99;
+  width: 40%;
   background-color: rgba(83, 104, 238, 0.9);
   top: -400px;
-  right: 0;
+  left: 50%;
+  margin-left: -20%;
   padding: 20px;
   text-align: left;
   -moz-transition-property: top;

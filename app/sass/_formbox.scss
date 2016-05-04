@@ -1,10 +1,12 @@
 .formbox {
 	position: fixed;
-	z-index: 9;
-	width: 400px;
+  margin: 0 auto;
+	z-index: 99;
+	width: 40%;
 	background-color: rgba($blue, 0.9);
 	top: -400px;
-	right: 0;
+  left: 50%;
+  margin-left: -20%;
 	padding: 20px;
 	text-align: left;
 

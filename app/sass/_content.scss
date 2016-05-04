@@ -19,42 +19,15 @@ section {
 	}
 
 	&.content {
-		@include span(10 of 12 no-gutters);
+		@include span(11 of 12 no-gutters);
 		float: none;		
 		margin: 0 auto;			
-		padding: 20px;			
+		padding: 20px;	
 
-		.content-box {
-			@include span(12 of 12 no-gutters);
-			@include border-radius(10px);
-			@include transition-property(max-height);
-			@include transition-duration(1s);
-
-			background-color: rgba($white, 1);
-			margin: 10px 0;
-			position: relative;			
-			display: none;
-			z-index: 1;
-		
-			.arrow {
-				width: 0; 
-				height: 0;
-				position: absolute;
-				top: -10px;
-				border-left: 10px solid transparent;
-				border-right: 10px solid transparent;				
-				border-bottom: 10px solid rgba($white, 1);
-			}
-
-			&.active {		
-				.arrow {
-					content: "";					
-				}		
-
-				display: block;
-				min-height: 400px;
-			}
-		}
+		position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
 	}
 	
 	//Site intro content
@@ -64,65 +37,37 @@ section {
 
 		.logo-img {
 			width: 90%;
-		}
+		}						
+	}
+}
 
-		.content-menu {
+.menu {	
+	height: 60px;
+	margin: 0 auto;
+	list-style: none;
+
+	li {
+		height: 100%;	
+		margin: 0 5px;				
+		display: inline-block;		
+
+		a {
 			vertical-align: middle;
-			margin: 0 auto;	
-			display: table;
+			padding: 10px 20px;
 			height: 100%;
+			width: 100%;			
 
-			&__wrapper {				
-				margin: 0 auto;
-				height: 60px;
-				background-color: $dark-grey;
-				@include border-radius(10px);	
+			@include transition-property(background-color);
+			@include transition-duration(1s);
+
+			&.login {
+				background-color: $green;
 			}
 
-			li{
-				height: 100%;
-				padding: 0 5px;
-				display: table;
-
-				a {
-					height: 100%;
-					vertical-align: middle;					
-
-					img {
-						width: 32px;
-						margin: 0 0 -10px;
-						@include transition-property(transform);
-						@include transition-duration(0.5s);
-					}
-				}
-
-				&:hover {
-					img {
-						@include rotate(360deg);
-					}					
-				}
+			&.signup {
+				background-color: $red;					
 			}
 		}
 	}
 }
 
-.btn {
-	height: 40px;
-	width: 100px;
-	background-color: $black;
-	color: $white;
-	border: none;
-	cursor: pointer;
-	margin: 10px 0;
-
-	@include transition-property(background-color);
-	@include transition-duration(1s);	
-
-	&.green {
-		background-color: $green;
-
-		&:hover {
-			background-color: $light-green;
-		}
-	}
-}
