@@ -79,6 +79,7 @@ body.rpg-background {
   background-position: top center;
   background-repeat: no-repeat;
   background-color: #000;
+  overflow: hidden;
 }
 
 .overlay {
@@ -161,6 +162,7 @@ section.intro {
 }
 section.intro .logo-img {
   width: 90%;
+  max-width: 90%;
 }
 
 .menu {
@@ -188,7 +190,7 @@ section.intro .logo-img {
   transition-duration: 1s;
 }
 .menu li a.login {
-  background-color: #7ABE42;
+  background-color: #5368EE;
 }
 .menu li a.signup {
   background-color: #940000;

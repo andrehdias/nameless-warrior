@@ -4,7 +4,7 @@ section {
 	line-height: 25px;	
 	text-align: center;
 	color: $dark-grey;
-	padding: 0 15px;
+	padding: 0 15px;	
 	
 	h1 {
 		text-align: left;
@@ -37,6 +37,7 @@ section {
 
 		.logo-img {
 			width: 90%;
+			max-width: 90%;
 		}						
 	}
 }
@@ -61,7 +62,7 @@ section {
 			@include transition-duration(1s);
 
 			&.login {
-				background-color: $green;
+				background-color: $blue;
 			}
 
 			&.signup {
