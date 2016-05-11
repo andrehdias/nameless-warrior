@@ -5,12 +5,21 @@ var forEach = function (array, callback) {
   }
 };
 
-var ajaxGET = function(target, url) {
+var ajaxCall = function(target, url, params) {
+	var xhttp = new XMLHttpRequest();
+
 	xhttp.onreadystatechange = function() {
 	  if (xhttp.readyState == 4 && xhttp.status == 200) {
 	    document.getElementById(target).innerHTML = xhttp.responseText;
 	  }
 	};
-	xhttp.open("GET", url, true);
-	xhttp.send();
+	
+	if(params) {
+		xhttp.open("POST", url, true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(params);		
+	} else {
+		xhttp.open("GET", url, true);		
+		xhttp.send();
+	}
 };

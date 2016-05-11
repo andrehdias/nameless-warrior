@@ -1,4 +1,4 @@
-Boxes = function(trigger, target, alwaysOpen, arrow){
+Boxes = function(trigger, target){
 	this.trigger = trigger;
 	this.target = target;	
 
@@ -15,10 +15,6 @@ Boxes.prototype = {
 		forEach(boxes, function(index, box) {		
 			var href = box.dataset.target,
 					actualSection = document.getElementById(href);			
-
-			if(_this.arrow){
-				_this.setArrow(box, href);					
-			}
 
 			box.addEventListener('click', function(e) {
 				e.preventDefault();				
