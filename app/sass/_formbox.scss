@@ -1,12 +1,12 @@
 .formbox {
+	width: span(5);
 	position: fixed;
-  margin: 0 auto;
-	z-index: 99;
-	width: 40%;
-	background-color: rgba($blue, 0.9);
+	transform: translate(-50%, -50%);
 	top: -400px;
-  left: 50%;
-  margin-left: -20%;
+	left: 50%;
+  margin: 0 auto;
+	z-index: 99;	
+	background-color: rgba($blue, 0.7);
 	padding: 20px;
 	text-align: left;
 
@@ -15,17 +15,31 @@
 
 	&_title {
 		text-align: left;
-		font-size: 20px;
+		font-size: 22px;
     color: $white;
+    margin: 0 0 15px 0;
+	}
+
+	.btn {
+		margin-top: 15px;
 	}
 
 	input {
 		width: 100%;		
 		height: 50px;
 		margin: 5px 0;
+		padding: 10px;
+		font-size: 18px;
+		border: none;
 	}
 
 	&.active {
-		top: 60px;				
+		top: 50%;				
+	}
+
+	&.character {
+		@include span(10 of 12 no-gutters);
+		height: 80%;
+		overflow: auto;
 	}
 }

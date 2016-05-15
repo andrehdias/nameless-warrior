@@ -10,10 +10,11 @@ Forms.prototype = {
 		forms = document.querySelectorAll(this.selector);
 
 		forEach(forms, function(index, form) {		
+			var action = form.action;
 			form.addEventListener("submit", function(e) {
 				e.preventDefault();
 				
-				ajaxCall('formbox-signup', 'createcharacter.html');
+				ajaxCall('', action);
 			});
 		}); 		
 	}

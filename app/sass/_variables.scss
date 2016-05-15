@@ -2,16 +2,15 @@ $white: #fff;
 $black: #000;
 
 $blue: #5368EE;
-$light-blue: lighten( $blue, 10% );
+$light-blue: lighten($blue, 10%);
 
 $green: #7ABE42;
-$light-green: lighten( $green, 10% );
+$light-green: lighten($green, 10%);
 
 $red: #940000;
+$light-red: lighten($red, 10%);
 
 $grey: #c9c9c9;
 $dark-grey: #333;
 
-$menu-font: "RPGSystem";
 $content-font: "Open Sans";
-$button-font: "RPGSystem";

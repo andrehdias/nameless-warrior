@@ -99,20 +99,15 @@ a {
   color: #fff;
 }
 
-h1 {
-  font-size: 22px;
-  font-weight: bold;
-}
-
 .btn {
   height: 40px;
-  width: 100px;
+  min-width: 100px;
   background-color: #000;
   color: #fff;
   border: none;
   cursor: pointer;
-  margin: 10px 0;
   font-size: 15px;
+  outline: none;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
   -webkit-transition-property: background-color;
@@ -127,6 +122,18 @@ h1 {
 }
 .btn.green:hover {
   background-color: #95cb68;
+}
+.btn.blue {
+  background-color: #5368EE;
+}
+.btn.blue:hover {
+  background-color: #8191f3;
+}
+.btn.red {
+  background-color: #940000;
+}
+.btn.red:hover {
+  background-color: #c70000;
 }
 
 section {
@@ -174,36 +181,16 @@ section.intro .logo-img {
   height: 100%;
   display: inline-block;
 }
-.menu li a {
-  vertical-align: middle;
-  padding: 10px 20px;
-  height: 100%;
-  width: 100%;
-  -moz-transition-property: background-color;
-  -o-transition-property: background-color;
-  -webkit-transition-property: background-color;
-  transition-property: background-color;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
-}
-.menu li a.login {
-  background-color: #5368EE;
-}
-.menu li a.signup {
-  background-color: #940000;
-}
 
 .formbox {
+  width: 40.67797%;
   position: fixed;
-  margin: 0 auto;
-  z-index: 99;
-  width: 40%;
-  background-color: rgba(83, 104, 238, 0.9);
+  transform: translate(-50%, -50%);
   top: -400px;
   left: 50%;
-  margin-left: -20%;
+  margin: 0 auto;
+  z-index: 99;
+  background-color: rgba(83, 104, 238, 0.7);
   padding: 20px;
   text-align: left;
   -moz-transition-property: top;
@@ -217,14 +204,27 @@ section.intro .logo-img {
 }
 .formbox_title {
   text-align: left;
-  font-size: 20px;
+  font-size: 22px;
   color: #fff;
+  margin: 0 0 15px 0;
+}
+.formbox .btn {
+  margin-top: 15px;
 }
 .formbox input {
   width: 100%;
   height: 50px;
   margin: 5px 0;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
 }
 .formbox.active {
-  top: 60px;
+  top: 50%;
+}
+.formbox.character {
+  width: 83.05085%;
+  float: left;
+  height: 80%;
+  overflow: auto;
 }
