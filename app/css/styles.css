@@ -82,6 +82,14 @@ body.rpg-background {
   overflow: hidden;
 }
 
+b {
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .overlay {
   min-width: 100%;
   min-height: 100%;
@@ -106,7 +114,7 @@ a {
   color: #fff;
   border: none;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   outline: none;
   -moz-transition-property: background-color;
   -o-transition-property: background-color;
@@ -117,22 +125,22 @@ a {
   -webkit-transition-duration: 1s;
   transition-duration: 1s;
 }
-.btn.green {
+.btn--green {
   background-color: #7ABE42;
 }
-.btn.green:hover {
+.btn--green:hover {
   background-color: #95cb68;
 }
-.btn.blue {
+.btn--blue {
   background-color: #5368EE;
 }
-.btn.blue:hover {
+.btn--blue:hover {
   background-color: #8191f3;
 }
-.btn.red {
+.btn--red {
   background-color: #940000;
 }
-.btn.red:hover {
+.btn--red:hover {
   background-color: #c70000;
 }
 
@@ -193,38 +201,81 @@ section.intro .logo-img {
   background-color: rgba(83, 104, 238, 0.7);
   padding: 20px;
   text-align: left;
+  color: #fff;
+  max-height: 80%;
+  overflow: auto;
   -moz-transition-property: top;
   -o-transition-property: top;
   -webkit-transition-property: top;
   transition-property: top;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
-  -webkit-transition-duration: 1s;
-  transition-duration: 1s;
+  -moz-transition-duration: 0.6s;
+  -o-transition-duration: 0.6s;
+  -webkit-transition-duration: 0.6s;
+  transition-duration: 0.6s;
 }
-.formbox_title {
+.formbox__title {
   text-align: left;
   font-size: 22px;
-  color: #fff;
   margin: 0 0 15px 0;
 }
 .formbox .btn {
   margin-top: 15px;
 }
-.formbox input {
+.formbox__input {
   width: 100%;
   height: 50px;
   margin: 5px 0;
   padding: 10px;
   font-size: 18px;
   border: none;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.formbox__input:hover, .formbox__input:focus {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .formbox.active {
   top: 50%;
 }
-.formbox.character {
+.formbox__character .character {
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  width: 23.72881%;
+  padding: 20px;
+  cursor: pointer;
+  display: inline-block;
+}
+.formbox__character .character__wrapper {
+  width: 100%;
+}
+.formbox__character .character__nickname {
+  font-size: 16px;
+}
+.formbox__character .character__class {
+  font-size: 14px;
+}
+.formbox__character .character__info {
+  font-size: 12px;
+  line-height: 17px;
+  margin: 10px 0;
+}
+.formbox__character .character:hover {
+  background-color: rgba(83, 104, 238, 0.8);
+}
+.formbox--big {
   width: 83.05085%;
   float: left;
-  height: 80%;
-  overflow: auto;
+  max-height: 80%;
 }

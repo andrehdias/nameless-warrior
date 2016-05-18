@@ -10,16 +10,100 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="rpg-background">
+<body class="rpg-background" data-overlay="true">
 		<div class="overlay active"></div>
 		<div class="loader"></div>
 		
-		<section class="formbox character active" id="formbox-login">
-			<h1 class="formbox_title">Selecionar Personagem</h1>
-				
+		<section class="formbox formbox--big formbox__character active" id="formbox-select">
+			<h2 class="formbox__title">Selecionar Personagem</h2>
+			
+			<div class="character__wrapper">
+				<div class="character">
+					<h3 class="character__nickname">AndrehNSFW</h3>
+					<p class="character__class">Guerreiro</p>
+					
+					<ul class="character__info">
+						<li><b>Força: </b>15</li>
+						<li><b>Constituição: </b>18</li>
+						<li><b>Destreza: </b>10</li>
+						<li><b>Inteligência: </b>12</li>
+						<li><b>Carisma: </b>13</li>							
+					</ul>
+				</div>
 
-			<button class="btn green">Criar Novo Personagem</button>				
-		</section>					
+				<div class="character">
+					<h3 class="character__nickname">AndrehSan</h3>
+					<p class="character__class">Arqueiro</p>
+					
+					<ul class="character__info">
+						<li><b>Força: </b>15</li>
+						<li><b>Constituição: </b>18</li>
+						<li><b>Destreza: </b>10</li>
+						<li><b>Inteligência: </b>12</li>
+						<li><b>Carisma: </b>13</li>							
+					</ul>
+				</div>
+			</div>
+			
+			<div class="text-center">
+				<button class="btn btn--green open-formbox" data-target="formbox-create">Criar Novo Personagem</button>							
+			</div>
+		</section>
+
+		<section class="formbox" id="formbox-create">
+			<h2 class="formbox__title">Criar Personagem</h2>
+
+			<form action="api/login.php" name="form_create">
+				<input class="formbox__input" type="text" name="nickname" placeholder="Apelido">
+
+				<select name="class" id="" class="formbox__input">
+					<option value="">Selecione uma classe</option>
+					<option value="">Guerreiro</option>
+					<option value="">Arqueiro</option>
+					<option value="">Mago</option>
+				</select>
+
+				<div class="stats__group">
+					<label for="">Força:</label>
+					<input type="text">
+					<button>+</button>
+					<button>-</button>					
+				</div>				
+
+				<div class="stats__group">
+					<label for="">Constituição:</label>
+					<input type="text">
+					<button>+</button>
+					<button>-</button>					
+				</div>				
+
+				<div class="stats__group">
+					<label for="">Destreza:</label>
+					<input type="text">
+					<button>+</button>
+					<button>-</button>					
+				</div>				
+
+				<div class="stats__group">
+					<label for="">Inteligência:</label>
+					<input type="text">
+					<button>+</button>
+					<button>-</button>					
+				</div>				
+
+				<div class="stats__group">
+					<label for="">Carisma:</label>
+					<input type="text">
+					<button>+</button>
+					<button>-</button>					
+				</div>				
+				
+				<p>Pontos de atributo restantes: 15</p>
+			</form>
+
+			<button class="btn btn--red open-formbox" data-target="formbox-create">Criar</button>							
+			<button class="btn btn--green open-formbox" data-target="formbox-select">Voltar</button>							
+		</section>
 
 		<script src="js/lib/utils.js"></script>
 		<script src="js/lib/boxes.js"></script>

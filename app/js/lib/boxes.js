@@ -1,6 +1,7 @@
 Boxes = function(trigger, target){
 	this.trigger = trigger;
 	this.target = target;	
+	this.overlayAlways = (document.querySelector('body').dataset.overlay) ? document.querySelector('body').dataset.overlay : false;
 
 	this.bindEvents();
 };
@@ -14,20 +15,33 @@ Boxes.prototype = {
 
 		forEach(boxes, function(index, box) {		
 			var href = box.dataset.target,
-					actualSection = document.getElementById(href);			
+					actualSection = document.getElementById(href);
 
 			box.addEventListener('click', function(e) {
 				e.preventDefault();				
 
-				overlay.classList.add('active');
+				if(!_this.overlayAlways) {
+					overlay.classList.add('active');					
 
-				overlay.addEventListener('click', function() {
-					overlay.classList.remove('active');
-					actualSection.classList.remove('active');
-				});
+					overlay.addEventListener('click', function() {
+						overlay.classList.remove('active');
+						actualSection.classList.remove('active');
+					});					
+				}
+
+				_this.closeAll();
 				
 				actualSection.classList.add('active');									
 			});
 		}); 		
+	},
+
+	closeAll: function() {
+		var _this = this,
+				boxes = document.querySelectorAll('.formbox');				
+		
+		forEach(boxes, function(index, box) {
+				box.classList.remove('active');
+		});
 	}
 }

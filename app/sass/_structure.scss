@@ -17,6 +17,14 @@ body {
 
 }
 
+b {
+	font-weight: bold;
+}
+
+.text-center{
+	text-align: center;
+}
+
 .overlay {
 	min-width: 100%;
 	min-height: 100%;
@@ -42,13 +50,13 @@ a {
 	color: $white;
 	border: none;
 	cursor: pointer;
-	font-size: 15px;
+	font-size: 16px;
 	outline: none;
 
 	@include transition-property(background-color);
 	@include transition-duration(1s);	
 
-	&.green {
+	&--green {
 		background-color: $green;
 
 		&:hover {
@@ -56,7 +64,7 @@ a {
 		}
 	}
 
-	&.blue {
+	&--blue {
 		background-color: $blue;
 
 		&:hover {
@@ -64,7 +72,7 @@ a {
 		}
 	}
 
-	&.red {
+	&--red {
 		background-color: $red;					
 
 		&:hover {

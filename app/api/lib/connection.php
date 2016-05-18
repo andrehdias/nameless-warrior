@@ -1,10 +1,10 @@
 <?php 
 
-public class connection {
-	private $host;
-	private	$user;
+class connection {
+	private $host = "localhost";
+	private	$user = "root";
 	private $password;
-	private $database;
+	private $database = "nameless_warrior";
 
 	function connect() {
 		$mysqli = new mysqli($this->host, $this->user, $this->password, $this->database);
@@ -18,4 +18,3 @@ public class connection {
 
 	}
 }
-
