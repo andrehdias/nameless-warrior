@@ -93,7 +93,7 @@ b {
 .overlay {
   min-width: 100%;
   min-height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   z-index: 9;
   display: none;
@@ -273,6 +273,36 @@ section.intro .logo-img {
 }
 .formbox__character .character:hover {
   background-color: rgba(83, 104, 238, 0.8);
+}
+.formbox__create .stats {
+  margin: 15px 0;
+  font-size: 14px;
+}
+.formbox__create .stats__title {
+  font-size: 16px;
+  margin: 10px 0;
+}
+.formbox__create .stats__label {
+  width: 23.72881%;
+  display: inline-block;
+}
+.formbox__create .stats__input {
+  width: 6.77966%;
+  text-align: center;
+  border: none;
+  height: 20px;
+}
+.formbox__create .stats__counter {
+  margin: 5px 0;
+}
+.formbox__create .stats__btn {
+  border: none;
+  height: 20px;
+  width: 20px;
+  color: #fff;
+  background-color: #940000;
+  outline: none;
+  cursor: pointer;
 }
 .formbox--big {
   width: 83.05085%;

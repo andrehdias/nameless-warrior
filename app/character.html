@@ -14,7 +14,7 @@
 		<div class="overlay active"></div>
 		<div class="loader"></div>
 		
-		<section class="formbox formbox--big formbox__character active" id="formbox-select">
+		<section class="formbox formbox--big formbox__character" id="formbox-select">
 			<h2 class="formbox__title">Selecionar Personagem</h2>
 			
 			<div class="character__wrapper">
@@ -50,7 +50,7 @@
 			</div>
 		</section>
 
-		<section class="formbox" id="formbox-create">
+		<section class="formbox formbox__create active" id="formbox-create">
 			<h2 class="formbox__title">Criar Personagem</h2>
 
 			<form action="api/login.php" name="form_create">
@@ -62,47 +62,57 @@
 					<option value="">Arqueiro</option>
 					<option value="">Mago</option>
 				</select>
-
-				<div class="stats__group">
-					<label for="">Força:</label>
-					<input type="text">
-					<button>+</button>
-					<button>-</button>					
-				</div>				
-
-				<div class="stats__group">
-					<label for="">Constituição:</label>
-					<input type="text">
-					<button>+</button>
-					<button>-</button>					
-				</div>				
-
-				<div class="stats__group">
-					<label for="">Destreza:</label>
-					<input type="text">
-					<button>+</button>
-					<button>-</button>					
-				</div>				
-
-				<div class="stats__group">
-					<label for="">Inteligência:</label>
-					<input type="text">
-					<button>+</button>
-					<button>-</button>					
-				</div>				
-
-				<div class="stats__group">
-					<label for="">Carisma:</label>
-					<input type="text">
-					<button>+</button>
-					<button>-</button>					
-				</div>				
 				
-				<p>Pontos de atributo restantes: 15</p>
-			</form>
+				<div class="stats">
+					<h3 class="stats__title">Pontos de Atributo:</h3>
 
-			<button class="btn btn--red open-formbox" data-target="formbox-create">Criar</button>							
-			<button class="btn btn--green open-formbox" data-target="formbox-select">Voltar</button>							
+					<div class="stats__group">
+						<label for="" class="stats__label">Força:</label>
+						<button class="stats__btn">-</button>					
+						<input type="text" class="stats__input" value="5" readonly>
+						<button class="stats__btn">+</button>
+					</div>				
+
+					<div class="stats__group">
+						<label for="" class="stats__label">Constituição:</label>
+						<button class="stats__btn">-</button>					
+						<input type="text" class="stats__input" value="5" readonly>
+						<button class="stats__btn">+</button>
+					</div>				
+
+					<div class="stats__group">
+						<label for="" class="stats__label">Destreza:</label>
+						<button class="stats__btn">-</button>					
+						<input type="text" class="stats__input" value="5" readonly>
+						<button class="stats__btn">+</button>
+					</div>				
+
+					<div class="stats__group">
+						<label for="" class="stats__label">Inteligência:</label>
+						<button class="stats__btn">-</button>					
+						<input type="text" class="stats__input" value="5" readonly>
+						<button class="stats__btn">+</button>
+					</div>				
+
+					<div class="stats__group">
+						<label for="" class="stats__label">Carisma:</label>
+						<button class="stats__btn">-</button>					
+						<input type="text" class="stats__input" value="5" readonly>
+						<button class="stats__btn">+</button>
+					</div>				
+					
+					<p class="stats__counter">Pontos de atributo restantes: <b class="remaining-stats">10</b></p>
+				</div>			
+
+				<div class="preview">
+					<img src="" alt="">
+				</div>
+			</form>
+			
+			<div class="text-center">
+				<button class="btn btn--red open-formbox" data-target="formbox-create">Criar</button>							
+				<button class="btn btn--green open-formbox" data-target="formbox-select">Voltar</button>											
+			</div>
 		</section>
 
 		<script src="js/lib/utils.js"></script>

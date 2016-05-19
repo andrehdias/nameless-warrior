@@ -79,6 +79,44 @@
 		}
 	}
 
+	&__create {
+		.stats {
+			margin: 15px 0;
+			font-size: 14px;
+			
+			&__title {
+				font-size: 16px;
+				margin: 10px 0;
+			}
+
+			&__label {
+				width: span(3);
+				display: inline-block;
+			}
+
+			&__input {
+				width: span(1);					
+				text-align: center;
+				border: none;
+				height: 20px;
+			}
+
+			&__counter {
+				margin: 5px 0;
+			}
+
+			&__btn {
+				border: none;
+				height: 20px;
+				width: 20px;
+				color: $white;
+				background-color: $red;
+				outline: none;
+				cursor: pointer;
+			}
+		}
+	}
+
 	&--big {
 		@include span(10 of 12 no-gutters);		
 		max-height: 80%;
