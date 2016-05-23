@@ -65,6 +65,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: "RPGSystem";
   src: "../fonts/rpgsystem-webfont.ttf";
 }
+/* COLORS */
+/* FONTS */
+/* VIEWPORTS */
 html {
   height: 100%;
 }
@@ -308,4 +311,10 @@ section.intro .logo-img {
   width: 83.05085%;
   float: left;
   max-height: 80%;
+}
+@media (max-width: 767px) {
+  .formbox {
+    top: 50%;
+    width: 100%;
+  }
 }

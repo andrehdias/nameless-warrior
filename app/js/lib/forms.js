@@ -14,7 +14,7 @@ Forms.prototype = {
 			form.addEventListener("submit", function(e) {
 				e.preventDefault();
 				
-				ajaxCall('', action);
+				ajaxCall('result', 'api/index.php');
 			});
 		}); 		
 	}

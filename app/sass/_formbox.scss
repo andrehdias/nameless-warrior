@@ -121,4 +121,9 @@
 		@include span(10 of 12 no-gutters);		
 		max-height: 80%;
 	}
+
+	@include smallViewport {
+		top: 50%;
+		width: span(12);		
+	}
 }

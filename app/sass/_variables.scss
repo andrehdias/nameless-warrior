@@ -1,3 +1,4 @@
+/* COLORS */
 $white: #fff;
 $black: #000;
 
@@ -13,4 +14,14 @@ $light-red: lighten($red, 10%);
 $grey: #c9c9c9;
 $dark-grey: #333;
 
+
+/* FONTS */
+
 $content-font: "Open Sans";
+
+
+/* VIEWPORTS */
+
+$small-viewport: 460px;
+$medium-viewport: 768px;
+$large-viewport: 1024x;

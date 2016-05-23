@@ -4,8 +4,12 @@ var gulp        = require('gulp'),
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['compass'], function() {
-  browserSync.init({
+  /*browserSync.init({
       server: "./app"
+  });*/
+
+  browserSync.init({
+      proxy: "http://localhost/nameless-warrior/app/"
   });
 
   gulp.watch("app/sass/*.scss", ['compass']);
