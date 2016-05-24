@@ -1,20 +1,28 @@
 <?php 
 
-class connection {
-	private $host = "localhost";
-	private	$user = "root";
+class Connection {
+	private $host;
+	private	$user;
 	private $password;
-	private $database = "nameless_warrior";
+	private $database;
 
-	function connect() {
-		$mysqli = new mysqli($this->host, $this->user, $this->password, $this->database);
-		if ($mysqli->connect_errno) {
-		    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+	public function __construct() {
+		$config = parse_ini_file('config.ini');
+
+		$this->host = $config['host'];
+		$this->user = $config['user'];
+		$this->password = $config['password'];
+		$this->database = $config['database'];
+	}
+
+	public function connect() {		
+		try {
+			$conn = new PDO("mysql:host=$this->host;dbname=$this->database", $this->user, $this->password);
+		} catch (PDOException $e) {
+			print "Error:" . $e->getMessage() . "<br>";
+			die();
 		}
-		echo $mysqli->host_info . "\n";
-	}	
 
-	function close() {
-
+		return $conn;
 	}
 }

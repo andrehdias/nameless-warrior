@@ -2,8 +2,12 @@
 
 require_once('lib/utils.php');
 require_once('lib/connection.php');
+require_once('lib/main.php');
+require_once('models/user.php');
+require_once('models/character.php');
 
-$conn = new Connection();
-$conn->connect();
+$class = $_POST['class'];
+$action = $_POST['action'];
+$data = $_POST['data'];
 
-echo $_POST;
+Main::request($class, $action, $data);

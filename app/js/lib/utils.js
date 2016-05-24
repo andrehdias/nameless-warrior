@@ -16,7 +16,7 @@ var ajaxCall = function(target, url, params) {
 	
 	if(params) {
 		xhttp.open("POST", url, true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.setRequestHeader("Content-type", "application/json");
 		xhttp.send(params);		
 	} else {
 		xhttp.open("GET", url, true);		
