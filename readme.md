@@ -9,10 +9,6 @@ Para acompanhar o andamento do projeto, siga esse repositório e também a board
 * [Phaser](http://phaser.io) - Framework em Javascript que utiliza tecnologias HTML5 para fazer jogos no browser.
 * [Tiled](http://www.mapeditor.org/) - Ferramenta para criação de mapas para jogos utilizando Tilesets
 
-## História
-
-Ver no documento anexo sobre [história](docs/history.md).
-
 ## Classes
 
 Todas classes terão um sprite com um visual padrão e cada uma terá suas próprias habilidades e equipamentos específicos.
