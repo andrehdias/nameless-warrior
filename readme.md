@@ -1,22 +1,13 @@
-![Logo](images/logo.png)
-
 # Nameless Warrior :video_game: :european_castle:
 
-O projeto consiste em um RPG feito totalmente com tecnologias WEB e com temáticas semelhantes aos jogos clássicos do gênero. Além disso, há uma proposta em trazer uma inteligência artificial um pouco mais avançada, apesar do visual bem simples do jogo.
-
-Se você quiser ajudar no levantamento de informações para o jogo, responda o [formulário](http://goo.gl/forms/6TgY9Ag6F3)!
+O projeto consiste em um RPG feito totalmente com tecnologias WEB(HTML5, CSS e Javascript)
 
 Para acompanhar o andamento do projeto, siga esse repositório e também a board do [trello](https://trello.com/b/PuE28a1W)!
 
 ## Tecnologias
 
 * [Phaser](http://phaser.io) - Framework em Javascript que utiliza tecnologias HTML5 para fazer jogos no browser.
-
-## Identidade Visual
-
-Por ser um projeto de TCC, o jogo passará por toda uma fase prévia de análise. Para isso, já estou trabalhando em uma prévia da identidade visual do jogo:
-
-![Splash Screen](images/startscreen.png)
+* [Tiled](http://www.mapeditor.org/) - Ferramenta para criação de mapas para jogos utilizando Tilesets
 
 ## História
 
@@ -24,7 +15,7 @@ Ver no documento anexo sobre [história](docs/history.md).
 
 ## Classes
 
-Todas classes terão um sprite com um visual padrão, podendo ser substituido por outro que o jogador escolher. Cada classe terá suas próprias habilidades.
+Todas classes terão um sprite com um visual padrão e cada uma terá suas próprias habilidades e equipamentos específicos.
 	
 * Guerreiro - Personagem que tem mais facilidade com armas brancas. Utiliza machados, espadas, escudos, dentre outras coisas. Pode utilizar armaduras pesadas.
 * Mago - Personagem que utiliza magias para batalhar. Geralmente equipa bastões mágicos e túnica
