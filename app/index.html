@@ -30,29 +30,29 @@
 		<!-- Form Boxes -->
 		<section class="formbox" id="formbox-login">
 			<h3 class="formbox__title">Fazer Login</h3>
-			<form action="api/login.php" name="form_login">
-				<input class="formbox__input" type="text" name="email" placeholder="Email">
-
-				<input class="formbox__input" type="text" name="password" placeholder="Senha">
+			<form action="jascript:;" data-targetClass="user" data-action="login" name="form_login">
+				<input class="formbox__input" type="email" name="email" placeholder="Email" required>
+				<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
+				
+				<p id="result"></p>
 
 				<button class="btn btn--green">Entrar</button>				
 			</form>
 		</section>
 
 		<section class="formbox" id="formbox-signup">
-			<form action="api/signup.php" name="form_signup">
+			<form action="api/signup.php" data-targetClass="user" data-action="signup" name="form_signup">
 				<h3 class="formbox__title">Cadastrar-se</h3>
 
-				<input class="formbox__input" type="text" name="email" placeholder="Email">
+				<input class="formbox__input" type="email" name="email" placeholder="Email">
+				<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
+				<input class="formbox__input" type="password" name="repeat-password" placeholder="Repetir Senha" required>
 
-				<input class="formbox__input" type="text" name="password" placeholder="Senha">
-
-				<input class="formbox__input" type="text" name="repeat-password" placeholder="Repetir Senha">
+				<p id="result"></p>
 
 				<button class="btn btn--green">Cadastrar</button>				
 			</form>
 
-			<p id="result"></p>
 		</section>
 		<!-- Form Boxes -->				
 

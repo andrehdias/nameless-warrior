@@ -10,12 +10,25 @@ Forms.prototype = {
 		forms = document.querySelectorAll(this.selector);
 
 		forEach(forms, function(index, form) {		
-			var action = form.action;
+			var action = form.dataset.action,
+					targetClass = form.dataset.targetClass,
+					data = new FormData(form),
+					params = new Object();
+
+			params.action = action;
+			params.targetClass = targetClass;
+			params.data = data;		
+
 			form.addEventListener("submit", function(e) {
 				e.preventDefault();
 				
-				ajaxCall('result', 'api/index.php');
+				console.log(params)
+				ajaxCall('result', 'api/', params);
 			});
 		}); 		
+	},
+
+	login: function() {
+		
 	}
 };
