@@ -105,6 +105,25 @@ b {
   display: block;
 }
 
+.loader {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  z-index: 999;
+  display: none;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+.loader.active {
+  display: table;
+}
+.loader p {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 a {
   text-decoration: none;
   color: #fff;

@@ -1,4 +1,5 @@
 Forms = function() {
+	this.apiURL = "api/";
 	this.selector = "form";
 
 	this.bindEvents();
@@ -7,25 +8,50 @@ Forms = function() {
 Forms.prototype = {
 	bindEvents: function() {
 		var _this = this,
-		forms = document.querySelectorAll(this.selector);
+		forms = $(this.selector);
 
-		forEach(forms, function(index, form) {		
-			var action = form.dataset.action,
-					targetClass = form.dataset.targetClass,
-					data = new FormData(form),
-					params = new Object();
+		forms.each(function() {		
+			var form = $(this);
+			 		action = form.data("action"),
+					target = form.data("target"),
+					params = new Object(),
+					id = form.attr("id");
+					result = form.find('.formbox__result'),
+					data = {};
 
-			params.action = action;
-			params.targetClass = targetClass;
-			params.data = data;		
+			form.submit(function(e) {
+				e.preventDefault();				
+												
+				data.action = action;
+				data.target = target;
+				data.formData = $(this).serializeArray();								
 
-			form.addEventListener("submit", function(e) {
-				e.preventDefault();
-				
-				console.log(params)
-				ajaxCall('result', 'api/', params);
+				_this.ajaxCall(result, data);
 			});
 		}); 		
+	},
+
+	ajaxCall: function(target, params) {
+		var _this = this,
+				xhttp = new XMLHttpRequest(),
+				loader = $('.loader');
+		
+		loader.addClass('active');		
+
+		$.ajax({
+			type: "POST",
+			url: _this.apiURL,
+			data: JSON.stringify(params),
+			contentType: "application/json",
+			success: function(data) {
+		    loader.removeClass('active');
+		    _this.handleReturn(data);
+			}
+		});		
+	},
+
+	handleReturn: function(data) {
+		console.log(data)
 	},
 
 	login: function() {

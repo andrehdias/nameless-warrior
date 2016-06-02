@@ -6,12 +6,15 @@ require_once('lib/main.php');
 require_once('models/user.php');
 require_once('models/character.php');
 
-if(isset($_POST['class']) && isset($_POST['action']) && isset($_POST['data'])) {
-	$class = $_POST['class'];
+print_r($_POST);
+exit;
+
+if(isset($_POST['target']) && isset($_POST['action']) && isset($_POST['formData'])) {
+	$target = $_POST['target'];
 	$action = $_POST['action'];
-	$data = $_POST['data'];	
+	$formData = $_POST['formData'];	
 	
-	Main::request($class, $action, $data);
+	Main::request($target, $action, $formData);
 } else {
 	echo Utils::formatJSON("Invalid data", 'error');
 }

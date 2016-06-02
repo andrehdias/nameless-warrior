@@ -5,15 +5,16 @@ class User {
 	private $password;
 	private $id;
 
-	public function __construct($data = null) {		
-		$this->email = ($data->email) ? $data->email : null;
-		$this->password = ($data->password) ? md5($data->password) : null;
-		$this->id = ($data->id) ? $data->id : null;
+	public function __construct($data) {				
+		print_r($data);
+		$this->email = (isset($data['email'])) ? $data['email'] : null;
+		$this->password = (isset($data['password'])) ? $data['password'] : null;
+		$this->id = (isset($data['id'])) ? $data['id'] : null;
 
 		$this->conn = Connection::getInstance()->connect();
 	}
  
-	public function save() {
+	public function signup() {
 		try{
 			$query = $this->conn->prepare("INSERT INTO user(email, password) values (:email, :password)");
 

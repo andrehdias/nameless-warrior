@@ -12,7 +12,7 @@
 
 <body class="rpg-background">
 		<div class="overlay"></div>
-		<div class="loader"></div>
+		<div class="loader"><p>Carregando...</p></div>
 
 		<a href="https://github.com/andrehNSFW/nameless-warrior" target="blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>		
 
@@ -21,8 +21,8 @@
 				<img src="img/logo.png" class="intro-img" alt="">					
 
 				<ul class="menu">				
-					<li><button data-target="formbox-login" class="btn btn--red open-formbox">Login</button></li>
-					<li><button data-target="formbox-signup" class="btn btn--blue open-formbox">Criar Conta</button></li>
+					<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
+					<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Criar Conta</button></li>
 				</ul>							
 			</div>
 		</section>
@@ -30,33 +30,33 @@
 		<!-- Form Boxes -->
 		<section class="formbox" id="formbox-login">
 			<h3 class="formbox__title">Fazer Login</h3>
-			<form action="jascript:;" data-targetClass="user" data-action="login" name="form_login">
+			<form action="" data-target="user" data-action="login" name="form_login" id="form_login" enctype="multipart/form-data">
 				<input class="formbox__input" type="email" name="email" placeholder="Email" required>
 				<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
 				
-				<p id="result"></p>
+				<p class="formbox__result"></p>
 
 				<button class="btn btn--green">Entrar</button>				
 			</form>
 		</section>
 
 		<section class="formbox" id="formbox-signup">
-			<form action="api/signup.php" data-targetClass="user" data-action="signup" name="form_signup">
+			<form action="" data-target="user" data-action="signup" name="form_signup" id="form_signup">
 				<h3 class="formbox__title">Cadastrar-se</h3>
 
 				<input class="formbox__input" type="email" name="email" placeholder="Email">
 				<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
 				<input class="formbox__input" type="password" name="repeat-password" placeholder="Repetir Senha" required>
 
-				<p id="result"></p>
+				<p class="formbox__result"></p>
 
 				<button class="btn btn--green">Cadastrar</button>				
 			</form>
 
 		</section>
 		<!-- Form Boxes -->				
-
-		<script src="js/lib/utils.js"></script>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
 		<script src="js/lib/boxes.js"></script>
 		<script src="js/lib/forms.js"></script>
 		<script src="js/app.js"></script>

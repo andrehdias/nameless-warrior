@@ -37,6 +37,27 @@ b {
 	}
 }
 
+.loader {
+	min-width: 100%;
+	min-height: 100%;
+	background-color: rgba($black, 0.8);		
+	position: fixed;
+	z-index: 999;
+	display: none;
+	color: $white;
+	text-align: center;
+	font-size: 20px;
+
+	&.active {
+		display: table;
+	}	
+
+	p {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
 a {
 	text-decoration: none;
 	color: $white;
