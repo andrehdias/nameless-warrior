@@ -50,8 +50,7 @@ NWarrior.Game.prototype = {
     this.npcClass = new NWarrior.Npc();
     this.npc = this.npcClass.init(this.game);	 	
 
-		this.hud = new NWarrior.Hud();
-    this.hud.showHUD(this.game);
+		this.hud = new NWarrior.Hud(this.game);    
     
 		var audio = this.game.add.sprite(730, 10, 'audio');
 

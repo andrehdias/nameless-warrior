@@ -5,8 +5,7 @@ class User {
 	private $password;
 	private $id;
 
-	public function __construct($data) {				
-		print_r($data);
+	public function __construct($data) {						
 		$this->email = (isset($data['email'])) ? $data['email'] : null;
 		$this->password = (isset($data['password'])) ? $data['password'] : null;
 		$this->id = (isset($data['id'])) ? $data['id'] : null;
@@ -16,6 +15,10 @@ class User {
  
 	public function signup() {
 		try{
+			$query = $this->conn->prepare("SELECT * FROM user WHERE email = :email LIMIT 1");
+			$query->bindParam(':email', $this->email);
+			$query->execute();
+
 			$query = $this->conn->prepare("INSERT INTO user(email, password) values (:email, :password)");
 
 			$query->bindParam(':email', $this->email);
@@ -24,7 +27,7 @@ class User {
 			$query->execute();
 			$this->id = $this->conn->lastInsertID();			
 
-			return Utils::formatJSON($this->id, 'success');
+			return Utils::formatJSON("Cadastrado com sucesso!", 'success');
 		} catch (PDOException $e) {
 			return Utils::formatJSON($e->getMessage(), 'error');
 		}

@@ -12,20 +12,29 @@ Forms.prototype = {
 
 		forms.each(function() {		
 			var form = $(this);
-			 		action = form.data("action"),
-					target = form.data("target"),
+			 		formAction = form.data("action"),
+					formTarget = form.data("target"),
 					params = new Object(),
 					id = form.attr("id");
 					result = form.find('.formbox__result'),
 					data = {};
 
+			if(formAction == 'signup') {
+				if(_this.checkPass(form.find('[name=password]'), form.find('[name=repeat-password]'))){
+					
+				} else {
+					
+				}
+			}
+
 			form.submit(function(e) {
 				e.preventDefault();				
 												
-				data.action = action;
-				data.target = target;
-				data.formData = $(this).serializeArray();								
-
+				data = $(this).serializeArray();												
+				data.push({name: "action", value: formAction});
+				data.push({name: "target", value: formTarget});
+				console.log(data)
+								
 				_this.ajaxCall(result, data);
 			});
 		}); 		
@@ -36,25 +45,30 @@ Forms.prototype = {
 				xhttp = new XMLHttpRequest(),
 				loader = $('.loader');
 		
-		loader.addClass('active');		
+		loader.addClass('active');				
 
 		$.ajax({
 			type: "POST",
 			url: _this.apiURL,
-			data: JSON.stringify(params),
-			contentType: "application/json",
+			data: params,			
 			success: function(data) {
 		    loader.removeClass('active');
-		    _this.handleReturn(data);
+		    _this.handleReturn(data, target);
 			}
 		});		
 	},
 
-	handleReturn: function(data) {
-		console.log(data)
+	handleReturn: function(data, result) {
+		var returnData = JSON.parse(data);
+		result.html(data.message);
+		console.log(result)
 	},
 
 	login: function() {
 		
+	},
+
+	checkPass: function(input, inputTwo) {
+
 	}
 };

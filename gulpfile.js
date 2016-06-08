@@ -4,10 +4,12 @@ var gulp        = require('gulp'),
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['compass'], function() {
+  //Static Server
   /*browserSync.init({
       server: "./app"
   });*/
-
+  
+  //Apache as proxy
   browserSync.init({
       proxy: "http://localhost/nameless-warrior/app/"
   });
