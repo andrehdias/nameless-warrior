@@ -1,0 +1,17 @@
+@mixin smallViewport {
+	@media (max-width: $medium-viewport - 1px) {
+ 		@content;
+ 	}
+}
+
+@mixin mediumViewport {
+	@media (min-width: $medium-viewport) and (max-width: $large-viewport - 1px) {
+ 		@content;
+ 	}
+}
+
+@mixin largeViewport {
+	@media (min-width: $large-viewport) {
+ 		@content;
+ 	}
+}
