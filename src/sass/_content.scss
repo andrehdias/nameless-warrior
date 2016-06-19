@@ -28,45 +28,16 @@ section {
 	  top: 50%;
 	  left: 50%;
 	  transform: translate(-50%, -50%);
-	}
-	
-	//Site intro content
-	&.intro {		
-		color: $white;
-		padding: 60px 0;
 
-		&-img {
-			width: 90%;
-			max-width: 90%;
-		}						
-	}
-}
+		//Site intro content
+		.intro {		
+			color: $white;
+			padding: 60px 0;
 
-.menu {	
-	height: 60px;
-	margin: 0 auto;
-	list-style: none;
-
-	li {
-		height: 100%;	
-		display: inline-block;		
-
-		a {
-			vertical-align: middle;
-			padding: 10px 20px;
-			height: 100%;
-			width: 100%;			
-			
-			transition: background-color 1s;
-
-			&.login {
-				background-color: $blue;
-			}
-
-			&.signup {
-				background-color: $red;					
-			}
+			&__img {			
+				max-width: 90%;
+			}						
 		}
-	}
+	}	
 }
 

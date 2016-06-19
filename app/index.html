@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="rpg-background">
+<body>
 	<div class="overlay"></div>
 	<div class="loader"><p>Carregando...</p></div>
 
@@ -17,7 +17,7 @@
 
 	<section class="content">			
 		<div class="intro">
-			<img src="img/logo.png" class="intro-img" alt="">					
+			<img src="http://placehold.it/1000x120/fff?text=Logo" class="intro__img" alt="">					
 
 			<ul class="menu">				
 				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
@@ -35,7 +35,7 @@
 			
 			<p class="formbox__result"></p>
 
-			<button class="btn btn--green">Entrar</button>				
+			<button class="btn btn--red">Entrar</button>				
 		</form>
 	</section>
 
@@ -43,13 +43,13 @@
 		<form action="" data-target="user" data-action="signup" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Cadastrar-se</h3>
 
-			<input class="formbox__input" type="email" name="email" placeholder="Email">
+			<input class="formbox__input" type="email" name="email" placeholder="Email" required>
 			<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
 			<input class="formbox__input" type="password" name="repeat-password" placeholder="Repetir Senha" required>
 
 			<p class="formbox__result"></p>
 
-			<button class="btn btn--green">Cadastrar</button>				
+			<button class="btn btn--red">Cadastrar</button>				
 		</form>
 
 	</section>

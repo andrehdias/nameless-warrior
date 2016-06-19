@@ -9,11 +9,11 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="rpg-background" data-overlay="true">
+<body data-overlay="true">
 		<div class="overlay active"></div>
 		<div class="loader"></div>
 		
-		<section class="formbox formbox--big formbox__character" id="formbox-select">
+		<section class="formbox formbox--big formbox__character active" id="formbox-select">
 			<h2 class="formbox__title">Selecionar Personagem</h2>
 			
 			<div class="character__wrapper">
@@ -45,11 +45,11 @@
 			</div>
 			
 			<div class="text-center">
-				<button class="btn btn--green open-formbox" data-target="formbox-create">Criar Novo Personagem</button>							
+				<button class="btn btn--red open-formbox" data-target="#formbox-create">Criar Novo Personagem</button>							
 			</div>
 		</section>
 
-		<section class="formbox formbox__create active" id="formbox-create">
+		<section class="formbox formbox__create" id="formbox-create">
 			<h2 class="formbox__title">Criar Personagem</h2>
 
 			<form action="" name="form_create">
@@ -109,8 +109,8 @@
 			</form>
 			
 			<div class="text-center">
-				<button class="btn btn--red open-formbox" data-target="formbox-create">Criar</button>							
-				<button class="btn btn--green open-formbox" data-target="formbox-select">Voltar</button>											
+				<button class="btn btn--red open-formbox" data-target="#formbox-create">Criar</button>							
+				<button class="btn btn--green open-formbox" data-target="#formbox-select">Voltar</button>											
 			</div>
 		</section>
 	

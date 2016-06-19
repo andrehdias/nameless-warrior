@@ -5,15 +5,12 @@ html {
 body {
 	font-family: $content-font;
 	min-height: 100%;
+	background-color: $black;
+	overflow: hidden;
+}
 
-	&.rpg-background{
-		background: url('../img/valley_ruins.jpg');		
-		background-size: auto 100%;
-		background-position: top center;
-		background-repeat: no-repeat;
-		background-color: $black;		
-		overflow: hidden;
-	}
+ul {
+	list-style: none;
 }
 
 b {
@@ -65,37 +62,39 @@ a {
 
 .btn {
 	height: 40px;
-	min-width: 100px;
-	background-color: $black;
+	padding: 0 20px;
+	min-width: 100px;	
 	color: $white;
 	border: none;
 	cursor: pointer;
 	font-size: 16px;
+	font-weight: bold;
 	outline: none;
-
+	border-radius:6px;
+	background: none;
 	transition: background-color 1s;
 
 	&--green {
-		background-color: $green;
+		border: 2px solid $green;
 
 		&:hover {
-			background-color: $light-green;
+			border: 2px solid $light-green;
 		}
 	}
 
 	&--blue {
-		background-color: $blue;
+		border: 2px solid $blue;
 
 		&:hover {
-			background-color: $light-blue;
+			border: 2px solid $light-blue;
 		}
 	}
 
 	&--red {
-		background-color: $red;					
+		border: 2px solid $red;					
 
 		&:hover {
-			background-color: $light-red;
+			border: 2px solid $light-red;
 		}
 	}
 }
@@ -146,12 +145,11 @@ section {
 
 .menu {	
 	height: 60px;
-	margin: 0 auto;
+	margin: 20px auto;
 	list-style: none;
 
 	li {
 		height: 100%;	
 		display: inline-block;		
-
 	}
 }
