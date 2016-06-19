@@ -4,8 +4,12 @@ var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglify');
-    siteJS = 'src/js/',
-    gameJS = 'src/game/js/',
+
+//URLs
+var siteJS = 'src/js/',
+    siteJSDest = 'app/js/',
+    gameJS = 'src/js/game/',
+    gameJSDest = 'app/game/js/',    
     siteSASS = 'src/sass/',
     siteJSFiles = siteJS+'**/*.js',
     gameJSFiles = gameJS+'**/*.js',
@@ -24,29 +28,33 @@ gulp.task('serve', ['compass'], function() {
   gulp.watch(["app/*.html", "app/js/**/*.js", "app/game/**/*.js"]).on('change', browserSync.reload);
 });
 
-
+//Generate scripts file for the site
 gulp.task('scripts:site', function() {
-  var files = [
+  return gulp.src([
                 siteJS+'lib/boxes.js', 
                 siteJS+'lib/forms.js', 
                 siteJS+'app.js'
-              ];
-
-  return gulp.src(files)
+              ])
     .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(siteJS))
+    .pipe(gulp.dest(siteJSDest))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(siteJS));
+    .pipe(gulp.dest(siteJSDest));
 });
 
+//Generate scripts file for the game
 gulp.task('scripts:game', function() {
-  return gulp.src(gameJSFiles)
+  return gulp.src([
+                gameJS+'phaser.min.js',
+                gameJS+'lib/*.js', 
+                gameJS+'states/*.js', 
+                gameJS+'main.js'
+              ])
     .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(gameJS))
+    .pipe(gulp.dest(gameJSDest))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(gameJS));
+    .pipe(gulp.dest(gameJSDest));
 });
 
 // Compile compass into CSS & auto-inject into browsers

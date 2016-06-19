@@ -7,7 +7,7 @@ Boxes = function(trigger, target){
 };
 
 Boxes.prototype = {
-	//binds events to elements according the selector passed as parameter
+	//binds events to elements according to the selector passed as parameter
 	bindEvents: function() {
 				var _this = this,
 				boxes = $(this.trigger),
