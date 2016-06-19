@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://andrehdias@bitbucket.org/andrehdias/namelesswarrior.git"
+    "url": ""
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/andrehdias/namelesswarrior#readme",
+  "homepage": "",
   "devDependencies": {
     "browser-sync": "^2.11.1",
     "gulp": "^3.9.0",
-    "gulp-compass": "^2.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
     "gulp-uglify": "^1.5.3"
   }
 }

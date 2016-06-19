@@ -19,7 +19,7 @@ section {
 	}
 
 	&.content {
-		@include span(11 of 12 no-gutters);
+		width: 90%;
 		float: none;		
 		margin: 0 auto;			
 		padding: 20px;	
@@ -56,9 +56,8 @@ section {
 			padding: 10px 20px;
 			height: 100%;
 			width: 100%;			
-
-			@include transition-property(background-color);
-			@include transition-duration(1s);
+			
+			transition: background-color 1s;
 
 			&.login {
 				background-color: $blue;

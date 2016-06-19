@@ -1,6 +1,6 @@
 var gulp        = require('gulp'),
     browserSync = require('browser-sync').create(),
-    compass     = require('gulp-compass'),
+    sass     = require('gulp-sass'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglify');
@@ -16,13 +16,13 @@ var siteJS = 'src/js/',
     siteSASSFiles = siteSASS+'**/*.scss';
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['compass'], function() {
+gulp.task('serve', ['sass'], function() {
   //Apache as proxy
   browserSync.init({
     proxy: "http://localhost/nameless-warrior/app/"
   });
 
-  gulp.watch(siteSASSFiles, ['compass']);
+  gulp.watch(siteSASSFiles, ['sass']);
   gulp.watch(siteJSFiles, ['scripts:site']);
   gulp.watch(gameJSFiles, ['scripts:game']);
   gulp.watch(["app/*.html", "app/js/**/*.js", "app/game/**/*.js"]).on('change', browserSync.reload);
@@ -57,14 +57,10 @@ gulp.task('scripts:game', function() {
     .pipe(gulp.dest(gameJSDest));
 });
 
-// Compile compass into CSS & auto-inject into browsers
-gulp.task('compass', function() {
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('sass', function() {
   return gulp.src(siteSASSFiles)
-    .pipe(compass({    
-      sass: siteSASS,
-      css: 'app/css',
-      require: ['susy']
-    }))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(gulp.dest("app/css"))
     .pipe(browserSync.stream());
 });
