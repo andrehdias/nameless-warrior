@@ -1,6 +1,6 @@
 var NWarrior = NWarrior || {};
 
-NWarrior.game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser');
+NWarrior.game = new Phaser.Game(768, 448, Phaser.AUTO, 'phaser');
 
 NWarrior.game.state.add('Boot', NWarrior.Boot);
 NWarrior.game.state.add('Menu', NWarrior.Menu);

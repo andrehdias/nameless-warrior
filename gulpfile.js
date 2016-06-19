@@ -6,11 +6,11 @@ var gulp        = require('gulp'),
     uglify      = require('gulp-uglify');
 
 //URLs
-var siteJS = 'src/js/',
+var siteJS = 'src/site/js/',
     siteJSDest = 'app/js/',
-    gameJS = 'src/js/game/',
-    gameJSDest = 'app/game/js/',    
-    siteSASS = 'src/sass/',
+    gameJS = 'src/game/js',
+    gameJSDest = 'app/game/js/',
+    siteSASS = 'src/site/sass/',
     siteJSFiles = siteJS+'**/*.js',
     gameJSFiles = gameJS+'**/*.js',
     siteSASSFiles = siteSASS+'**/*.scss';
@@ -25,12 +25,13 @@ gulp.task('serve', ['sass'], function() {
   gulp.watch(siteSASSFiles, ['sass']);
   gulp.watch(siteJSFiles, ['scripts:site']);
   gulp.watch(gameJSFiles, ['scripts:game']);
-  gulp.watch(["app/*.html", "app/js/**/*.js", "app/game/**/*.js"]).on('change', browserSync.reload);
+  gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', browserSync.reload);
 });
 
 //Generate scripts file for the site
 gulp.task('scripts:site', function() {
   return gulp.src([
+                siteJS+'zepto.js', 
                 siteJS+'lib/boxes.js', 
                 siteJS+'lib/forms.js', 
                 siteJS+'app.js'

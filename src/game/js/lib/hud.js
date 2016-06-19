@@ -17,10 +17,6 @@ NWarrior.Hud.prototype = {
 				text2 = this.game.add.text(10, 30, "100\t50", style);
 
 		text.fixedToCamera = true;
-		text2.fixedToCamera = true;				
-
-		var settings = this.game.add.sprite(760, 10, 'settings');
-		settings.fixedToCamera = true;
-		settings.scale.setTo(0.7, 0.7);
+		text2.fixedToCamera = true;
 	}
 }

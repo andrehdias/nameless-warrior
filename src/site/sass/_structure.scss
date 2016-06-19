@@ -70,31 +70,31 @@ a {
 	font-size: 16px;
 	font-weight: bold;
 	outline: none;
-	border-radius:6px;
+	border-radius: 2px;
 	background: none;
 	transition: background-color 1s;
 
 	&--green {
-		border: 2px solid $green;
+		background-color: $green;
 
 		&:hover {
-			border: 2px solid $light-green;
+			background-color: $light-green;
 		}
 	}
 
 	&--blue {
-		border: 2px solid $blue;
+		background-color: $blue;
 
 		&:hover {
-			border: 2px solid $light-blue;
+			background-color: $light-blue;
 		}
 	}
 
 	&--red {
-		border: 2px solid $red;					
+		background-color: $red;					
 
 		&:hover {
-			border: 2px solid $light-red;
+			background-color: $light-red;
 		}
 	}
 }

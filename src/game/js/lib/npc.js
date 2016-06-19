@@ -1,9 +1,6 @@
 var NWarrior = NWarrior || {};
 
-NWarrior.Npc = function(){};
-
-NWarrior.Npc.prototype = {
-	init: function(game) {
+NWarrior.Npc = function(game){
 		this.npc = game.add.sprite(450, 150, 'npc');
     game.physics.arcade.enable(this.npc);            
     this.npc.body.collideWorldBounds = true;    
@@ -12,11 +9,10 @@ NWarrior.Npc.prototype = {
     this.npc.enableBody = true;
     this.npc.body.immovable = true;
 
-    this.walk(this.npc);
-    
-    return this.npc;
-	},
+    this.walk(this.npc);       
+};
 
+NWarrior.Npc.prototype = {
 	walk: function(npc) {
 		setInterval(function() {
 			var direction = Math.floor(Math.random() * (6 - 1)) + 1;			

@@ -1,7 +1,6 @@
 Boxes = function(trigger, target){
 	this.trigger = trigger;
-	this.target = target;	
-	this.overlayAlways = $('body').data('overlay') || false;
+	this.target = target;		
 
 	this.bindEvents();
 };
@@ -19,15 +18,13 @@ Boxes.prototype = {
 
 			$(this).click(function(e) {
 				e.preventDefault();				
+				
+				overlay.addClass('active');					
 
-				if(!_this.overlayAlways) {
-					overlay.addClass('active');					
-
-					overlay.click(function() {
-						overlay.removeClass('active');
-						actualSection.removeClass('active');
-					});					
-				}
+				overlay.click(function() {
+					overlay.removeClass('active');
+					actualSection.removeClass('active');
+				});									
 
 				_this.closeAll();
 				

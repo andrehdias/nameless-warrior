@@ -29,6 +29,22 @@ var NWarrior = NWarrior || {};
 
 NWarrior.Character = function(game) {
 	this.game = game;
+
+	this.class;
+	this.nickname;
+
+	this.str;
+	this.con;
+	this.dex;
+	this.int;
+	this.cha;
+
+	this.hp;
+	this.mana;
+	this.stamina;
+	this.hunger;
+	this.sleep;
+
 	this.init();
 };
 
@@ -56,20 +72,13 @@ NWarrior.Hud.prototype = {
 				text2 = this.game.add.text(10, 30, "100\t50", style);
 
 		text.fixedToCamera = true;
-		text2.fixedToCamera = true;				
-
-		var settings = this.game.add.sprite(760, 10, 'settings');
-		settings.fixedToCamera = true;
-		settings.scale.setTo(0.7, 0.7);
+		text2.fixedToCamera = true;
 	}
 }
 
 var NWarrior = NWarrior || {};
 
-NWarrior.Npc = function(){};
-
-NWarrior.Npc.prototype = {
-	init: function(game) {
+NWarrior.Npc = function(game){
 		this.npc = game.add.sprite(450, 150, 'npc');
     game.physics.arcade.enable(this.npc);            
     this.npc.body.collideWorldBounds = true;    
@@ -78,11 +87,10 @@ NWarrior.Npc.prototype = {
     this.npc.enableBody = true;
     this.npc.body.immovable = true;
 
-    this.walk(this.npc);
-    
-    return this.npc;
-	},
+    this.walk(this.npc);       
+};
 
+NWarrior.Npc.prototype = {
 	walk: function(npc) {
 		setInterval(function() {
 			var direction = Math.floor(Math.random() * (6 - 1)) + 1;			
@@ -126,38 +134,17 @@ NWarrior.Npc.prototype = {
 	}
 }
 var utils = {
-  centerGameObjects: function (objects) {
-    objects.forEach(function (object) {
-      object.anchor.setTo(0.5);
-    })
-  },
-  
-  walkCursors: function (cursor, player) {    
+    walkCursors: function (cursor, player) {    
 		if (cursor.left.isDown) {
-      this.lastFrame = 4;
-      player.body.velocity.x = -150;
-      player.body.velocity.y = 0;
-      player.animations.play('left');
-	  } else if (cursor.right.isDown) {
-      this.lastFrame = 7;
-      player.body.velocity.y = 0;
-      player.body.velocity.x = 150;
-      player.animations.play('right');
+      this.walk('left', player, 150);
+    } else if (cursor.right.isDown) {      
+      this.walk('right', player, 150);
 	  } else if (cursor.up.isDown) {
-      this.lastFrame = 10;
-      player.body.velocity.y = -150;
-      player.body.velocity.x = 0;
-      player.animations.play('up');
+      this.walk('up', player, 150);
 	  } else if (cursor.down.isDown) {
-      this.lastFrame = 1;
-      player.body.velocity.y = 150;
-      player.body.velocity.x = 0;
-      player.animations.play('down');
+      this.walk('down', player, 150);
 	  } else {
-	  	player.body.velocity.x = 0;
-	  	player.body.velocity.y = 0;
-      player.animations.stop();
-      player.frame = this.lastFrame;      
+	  	this.walk('stop', player, 150);
 	  }  	    
   },
 
@@ -168,57 +155,59 @@ var utils = {
   	player.animations.add('up', [10, 9, 11], 10, true);  
   },
 
-  walk: function(direction, character) {
+  walk: function(direction, character, velocity) {
+    velocity = velocity || 50;
+
     switch(direction){
       case 'down':
         this.lastFrame = 1;
-        character.body.velocity.y = 50;
+        character.body.velocity.y = velocity;
         character.body.velocity.x = 0;
-        character.animations.play('down');    
         break;
 
       case 'up':
         this.lastFrame = 10;
-        character.body.velocity.y = -50;
+        character.body.velocity.y = -velocity;
         character.body.velocity.x = 0;
-        character.animations.play('up');
         break;
 
       case 'left':       
         this.lastFrame = 4;
-        character.body.velocity.x = -50;
+        character.body.velocity.x = -velocity;
         character.body.velocity.y = 0;
-        character.animations.play('left');
         break;
 
       case 'right':
         this.lastFrame = 7;
         character.body.velocity.y = 0;
-        character.body.velocity.x = 50;
-        character.animations.play('right');
+        character.body.velocity.x = velocity;
         break;
         
       case 'stop':
         character.body.velocity.x = 0;
         character.body.velocity.y = 0;
         character.animations.stop();
-        character.frame = this.lastFrame;    
         break;      
     }
+
+    character.animations.play(direction);    
   }
 };
-
-
 var NWarrior = NWarrior || {};
 
-NWarrior.Game = function(){};
+NWarrior.Boot = function(){};
 
-NWarrior.Game.prototype = {
+NWarrior.Boot.prototype = {
 	preload: function() {
+		this.loadingStyle = { font: "18px Helvetica", fill: "#fff"},
+		this.loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Carregando...", this.loadingStyle);
+		
+		this.loading.anchor.setTo(0.5);
+
 		this.game.load.spritesheet('player', 'img/char2.png', 31, 32);			
 		this.game.load.spritesheet('npc', 'img/char3.png', 31, 32);			
-		this.game.load.tilemap('sampleMap', 'tiles/sample_map.json', null, Phaser.Tilemap.TILED_JSON);	
-		this.game.load.image('tiles', 'tiles/RPGpack_sheet.png');
+		this.game.load.tilemap('sampleMap', 'tiles/sample_map2.json', null, Phaser.Tilemap.TILED_JSON);	
+		this.game.load.image('tiles', 'tiles/TileCraftGroundSet.png');
 		this.game.load.audio('backgroundMusic', 'audio/RetroMystic.ogg');
 
 		//hud
@@ -226,30 +215,32 @@ NWarrior.Game.prototype = {
 		this.game.load.image('audio', 'img/audioOn.png');
 	},
 
-	create: function() {				
-		this.game.time.advancedTiming = true;		
+	create: function() {
+		NWarrior.game.state.start('Game');
+	}
+}
+var NWarrior = NWarrior || {};
 
+NWarrior.Game = function(){};
+
+NWarrior.Game.prototype = {
+	create: function() {				
+		this.game.time.advancedTiming = true;	
 
 		this.music = this.game.add.audio('backgroundMusic');
 		this.music.play('', 0, 1, true);
 
-
 		this.map = this.game.add.tilemap('sampleMap');
 		
-    var game_width = this.map.widthInPixels;
-    var game_height = this.map.heightInPixels;
+    var game_width = this.map.widthInPixels,
+    		game_height = this.map.heightInPixels;
 
     this.game.world.setBounds(0, 0, game_width, game_height);
 
-		this.map.addTilesetImage('RPGpack_sheet', 'tiles');		
+		this.map.addTilesetImage('TileCraftGroundSet', 'tiles');		
 
-		this.ground = this.map.createLayer("ground");		
-		this.ground.resizeWorld();
-		this.water = this.map.createLayer("water");
-		this.water.resizeWorld();
-		this.object = this.map.createLayer("object");		                   
-		this.object.resizeWorld();		
-
+		this.ground = this.map.createLayer("layer1");		
+		this.ground.resizeWorld();						
 
     this.player = this.game.add.sprite(280, 50, 'player');
     this.player.frame = 1;
@@ -258,12 +249,11 @@ NWarrior.Game.prototype = {
     utils.walkAnimations(this.player);
     this.game.camera.follow(this.player);
 
-    this.npcClass = new NWarrior.Npc();
-    this.npc = this.npcClass.init(this.game);	 	
+    this.npc = new NWarrior.Npc(this.game);    
 
 		this.hud = new NWarrior.Hud(this.game);    
     
-		var audio = this.game.add.sprite(730, 10, 'audio');
+		var audio = this.game.add.sprite(720, 10, 'audio');
 
     audio.fixedToCamera = true;
 		audio.scale.setTo(0.7, 0.7);		
@@ -280,7 +270,6 @@ NWarrior.Game.prototype = {
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 	 	utils.walkCursors(this.cursors, this.player);			  	
-
 	},
 
 	render: function() {
@@ -301,20 +290,7 @@ NWarrior.Game.prototype = {
 }
 var NWarrior = NWarrior || {};
 
-NWarrior.Boot = function(){};
-
-NWarrior.Boot.prototype = {
-	preload: function() {						
-		
-	},
-
-	create: function() {
-		NWarrior.game.state.start('Game');
-	}
-}
-var NWarrior = NWarrior || {};
-
-NWarrior.game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser');
+NWarrior.game = new Phaser.Game(768, 448, Phaser.AUTO, 'phaser');
 
 NWarrior.game.state.add('Boot', NWarrior.Boot);
 NWarrior.game.state.add('Menu', NWarrior.Menu);
