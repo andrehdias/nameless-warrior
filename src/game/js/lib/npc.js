@@ -1,15 +1,18 @@
 var NWarrior = NWarrior || {};
 
 NWarrior.Npc = function(game){
-		this.npc = game.add.sprite(450, 150, 'npc');
-    game.physics.arcade.enable(this.npc);            
-    this.npc.body.collideWorldBounds = true;    
-    utils.walkAnimations(this.npc);    
-    this.npc.frame = 4;
-    this.npc.enableBody = true;
-    this.npc.body.immovable = true;
+		Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'npc');
+		
+    game.physics.arcade.enable(this);            
 
-    this.walk(this.npc);       
+    this.body.collideWorldBounds = true;    
+
+    utils.walkAnimations(npc);    
+
+    this.frame = 4;
+    this.enableBody = true;    
+
+    this.walk(this);       
 };
 
 NWarrior.Npc.prototype = {

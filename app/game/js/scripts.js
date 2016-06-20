@@ -45,6 +45,14 @@ NWarrior.Character = function(game) {
 	this.hunger;
 	this.sleep;
 
+	Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'player');
+
+  this.frame = 1;
+  game.physics.arcade.enable(this);            
+  this.body.collideWorldBounds = true;    
+  utils.walkAnimations(this);
+  this.game.camera.follow(this);
+
 	this.init();
 };
 
@@ -75,19 +83,42 @@ NWarrior.Hud.prototype = {
 		text2.fixedToCamera = true;
 	}
 }
+var NWarrior = NWarrior || {};
 
+NWarrior.Map = function(game) {
+	this.map = game.add.tilemap('sampleMap');
+		
+  var game_width = this.map.widthInPixels,
+  		game_height = this.map.heightInPixels;
+
+  game.world.setBounds(0, 0, game_width, game_height);
+
+	this.map.addTilesetImage('TileCraftGroundSet', 'tiles');		
+
+	this.ground = this.map.createLayer("layer1");		
+	this.ground.resizeWorld();						
+};
+
+NWarrior.Map.prototype = {
+	init: function() {
+
+	}
+}
 var NWarrior = NWarrior || {};
 
 NWarrior.Npc = function(game){
-		this.npc = game.add.sprite(450, 150, 'npc');
-    game.physics.arcade.enable(this.npc);            
-    this.npc.body.collideWorldBounds = true;    
-    utils.walkAnimations(this.npc);    
-    this.npc.frame = 4;
-    this.npc.enableBody = true;
-    this.npc.body.immovable = true;
+		Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'npc');
+		
+    game.physics.arcade.enable(this);            
 
-    this.walk(this.npc);       
+    this.body.collideWorldBounds = true;    
+
+    utils.walkAnimations(npc);    
+
+    this.frame = 4;
+    this.enableBody = true;    
+
+    this.walk(this);       
 };
 
 NWarrior.Npc.prototype = {
@@ -228,30 +259,15 @@ NWarrior.Game.prototype = {
 		this.game.time.advancedTiming = true;	
 
 		this.music = this.game.add.audio('backgroundMusic');
-		this.music.play('', 0, 1, true);
+		this.music.play('', 0, 1, true);		
 
-		this.map = this.game.add.tilemap('sampleMap');
-		
-    var game_width = this.map.widthInPixels,
-    		game_height = this.map.heightInPixels;
-
-    this.game.world.setBounds(0, 0, game_width, game_height);
-
-		this.map.addTilesetImage('TileCraftGroundSet', 'tiles');		
-
-		this.ground = this.map.createLayer("layer1");		
-		this.ground.resizeWorld();						
-
-    this.player = this.game.add.sprite(280, 50, 'player');
-    this.player.frame = 1;
-    this.game.physics.arcade.enable(this.player);            
-    this.player.body.collideWorldBounds = true;    
-    utils.walkAnimations(this.player);
-    this.game.camera.follow(this.player);
+		this.player = new NWarrior.Character(this.game);
 
     this.npc = new NWarrior.Npc(this.game);    
 
 		this.hud = new NWarrior.Hud(this.game);    
+		
+		this.map = new NWarrior.Map(this.game);    
     
 		var audio = this.game.add.sprite(720, 10, 'audio');
 
@@ -273,11 +289,7 @@ NWarrior.Game.prototype = {
 	},
 
 	render: function() {
-		this.game.debug.text(this.game.time.fps || '--', 10, 580, "#000"); 
-	},
-
-	showMessage: function() {
-		console.log("olá forasteiro!");
+		this.game.debug.text(this.game.time.fps || '--', 10, 430, "#000"); 
 	},
 
 	turnAudio: function(audio) {

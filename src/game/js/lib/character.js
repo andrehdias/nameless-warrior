@@ -18,6 +18,14 @@ NWarrior.Character = function(game) {
 	this.hunger;
 	this.sleep;
 
+	Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'player');
+
+  this.frame = 1;
+  game.physics.arcade.enable(this);            
+  this.body.collideWorldBounds = true;    
+  utils.walkAnimations(this);
+  this.game.camera.follow(this);
+
 	this.init();
 };
 

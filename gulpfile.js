@@ -8,7 +8,7 @@ var gulp        = require('gulp'),
 //URLs
 var siteJS = 'src/site/js/',
     siteJSDest = 'app/js/',
-    gameJS = 'src/game/js',
+    gameJS = 'src/game/js/',
     gameJSDest = 'app/game/js/',
     siteSASS = 'src/site/sass/',
     siteJSFiles = siteJS+'**/*.js',
@@ -25,7 +25,7 @@ gulp.task('serve', ['sass'], function() {
   gulp.watch(siteSASSFiles, ['sass']);
   gulp.watch(siteJSFiles, ['scripts:site']);
   gulp.watch(gameJSFiles, ['scripts:game']);
-  gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', browserSync.reload);
+  gulp.watch(["app/*.html", "app/js/**/*.js", "app/game/js/**/*.js"]).on('change', browserSync.reload);
 });
 
 //Generate scripts file for the site
