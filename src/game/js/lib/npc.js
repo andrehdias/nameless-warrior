@@ -1,60 +1,38 @@
 var NWarrior = NWarrior || {};
 
 NWarrior.Npc = function(game){
+		this.type;
+
+		this.str;
+		this.con;
+		this.dex;
+		this.int;
+		this.cha;
+
+		this.hp;
+		this.mana;
+		this.stamina;
+		this.hunger;
+		this.sleep;
+
 		Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'npc');
-		
-    game.physics.arcade.enable(this);            
-
-    this.body.collideWorldBounds = true;    
-
-    utils.walkAnimations(npc);    
-
-    this.frame = 4;
-    this.enableBody = true;    
-
-    this.walk(this);       
+    this.create();
 };
 
-NWarrior.Npc.prototype = {
-	walk: function(npc) {
-		setInterval(function() {
-			var direction = Math.floor(Math.random() * (6 - 1)) + 1;			
-			
-			switch(direction){
-				case 1:
-					this.lastFrame = 1;
-					npc.body.velocity.y = 50;
-			    npc.body.velocity.x = 0;
-			    npc.animations.play('down');    
-					break;
+NWarrior.Npc.prototype = Object.create(Phaser.Sprite.prototype);
+NWarrior.Npc.prototype.constructor = NWarrior.Character;
 
-				case 2:
-					this.lastFrame = 10;
-		      npc.body.velocity.y = -50;
-		      npc.body.velocity.x = 0;
-		      npc.animations.play('up');
-					break;
+NWarrior.Npc.prototype.create = function() {
+  this.game.add.existing(this);	 
 
-				case 3:				
-					this.lastFrame = 4;
-					npc.body.velocity.x = -50;
-		      npc.body.velocity.y = 0;
-		      npc.animations.play('left');
-					break;
+  this.game.physics.arcade.enable(this);            
+  this.body.collideWorldBounds = true;    
+  this.frame = 4;
+  this.enableBody = true;    
+  
+  utils.walkAnimations(this);    
+  utils.randomWalk(this, 50);      	
+};
 
-				case 4:
-					this.lastFrame = 7;
-					npc.body.velocity.y = 0;
-		      npc.body.velocity.x = 50;
-		      npc.animations.play('right');
-					break;
-				case 5:
-					npc.body.velocity.x = 0;
-		  		npc.body.velocity.y = 0;
-	      	npc.animations.stop();
-	      	npc.frame = this.lastFrame;    
-					break;
-			}
-		}, 1000);
-	}
-}
+NWarrior.Npc.prototype.update = function() {
+};

@@ -1,8 +1,6 @@
 var NWarrior = NWarrior || {};
 
 NWarrior.Character = function(game) {
-	this.game = game;
-
 	this.class;
 	this.nickname;
 
@@ -20,17 +18,24 @@ NWarrior.Character = function(game) {
 
 	Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'player');
 
-  this.frame = 1;
-  game.physics.arcade.enable(this);            
-  this.body.collideWorldBounds = true;    
-  utils.walkAnimations(this);
-  this.game.camera.follow(this);
-
-	this.init();
+	this.create();
 };
 
-NWarrior.Character.prototype = {
-	init: function() {
+NWarrior.Character.prototype = Object.create(Phaser.Sprite.prototype);
+NWarrior.Character.prototype.constructor = NWarrior.Character;
 
-	}
-}
+NWarrior.Character.prototype.create = function() {
+	this.game.add.existing(this);	
+
+  this.frame = 1;
+  this.game.physics.arcade.enable(this);            
+  this.body.collideWorldBounds = true;    
+  this.game.camera.follow(this);	
+	this.cursors = this.game.input.keyboard.createCursorKeys();
+	
+  utils.walkAnimations(this);
+};
+
+NWarrior.Character.prototype.update = function() {
+	utils.walkCursors(this.cursors, this);	
+};

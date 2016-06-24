@@ -45,8 +45,7 @@ gulp.task('scripts:site', function() {
 
 //Generate scripts file for the game
 gulp.task('scripts:game', function() {
-  return gulp.src([
-                gameJS+'phaser.min.js',
+  return gulp.src([                
                 gameJS+'lib/*.js', 
                 gameJS+'states/*.js', 
                 gameJS+'main.js'
