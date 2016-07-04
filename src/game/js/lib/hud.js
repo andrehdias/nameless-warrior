@@ -14,8 +14,8 @@ NWarrior.Hud.prototype = {
 		text.fixedToCamera = true;
 		text2.fixedToCamera = true;
 
-		this.music = this.game.add.audio('backgroundMusic');
-		this.music.play('', 0, 1, true);
+		/*this.music = this.game.add.audio('backgroundMusic');
+		this.music.play('', 0, 1, true);*/
 
 		var audio = this.game.add.sprite(720, 10, 'audio');
 

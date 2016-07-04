@@ -1,5 +1,5 @@
 section {		
-	font-family: $content-font;
+	/* font-family: $content-font; */
 	color: $black;
 	line-height: 25px;	
 	text-align: center;
@@ -30,12 +30,12 @@ section {
 	  transform: translate(-50%, -50%);
 
 		//Site intro content
-		.intro {		
+		div.intro {		
 			color: $white;
 			padding: 60px 0;
 
-			&__img {			
-				max-width: 90%;
+			img {			
+				width: 100%;
 			}						
 		}
 	}	

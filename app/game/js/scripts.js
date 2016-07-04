@@ -82,8 +82,8 @@ NWarrior.Hud.prototype = {
 		text.fixedToCamera = true;
 		text2.fixedToCamera = true;
 
-		this.music = this.game.add.audio('backgroundMusic');
-		this.music.play('', 0, 1, true);
+		/*this.music = this.game.add.audio('backgroundMusic');
+		this.music.play('', 0, 1, true);*/
 
 		var audio = this.game.add.sprite(720, 10, 'audio');
 
@@ -284,7 +284,9 @@ NWarrior.Boot.prototype = {
 }
 var NWarrior = NWarrior || {};
 
-NWarrior.Game = function(){};
+NWarrior.Game = function(){
+	this.npcsNumber = 20;
+};
 
 NWarrior.Game.prototype = {
 	create: function() {				
@@ -294,13 +296,22 @@ NWarrior.Game.prototype = {
 
 		this.player = new NWarrior.Character(this.game);
 
-    this.npc = new NWarrior.Npc(this.game);   
+		this.npcs = [];
+		this.npcsGroup = this.game.add.group();
+
+		for(var i = 0; i < this.npcsNumber; i++) {
+    	this.npcs[i] = new NWarrior.Npc(this.game);   
+    	this.npcsGroup.add(this.npcs[i]);
+		}
+
+		console.log(this.npcs)
+
 
 		this.hud = new NWarrior.Hud(this.game);    		
 	},
 
 	update: function() {
-		this.game.physics.arcade.collide(this.player, this.npc);
+		this.game.physics.arcade.collide(this.player, this.npcsGroup);
 	},
 
 	render: function() {

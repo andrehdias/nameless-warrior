@@ -1,7 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@font-face {
+	font-family: "FreePixel";
+	src: url(fonts/FreePixel.ttf);
+}
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	font-family: "FreePixel", Open Sans;
 }
