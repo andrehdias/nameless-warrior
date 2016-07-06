@@ -121,8 +121,7 @@
 		max-height: 80%;
 	}
 
-	@include smallViewport {
-		top: 50%;
+	@include smallViewport {		
 		width: 100%;
 	}
 }

@@ -27,7 +27,7 @@
 	<!-- Form Boxes -->
 	<section class="formbox" id="formbox-login">
 		<h3 class="formbox__title">Fazer Login</h3>
-		<form action="" data-target="user" data-action="login" name="form_login" id="form_login" enctype="multipart/form-data">
+		<form action="" data-target="users" data-action="POST" name="form_login" id="form_login">
 			<input class="formbox__input" type="email" name="email" placeholder="Email" required>
 			<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
 			
@@ -40,7 +40,7 @@
 	</section>
 
 	<section class="formbox" id="formbox-signup">
-		<form action="" data-target="user" data-action="signup" name="form_signup" id="form_signup">
+		<form action="" data-target="users" data-action="POST" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Cadastrar-se</h3>
 
 			<input class="formbox__input" type="email" name="email" placeholder="Email" required>

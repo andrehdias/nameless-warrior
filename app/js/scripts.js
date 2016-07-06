@@ -45,8 +45,24 @@ Boxes.prototype = {
 		});
 	}
 }
+$.fn.serializeObject = function() {
+  var o = {};
+  var a = this.serializeArray();
+  $.each(a, function() {
+      if (o[this.name]) {
+        if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
+        }
+        o[this.name].push(this.value || '');
+      } else {
+        o[this.name] = this.value || '';
+      }
+  });
+  return o;
+};
+
 Forms = function() {
-	this.apiURL = "api/";
+	this.apiURL = "http://localhost:8080/";
 	this.selector = "form";
 
 	this.bindEvents();
@@ -58,49 +74,37 @@ Forms.prototype = {
 		forms = $(this.selector);
 
 		forms.each(function() {		
-			var form = $(this);
-			 		formAction = form.data("action"),
-					formTarget = form.data("target"),
-					params = new Object(),
-					id = form.attr("id");
-					result = form.find('.formbox__result'),
-					data = {};
-
-			if(formAction == 'signup') {
-				if(_this.checkPass(form.find('[name=password]'), form.find('[name=repeat-password]'))){
-					
-				} else {
-					
-				}
-			}
+			var form = $(this);					
 
 			form.submit(function(e) {
-				e.preventDefault();				
-												
-				data = $(this).serializeArray();												
-				data.push({name: "action", value: formAction});
-				data.push({name: "target", value: formTarget});
-				console.log(data)
+				var formAction = form.data("action"),
+						formTarget = form.data("target"),					
+						result = form.find('.formbox__result'),
+						data = $(this).serializeObject();			
+
+						console.log(data)
+
+				e.preventDefault();												
 								
-				_this.ajaxCall(result, data);
+				_this.ajaxCall(formTarget, formAction, result, data);
 			});
 		}); 		
 	},
 
-	ajaxCall: function(target, params) {
+	ajaxCall: function(target, action, result, data) {
 		var _this = this,
 				xhttp = new XMLHttpRequest(),
 				loader = $('.loader');
 		
-		loader.addClass('active');				
+		loader.addClass('active');						
 
 		$.ajax({
-			type: "POST",
-			url: _this.apiURL,
-			data: params,			
+			type: action,
+			url: _this.apiURL+target,
+			data: data,			
 			success: function(data) {
 		    loader.removeClass('active');
-		    _this.handleReturn(data, target);
+		    _this.handleReturn(data, result);
 			}
 		});		
 	},
