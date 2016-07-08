@@ -35,8 +35,6 @@ Forms.prototype = {
 						result = form.find('.formbox__result'),
 						data = $(this).serializeObject();			
 
-						console.log(data)
-
 				e.preventDefault();												
 								
 				_this.ajaxCall(formTarget, formAction, result, data);
@@ -46,15 +44,15 @@ Forms.prototype = {
 
 	ajaxCall: function(target, action, result, data) {
 		var _this = this,
-				xhttp = new XMLHttpRequest(),
-				loader = $('.loader');
+				loader = $('.loader'),
+				url = _this.apiURL+target;
 		
 		loader.addClass('active');						
 
 		$.ajax({
-			type: action,
-			url: _this.apiURL+target,
-			data: data,			
+			type: action,			
+			url: url,
+			data: data,	
 			success: function(data) {
 		    loader.removeClass('active');
 		    _this.handleReturn(data, result);
@@ -63,16 +61,10 @@ Forms.prototype = {
 	},
 
 	handleReturn: function(data, result) {
-		var returnData = JSON.parse(data);
 		result.html(data.message);
-		console.log(result)
 	},
 
 	login: function() {
 		
-	},
-
-	checkPass: function(input, inputTwo) {
-
 	}
 };

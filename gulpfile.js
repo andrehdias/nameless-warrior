@@ -19,7 +19,9 @@ var siteJS = 'src/site/js/',
 gulp.task('serve', ['sass'], function() {
   //Apache as proxy
   browserSync.init({
-    proxy: "http://localhost/nameless-warrior/app/"
+    server: {
+      baseDir: './app/'
+    }
   });
 
   gulp.watch(siteSASSFiles, ['sass']);
