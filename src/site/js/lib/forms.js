@@ -1,24 +1,13 @@
-$.fn.serializeObject = function() {
-  var o = {};
-  var a = this.serializeArray();
-  $.each(a, function() {
-      if (o[this.name]) {
-        if (!o[this.name].push) {
-            o[this.name] = [o[this.name]];
-        }
-        o[this.name].push(this.value || '');
-      } else {
-        o[this.name] = this.value || '';
-      }
-  });
-  return o;
-};
-
 Forms = function() {
 	this.apiURL = "http://localhost:8080/";
 	this.selector = "form";
+	this.menuNotLogged = Zepto('.menu--not-logged');
+	this.loggedMenu = Zepto('.menu--logged');
+	this.notLoggedText = Zepto('.not-logged--text');
+	this.loggedText = Zepto('.logged--text');
 
 	this.bindEvents();
+	this.checkLogin();
 };
 
 Forms.prototype = {
@@ -40,6 +29,11 @@ Forms.prototype = {
 				_this.ajaxCall(formTarget, formAction, result, data);
 			});
 		}); 		
+
+		Zepto('.logout').click(function() {
+			sessionStorage.clear();
+			location.reload();
+		});
 	},
 
 	ajaxCall: function(target, action, result, data) {
@@ -55,16 +49,55 @@ Forms.prototype = {
 			data: data,	
 			success: function(data) {
 		    loader.removeClass('active');
-		    _this.handleReturn(data, result);
+
+		    switch(target) {
+		    	case 'users':
+		    		_this.handleSignUp(data, result);
+		    		break;
+
+		    	case 'users/login':
+		    		_this.handleLogin(data, result);
+		    		break;
+		    }
 			}
 		});		
 	},
 
-	handleReturn: function(data, result) {
+	handleSignUp: function(data, result) {
 		result.html(data.message);
 	},
 
-	login: function() {
-		
+	handleLogin: function(data, result) {		
+		result.html(data.message);
+
+		if(data.logged) {
+			setTimeout(function() {
+				Zepto('.overlay').click();
+			}, 500);			
+
+			this.saveSession(data);
+			this.checkLogin();
+		}
+	},
+
+	saveSession: function(data) {
+		sessionStorage.setItem('userID', data.userId);
+		sessionStorage.setItem('email', data.email);
+	},
+
+	checkLogin: function() {
+		if(sessionStorage.getItem('userID')) {
+			this.loggedText.find('b').html(sessionStorage.getItem('email'));
+
+			this.loggedMenu.show();
+			this.loggedText.show();
+			this.menuNotLogged.hide();					
+			this.notLoggedText.hide();
+		} else {
+			this.loggedMenu.hide();
+			this.loggedText.hide();
+			this.menuNotLogged.show();					
+			this.notLoggedText.show();
+		}
 	}
 };

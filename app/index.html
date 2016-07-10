@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<meta name="viewport" content="width=device-width">	
 
 	<title>Nameless Warrior</title>
 
@@ -15,12 +15,21 @@
 
 	<section class="content">			
 		<div class="intro">
-			<img src="http://placehold.it/1000x120/fff?text=Logo" class="intro__img" alt="">					
+			<h1>Nameless Warrior</h1>
 
-			<ul class="menu">				
+			<p class="not-logged--text">RPG estilo retrô construído utilizando tecnologias WEB</p>
+
+			<p class="logged--text">Bem vindo <b></b>, <a href="" class="logout">Clique aqui para sair</a></p>
+
+			<ul class="menu menu--not-logged">				
 				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
 				<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Criar Conta</button></li>
-			</ul>							
+			</ul>
+
+			<ul class="menu menu--logged">				
+				<li><button data-target="#formbox-select" class="btn btn--red open-formbox">Selecionar Personagem</button></li>
+				<li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Criar Personagem</button></li>
+			</ul>
 		</div>
 	</section>
 
@@ -60,7 +69,7 @@
 		<h2 class="formbox__title">Selecionar Personagem</h2>
 		
 		<div class="character__wrapper">
-			<div class="character">
+			<a href="game/" class="character">
 				<h3 class="character__nickname">AndrehNSFW</h3>
 				<p class="character__class">Guerreiro</p>
 				
@@ -71,9 +80,9 @@
 					<li><b>Inteligência: </b>12</li>
 					<li><b>Carisma: </b>13</li>							
 				</ul>
-			</div>
+			</a>
 
-			<div class="character">
+			<a href="game/" class="character">
 				<h3 class="character__nickname">AndrehSan</h3>
 				<p class="character__class">Arqueiro</p>
 				
@@ -84,7 +93,7 @@
 					<li><b>Inteligência: </b>12</li>
 					<li><b>Carisma: </b>13</li>							
 				</ul>
-			</div>
+			</a>
 		</div>
 		
 		<div class="text-center">
@@ -153,7 +162,6 @@
 		
 		<div class="text-center">
 			<button class="btn btn--red open-formbox" data-target="#formbox-create">Criar</button>							
-			<button class="btn btn--green open-formbox" data-target="#formbox-select">Voltar</button>											
 		</div>
 	</section>
 	<!-- Form Boxes -->				

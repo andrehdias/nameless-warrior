@@ -34,6 +34,7 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('scripts:site', function() {
   return gulp.src([
                 siteJS+'zepto.js', 
+                siteJS+'lib/utils.js', 
                 siteJS+'lib/boxes.js', 
                 siteJS+'lib/forms.js', 
                 siteJS+'app.js'
