@@ -84,11 +84,24 @@ Forms.prototype = {
 				var formAction = form.data("action"),
 						formTarget = form.data("target"),					
 						result = form.find('.formbox__result'),
-						data = $(this).serializeObject();			
+						data = $(this).serializeObject(),
+						invalid = false;			
 
-				e.preventDefault();												
+				e.preventDefault();							
+
+				if(formTarget == 'users')	{
+						var password = form.find('[name=password]').val(),
+								repeatPassword = form.find('[name=repeat-password]').val();
+
+					  if (password != repeatPassword) {
+		          result.html('As senhas devem ser iguais');
+		          invalid = true;
+		        } 
+				}				
 								
-				_this.ajaxCall(formTarget, formAction, result, data);
+				if(!invalid) {
+					_this.ajaxCall(formTarget, formAction, result, data);					
+				}
 			});
 		}); 		
 
@@ -127,6 +140,13 @@ Forms.prototype = {
 
 	handleSignUp: function(data, result) {
 		result.html(data.message);
+
+		if(data.created) {
+			setTimeout(function() {
+				Zepto('.overlay').click();
+				Zepto('[data-target="#formbox-login"]').click();
+			}, 500);						
+		}
 	},
 
 	handleLogin: function(data, result) {		
