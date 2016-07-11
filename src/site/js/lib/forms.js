@@ -1,5 +1,5 @@
 Forms = function() {
-	this.apiURL = "http://localhost:8080/";
+	this.apiURL = "http://www.namelesswarrior.com:8080/";
 	this.selector = "form";
 	this.menuNotLogged = Zepto('.menu--not-logged');
 	this.loggedMenu = Zepto('.menu--logged');
@@ -16,12 +16,16 @@ Forms.prototype = {
 		forms = $(this.selector);
 
 		forms.each(function() {		
-			var form = $(this);					
+			var form = $(this),
+					formAction = form.data("action"),
+					formTarget = form.data("target"),					
+					result = form.find('.formbox__result');
 
+			if(formTarget === 'characters') {
+				_this.setupCharacterCreation();
+			}
+			
 			form.submit(function(e) {
-				var formAction = form.data("action"),
-						formTarget = form.data("target"),					
-						result = form.find('.formbox__result'),
 						data = $(this).serializeObject(),
 						invalid = false;			
 
@@ -119,5 +123,26 @@ Forms.prototype = {
 			this.menuNotLogged.show();					
 			this.notLoggedText.show();
 		}
+	},
+
+	setupCharacterCreation: function() {
+		var form = Zepto('[name="form_create"]'),
+				stats = form.find('.stats__group'),
+				remainingStats = form.find('.remaining-stats');
+
+		stats.each(function() {
+			var statsGroup = Zepto(this),
+					plusButton = statsGroup.find('.stats__btn--plus'),
+					minusButton = statsGroup.find('.stats__btn--minus'),
+					statsInput = statsGroup.find('.stats__input');
+
+			plusButton.click(function() {
+
+			});
+
+			minusButton.click(function() {
+
+			});		
+		});
 	}
 };

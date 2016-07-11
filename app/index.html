@@ -104,10 +104,10 @@
 	<section class="formbox formbox__create" id="formbox-create">
 		<h2 class="formbox__title">Criar Personagem</h2>
 
-		<form action="" name="form_create">
-			<input class="formbox__input" type="text" name="nickname" placeholder="Apelido">
+		<form action="" name="form_create" data-target="characters" data-action="POST">
+			<input class="formbox__input" type="text" name="nickname" placeholder="Apelido" required>
 
-			<select name="class" id="" class="formbox__input">
+			<select name="class" id="" class="formbox__input" required>
 				<option value="">Selecione uma classe</option>
 				<option value="">Guerreiro</option>
 				<option value="">Arqueiro</option>
@@ -119,37 +119,37 @@
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Força:</label>
-					<button class="stats__btn">-</button>					
+					<button class="stats__btn stats__btn--minus">-</button>					
 					<input type="text" class="stats__input" value="5" readonly>
-					<button class="stats__btn">+</button>
+					<button class="stats__btn stats__btn--plus">+</button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Constituição:</label>
-					<button class="stats__btn">-</button>					
+					<button class="stats__btn stats__btn--minus">-</button>					
 					<input type="text" class="stats__input" value="5" readonly>
-					<button class="stats__btn">+</button>
+					<button class="stats__btn stats__btn--plus">+</button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Destreza:</label>
-					<button class="stats__btn">-</button>					
+					<button class="stats__btn stats__btn--minus">-</button>					
 					<input type="text" class="stats__input" value="5" readonly>
-					<button class="stats__btn">+</button>
+					<button class="stats__btn stats__btn--plus">+</button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Inteligência:</label>
-					<button class="stats__btn">-</button>					
+					<button class="stats__btn stats__btn--minus">-</button>					
 					<input type="text" class="stats__input" value="5" readonly>
-					<button class="stats__btn">+</button>
+					<button class="stats__btn stats__btn--plus">+</button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Carisma:</label>
-					<button class="stats__btn">-</button>					
+					<button class="stats__btn stats__btn--minus">-</button>					
 					<input type="text" class="stats__input" value="5" readonly>
-					<button class="stats__btn">+</button>
+					<button class="stats__btn stats__btn--plus">+</button>
 				</div>				
 				
 				<p class="stats__counter">Pontos de atributo restantes: <b class="remaining-stats">10</b></p>
