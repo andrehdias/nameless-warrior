@@ -105,13 +105,21 @@
 
 			&__btn {
 				border: none;
-				height: 20px;
-				width: 20px;
+				height: 12px;
+				width: 12px;
 				color: $white;
 				background: none;
-				font-size: 16px;				
+				font-size: 13px;				
 				outline: none;
 				cursor: pointer;
+
+				&--plus:before {
+					content: '\2795';
+				}
+
+				&--minus:before {
+					content: '\2796';
+				}
 			}
 		}
 	}

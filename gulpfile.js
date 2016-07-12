@@ -36,7 +36,7 @@ gulp.task('scripts:site', function() {
                 siteJS+'zepto.js', 
                 siteJS+'lib/utils.js', 
                 siteJS+'lib/boxes.js', 
-                siteJS+'lib/forms.js', 
+                siteJS+'lib/home.js', 
                 siteJS+'app.js'
               ])
     .pipe(concat('scripts.js'))

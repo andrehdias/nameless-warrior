@@ -1,4 +1,4 @@
-Forms = function() {
+Home = function() {
 	this.apiURL = "http://www.namelesswarrior.com:8080/";
 	this.selector = "form";
 	this.menuNotLogged = Zepto('.menu--not-logged');
@@ -10,7 +10,7 @@ Forms = function() {
 	this.checkLogin();
 };
 
-Forms.prototype = {
+Home.prototype = {
 	bindEvents: function() {
 		var _this = this,
 		forms = $(this.selector);
@@ -19,11 +19,7 @@ Forms.prototype = {
 			var form = $(this),
 					formAction = form.data("action"),
 					formTarget = form.data("target"),					
-					result = form.find('.formbox__result');
-
-			if(formTarget === 'characters') {
-				_this.setupCharacterCreation();
-			}
+					result = form.find('.formbox__result');			
 			
 			form.submit(function(e) {
 						data = $(this).serializeObject(),
@@ -104,7 +100,7 @@ Forms.prototype = {
 		}
 	},
 
-	saveSession: function(data) {
+	saveSession: function(data) {		
 		sessionStorage.setItem('userID', data.userId);
 		sessionStorage.setItem('email', data.email);
 	},
@@ -117,6 +113,8 @@ Forms.prototype = {
 			this.loggedText.show();
 			this.menuNotLogged.hide();					
 			this.notLoggedText.hide();
+
+			this.setupCharacterCreation();
 		} else {
 			this.loggedMenu.hide();
 			this.loggedText.hide();
@@ -131,17 +129,42 @@ Forms.prototype = {
 				remainingStats = form.find('.remaining-stats');
 
 		stats.each(function() {
-			var statsGroup = Zepto(this),
+			var	statsGroup = Zepto(this),
 					plusButton = statsGroup.find('.stats__btn--plus'),
 					minusButton = statsGroup.find('.stats__btn--minus'),
-					statsInput = statsGroup.find('.stats__input');
+					statsInput = statsGroup.find('.stats__input');					
 
-			plusButton.click(function() {
+			plusButton.click(function(e) {
+				e.preventDefault();
+				
+				var remainingStatsVal = remainingStats.html(),
+						statsVal = statsInput.val();
 
+				if(remainingStatsVal > 0) {										
+					statsVal++;
+
+					statsInput.val(statsVal);
+
+					remainingStatsVal--;
+
+					remainingStats.html(remainingStatsVal);
+				}
 			});
 
-			minusButton.click(function() {
+			minusButton.click(function(e) {
+				e.preventDefault();
 
+				var remainingStatsVal = remainingStats.html(),
+						statsVal = statsInput.val();
+
+				if(remainingStatsVal < 10 && statsVal > 5) {
+					statsVal--;
+
+					statsInput.val(statsVal);
+					remainingStatsVal++;
+
+					remainingStats.html(remainingStatsVal);
+				}
 			});		
 		});
 	}
