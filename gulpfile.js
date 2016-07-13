@@ -1,68 +1,63 @@
 var gulp        = require('gulp'),
     browserSync = require('browser-sync').create(),
-    sass     = require('gulp-sass'),
+    sass        = require('gulp-sass'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
-    uglify      = require('gulp-uglify');
+    uglify      = require('gulp-uglify'),
+    config      = require('./nwarrior.json');
 
-//URLs
-var siteJS = 'src/site/js/',
-    siteJSDest = 'app/js/',
-    gameJS = 'src/game/js/',
-    gameJSDest = 'app/game/js/',
-    siteSASS = 'src/site/sass/',
-    siteJSFiles = siteJS+'**/*.js',
-    gameJSFiles = gameJS+'**/*.js',
-    siteSASSFiles = siteSASS+'**/*.scss';
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
-  //Apache as proxy
   browserSync.init({
     server: {
       baseDir: './app/'
-    }
+    },
+    open: false
   });
 
-  gulp.watch(siteSASSFiles, ['sass']);
-  gulp.watch(siteJSFiles, ['scripts:site']);
-  gulp.watch(gameJSFiles, ['scripts:game']);
+  gulp.watch(config.dirs.siteSASSFiles, ['sass']);
+  gulp.watch(config.dirs.siteJSFiles, ['scripts:site']);
+  gulp.watch(config.dirs.gameJSFiles, ['scripts:game']);
   gulp.watch(["app/*.html", "app/js/**/*.js", "app/game/js/**/*.js"]).on('change', browserSync.reload);
 });
+
 
 //Generate scripts file for the site
 gulp.task('scripts:site', function() {
   return gulp.src([
-                siteJS+'zepto.js', 
-                siteJS+'lib/utils.js', 
-                siteJS+'lib/boxes.js', 
-                siteJS+'lib/home.js', 
-                siteJS+'app.js'
+                config.dirs.siteJS+'zepto.js',
+                config.dirs.siteJS+'lib/utils.js',
+                config.dirs.siteJS+'lib/boxes.js',
+                config.dirs.siteJS+'lib/home.js',
+                config.dirs.siteJS+'app.js'
               ])
     .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(siteJSDest))
+    .pipe(gulp.dest(config.dirs.siteJSDest))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(siteJSDest));
+    .pipe(gulp.dest(config.dirs.siteJSDest));
 });
+
 
 //Generate scripts file for the game
 gulp.task('scripts:game', function() {
-  return gulp.src([                
-                gameJS+'lib/*.js', 
-                gameJS+'states/*.js', 
-                gameJS+'main.js'
+  return gulp.src([
+                config.dirs.gameJS+'lib/*.js',
+                config.dirs.gameJS+'states/*.js',
+                config.dirs.gameJS+'main.js'
               ])
     .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(gameJSDest))
+    .pipe(gulp.dest(config.dirs.gameJSDest))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(gameJSDest));
+    .pipe(gulp.dest(config.dirs.gameJSDest));
 });
+
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-  return gulp.src(siteSASSFiles)
+  return gulp.src(config.dirs.siteSASSFiles)
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(gulp.dest("app/css"))
     .pipe(browserSync.stream());

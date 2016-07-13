@@ -1,0 +1,12 @@
+{
+  "dirs": {
+    "siteJS": "src/site/js/",
+    "siteJSDest": "app/js/",
+    "gameJS": "src/game/js/",
+    "gameJSDest": "app/game/js/",
+    "siteSASS": "src/site/sass/",
+    "siteJSFiles": "src/site/js/**/*.js",
+    "gameJSFiles": "src/game/js/**/*.js",
+    "siteSASSFiles": "src/site/sass/**/*.scss"
+  }
+}
