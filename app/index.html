@@ -36,7 +36,7 @@
 	<!-- Form Boxes -->
 	<section class="formbox" id="formbox-login">
 		<h3 class="formbox__title">Fazer Login</h3>
-		<form action="" data-target="users/login" data-action="POST" name="form_login" id="form_login">
+		<form action="" data-target="users/login" name="form_login" id="form_login">
 			<input class="formbox__input" type="email" name="email" placeholder="Email" required>
 			<input class="formbox__input" type="password" name="password" placeholder="Senha" required>
 			
@@ -49,7 +49,7 @@
 	</section>
 
 	<section class="formbox" id="formbox-signup">
-		<form action="" data-target="users" data-action="POST" name="form_signup" id="form_signup">
+		<form action="" data-target="users" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Cadastrar-se</h3>
 
 			<input class="formbox__input" type="email" name="email" placeholder="Email" required>
@@ -104,14 +104,16 @@
 	<section class="formbox formbox__create" id="formbox-create">
 		<h2 class="formbox__title">Criar Personagem</h2>
 
-		<form action="" name="form_create" data-target="characters" data-action="POST">
+		<form action="" name="form_create" data-target="characters">
+			<input type="hidden" name="userId">
+
 			<input class="formbox__input" type="text" name="nickname" placeholder="Apelido" required>
 
-			<select name="class" id="" class="formbox__input" required>
+			<select name="characterClass" id="" class="formbox__input" required>
 				<option value="">Selecione uma classe</option>
-				<option value="">Guerreiro</option>
-				<option value="">Arqueiro</option>
-				<option value="">Mago</option>
+				<option value="1">Guerreiro</option>
+				<option value="2">Arqueiro</option>
+				<option value="3">Mago</option>
 			</select>
 			
 			<div class="stats">
@@ -120,45 +122,48 @@
 				<div class="stats__group">
 					<label for="" class="stats__label">Força:</label>
 					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" class="stats__input" value="5" readonly>
+					<input type="text" name="strength" class="stats__input" value="5" readonly>
 					<button class="stats__btn stats__btn--plus"></button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Constituição:</label>
 					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" class="stats__input" value="5" readonly>
+					<input type="text" name="constitution" class="stats__input" value="5" readonly>
 					<button class="stats__btn stats__btn--plus"></button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Destreza:</label>
 					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" class="stats__input" value="5" readonly>
+					<input type="text" name="dexterity" class="stats__input" value="5" readonly>
 					<button class="stats__btn stats__btn--plus"></button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Inteligência:</label>
 					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" class="stats__input" value="5" readonly>
+					<input type="text" name="intelligence" class="stats__input" value="5" readonly>
 					<button class="stats__btn stats__btn--plus"></button>
 				</div>				
 
 				<div class="stats__group">
 					<label for="" class="stats__label">Carisma:</label>
 					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" class="stats__input" value="5" readonly>
+					<input type="text" name="charisma" class="stats__input" value="5" readonly>
 					<button class="stats__btn stats__btn--plus"></button>
 				</div>				
 				
 				<p class="stats__counter">Pontos de atributo restantes: <b class="remaining-stats">10</b></p>
 			</div>						
+
+			<p class="formbox__result"></p>
+
+			<div class="text-center">
+				<button class="btn btn--red">Criar</button>							
+			</div>
 		</form>
 		
-		<div class="text-center">
-			<button class="btn btn--red open-formbox" data-target="#formbox-create">Criar</button>							
-		</div>
 	</section>
 	<!-- Form Boxes -->				
 

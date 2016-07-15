@@ -61,7 +61,7 @@ Boxes.prototype = {
 	}
 }
 Home = function() {
-	this.apiURL = "http://www.namelesswarrior.com:8080/";
+	this.apiURL = "http://localhost:8080/";
 	this.selector = "form";
 	this.menuNotLogged = Zepto('.menu--not-logged');
 	this.loggedMenu = Zepto('.menu--logged');
@@ -78,8 +78,7 @@ Home.prototype = {
 		forms = $(this.selector);
 
 		forms.each(function() {		
-			var form = $(this),
-					formAction = form.data("action"),
+			var form = $(this),					
 					formTarget = form.data("target"),					
 					result = form.find('.formbox__result');			
 			
@@ -100,7 +99,7 @@ Home.prototype = {
 				}				
 								
 				if(!invalid) {
-					_this.ajaxCall(formTarget, formAction, result, data);					
+					_this.ajaxCall(formTarget, result, data);					
 				}
 			});
 		}); 		
@@ -111,7 +110,7 @@ Home.prototype = {
 		});
 	},
 
-	ajaxCall: function(target, action, result, data) {
+	ajaxCall: function(target, result, data) {
 		var _this = this,
 				loader = $('.loader'),
 				url = _this.apiURL+target;
@@ -119,7 +118,7 @@ Home.prototype = {
 		loader.addClass('active');						
 
 		$.ajax({
-			type: action,			
+			type: "POST",			
 			url: url,
 			data: data,	
 			success: function(data) {
@@ -164,7 +163,7 @@ Home.prototype = {
 
 	saveSession: function(data) {		
 		sessionStorage.setItem('userID', data.userId);
-		sessionStorage.setItem('email', data.email);
+		sessionStorage.setItem('email', data.email);		
 	},
 
 	checkLogin: function() {
@@ -229,9 +228,11 @@ Home.prototype = {
 				}
 			});		
 		});
+
+		Zepto('[name=userId]').val(sessionStorage.getItem('userID'));
 	}
 };
-(function() {	
+$(document).ready(function() {
 	var formbox = new Boxes('.open-formbox', '.formbox'),
 			home = new Home();
-}());
+});
