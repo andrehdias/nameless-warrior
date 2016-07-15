@@ -62,7 +62,7 @@ Boxes.prototype = {
 }
 Home = function() {
 	this.apiURL = "http://localhost:8080/";
-	this.selector = "form";
+	this.formsSelector = "form";
 	this.menuNotLogged = Zepto('.menu--not-logged');
 	this.loggedMenu = Zepto('.menu--logged');
 	this.notLoggedText = Zepto('.not-logged--text');
@@ -75,7 +75,7 @@ Home = function() {
 Home.prototype = {
 	bindEvents: function() {
 		var _this = this,
-		forms = $(this.selector);
+		forms = $(this.formsSelector);
 
 		forms.each(function() {		
 			var form = $(this),					
@@ -84,9 +84,9 @@ Home.prototype = {
 			
 			form.submit(function(e) {
 						data = $(this).serializeObject(),
-						invalid = false;			
+						invalid = false;
 
-				e.preventDefault();							
+				e.preventDefault();
 
 				if(formTarget == 'users')	{
 						var password = form.find('[name=password]').val(),
@@ -95,14 +95,14 @@ Home.prototype = {
 					  if (password != repeatPassword) {
 		          result.html('As senhas devem ser iguais');
 		          invalid = true;
-		        } 
-				}				
-								
+		        }
+				}
+
 				if(!invalid) {
 					_this.ajaxCall(formTarget, result, data);					
 				}
 			});
-		}); 		
+		});
 
 		Zepto('.logout').click(function() {
 			sessionStorage.clear();
@@ -114,13 +114,13 @@ Home.prototype = {
 		var _this = this,
 				loader = $('.loader'),
 				url = _this.apiURL+target;
-		
-		loader.addClass('active');						
+
+		loader.addClass('active');
 
 		$.ajax({
 			type: "POST",			
 			url: url,
-			data: data,	
+			data: data,
 			success: function(data) {
 		    loader.removeClass('active');
 
@@ -134,7 +134,7 @@ Home.prototype = {
 		    		break;
 		    }
 			}
-		});		
+		});
 	},
 
 	handleSignUp: function(data, result) {
@@ -144,24 +144,24 @@ Home.prototype = {
 			setTimeout(function() {
 				Zepto('.overlay').click();
 				Zepto('[data-target="#formbox-login"]').click();
-			}, 500);						
+			}, 500);
 		}
 	},
 
-	handleLogin: function(data, result) {		
+	handleLogin: function(data, result) {
 		result.html(data.message);
 
 		if(data.logged) {
 			setTimeout(function() {
 				Zepto('.overlay').click();
-			}, 500);			
+			}, 500);
 
 			this.saveSession(data);
 			this.checkLogin();
 		}
 	},
 
-	saveSession: function(data) {		
+	saveSession: function(data) {
 		sessionStorage.setItem('userID', data.userId);
 		sessionStorage.setItem('email', data.email);		
 	},
@@ -172,14 +172,14 @@ Home.prototype = {
 
 			this.loggedMenu.show();
 			this.loggedText.show();
-			this.menuNotLogged.hide();					
+			this.menuNotLogged.hide();
 			this.notLoggedText.hide();
 
 			this.setupCharacterCreation();
 		} else {
 			this.loggedMenu.hide();
 			this.loggedText.hide();
-			this.menuNotLogged.show();					
+			this.menuNotLogged.show();
 			this.notLoggedText.show();
 		}
 	},
@@ -193,15 +193,15 @@ Home.prototype = {
 			var	statsGroup = Zepto(this),
 					plusButton = statsGroup.find('.stats__btn--plus'),
 					minusButton = statsGroup.find('.stats__btn--minus'),
-					statsInput = statsGroup.find('.stats__input');					
+					statsInput = statsGroup.find('.stats__input');
 
 			plusButton.click(function(e) {
 				e.preventDefault();
-				
+
 				var remainingStatsVal = remainingStats.html(),
 						statsVal = statsInput.val();
 
-				if(remainingStatsVal > 0) {										
+				if(remainingStatsVal > 0) {
 					statsVal++;
 
 					statsInput.val(statsVal);
@@ -226,12 +226,13 @@ Home.prototype = {
 
 					remainingStats.html(remainingStatsVal);
 				}
-			});		
+			});
 		});
 
 		Zepto('[name=userId]').val(sessionStorage.getItem('userID'));
 	}
 };
+
 $(document).ready(function() {
 	var formbox = new Boxes('.open-formbox', '.formbox'),
 			home = new Home();
