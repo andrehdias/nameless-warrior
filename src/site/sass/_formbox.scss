@@ -41,6 +41,11 @@
 		}
 	}
 
+	&__label {
+		margin-top: 5px;
+		display: inline-block;
+	}
+
 	&.active {
 		top: 50%;				
 	}
@@ -125,6 +130,13 @@
 				}
 			}
 		}
+	}
+
+	&__result {
+		margin-top: 5px;
+		font-size: 18px;
+		font-weight: bold;
+		text-align: center;
 	}
 
 	&--big {

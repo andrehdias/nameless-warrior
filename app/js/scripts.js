@@ -63,6 +63,7 @@ Boxes.prototype = {
 Home = function() {
 	this.apiURL = "http://localhost:8080/";
 	this.formsSelector = "form";
+
 	this.menuNotLogged = Zepto('.menu--not-logged');
 	this.loggedMenu = Zepto('.menu--logged');
 	this.notLoggedText = Zepto('.not-logged--text');
@@ -83,19 +84,21 @@ Home.prototype = {
 					result = form.find('.formbox__result');			
 			
 			form.submit(function(e) {
-						data = $(this).serializeObject(),
+				var data = $(this).serializeObject(),
 						invalid = false;
 
 				e.preventDefault();
 
-				if(formTarget == 'users')	{
-						var password = form.find('[name=password]').val(),
-								repeatPassword = form.find('[name=repeat-password]').val();
+				switch(formTarget) {
+					case 'users' :					
+						var password = form.find('[name=signupPassword]').val(),
+								repeatPassword = form.find('[name=signupRepeatPassword]').val();
 
 					  if (password != repeatPassword) {
-		          result.html('As senhas devem ser iguais');
+		          result.html('The passwords must be equal!');
 		          invalid = true;
 		        }
+						break;
 				}
 
 				if(!invalid) {
@@ -131,6 +134,10 @@ Home.prototype = {
 
 		    	case 'users/login':
 		    		_this.handleLogin(data, result);
+		    		break;
+
+		    	case 'characters':
+		    		_this.handleCharacterCreation(data, result);
 		    		break;
 		    }
 			}
@@ -230,6 +237,16 @@ Home.prototype = {
 		});
 
 		Zepto('[name=userId]').val(sessionStorage.getItem('userID'));
+	},
+
+	handleCharacterCreation: function(data, result) {
+		result.html(data.message);
+
+		this.updateCharacterList();
+	},
+
+	updateCharacterList: function() {
+
 	}
 };
 
