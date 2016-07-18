@@ -16,19 +16,19 @@ Home.prototype = {
 		var _this = this,
 		forms = $(this.formsSelector);
 
-		forms.each(function() {		
-			var form = $(this),					
-					formTarget = form.data("target"),					
-					result = form.find('.formbox__result');			
-			
+		forms.each(function() {
+			var form = $(this),
+					formTarget = form.data("target"),
+					result = form.find('.formbox__result');
+
 			form.submit(function(e) {
 				var data = $(this).serializeObject(),
 						invalid = false;
 
-				e.preventDefault();				
+				e.preventDefault();
 
 				if(!_this.validation(formTarget, form, result)) {
-					_this.ajaxCall(formTarget, result, data);					
+					_this.ajaxCall(formTarget, result, data);
 				}
 			});
 		});
@@ -43,7 +43,7 @@ Home.prototype = {
 		var invalid = false;
 
 		switch(target) {
-			case 'users' :					
+			case 'users' :
 				var password = form.find('[name=signupPassword]').val(),
 						repeatPassword = form.find('[name=signupRepeatPassword]').val();
 
@@ -56,7 +56,7 @@ Home.prototype = {
 			case 'characters':
 				var remainingStats = form.find('.remaining-stats').html();
 
-				if(remainingStats == 0) {
+				if(remainingStats !== 0) {
 					result.html('You must distribute al attributes!');
 					invalid = true;
 				}
@@ -74,7 +74,7 @@ Home.prototype = {
 		loader.addClass('active');
 
 		$.ajax({
-			type: "POST",			
+			type: "POST",
 			url: url,
 			data: data,
 			success: function(data) {
@@ -123,7 +123,7 @@ Home.prototype = {
 
 	saveSession: function(data) {
 		sessionStorage.setItem('userID', data.userId);
-		sessionStorage.setItem('email', data.email);		
+		sessionStorage.setItem('email', data.email);
 	},
 
 	checkLogin: function() {
