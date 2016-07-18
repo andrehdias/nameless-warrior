@@ -2,10 +2,10 @@ Home = function() {
 	this.apiURL = "http://localhost:8080/";
 	this.formsSelector = "form";
 
-	this.menuNotLogged = Zepto('.menu--not-logged');
-	this.loggedMenu = Zepto('.menu--logged');
-	this.notLoggedText = Zepto('.not-logged--text');
-	this.loggedText = Zepto('.logged--text');
+	this.menuNotLogged = $('.menu--not-logged');
+	this.loggedMenu = $('.menu--logged');
+	this.notLoggedText = $('.not-logged--text');
+	this.loggedText = $('.logged--text');
 
 	this.bindEvents();
 	this.checkLogin();
@@ -25,30 +25,45 @@ Home.prototype = {
 				var data = $(this).serializeObject(),
 						invalid = false;
 
-				e.preventDefault();
+				e.preventDefault();				
 
-				switch(formTarget) {
-					case 'users' :					
-						var password = form.find('[name=signupPassword]').val(),
-								repeatPassword = form.find('[name=signupRepeatPassword]').val();
-
-					  if (password != repeatPassword) {
-		          result.html('The passwords must be equal!');
-		          invalid = true;
-		        }
-						break;
-				}
-
-				if(!invalid) {
+				if(!_this.validation(formTarget, form, result)) {
 					_this.ajaxCall(formTarget, result, data);					
 				}
 			});
 		});
 
-		Zepto('.logout').click(function() {
+		$('.logout').click(function() {
 			sessionStorage.clear();
 			location.reload();
 		});
+	},
+
+	validation: function(target, form, result) {
+		var invalid = false;
+
+		switch(target) {
+			case 'users' :					
+				var password = form.find('[name=signupPassword]').val(),
+						repeatPassword = form.find('[name=signupRepeatPassword]').val();
+
+			  if (password != repeatPassword) {
+          result.html('The passwords must be equal!');
+          invalid = true;
+        }
+				break;
+
+			case 'characters':
+				var remainingStats = form.find('.remaining-stats').html();
+
+				if(remainingStats == 0) {
+					result.html('You must distribute al attributes!');
+					invalid = true;
+				}
+				break;
+		}
+
+		return invalid;
 	},
 
 	ajaxCall: function(target, result, data) {
@@ -87,8 +102,8 @@ Home.prototype = {
 
 		if(data.created) {
 			setTimeout(function() {
-				Zepto('.overlay').click();
-				Zepto('[data-target="#formbox-login"]').click();
+				$('.overlay').click();
+				$('[data-target="#formbox-login"]').click();
 			}, 500);
 		}
 	},
@@ -98,7 +113,7 @@ Home.prototype = {
 
 		if(data.logged) {
 			setTimeout(function() {
-				Zepto('.overlay').click();
+				$('.overlay').click();
 			}, 500);
 
 			this.saveSession(data);
@@ -130,12 +145,19 @@ Home.prototype = {
 	},
 
 	setupCharacterCreation: function() {
-		var form = Zepto('[name="form_create"]'),
+		var form = $('[name="form_create"]'),
 				stats = form.find('.stats__group'),
-				remainingStats = form.find('.remaining-stats');
+				remainingStats = form.find('.remaining-stats'),
+				classSelect = form.find('[name=characterClass]');
+
+		classSelect.change(function() {
+			var classImg = $(this).val();
+
+			form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');
+		});
 
 		stats.each(function() {
-			var	statsGroup = Zepto(this),
+			var	statsGroup = $(this),
 					plusButton = statsGroup.find('.stats__btn--plus'),
 					minusButton = statsGroup.find('.stats__btn--minus'),
 					statsInput = statsGroup.find('.stats__input');
@@ -174,7 +196,7 @@ Home.prototype = {
 			});
 		});
 
-		Zepto('[name=userId]').val(sessionStorage.getItem('userID'));
+		$('[name=userId]').val(sessionStorage.getItem('userID'));
 	},
 
 	handleCharacterCreation: function(data, result) {

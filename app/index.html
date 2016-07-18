@@ -81,26 +81,39 @@
 				<h3 class="character__nickname">AndrehNSFW</h3>
 				<p class="character__class">Warrior</p>
 				
-				<ul class="character__info">
-					<li><b>Strength: </b>15</li>
-					<li><b>Constitution: </b>18</li>
-					<li><b>Dexterity: </b>10</li>
-					<li><b>Intelligence: </b>12</li>
-					<li><b>Charisma: </b>13</li>							
-				</ul>
+				<div class="character__info">
+					<ul class="character__stats">
+						<li><b>Strength: </b>15</li>
+						<li><b>Constitution: </b>18</li>
+						<li><b>Dexterity: </b>10</li>
+						<li><b>Intelligence: </b>12</li>
+						<li><b>Charisma: </b>13</li>							
+					</ul>					
+
+					<div class="character__img">
+						<img src="img/classes/1.png" alt="">
+					</div>
+				</div>
+
 			</a>
 
 			<a href="game/" class="character">
 				<h3 class="character__nickname">AndrehSan</h3>
-				<p class="character__class">Archer</p>
+				<p class="character__class">Mage</p>
 				
-				<ul class="character__info">
-					<li><b>Strength: </b>15</li>
-					<li><b>Constitution: </b>18</li>
-					<li><b>Dexterity: </b>10</li>
-					<li><b>Intelligence: </b>12</li>
-					<li><b>Charisma: </b>13</li>							
-				</ul>
+				<div class="character__info">
+					<ul class="character__stats">
+						<li><b>Strength: </b>15</li>
+						<li><b>Constitution: </b>18</li>
+						<li><b>Dexterity: </b>10</li>
+						<li><b>Intelligence: </b>12</li>
+						<li><b>Charisma: </b>13</li>							
+					</ul>
+
+					<div class="character__img">
+						<img src="img/classes/2.png" alt="">
+					</div>					
+				</div>
 			</a>
 		</div>
 		
@@ -115,60 +128,70 @@
 		<form action="" name="form_create" data-target="characters">
 			<input type="hidden" name="userId">
 			
-			<label for="characterNickname">Nickname:</label>
-			<input class="formbox__input" type="text" name="characterNickname" id="characterNickname" placeholder="Nickname" required>
+			<div class="formbox__group--half">
+				<label for="characterNickname">Nickname:</label>
+				<input class="formbox__input" type="text" name="characterNickname" id="characterNickname" placeholder="Nickname" required>				
+			</div>			
 			
-			<label for="characterClass">Class:</label>
-			<select name="characterClass" id="" class="formbox__input" required>
-				<option value="">Select a class</option>
-				<option value="1">Warrior</option>
-				<option value="2">Archer</option>
-				<option value="3">Mage</option>
-			</select>
-
-			<label for="characterGender">Gender: </label>
-			<label for="genderFemale" name="characterGender">Female</label> <input type="radio" value="female" id="genderFemale">
-			<label for="genderMale" name="characterGender">Male</label> <input type="radio" value="male" id="genderMale">
+			<div class="formbox__group--half">
+				<label for="characterClass">Class:</label>
+				<select name="characterClass" id="" class="formbox__input" required>
+					<option value="">Select a class</option>
+					<option value="1">Warrior</option>
+					<option value="2">Mage</option>
+					<option value="3">Archer</option>
+				</select>								
+			</div>
+		
+			<div class="formbox__group">
+				<label for="">Gender: </label>
+				<label for="genderFemale">Female</label> <input type="radio" name="characterGender" class="formbox__input" value="F" id="genderFemale" checked>
+				<label for="genderMale">Male</label> <input type="radio" name="characterGender" class="formbox__input" value="M" id="genderMale">				
+			</div>
 			
-			<div class="stats">
-				<h3 class="stats__title">Attribute Points:</h3>
+			<div class="create__info">
+				<div class="create__stats form__group--half">
+					<h3 class="stats__title">Attribute Points:</h3>
 
-				<div class="stats__group">
-					<label for="" class="stats__label">Strength:</label>
-					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" name="strength" class="stats__input" value="5" readonly>
-					<button class="stats__btn stats__btn--plus"></button>
-				</div>				
+					<div class="stats__group">
+						<label for="" class="stats__label">Strength:</label>
+						<button class="stats__btn stats__btn--minus"></button>					
+						<input type="text" name="strength" class="stats__input" value="5" readonly>
+						<button class="stats__btn stats__btn--plus"></button>
+					</div>				
 
-				<div class="stats__group">
-					<label for="" class="stats__label">Constitution:</label>
-					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" name="constitution" class="stats__input" value="5" readonly>
-					<button class="stats__btn stats__btn--plus"></button>
-				</div>				
+					<div class="stats__group">
+						<label for="" class="stats__label">Constitution:</label>
+						<button class="stats__btn stats__btn--minus"></button>					
+						<input type="text" name="constitution" class="stats__input" value="5" readonly>
+						<button class="stats__btn stats__btn--plus"></button>
+					</div>				
 
-				<div class="stats__group">
-					<label for="" class="stats__label">Dexterity:</label>
-					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" name="dexterity" class="stats__input" value="5" readonly>
-					<button class="stats__btn stats__btn--plus"></button>
-				</div>				
+					<div class="stats__group">
+						<label for="" class="stats__label">Dexterity:</label>
+						<button class="stats__btn stats__btn--minus"></button>					
+						<input type="text" name="dexterity" class="stats__input" value="5" readonly>
+						<button class="stats__btn stats__btn--plus"></button>
+					</div>				
 
-				<div class="stats__group">
-					<label for="" class="stats__label">Intelligence:</label>
-					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" name="intelligence" class="stats__input" value="5" readonly>
-					<button class="stats__btn stats__btn--plus"></button>
-				</div>				
+					<div class="stats__group">
+						<label for="" class="stats__label">Intelligence:</label>
+						<button class="stats__btn stats__btn--minus"></button>					
+						<input type="text" name="intelligence" class="stats__input" value="5" readonly>
+						<button class="stats__btn stats__btn--plus"></button>
+					</div>				
 
-				<div class="stats__group">
-					<label for="" class="stats__label">Charisma:</label>
-					<button class="stats__btn stats__btn--minus"></button>					
-					<input type="text" name="charisma" class="stats__input" value="5" readonly>
-					<button class="stats__btn stats__btn--plus"></button>
-				</div>				
-				
-				<p class="stats__counter">Remaining attribute points: <b class="remaining-stats">10</b></p>
+					<div class="stats__group">
+						<label for="" class="stats__label">Charisma:</label>
+						<button class="stats__btn stats__btn--minus"></button>					
+						<input type="text" name="charisma" class="stats__input" value="5" readonly>
+						<button class="stats__btn stats__btn--plus"></button>
+					</div>				
+					
+					<p class="stats__counter">Remaining attribute points: <b class="remaining-stats">10</b></p>					
+				</div>
+
+				<div class="create__img form__group--half"><img src="" alt=""></div>
 			</div>						
 
 			<p class="formbox__result"></p>
