@@ -9,8 +9,11 @@ Home = function() {
 
 	this.menuNotLogged = $('.menu--not-logged');
 	this.loggedMenu = $('.menu--logged');
+
 	this.notLoggedText = $('.not-logged--text');
 	this.loggedText = $('.logged--text');
+
+	this.loggedInfo = $('.logged--info');
 
 	this.bindEvents();
 	this.checkLogin();
@@ -33,6 +36,7 @@ Home.prototype = {
 
 				if(!_this.validation(formTarget, form, result)) {
 					_this.ajaxCall(formTarget, result, data);
+					_this.cleanForms(form, formTarget, result);
 				}
 			});
 		});
@@ -71,6 +75,18 @@ Home.prototype = {
 		}
 
 		return invalid;
+	},
+
+	cleanForms: function(form, target, result) {
+		form.find('input[type=text]:not([readonly])').val('');
+		result.html('');
+
+		switch(target) {
+			case 'characters':
+				form.find('.stats__input').val(5);
+				form.find('.stats__counter').val(10);
+				break;
+		}
 	},
 
 	ajaxCall: function(target, result, data) {
@@ -135,10 +151,11 @@ Home.prototype = {
 
 	checkLogin: function() {
 		if(sessionStorage.getItem('userID')) {
-			this.loggedText.find('span').html(sessionStorage.getItem('email'));
+			this.loggedInfo.find('span').html(sessionStorage.getItem('email'));
 
 			this.loggedMenu.show();
 			this.loggedText.show();
+			this.loggedInfo.show();
 			this.menuNotLogged.hide();
 			this.notLoggedText.hide();
 
@@ -146,6 +163,7 @@ Home.prototype = {
 		} else {
 			this.loggedMenu.hide();
 			this.loggedText.hide();
+			this.loggedInfo.hide();
 			this.menuNotLogged.show();
 			this.notLoggedText.show();
 		}

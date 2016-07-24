@@ -1,18 +1,20 @@
 .formbox {
-	width: 40%;
-	border-radius: 3px;
 	position: fixed;
 	transform: translate(-50%, -50%);
 	top: -400px;
 	left: 50%;
+	
+	width: 40%;
+  max-height: 80%;
+	padding: 20px;
   margin: 0 auto;
 	z-index: 99;	
-	background-color: rgba($blue, 0.8);
-	padding: 20px;
-	text-align: left;
-  color: $white;
-  max-height: 80%;
+
   overflow: auto;
+	border-radius: 3px;
+	background-color: rgba($blue, 0.8);
+  color: $white;
+	text-align: left;
 
 	transition: top 0.6s;
 
