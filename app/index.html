@@ -19,7 +19,7 @@
 
 			<p class="not-logged--text">Retro RPG</p>
 
-			<p class="logged--text">Welcome <b></b>, <a href="" class="logout">Click here to logout</a></p>
+			<p class="logged--text">Welcome <span></span>, <a href="" class="logout">Click here</a> to logout</p>
 
 			<ul class="menu menu--not-logged">				
 				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
@@ -57,10 +57,10 @@
 			<h3 class="formbox__title">Sign Up</h3>
 			
 			<label for="signupEmail" class="formbox__label">Email: </label>
-			<input class="formbox__input" type="email" name="signupEmail" placeholder="E-mail" required>
+			<input class="formbox__input" type="email" name="signupEmail" placeholder="Enter E-mail" required>
 
 			<label for="signupPassword" class="formbox__label">Password: </label>
-			<input class="formbox__input" type="password" name="signupPassword" id="signupPassword" placeholder="Password" required>
+			<input class="formbox__input" type="password" name="signupPassword" id="signupPassword" placeholder="Enter Password" required>
 
 			<label for="signupRepeatPassword" class="formbox__label">Repeat Password: </label>
 			<input class="formbox__input" type="password" name="signupRepeatPassword" id="signupRepeatPassword" placeholder="Repeat Password" required>
@@ -129,12 +129,12 @@
 			<input type="hidden" name="userId">
 			
 			<div class="formbox__group--half">
-				<label for="characterNickname">Nickname:</label>
-				<input class="formbox__input" type="text" name="characterNickname" id="characterNickname" placeholder="Nickname" required>				
+				<label for="characterNickname" class="formbox__label">Nickname:</label>
+				<input class="formbox__input" type="text" name="characterNickname" id="characterNickname" placeholder="Enter Nickname" required>				
 			</div>			
 			
 			<div class="formbox__group--half">
-				<label for="characterClass">Class:</label>
+				<label for="characterClass" class="formbox__label">Class:</label>
 				<select name="characterClass" id="" class="formbox__input" required>
 					<option value="">Select a class</option>
 					<option value="1">Warrior</option>
@@ -144,9 +144,16 @@
 			</div>
 		
 			<div class="formbox__group">
-				<label for="">Gender: </label>
-				<label for="genderFemale">Female</label> <input type="radio" name="characterGender" class="formbox__input" value="F" id="genderFemale" checked>
-				<label for="genderMale">Male</label> <input type="radio" name="characterGender" class="formbox__input" value="M" id="genderMale">				
+				<label for="" class="formbox__label">Gender: </label>
+				<label for="genderFemale">
+					Female
+					<input type="radio" name="characterGender" class="formbox__input" value="F" id="genderFemale" checked>
+				</label> 
+				
+				<label for="genderMale">
+					Male
+					<input type="radio" name="characterGender" class="formbox__input" value="M" id="genderMale">				
+				</label> 
 			</div>
 			
 			<div class="create__info">

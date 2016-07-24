@@ -1,17 +1,22 @@
+/**
+* Project Gulpfile with Gulp tasks to generate JS, CSS and static server for development
+*
+**/
+
 var gulp        = require('gulp'),
     browserSync = require('browser-sync').create(),
     sass        = require('gulp-sass'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglify'),
-    config      = require('./nwarrior.json');
+    config      = require('./nwarrior.json'); //JSON with directories configuration
 
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
   browserSync.init({
     server: {
-      baseDir: './app/'
+      baseDir: config.dirs.baseDir
     },
     open: false
   });

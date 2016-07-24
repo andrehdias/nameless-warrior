@@ -1,3 +1,8 @@
+/**
+* FormBoxes handling component
+*
+**/
+
 Boxes = function(trigger, target){
 	this.trigger = trigger;
 	this.target = target;		

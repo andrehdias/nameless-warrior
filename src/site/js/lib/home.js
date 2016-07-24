@@ -1,3 +1,8 @@
+/**
+* Homepage handling component
+*
+**/
+
 Home = function() {
 	this.apiURL = "http://localhost:8080/";
 	this.formsSelector = "form";
@@ -22,8 +27,7 @@ Home.prototype = {
 					result = form.find('.formbox__result');
 
 			form.submit(function(e) {
-				var data = $(this).serializeObject(),
-						invalid = false;
+				var data = $(this).serializeObject();						
 
 				e.preventDefault();
 
@@ -51,15 +55,18 @@ Home.prototype = {
           result.html('The passwords must be equal!');
           invalid = true;
         }
+
 				break;
 
 			case 'characters':
 				var remainingStats = form.find('.remaining-stats').html();
 
-				if(remainingStats !== 0) {
-					result.html('You must distribute al attributes!');
+				if(remainingStats != 0) {
+					console.log(remainingStats)
+					result.html('You must distribute all attributes!');
 					invalid = true;
 				}
+
 				break;
 		}
 
@@ -128,7 +135,7 @@ Home.prototype = {
 
 	checkLogin: function() {
 		if(sessionStorage.getItem('userID')) {
-			this.loggedText.find('b').html(sessionStorage.getItem('email'));
+			this.loggedText.find('span').html(sessionStorage.getItem('email'));
 
 			this.loggedMenu.show();
 			this.loggedText.show();
@@ -201,6 +208,11 @@ Home.prototype = {
 
 	handleCharacterCreation: function(data, result) {
 		result.html(data.message);
+
+		setTimeout(function() {
+			$('.overlay').click();
+			$('[data-target="#formbox-select"]').click();
+		}, 500);
 
 		this.updateCharacterList();
 	},

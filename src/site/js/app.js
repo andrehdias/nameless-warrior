@@ -1,4 +1,9 @@
+/**
+* Main JS
+*
+**/
+
 $(document).ready(function() {
-	var formbox = new Boxes('.open-formbox', '.formbox'),
-			home = new Home();
+	new Boxes('.open-formbox', '.formbox');
+	new Home();
 });

@@ -1,5 +1,6 @@
 {
   "dirs": {
+    "baseDir": "./app/",
     "siteJS": "src/site/js/",
     "siteJSDest": "app/js/",
     "gameJS": "src/game/js/",
