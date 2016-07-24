@@ -50,7 +50,10 @@
 		</div>
 	</section>
 
-	<!-- Form Boxes -->
+	<!-- Form Boxes Beginning -->
+
+
+	<!-- Login Formbox -->
 	<section class="formbox" id="formbox-login">
 		<h3 class="formbox__title">Login</h3>
 		<form action="" data-target="users/login" name="form_login" id="form_login">
@@ -68,7 +71,9 @@
 			</div>
 		</form>
 	</section>
+	
 
+	<!-- Sign Up Formbox -->
 	<section class="formbox" id="formbox-signup">
 		<form action="" data-target="users" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Sign Up</h3>
@@ -90,55 +95,37 @@
 		</form>
 	</section>
 
+
+	<!-- Select Character Formbox -->
 	<section class="formbox formbox--big formbox__character" id="formbox-select">
+		<button class="btn btn--red open-formbox btn--absolute-right" data-target="#formbox-create">New Character</button>							
+
 		<h2 class="formbox__title">Select Character</h2>
 		
 		<div class="character__wrapper">
-			<a href="game/" class="character">
-				<h3 class="character__nickname">AndrehNSFW</h3>
-				<p class="character__class">Warrior</p>
+			<div class="character character__template">
+				<h3 class="character__nickname">{Nickname}</h3>
+				<p class="character__class">{CharacterClass}</p>
 				
 				<div class="character__info">
 					<ul class="character__stats">
-						<li><b>Strength: </b>15</li>
-						<li><b>Constitution: </b>18</li>
-						<li><b>Dexterity: </b>10</li>
-						<li><b>Intelligence: </b>12</li>
-						<li><b>Charisma: </b>13</li>							
+						<li><b>Strength: </b>{Strength}</li>
+						<li><b>Constitution: </b>{Constitution}</li>
+						<li><b>Dexterity: </b>{Dexterity}</li>
+						<li><b>Intelligence: </b>{Intelligence}</li>
+						<li><b>Charisma: </b>{Charisma}</li>							
 					</ul>					
 
 					<div class="character__img">
-						<img src="img/classes/1.png" alt="">
+						<img src="img/classes/{ClassImg}.png" alt="">
 					</div>
 				</div>
-
-			</a>
-
-			<a href="game/" class="character">
-				<h3 class="character__nickname">AndrehSan</h3>
-				<p class="character__class">Mage</p>
-				
-				<div class="character__info">
-					<ul class="character__stats">
-						<li><b>Strength: </b>15</li>
-						<li><b>Constitution: </b>18</li>
-						<li><b>Dexterity: </b>10</li>
-						<li><b>Intelligence: </b>12</li>
-						<li><b>Charisma: </b>13</li>							
-					</ul>
-
-					<div class="character__img">
-						<img src="img/classes/2.png" alt="">
-					</div>					
-				</div>
-			</a>
-		</div>
-		
-		<div class="text-center">
-			<button class="btn btn--red open-formbox" data-target="#formbox-create">New Character</button>							
-		</div>
+			</div>			
+		</div>		
 	</section>
 
+
+	<!-- Create Character Formbox -->
 	<section class="formbox formbox__create" id="formbox-create">
 		<h2 class="formbox__title">New Character</h2>
 
@@ -223,10 +210,10 @@
 			<div class="text-center">
 				<button class="btn btn--red">Create</button>							
 			</div>
-		</form>
-		
+		</form>		
 	</section>
-	<!-- Form Boxes -->				
+
+	<!-- Form Boxes End -->				
 
 	<script src="js/scripts.min.js"></script>
 </html>

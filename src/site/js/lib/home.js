@@ -35,7 +35,7 @@ Home.prototype = {
 				e.preventDefault();
 
 				if(!_this.validation(formTarget, form, result)) {
-					_this.ajaxCall(formTarget, result, data);
+					_this.ajaxPOST(formTarget, result, data);
 					_this.cleanForms(form, formTarget, result);
 				}
 			});
@@ -44,6 +44,14 @@ Home.prototype = {
 		$('.logout').click(function() {
 			sessionStorage.clear();
 			location.reload();
+		});
+
+		$('.character__wrapper').on('click', '.character', function(e) {
+			var characterId = $(this).data('character-id');
+
+			console.log('oeee')
+
+			window.location.assign('/game/index.html?characterId=' + characterId);
 		});
 	},
 
@@ -77,19 +85,19 @@ Home.prototype = {
 		return invalid;
 	},
 
-	cleanForms: function(form, target, result) {
+	cleanForms: function(form, target) {
 		form.find('input[type=text]:not([readonly])').val('');
-		result.html('');
 
 		switch(target) {
 			case 'characters':
 				form.find('.stats__input').val(5);
 				form.find('.stats__counter').val(10);
+
 				break;
 		}
 	},
 
-	ajaxCall: function(target, result, data) {
+	ajaxPOST: function(target, result, data) {
 		var _this = this,
 				loader = $('.loader'),
 				url = _this.apiURL+target;
@@ -160,6 +168,7 @@ Home.prototype = {
 			this.notLoggedText.hide();
 
 			this.setupCharacterCreation();
+			this.updateCharacterList();
 		} else {
 			this.loggedMenu.hide();
 			this.loggedText.hide();
@@ -230,12 +239,70 @@ Home.prototype = {
 		setTimeout(function() {
 			$('.overlay').click();
 			$('[data-target="#formbox-select"]').click();
+			result.html('');
 		}, 500);
 
 		this.updateCharacterList();
 	},
 
 	updateCharacterList: function() {
+		var _this = this,
+				loader = $('.loader'),
+				userId = sessionStorage.getItem('userID'),
+				url = _this.apiURL+'characters/byUser/'+userId,
+				characterList = $('.character__wrapper');
 
+		loader.addClass('active');
+
+		$('.character__wrapper > :not(.character__template)').remove();
+
+		$.ajax({
+			type: "GET",
+			url: url,			
+			success: function(data) {
+		    loader.removeClass('active');
+
+		    if(data.length) {
+			    for (var i in data) {
+			    	var character = data[i],
+								characterTemplate = $('.character__template').html();
+
+						characterTemplate = characterTemplate.replace('{Nickname}', character.nickname);
+						characterTemplate = characterTemplate.replace('{CharacterClass}', _this.formatClass(character.characterClass, character.gender));
+						characterTemplate = characterTemplate.replace('{Strength}', character.strength);
+						characterTemplate = characterTemplate.replace('{Constitution}', character.constitution);
+						characterTemplate = characterTemplate.replace('{Dexterity}', character.dexterity);
+						characterTemplate = characterTemplate.replace('{Intelligence}', character.intelligence);
+						characterTemplate = characterTemplate.replace('{Charisma}', character.charisma);
+						characterTemplate = characterTemplate.replace('{ClassImg}', character.characterClass);
+
+						characterList.append('<div class="character" data-character-id="'+character._id+'">'+characterTemplate+'</div>');
+			    }		    	
+		    } else {
+		    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
+		    }
+			}
+		});
+	},
+
+	formatClass: function(characterClass, gender) {
+		var gender = gender == 'F' ? 'Female' : 'Male',
+				classString;
+
+		switch(characterClass) {
+			case '1':
+				classString = gender + " Warrior";
+				break;
+
+			case '2':
+				classString = gender + " Mage";
+				break;
+
+			case '3':
+				classString = gender + " Archer";
+				break;
+		}
+
+		return classString;
 	}
 };

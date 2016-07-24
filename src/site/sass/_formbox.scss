@@ -3,7 +3,7 @@
 	transform: translate(-50%, -50%);
 	top: -400px;
 	left: 50%;
-	
+
 	width: 40%;
   max-height: 80%;
 	padding: 20px;
@@ -79,6 +79,10 @@
 			padding: 20px;
 			cursor: pointer;
 			display: inline-block;
+
+			&__template {
+				display: none;
+			}
 
 			&__wrapper {
 				width: 100%;
@@ -168,7 +172,7 @@
 
 			.create__img {															
 				text-align: center;						
-				width: 48%;
+				width: 47%;
 				display: inline-block;
 
 				img {
