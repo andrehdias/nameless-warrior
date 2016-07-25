@@ -1,6 +1,6 @@
 # Nameless Warrior :video_game: :european_castle:
 
-The project consists in a retro style RPG made entirely with WEB technologies (HTML5, CSS and Javascript)
+The project consists in a retro style RPG fully built under WEB technologies (HTML5, CSS and Javascript)
 
 To follow the project progress, star this repository and follow the [trello](https://trello.com/b/PuE28a1W) board!
 
@@ -25,8 +25,8 @@ To enhance the artificial intelligence, the enemys and NPCs (Non Player Characte
 ### Attributes	
 
 * Strength - Defines the strength of physical attacks.
-* Constitution - Define the resistance and the amount of HP of the character.
-* Dexterity - Define a velocidade de ataque e a chance de desviar de ataques inimigos.
+* Constitution - Defines the resistance and the amount of HP of the character.
+* Dexterity - Defines the attack speed and the chance of avoiding enemy attacks.
 * Intelligence - Defines the strength of the spells cast by the character.
 * Charisma - Defines the persuasiveness of the character when talking to NPCs (Non Player Characters).
 
