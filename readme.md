@@ -1,45 +1,39 @@
 # Nameless Warrior :video_game: :european_castle:
 
-O projeto consiste em um RPG feito totalmente com tecnologias WEB(HTML5, CSS e Javascript)
+The project consists in a retro style RPG made entirely with WEB technologies (HTML5, CSS and Javascript)
 
-Para acompanhar o andamento do projeto, siga esse repositório e também a board do [trello](https://trello.com/b/PuE28a1W)!
+To follow the project progress, star this repository and follow the [trello](https://trello.com/b/PuE28a1W) board!
 
-## Tecnologias
+## Technologies
 
-* [Phaser](http://phaser.io) - Framework em Javascript que utiliza tecnologias HTML5 para fazer jogos no browser.
-* [Tiled](http://www.mapeditor.org/) - Ferramenta para criação de mapas para jogos utilizando Tilesets
+* [Phaser](http://phaser.io) - Desktop and mobile HTML5 game framework.
+* [Tiled](http://www.mapeditor.org/) - Free, easy to use and flexible tile map editor.
 
 ## Classes
 
-Todas classes terão um sprite com um visual padrão e cada uma terá suas próprias habilidades e equipamentos específicos.
+All classes will have a default sprite and its own skills and equipments.
 	
-* Guerreiro - Personagem que tem mais facilidade com armas brancas. Utiliza machados, espadas, escudos, dentre outras coisas. Pode utilizar armaduras pesadas.
-* Mago - Personagem que utiliza magias para batalhar. Geralmente equipa bastões mágicos e túnica
+* Warrior - Character that uses axes, swords, shields and heavy armors.
+* Mage - Character that casts spells and uses equipments like magic staffs and tunics.
 s.
-* Arqueiro - Personagem que utiliza arco e flecha para atacar. Pode utilizar armaduras/roupas leves.
+* Archer - Character that uses bow and arrow and can equip light armors.
 
-## Atributos, Status e Habilidades
+## Attributes and Status
 	
-Como uma das propostas do projeto é ter uma inteligencia artificial avançada, tanto o personagem criado pelo jogador quanto os NPC(non-player characters) e monstros terão os mesmos atributos e status. Além disso, mesmo monstros da mesma espécia terão atributos diferentes, porque eles serão gerados aleatoriamente.
+To enhance the artificial intelligence, the enemys and NPCs (Non Player Characters) of the game will have the same attributes and status as the player characters.
 
-### Atributos		
+### Attributes	
 
-* Força - Define a força dos ataques físicos do personagem, combinado com os pontos de ataque das armas.
-* Constituição - Define a resistência e a quantidade de HP do personagem.
-* Destreza/Agilidade - Define a velocidade de ataque e a chance de desviar de ataques inimigos.
-* Inteligência - Define o poder das magias utilizadas pelo personagem, bem como sua facilidade em identificar itens, inimigos, etc.
-* Carisma - Define o poder de persuasão do personagem ao conversar com NPCs.
+* Strength - Defines the strength of physical attacks.
+* Constitution - Define the resistance and the amount of HP of the character.
+* Dexterity - Define a velocidade de ataque e a chance de desviar de ataques inimigos.
+* Intelligence - Defines the strength of the spells cast by the character.
+* Charisma - Defines the persuasiveness of the character when talking to NPCs (Non Player Characters).
 
 ### Status
 
-* Level - Define quanto o personagem já evoluiu. Cada vez que ele sobe de nível, mais atributos e habilidades estarão disponíveis para serem distribuídos.
-* HP - Os tradicionais pontos de vida, que indicam quanto dano o personagem já sofreu. Ao chegar a zero, o personagem morre e o jogo deve voltar ao último lugar onde foi salvo.
-* Mana - Também tradicional nos RPGs, são os pontos que são gastos quando o personagem utiliza uma habilidade ou magia.
-* Stamina - Indica o cansaço do personagem. No jogo, ações como correr, atacar, fazem o personagem perder stamina, que se recupera aos poucos. Quanto mais sono o personagem tiver, mais lento será a recuperação.
-* Fome - O jogo terá itens que servirão como alimento. Ficar muito tempo sem consumir nada fará com que a fome aumente e as ações do personagem fiquem mais difíceis de se realizar.
-* Sono - Assim como a fome, um personagem com muito sono terá suas ações dificultadas, assim tendo que procurar uma cama para poder descansar.
-
-## Inteligência Artificial
-
-A ideia de inteligência artificial que o jogo passará é de que os inimigos e NPCs tem ações parecidas com o personagem. Assim, personagens não controlados pelo jogador também dormirão, lutarão, sentirão fome. Por exemplo: um monstro carnívoro poderá lutar com outros monstros de níveis inferiores quando sentir fome, criando assim todo um ecossistema no cenário do jogo.
-Além dessa partes dos status e comportamento, existirão árvores de decisão que irão definir como os NPCs e as quests(missões) respondem as escolhas do jogador, mundo do jogo com ciclos de dia/noite, chuva, sol, entre outros.
+* HP (Health Points)
+* Mana (Magic Points)
+* Stamina
+* Hunger
+* Sleep
