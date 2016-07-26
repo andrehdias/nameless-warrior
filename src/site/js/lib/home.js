@@ -153,6 +153,7 @@ Home.prototype = {
 	saveSession: function(data) {
 		sessionStorage.setItem('userID', data.userId);
 		sessionStorage.setItem('email', data.email);
+    sessionStorage.setItem('token', data.token);
 	},
 
 	checkLogin: function() {
