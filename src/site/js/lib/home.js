@@ -89,7 +89,7 @@ Home.prototype = {
 		switch(target) {
 			case 'characters':
 				form.find('.stats__input').val(5);
-				form.find('.stats__counter').val(10);
+				form.find('.stats__counter').val(10);				
 
 				break;
 		}
@@ -238,6 +238,8 @@ Home.prototype = {
 			$('.overlay').click();
 			$('[data-target="#formbox-select"]').click();
 			result.html('');
+			$('[name=characterClass]').val('');
+			$('.create__img img').attr('src', '');
 		}, 500);
 
 		this.updateCharacterList();
