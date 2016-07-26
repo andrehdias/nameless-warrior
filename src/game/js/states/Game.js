@@ -20,9 +20,6 @@ NWarrior.Game.prototype = {
     	this.npcsGroup.add(this.npcs[i]);
 		}
 
-		console.log(this.npcs)
-
-
 		this.hud = new NWarrior.Hud(this.game);    		
 	},
 

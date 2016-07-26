@@ -49,9 +49,7 @@ Home.prototype = {
 		$('.character__wrapper').on('click', '.character', function(e) {
 			var characterId = $(this).data('character-id');
 
-			console.log('oeee')
-
-			window.location.assign('/game/index.html?characterId=' + characterId);
+			window.location.assign('/game.html?characterId=' + characterId);
 		});
 	},
 
@@ -254,34 +252,34 @@ Home.prototype = {
 
 		loader.addClass('active');
 
-		$('.character__wrapper > :not(.character__template)').remove();
+		$('.character__wrapper > .character').remove();
 
-		$.ajax({
-			type: "GET",
-			url: url,			
-			success: function(data) {
+		$.get('templates/characterSelection.html', function(response) {
+			var characterTemplate = response;
+
+			$.get(url, function(data) {
 		    loader.removeClass('active');
 
 		    if(data.length) {
 			    for (var i in data) {
 			    	var character = data[i],
-								characterTemplate = $('.character__template').html();
+								template = characterTemplate;
 
-						characterTemplate = characterTemplate.replace('{Nickname}', character.nickname);
-						characterTemplate = characterTemplate.replace('{CharacterClass}', _this.formatClass(character.characterClass, character.gender));
-						characterTemplate = characterTemplate.replace('{Strength}', character.strength);
-						characterTemplate = characterTemplate.replace('{Constitution}', character.constitution);
-						characterTemplate = characterTemplate.replace('{Dexterity}', character.dexterity);
-						characterTemplate = characterTemplate.replace('{Intelligence}', character.intelligence);
-						characterTemplate = characterTemplate.replace('{Charisma}', character.charisma);
-						characterTemplate = characterTemplate.replace('{ClassImg}', character.characterClass);
+						template = template.replace('{Nickname}', character.nickname);
+						template = template.replace('{CharacterClass}', _this.formatClass(character.characterClass, character.gender));
+						template = template.replace('{Strength}', character.strength);
+						template = template.replace('{Constitution}', character.constitution);
+						template = template.replace('{Dexterity}', character.dexterity);
+						template = template.replace('{Intelligence}', character.intelligence);
+						template = template.replace('{Charisma}', character.charisma);
+						template = template.replace('{ClassImg}', character.characterClass);
 
-						characterList.append('<div class="character" data-character-id="'+character._id+'">'+characterTemplate+'</div>');
+						characterList.append('<div class="character" data-character-id="'+character._id+'">'+template+'</div>');
 			    }		    	
 		    } else {
 		    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
 		    }
-			}
+			});
 		});
 	},
 
