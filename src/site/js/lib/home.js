@@ -30,7 +30,7 @@ Home.prototype = {
 					result = form.find('.formbox__result');
 
 			form.submit(function(e) {
-				var data = $(this).serializeObject();						
+				var data = $(this).serializeObject();
 
 				e.preventDefault();
 
@@ -89,7 +89,7 @@ Home.prototype = {
 		switch(target) {
 			case 'characters':
 				form.find('.stats__input').val(5);
-				form.find('.stats__counter').val(10);				
+				form.find('.stats__counter').val(10);
 
 				break;
 		}
@@ -153,6 +153,7 @@ Home.prototype = {
 	saveSession: function(data) {
 		sessionStorage.setItem('userID', data.userId);
 		sessionStorage.setItem('email', data.email);
+    sessionStorage.setItem('token', data.token);
 	},
 
 	checkLogin: function() {
@@ -254,7 +255,7 @@ Home.prototype = {
 
 		loader.addClass('active');
 
-		$('.character__wrapper > .character').remove();
+		$('.character__wrapper > *').remove();
 
 		$.get('templates/characterSelection.html', function(response) {
 			var characterTemplate = response;
@@ -277,7 +278,7 @@ Home.prototype = {
 						template = template.replace('{ClassImg}', character.characterClass);
 
 						characterList.append('<div class="character" data-character-id="'+character._id+'">'+template+'</div>');
-			    }		    	
+			    }
 		    } else {
 		    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
 		    }
@@ -291,18 +292,18 @@ Home.prototype = {
 
 		switch(characterClass) {
 			case '1':
-				classString = gender + " Warrior";
+				classString = "Warrior";
 				break;
 
 			case '2':
-				classString = gender + " Mage";
+				classString = "Mage";
 				break;
 
 			case '3':
-				classString = gender + " Archer";
+				classString = "Archer";
 				break;
 		}
 
-		return classString;
+		return gender + " " + classString;
 	}
 };

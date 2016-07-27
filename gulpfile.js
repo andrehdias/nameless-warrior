@@ -32,11 +32,9 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('scripts:site', function() {
   return gulp.src([
                 config.dirs.siteJS+'zepto.js',
-                config.dirs.siteJS+'lib/*.js'                
+                config.dirs.siteJS+'lib/*.js'
               ])
-    .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(config.dirs.siteJSDest))
-    .pipe(rename('scripts.min.js'))
+    .pipe(concat('scripts.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(config.dirs.siteJSDest));
 });
@@ -49,9 +47,7 @@ gulp.task('scripts:game', function() {
                 config.dirs.gameJS+'states/*.js',
                 config.dirs.gameJS+'main.js'
               ])
-    .pipe(concat('gameScripts.js'))
-    .pipe(gulp.dest(config.dirs.gameJSDest))
-    .pipe(rename('gameScripts.min.js'))
+    .pipe(concat('gameScripts.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(config.dirs.gameJSDest));
 });
@@ -61,6 +57,7 @@ gulp.task('scripts:game', function() {
 gulp.task('sass', function() {
   return gulp.src(config.dirs.siteSASSFiles)
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(rename('styles.min.css'))
     .pipe(gulp.dest("app/css"))
     .pipe(browserSync.stream());
 });
