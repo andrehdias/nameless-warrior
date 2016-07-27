@@ -1,4 +1,4 @@
-var utils = {
+var gameUtils = {
   walkAnimations: function (player) {
     player.animations.add('down', [1, 0, 2], 10, true);
     player.animations.add('left', [4, 3, 5], 10, true);

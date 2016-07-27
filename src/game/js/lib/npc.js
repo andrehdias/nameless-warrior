@@ -23,15 +23,15 @@ NWarrior.Npc.prototype = Object.create(Phaser.Sprite.prototype);
 NWarrior.Npc.prototype.constructor = NWarrior.Character;
 
 NWarrior.Npc.prototype.create = function() {
-  this.game.add.existing(this);	 
+  this.game.add.existing(this);
 
-  this.game.physics.arcade.enable(this);            
-  this.body.collideWorldBounds = true;    
+  this.game.physics.arcade.enable(this);
+  this.body.collideWorldBounds = true;
   this.frame = 4;
-  this.enableBody = true;    
-  
-  utils.walkAnimations(this);    
-  utils.randomWalk(this, 50);      	
+  this.enableBody = true;
+
+  gameUtils.walkAnimations(this);
+  gameUtils.randomWalk(this, 50);
 };
 
 NWarrior.Npc.prototype.update = function() {
