@@ -108,12 +108,6 @@ section {
 	text-align: center;
 	padding: 0 15px;
 
-	#phaser {
-		canvas {
-			margin: 40px auto;
-		}
-	}
-
 	&.content {
 		width: 90%;
 		float: none;
@@ -177,7 +171,7 @@ section {
 .game {
 	&__wrapper {
     padding: 0;
-		width: 70%;
+		width: 80%;
 		height: 100%;
     float: left;
 
@@ -192,10 +186,14 @@ section {
   &__wrapper {
     padding: 0;
     float: left;
-    width: 30%;
+    width: 20%;
     height: 100%;
 
     background-color: $blue;
+
+    h2 {
+      margin: 15px 0;
+    }
   }
 }
 

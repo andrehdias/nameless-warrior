@@ -1,7 +1,7 @@
 var NWarrior = NWarrior || {};
 
 NWarrior.Game = function(){
-	this.npcsNumber = 50;
+	this.npcsNumber = 10;
 };
 
 NWarrior.Game.prototype = {
@@ -30,6 +30,6 @@ NWarrior.Game.prototype = {
 	},
 
 	render: function() {
-		this.game.debug.text(this.game.time.fps || '--', 10, 430, "#000");
+		this.game.debug.text(this.game.time.fps || '--', 10, 650, "#000");
 	}
 }
