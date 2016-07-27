@@ -174,25 +174,27 @@ section {
 		width: 80%;
 		height: 100%;
     float: left;
-
-		.game {
-			position: relative;
-      top: 0;
-		}
 	}
 }
 
 .gameMenu {
   &__wrapper {
-    padding: 0;
+    padding: 0 20px;
     float: left;
     width: 20%;
     height: 100%;
 
+    border-right: 3px solid $red;
     background-color: $blue;
+
+    text-align: left;
 
     h2 {
       margin: 15px 0;
+    }
+
+    .gameMenu__stats {
+      font-size: 14px;
     }
   }
 }
