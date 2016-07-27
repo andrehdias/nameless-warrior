@@ -3,7 +3,7 @@ var utils = {
     player.animations.add('down', [1, 0, 2], 10, true);
     player.animations.add('left', [4, 3, 5], 10, true);
     player.animations.add('right', [7, 6, 8], 10, true);
-    player.animations.add('up', [10, 9, 11], 10, true);  
+    player.animations.add('up', [10, 9, 11], 10, true);
   },
 
   walk: function(direction, character, velocity) {
@@ -22,7 +22,7 @@ var utils = {
         character.body.velocity.x = 0;
         break;
 
-      case 'left':       
+      case 'left':
         this.lastFrame = 4;
         character.body.velocity.x = -velocity;
         character.body.velocity.y = 0;
@@ -33,40 +33,44 @@ var utils = {
         character.body.velocity.y = 0;
         character.body.velocity.x = velocity;
         break;
-        
+
       case 'stop':
         character.body.velocity.x = 0;
         character.body.velocity.y = 0;
         character.animations.stop();
-        break;      
+        break;
     }
 
-    character.animations.play(direction);    
+    character.animations.play(direction);
   },
 
-  walkCursors: function (cursor, player, speed) {    
+  walkCursors: function (cursor, player, speed) {
+    var direction;
+
     speed = speed || 150;
 
 		if (cursor.left.isDown) {
-      this.walk('left', player, speed);
-    } else if (cursor.right.isDown) {      
-      this.walk('right', player, speed);
-	  } else if (cursor.up.isDown) {
-      this.walk('up', player, speed);
-	  } else if (cursor.down.isDown) {
-      this.walk('down', player, speed);
-	  } else {
-	  	this.walk('stop', player, speed);
-	  }  	    
+      direction = 'left';
+    } else if (cursor.right.isDown) {
+      direction = 'right';
+    } else if (cursor.up.isDown) {
+      direction = 'up';
+    } else if (cursor.down.isDown) {
+      direction = 'down';
+    } else {
+      direction = 'stop';
+    }
+
+    this.walk(direction, player, speed);
   },
-  
+
   randomWalk: function(character, speed) {
     var _this = this,
         speed = speed || 150;
 
     setInterval(function() {
-      var direction = Math.floor(Math.random() * (6 - 1)) + 1;      
-      
+      var direction = Math.floor(Math.random() * (6 - 1)) + 1;
+
       switch(direction){
         case 1:
           _this.walk('down', character, speed);
@@ -76,7 +80,7 @@ var utils = {
           _this.walk('up', character, speed);
           break;
 
-        case 3:       
+        case 3:
           _this.walk('left', character, speed);
           break;
 
