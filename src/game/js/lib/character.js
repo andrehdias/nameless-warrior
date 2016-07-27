@@ -25,17 +25,17 @@ NWarrior.Character.prototype = Object.create(Phaser.Sprite.prototype);
 NWarrior.Character.prototype.constructor = NWarrior.Character;
 
 NWarrior.Character.prototype.create = function() {
-	this.game.add.existing(this);	
+	this.game.add.existing(this);
 
   this.frame = 1;
-  this.game.physics.arcade.enable(this);            
-  this.body.collideWorldBounds = true;    
-  this.game.camera.follow(this);	
+  this.game.physics.arcade.enable(this);
+  this.body.collideWorldBounds = true;
+  this.game.camera.follow(this);
 	this.cursors = this.game.input.keyboard.createCursorKeys();
-	
-  utils.walkAnimations(this);
+
+  gameUtils.walkAnimations(this);
 };
 
 NWarrior.Character.prototype.update = function() {
-	utils.walkCursors(this.cursors, this);	
+	gameUtils.walkCursors(this.cursors, this);
 };

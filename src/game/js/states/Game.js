@@ -1,14 +1,16 @@
 var NWarrior = NWarrior || {};
 
 NWarrior.Game = function(){
-	this.npcsNumber = 20;
+	this.npcsNumber = 10;
 };
 
 NWarrior.Game.prototype = {
-	create: function() {				
+	create: function() {
 		this.game.time.advancedTiming = true;
 
-		this.map = new NWarrior.Map(this.game);    		
+		/*this.map = new NWarrior.Map(this.game);    		*/
+
+    this.game.stage.backgroundColor = "#00CC66";
 
 		this.player = new NWarrior.Character(this.game);
 
@@ -16,11 +18,11 @@ NWarrior.Game.prototype = {
 		this.npcsGroup = this.game.add.group();
 
 		for(var i = 0; i < this.npcsNumber; i++) {
-    	this.npcs[i] = new NWarrior.Npc(this.game);   
+    	this.npcs[i] = new NWarrior.Npc(this.game);
     	this.npcsGroup.add(this.npcs[i]);
 		}
 
-		this.hud = new NWarrior.Hud(this.game);    		
+		this.hud = new NWarrior.Hud(this.game);
 	},
 
 	update: function() {
@@ -28,6 +30,6 @@ NWarrior.Game.prototype = {
 	},
 
 	render: function() {
-		this.game.debug.text(this.game.time.fps || '--', 10, 430, "#000"); 
+		this.game.debug.text(this.game.time.fps || '--', 10, 650, "#000");
 	}
 }

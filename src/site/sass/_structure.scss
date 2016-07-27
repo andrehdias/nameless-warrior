@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	min-height: 100%;
+	height: 100%;
 	overflow: hidden;
 
 	font-family: $content-font;
@@ -22,7 +22,7 @@ ul {
 .overlay {
 	min-width: 100%;
 	min-height: 100%;
-	background-color: rgba($black, 0.8);		
+	background-color: rgba($black, 0.8);
 	position: fixed;
 	z-index: 9;
 	display: none;
@@ -35,7 +35,7 @@ ul {
 .loader {
 	min-width: 100%;
 	min-height: 100%;
-	background-color: rgba($black, 0.8);		
+	background-color: rgba($black, 0.8);
 	position: fixed;
 	z-index: 999;
 	display: none;
@@ -45,7 +45,7 @@ ul {
 
 	&.active {
 		display: block;
-	}	
+	}
 
 	p {
 		@include absoluteCenter;
@@ -60,7 +60,7 @@ a {
 .btn {
 	height: 40px;
 	padding: 0 20px;
-	min-width: 100px;	
+	min-width: 100px;
 	color: $white;
 	border: none;
 	cursor: pointer;
@@ -88,7 +88,7 @@ a {
 	}
 
 	&--red {
-		background-color: $red;					
+		background-color: $red;
 
 		&:hover {
 			background-color: $light-red;
@@ -102,45 +102,39 @@ a {
 	}
 }
 
-section {		
-	font-family: $content-font;	
-	line-height: 25px;	
-	text-align: center;	
-	padding: 0 15px;	
-
-	#phaser {
-		canvas {
-			margin: 40px auto;
-		}
-	}
+section {
+	font-family: $content-font;
+	line-height: 25px;
+	text-align: center;
+	padding: 0 15px;
 
 	&.content {
 		width: 90%;
-		float: none;		
-		margin: 0 auto;			
-		padding: 20px;	
+		float: none;
+		margin: 0 auto;
+		padding: 20px;
 
 		@include absoluteCenter;
 	}
-	
+
 	//Site intro content
-	.intro {		
+	.intro {
 		color: $white;
 		padding: 60px 0;
 
 		img {
 			width: 90%;
 			max-width: 90%;
-		}						
+		}
 
 		h1 {
 			font-size: 80px;
 			text-align: center;
 			margin: 40px 0;
-		}		
+		}
 
 		p {
-			font-size: 18px;			
+			font-size: 18px;
 			line-height: 20px;
 		}
 	}
@@ -159,14 +153,14 @@ section {
 	}
 }
 
-.menu {	
+.menu {
 	height: 60px;
 	margin: 20px auto;
 	list-style: none;
 
 	li {
-		height: 100%;	
-		display: inline-block;		
+		height: 100%;
+		display: inline-block;
 	}
 
 	&--hide {
@@ -174,23 +168,37 @@ section {
 	}
 }
 
-.game {		
-	&__wrapper {		
+.game {
+	&__wrapper {
+    padding: 0;
 		width: 80%;
 		height: 100%;
-		display: inline-block;		
-
-		.game {
-			@include absoluteCenter;
-		}
-	}	
-
-	&__sidebar {
-		width: 20%;
-		height: 100%;
-		display: inline-block;		
+    float: left;
 	}
 }
+
+.gameMenu {
+  &__wrapper {
+    padding: 0 20px;
+    float: left;
+    width: 20%;
+    height: 100%;
+
+    border-right: 3px solid $red;
+    background-color: $blue;
+
+    text-align: left;
+
+    h2 {
+      margin: 15px 0;
+    }
+
+    .gameMenu__stats {
+      font-size: 14px;
+    }
+  }
+}
+
 
 
 //Github Ribbon CSS. Thanks to http://tholman.com/github-corners/
@@ -214,7 +222,7 @@ section {
 	.github-corner:hover .octo-arm{
 		animation:none
 	}
-	
+
 	.github-corner .octo-arm{
 		animation:octocat-wave 560ms ease-in-out
 	}

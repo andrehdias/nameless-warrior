@@ -7,23 +7,32 @@ NWarrior.Hud = function(game){
 
 NWarrior.Hud.prototype = {
 	create: function() {
-    var style = { font: "18px Helvetica", fill: "#fff", tabs: 60 };
-				text = this.game.add.text(10, 10, "Vida:\tMana:", style),
-				text2 = this.game.add.text(10, 30, "100\t50", style);
+    var hpConfig = {
+      x: 140,
+      y: 30,
+      height: 20,
+      bar: {
+        color: '#940000'
+      },
+      bg: {
+        color: '#000000'
+      }
+    },
 
-		text.fixedToCamera = true;
-		text2.fixedToCamera = true;
+    manaConfig = {
+      x: 140,
+      y: 60,
+      height: 20,
+      bar: {
+        color: '#5368EE'
+      },
+      bg: {
+        color: '#000000'
+      }
+    };
 
-		/*this.music = this.game.add.audio('backgroundMusic');
-		this.music.play('', 0, 1, true);*/
-
-		var audio = this.game.add.sprite(720, 10, 'audio');
-
-    audio.fixedToCamera = true;
-		audio.scale.setTo(0.7, 0.7);		
-
-		audio.inputEnabled = true;
-		audio.events.onInputDown.add(this.turnAudio, this);		
+    this.healthBar = new HealthBar(this.game, hpConfig);
+    this.manaBar = new HealthBar(this.game, manaConfig);
 	},
 
 	turnAudio: function(audio) {
