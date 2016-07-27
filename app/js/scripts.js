@@ -55,6 +55,18 @@ Boxes.prototype = {
 *
 **/
 
+Game = function() {
+	
+};
+
+Game.prototype = {
+
+}
+/**
+* Homepage handling component
+*
+**/
+
 Home = function() {
 	this.apiURL = "http://localhost:8080/";
 	this.formsSelector = "form";

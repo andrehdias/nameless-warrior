@@ -176,13 +176,20 @@ section {
 
 .game {		
 	&__wrapper {		
-		width: 100%;
+		width: 80%;
 		height: 100%;
+		display: inline-block;		
 
 		.game {
 			@include absoluteCenter;
 		}
 	}	
+
+	&__sidebar {
+		width: 20%;
+		height: 100%;
+		display: inline-block;		
+	}
 }
 
 

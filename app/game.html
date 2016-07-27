@@ -7,11 +7,22 @@
 	<link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>		
+		<aside class="game__sidebar">
+			<h1>Character</h1>
+		</aside>
+
 		<section class="game__wrapper">	
 			<div id="phaser" class="game"></div>					
 		</section>		
 		
+		<script src="js/scripts.min.js"></script>
 		<script src="js/phaser.min.js"></script>
 		<script src="js/gameScripts.min.js"></script>
+
+		<script>
+			$(document).ready(function(){
+				new Game();
+			});
+		</script>
 </body>
 </html>
