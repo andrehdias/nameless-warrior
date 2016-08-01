@@ -3,8 +3,7 @@
 *
 **/
 
-Home = function() {
-	this.apiURL = "http://localhost:8080/";
+Home = function() {	
 	this.formsSelector = "form";
 
 	this.menuNotLogged = $('.menu--not-logged');
@@ -96,7 +95,7 @@ Home.prototype = {
 	ajaxPOST: function(target, result, data) {
 		var _this = this,
 				loader = $('.loader'),
-				url = _this.apiURL+target;
+				url = config.apiURL+target;
 
 		loader.addClass('active');
 
@@ -164,7 +163,7 @@ Home.prototype = {
 	},
 
 	checkLogin: function() {
-		if(sessionStorage.getItem('userID')) {
+		if(sessionStorage.getItem('token')) {
 			this.loggedInfo.find('span').html(sessionStorage.getItem('email'));
 
 			this.loggedMenu.show();
@@ -257,7 +256,7 @@ Home.prototype = {
 		var _this = this,
 				loader = $('.loader'),
 				userId = sessionStorage.getItem('userID'),
-				url = _this.apiURL+'characters/byUser/'+userId,
+				url = config.apiURL+'characters/byUser/'+userId,
 				characterList = $('.character__wrapper');
 
 		loader.addClass('active');

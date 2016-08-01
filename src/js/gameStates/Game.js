@@ -2,6 +2,8 @@ var NWarrior = NWarrior || {};
 
 NWarrior.Game = function(){
 	this.npcsNumber = 10;
+
+	this.loadData();
 };
 
 NWarrior.Game.prototype = {
@@ -31,5 +33,28 @@ NWarrior.Game.prototype = {
 
 	render: function() {
 		this.game.debug.text(this.game.time.fps || '--', 10, 650, "#000");
+	},
+
+	loadData: function() {
+		var token = sessionStorage.getItem('token'),
+				characterId = window.location.search.replace('?characterId=', '');
+
+		console.log(token);
+
+		if(token) {
+			$.ajax({
+				url: config.apiURL+'/characters/'+characterId,
+				type: 'get',
+				headers: {
+					'x-access-token': token
+				},
+				success: function(data) {
+					this.character = data;
+					console.log(data)
+				}
+			});
+		} else {
+			window.location.assign('/');
+		}
 	}
 }
