@@ -1,13 +1,11 @@
 {
   "dirs": {
     "baseDir": "./app/",
-    "siteJS": "src/site/js/",
-    "siteJSDest": "app/js/",
-    "gameJS": "src/game/js/",
-    "gameJSDest": "app/js/",
-    "siteSASS": "src/site/sass/",
-    "siteJSFiles": "src/site/js/**/*.js",
-    "gameJSFiles": "src/game/js/**/*.js",
-    "siteSASSFiles": "src/site/sass/**/*.scss"
+    "JS": "src/js/",
+    "JSDest": "app/js/",
+    "SASS": "src/sass/",
+    "CSSDest": "app/css/",
+    "JSFiles": "src/js/**/*.js",    
+    "SASSFiles": "src/sass/**/*.scss"
   }
 }

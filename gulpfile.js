@@ -2,7 +2,6 @@
 * Project Gulpfile with Gulp tasks to generate JS, CSS and static server for development
 *
 **/
-
 var gulp        = require('gulp'),
     browserSync = require('browser-sync').create(),
     sass        = require('gulp-sass'),
@@ -21,9 +20,8 @@ gulp.task('serve', ['sass'], function() {
     open: false
   });
 
-  gulp.watch(config.dirs.siteSASSFiles, ['sass']);
-  gulp.watch(config.dirs.siteJSFiles, ['scripts:site']);
-  gulp.watch(config.dirs.gameJSFiles, ['scripts:game']);
+  gulp.watch(config.dirs.SASSFiles, ['sass']);
+  gulp.watch(config.dirs.JSFiles, ['scripts:site', 'scripts:phaser']);
   gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', browserSync.reload);
 });
 
@@ -31,35 +29,31 @@ gulp.task('serve', ['sass'], function() {
 //Generate scripts file for the site
 gulp.task('scripts:site', function() {
   return gulp.src([
-                config.dirs.siteJS+'zepto.js',
-                config.dirs.siteJS+'lib/*.js'
+                config.dirs.JS+'libs/*.js'
               ])
     .pipe(concat('scripts.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(config.dirs.siteJSDest));
+    .pipe(gulp.dest(config.dirs.JSDest));
 });
 
-
-//Generate scripts file for the game
-gulp.task('scripts:game', function() {
+//Generate scripts file for phaser components
+gulp.task('scripts:phaser', function() {
   return gulp.src([
-                config.dirs.gameJS+'lib/*.js',
-                config.dirs.gameJS+'states/*.js',
-                config.dirs.gameJS+'main.js'
+                config.dirs.JS+'gameLibs/*.js',
+                config.dirs.JS+'gameStates/*.js'                
               ])
-    .pipe(concat('gameScripts.min.js'))
+    .pipe(concat('phaserScripts.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(config.dirs.gameJSDest));
+    .pipe(gulp.dest(config.dirs.JSDest));
 });
-
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-  return gulp.src(config.dirs.siteSASSFiles)
+  return gulp.src(config.dirs.SASSFiles)
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(rename('styles.min.css'))
-    .pipe(gulp.dest("app/css"))
+    .pipe(gulp.dest(config.dirs.CSSDest))
     .pipe(browserSync.stream());
 });
 
-gulp.task('default', ['scripts:site', 'scripts:game', 'serve']);
+gulp.task('default', ['scripts:site', 'scripts:phaser', 'serve']);

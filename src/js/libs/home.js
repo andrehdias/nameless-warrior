@@ -42,8 +42,7 @@ Home.prototype = {
 		});
 
 		$('.logout').click(function() {
-			sessionStorage.clear();
-			location.reload();
+			_this.logout();			
 		});
 
 		$('.character__wrapper').on('click', '.character', function(e) {
@@ -71,8 +70,7 @@ Home.prototype = {
 			case 'characters':
 				var remainingStats = form.find('.remaining-stats').html();
 
-				if(remainingStats != 0) {
-					console.log(remainingStats)
+				if(remainingStats != 0) {					
 					result.html('You must distribute all attributes!');
 					invalid = true;
 				}
@@ -102,12 +100,18 @@ Home.prototype = {
 
 		loader.addClass('active');
 
+		data.token = sessionStorage.getItem('token');
+
 		$.ajax({
 			type: "POST",
 			url: url,
 			data: data,
 			success: function(data) {
 		    loader.removeClass('active');
+
+		    if(data.failedAuth) {		    		    
+		    	return _this.logout();
+		    }
 
 		    switch(target) {
 		    	case 'users':
@@ -122,6 +126,9 @@ Home.prototype = {
 		    		_this.handleCharacterCreation(data, result);
 		    		break;
 		    }
+			},
+			error: function(xhr, errorType, error) {				
+				_this.logout();
 			}
 		});
 	},
@@ -258,30 +265,38 @@ Home.prototype = {
 		$('.character__wrapper > *').remove();
 
 		$.get('templates/characterSelection.html', function(response) {
-			var characterTemplate = response;
+			var characterTemplate = response,
+					data = {};
 
-			$.get(url, function(data) {
-		    loader.removeClass('active');
+			data.token = sessionStorage.getItem('token');
 
-		    if(data.length) {
-			    for (var i in data) {
-			    	var character = data[i],
-								template = characterTemplate;
+			$.ajax({
+				url: url, 
+				type: "get",
+				data: data,
+				success: function(data) {
+			    loader.removeClass('active');
 
-						template = template.replace('{Nickname}', character.nickname);
-						template = template.replace('{CharacterClass}', _this.formatClass(character.characterClass, character.gender));
-						template = template.replace('{Strength}', character.strength);
-						template = template.replace('{Constitution}', character.constitution);
-						template = template.replace('{Dexterity}', character.dexterity);
-						template = template.replace('{Intelligence}', character.intelligence);
-						template = template.replace('{Charisma}', character.charisma);
-						template = template.replace('{ClassImg}', character.characterClass);
+			    if(data.length) {
+				    for (var i in data) {
+				    	var character = data[i],
+									template = characterTemplate;
 
-						characterList.append('<div class="character" data-character-id="'+character._id+'">'+template+'</div>');
+							template = template.replace('{Nickname}', character.nickname);
+							template = template.replace('{CharacterClass}', _this.formatClass(character.characterClass, character.gender));
+							template = template.replace('{Strength}', character.strength);
+							template = template.replace('{Constitution}', character.constitution);
+							template = template.replace('{Dexterity}', character.dexterity);
+							template = template.replace('{Intelligence}', character.intelligence);
+							template = template.replace('{Charisma}', character.charisma);
+							template = template.replace('{ClassImg}', character.characterClass);
+
+							characterList.append('<div class="character" data-character-id="'+character._id+'">'+template+'</div>');
+				    }
+			    } else {
+			    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
 			    }
-		    } else {
-		    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
-		    }
+			  }
 			});
 		});
 	},
@@ -305,5 +320,10 @@ Home.prototype = {
 		}
 
 		return gender + " " + classString;
+	},
+
+	logout: function() {
+		sessionStorage.clear();
+		location.reload();
 	}
 };

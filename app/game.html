@@ -9,34 +9,26 @@
 
 <body>
     <section class="gameMenu__wrapper">
-      <h2>Character</h2>
-
-      <div class="gameMenu__stats">
-        <ul>
-          <li><b>Strength: </b>10</li>
-          <li><b>Constitution: </b>10</li>
-          <li><b>Dexterity: </b>10</li>
-          <li><b>Intelligence: </b>10</li>
-          <li><b>Charisma: </b>10</li>
-        </ul>
-      </div>
+      <div class="stats__wrapper"></div>
 
       <h2>Itens</h2>
+
+      <div class="itens__wrapper"></div>
     </section>
 
 		<section class="game__wrapper">
 			<div id="phaser" class="game"></div>
 		</section>
 
-    <script src="js/scripts.min.js"></script>
+		
+		<script src="js/zepto.min.js"></script>
 		<script src="js/phaser.min.js"></script>
     <script src="js/healthBar.standalone.js"></script>
-		<script src="js/gameScripts.min.js"></script>
-
-		<script>
-			$(document).ready(function(){
-				new Game();
+    <script src="js/phaserScripts.min.js"></script>    
+    <script>
+    	$(document).ready(function() {				
+				new NWarrior.game();
 			});
-		</script>
+    </script>
 </body>
 </html>
