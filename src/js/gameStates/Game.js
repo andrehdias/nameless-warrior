@@ -43,7 +43,7 @@ NWarrior.Game.prototype = {
 
 		if(token) {
 			$.ajax({
-				url: config.apiURL+'/characters/'+characterId,
+				url: config.apiURL+'characters/'+characterId,
 				type: 'get',
 				headers: {
 					'x-access-token': token
