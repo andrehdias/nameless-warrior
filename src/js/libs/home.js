@@ -99,7 +99,7 @@ Home.prototype = {
 
 		loader.addClass('active');
 
-		data.token = sessionStorage.getItem('token');
+		data.token = localStorage.getItem('NWarriorToken');
 
 		$.ajax({
 			type: "POST",
@@ -157,14 +157,14 @@ Home.prototype = {
 	},
 
 	saveSession: function(data) {
-		sessionStorage.setItem('userID', data.userId);
-		sessionStorage.setItem('email', data.email);
-    sessionStorage.setItem('token', data.token);
+		localStorage.setItem('NWarriorUserID', data.userId);
+		localStorage.setItem('NWarriorEmail', data.email);
+    localStorage.setItem('NWarriorToken', data.token);
 	},
 
 	checkLogin: function() {
-		if(sessionStorage.getItem('token')) {
-			this.loggedInfo.find('span').html(sessionStorage.getItem('email'));
+		if(localStorage.getItem('NWarriorToken')) {
+			this.loggedInfo.find('span').html(localStorage.getItem('NWarriorEmail'));
 
 			this.loggedMenu.show();
 			this.loggedText.show();
@@ -235,7 +235,7 @@ Home.prototype = {
 			});
 		});
 
-		$('[name=userId]').val(sessionStorage.getItem('userID'));
+		$('[name=userId]').val(localStorage.getItem('NWarriorUserID'));
 	},
 
 	handleCharacterCreation: function(data, result) {
@@ -255,7 +255,7 @@ Home.prototype = {
 	updateCharacterList: function() {
 		var _this = this,
 				loader = $('.loader'),
-				userId = sessionStorage.getItem('userID'),
+				userId = localStorage.getItem('NWarriorUserID'),
 				url = config.apiURL+'characters/byUser/'+userId,
 				characterList = $('.character__wrapper');
 
@@ -267,7 +267,7 @@ Home.prototype = {
 			var characterTemplate = response,
 					data = {};
 
-			data.token = sessionStorage.getItem('token');
+			data.token = localStorage.getItem('NWarriorToken');
 
 			$.ajax({
 				url: url, 
@@ -282,7 +282,7 @@ Home.prototype = {
 									template = characterTemplate;
 
 							template = template.replace('{Nickname}', character.nickname);
-							template = template.replace('{CharacterClass}', _this.formatClass(character.characterClass, character.gender));
+							template = template.replace('{CharacterClass}', _this.formatClass(character.characterClass));
 							template = template.replace('{Strength}', character.strength);
 							template = template.replace('{Constitution}', character.constitution);
 							template = template.replace('{Dexterity}', character.dexterity);
@@ -300,9 +300,8 @@ Home.prototype = {
 		});
 	},
 
-	formatClass: function(characterClass, gender) {
-		var gender = gender == 'F' ? 'Female' : 'Male',
-				classString;
+	formatClass: function(characterClass) {
+		var classString;
 
 		switch(characterClass) {
 			case '1':
@@ -318,11 +317,11 @@ Home.prototype = {
 				break;
 		}
 
-		return gender + " " + classString;
+		return classString;
 	},
 
 	logout: function() {
-		sessionStorage.clear();
+		localStorage.clear();
 		location.reload();
 	}
 };

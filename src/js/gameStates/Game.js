@@ -36,7 +36,7 @@ NWarrior.Game.prototype = {
 	},
 
 	loadData: function() {
-		var token = sessionStorage.getItem('token'),
+		var token = localStorage.getItem('NWarriorToken'),
 				characterId = window.location.search.replace('?characterId=', '');
 
 		console.log(token);
