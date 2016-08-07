@@ -10,7 +10,7 @@ NWarrior.Game.prototype = {
 	create: function() {
 		this.game.time.advancedTiming = true;
 
-		/*this.map = new NWarrior.Map(this.game);    		*/
+		/*this.map = new NWarrior.Map(this.game);    	*/
 
     this.game.stage.backgroundColor = "#00CC66";
 

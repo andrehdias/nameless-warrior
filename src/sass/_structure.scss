@@ -6,7 +6,6 @@ body {
 	height: 100%;
 	overflow: hidden;
 
-	font-family: $content-font;
 	background-color: $black;
 	color: $white;
 }
@@ -107,7 +106,6 @@ a {
 }
 
 section {
-	font-family: $content-font;
 	line-height: 25px;
 	text-align: center;
 	padding: 0 15px;

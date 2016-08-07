@@ -127,7 +127,8 @@ Home.prototype = {
 		    }
 			},
 			error: function(xhr, errorType, error) {				
-				_this.logout();
+				if(errorType == 403)
+					_this.logout();
 			}
 		});
 	},
@@ -295,7 +296,11 @@ Home.prototype = {
 			    } else {
 			    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
 			    }
-			  }
+			  },
+				error: function(xhr, errorType, error) {				
+					if(errorType == 403)
+						_this.logout();
+				}
 			});
 		});
 	},
