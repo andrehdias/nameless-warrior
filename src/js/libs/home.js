@@ -2,7 +2,6 @@
 * Homepage handling component
 *
 **/
-
 Home = function() {	
 	this.formsSelector = "form";
 
@@ -283,7 +282,7 @@ Home.prototype = {
 									template = characterTemplate;
 
 							template = template.replace('{Nickname}', character.nickname);
-							template = template.replace('{CharacterClass}', _this.formatClass(character.characterClass));
+							template = template.replace('{CharacterClass}', formatClass(character.characterClass));
 							template = template.replace('{Strength}', character.strength);
 							template = template.replace('{Constitution}', character.constitution);
 							template = template.replace('{Dexterity}', character.dexterity);
@@ -298,32 +297,11 @@ Home.prototype = {
 			    }
 			  },
 				error: function(xhr, errorType, error) {				
-					if(errorType == 403)
-						_this.logout();
+					_this.logout();
 				}
 			});
 		});
-	},
-
-	formatClass: function(characterClass) {
-		var classString;
-
-		switch(characterClass) {
-			case '1':
-				classString = "Warrior";
-				break;
-
-			case '2':
-				classString = "Mage";
-				break;
-
-			case '3':
-				classString = "Archer";
-				break;
-		}
-
-		return classString;
-	},
+	},	
 
 	logout: function() {
 		localStorage.clear();

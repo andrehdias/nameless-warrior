@@ -104,6 +104,11 @@
 					line-height: 17px;
 					margin: 10px 0;			
 					display: inline-block;
+
+					b {
+						display: inline-block;
+						width: 85px;
+					}
 				}
 
 				.character__img {
@@ -184,7 +189,7 @@
 
 				img {
 					position: relative;
-					top: -50px;
+					top: -20px;
 				}
 			}			
 		}

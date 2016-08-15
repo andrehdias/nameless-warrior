@@ -18,3 +18,23 @@ $.fn.serializeObject = function() {
   });
   return o;
 };
+
+function formatClass(characterClass) {
+  var classString;
+
+  switch(characterClass) {
+    case '1':
+      classString = "Warrior";
+      break;
+
+    case '2':
+      classString = "Mage";
+      break;
+
+    case '3':
+      classString = "Archer";
+      break;
+  }
+
+  return classString;
+}

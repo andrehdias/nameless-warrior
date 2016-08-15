@@ -196,7 +196,20 @@ section {
     }
 
     .gameMenu__stats {
-      font-size: 14px;
+      margin: 10px 0;      
+
+			ul {
+      	font-size: 12px;
+
+      	li {
+      		line-height: 16px;
+      	}
+			}
+
+      b {
+      	display: inline-block;
+      	width: 120px;
+      }
     }
   }
 }

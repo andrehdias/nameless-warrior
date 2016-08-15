@@ -21,28 +21,19 @@ gulp.task('serve', ['sass'], function() {
   });
 
   gulp.watch(config.dirs.SASSFiles, ['sass']);
-  gulp.watch(config.dirs.JSFiles, ['scripts:site', 'scripts:phaser']);
+  gulp.watch(config.dirs.JSFiles, ['scripts']);
   gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', browserSync.reload);
 });
 
 
 //Generate scripts file for the site
-gulp.task('scripts:site', function() {
+gulp.task('scripts', function() {
   return gulp.src([
+                config.dirs.JS+'gameLibs/*.js',
+                config.dirs.JS+'gameStates/*.js',                
                 config.dirs.JS+'libs/*.js'
               ])
     .pipe(concat('scripts.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(config.dirs.JSDest));
-});
-
-//Generate scripts file for phaser components
-gulp.task('scripts:phaser', function() {
-  return gulp.src([
-                config.dirs.JS+'gameLibs/*.js',
-                config.dirs.JS+'gameStates/*.js'                
-              ])
-    .pipe(concat('phaserScripts.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(config.dirs.JSDest));
 });
@@ -56,4 +47,4 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('default', ['scripts:site', 'scripts:phaser', 'serve']);
+gulp.task('default', ['scripts', 'serve']);
