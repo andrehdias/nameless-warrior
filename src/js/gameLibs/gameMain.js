@@ -30,7 +30,7 @@ NWarrior.game.prototype = {
 				characterId = window.location.search.replace('?characterId=', ''),
 				statsWrapper = $('.stats__wrapper');
 
-		$.get('templates/characterStats.html', function(response) {
+		getTemplate('characterStats', function(response) {
 			var statsTemplate = response,
 					data = {};
 
@@ -53,8 +53,6 @@ NWarrior.game.prototype = {
 					template = template.replace('{Intelligence}', character.intelligence);
 					template = template.replace('{Charisma}', character.charisma);
 
-					template = template.replace('{Health}', character.health);
-					template = template.replace('{Mana}', character.mana);
 					template = template.replace('{Stamina}', character.stamina);
 					template = template.replace('{Sleep}', character.sleep);
 					template = template.replace('{Hunger}', character.hunger);
@@ -62,7 +60,7 @@ NWarrior.game.prototype = {
 					statsWrapper.append(template);
 			  },
 				error: function(xhr, errorType, error) {				
-					_this.logout();
+					window.location.assign('/');
 				}
 			});
 		});

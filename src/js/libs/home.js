@@ -263,8 +263,8 @@ Home.prototype = {
 
 		$('.character__wrapper > *').remove();
 
-		$.get('templates/characterSelection.html', function(response) {
-			var characterTemplate = response,
+		getTemplate('characterSelection', function(template) {
+			var characterTemplate = template,
 					data = {};
 
 			data.token = localStorage.getItem('NWarriorToken');

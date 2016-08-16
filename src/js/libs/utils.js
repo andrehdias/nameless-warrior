@@ -38,3 +38,9 @@ function formatClass(characterClass) {
 
   return classString;
 }
+
+function getTemplate(template, cb) {
+  $.get('templates/'+template+'.html', function(response) {
+    cb(response);
+  });
+}

@@ -41,7 +41,7 @@
 	&__input {
 		width: 100%;		
 		height: 50px;
-		margin: 5px 0;
+		margin-bottom: 5px;
 		padding: 10px;
 		font-size: 18px;
 		border: none;
@@ -163,6 +163,7 @@
 				}
 
 				.stats__btn {
+					position: relative;
 					border: none;
 					height: 12px;
 					width: 12px;
@@ -172,12 +173,23 @@
 					outline: none;
 					cursor: pointer;
 
+					&:before {
+						content: '';
+						position: absolute;
+						width: 0;
+						height: 0;
+						top: 1px;					
+						border: 7px solid transparent;
+					}
+
 					&--plus:before {
-						content: '\2795';
+						left: 0;
+						border-left-color: $white;
 					}
 
 					&--minus:before {
-						content: '\2796';
+						right: 0;
+						border-right-color: $white;	
 					}
 				}
 			}
