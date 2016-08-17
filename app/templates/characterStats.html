@@ -2,19 +2,49 @@
 <p class="characterClass">{Class}</p>
 <div class="stats__wrapper">
 	<ul class="stats__list">
-	  <li><b>Str: </b>{Strength}</li>
-	  <li><b>Con: </b>{Constitution}</li>
-	  <li><b>Dex: </b>{Dexterity}</li>
-	  <li><b>Int: </b>{Intelligence}</li>
-	  <li><b>Cha: </b>{Charisma}</li>
-	</ul>     
-	
-	<ul>
-		<li><b>Stamina: </b>{Stamina}</li>
-		<li><b>Sleep: </b>{Sleep}</li>
-		<li><b>Hunger: </b>{Hunger}</li>
+		<li>
+			<b>HP:</b> 100/100
+	  	<progress value="50" max="100"></progress>
+		</li>
+		<li>
+			<b>Mana:</b> 100/100
+	  	<progress value="50" max="100"></progress>
+		</li>
+		<li>
+			<b>Stamina:</b> {Stamina}/100
+	  	<progress value="50" max="100"></progress>
+		</li>
+		<li>
+			<b>Sleep:</b> {Sleep}/100
+	  	<progress value="50" max="100"></progress>
+		</li>
+		<li>
+			<b>Hunger:</b> {Hunger}/100
+	  	<progress value="50" max="100"></progress>
+		</li>
 	</ul>
-</div>
 
-<div class="gameMenu__stats">	
+	<h4>Attributes</h4>
+	<ul class="attributes__list">
+	  <li>
+	  	<b>Str:</b> {Strength}
+	  	<progress value="50" max="100"></progress> XP
+	  </li>
+	  <li>
+	  	<b>Con:</b> {Constitution}
+	  	<progress value="20" max="100"></progress> XP
+	  </li>
+	  <li>
+	  	<b>Dex:</b> {Dexterity}
+	  	<progress value="60" max="100"></progress> XP
+	  </li>
+	  <li>
+	  	<b>Int:</b> {Intelligence}
+	  	<progress value="20" max="100"></progress> XP 
+	  </li>
+	  <li>
+	  	<b>Cha:</b> {Charisma}
+	  	<progress value="80" max="100"></progress> XP
+	  </li>
+	</ul>     
 </div>

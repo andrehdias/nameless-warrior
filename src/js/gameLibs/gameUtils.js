@@ -47,7 +47,7 @@ var gameUtils = {
   walkCursors: function (cursor, player, speed) {
     var direction;
 
-    speed = speed || 150;
+    speed = speed || 400;
 
 		if (cursor.left.isDown) {
       direction = 'left';

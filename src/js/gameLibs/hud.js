@@ -31,8 +31,8 @@ NWarrior.Hud.prototype = {
       }
     };
 
-    this.healthBar = new HealthBar(this.game, hpConfig);
-    this.manaBar = new HealthBar(this.game, manaConfig);
+    /*this.healthBar = new HealthBar(this.game, hpConfig);
+    this.manaBar = new HealthBar(this.game, manaConfig);*/
 	},
 
 	turnAudio: function(audio) {

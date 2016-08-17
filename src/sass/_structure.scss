@@ -173,7 +173,7 @@ section {
 .game {
 	&__wrapper {
     padding: 0;
-		width: 85%;
+		width: 80%;
 		height: 100%;
     float: left;
 	}
@@ -183,7 +183,7 @@ section {
   &__wrapper {
     padding: 0px 10px;
     float: left;
-    width: 15%;
+    width: 20%;
     height: 100%;
 
     border-right: 3px solid $white;
@@ -200,36 +200,25 @@ section {
     	margin-bottom: 10px;
     }
 
-    .stats {
-    	&__wrapper {
-      	margin: 10px 0;          		
-    	}
+    .stats__wrapper {
+      margin: 10px 0;          		    	
+			
+			ul {
+	    	font-size: 14px;
+	    	padding: 0 10px 0 0;      	
+	    	margin-bottom: 15px;
 
-    	&__list {
-      	font-size: 14px;
-      	padding: 0 10px 0 0;      	
+	    	li {
+	    		line-height: 16px;
 
-      	li {
-      		line-height: 16px;
-      		border: 1px solid;
-      		padding-right: 3px;
-      		max-width: 55px;
-      		margin: 4px 0;
-      	}    		
-
-	      b {
-      		padding: 2px;      		
-	      	display: inline-block;      	
-	      	background-color: $white;
-	      	color: $blue;
-	      	margin-right: 3px;
-	      }
-    	}
-    }
+	    		progress {
+	    			width: 87%;
+	    		}
+	    	}
+			}
+    }	
   }
 }
-
-
 
 //Github Ribbon CSS. Thanks to http://tholman.com/github-corners/
 .github-corner:hover .octo-arm{

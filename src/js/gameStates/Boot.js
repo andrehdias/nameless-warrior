@@ -11,8 +11,8 @@ NWarrior.Boot.prototype = {
 
 		this.game.load.spritesheet('player', 'img/char2.png', 31, 32);			
 		this.game.load.spritesheet('npc', 'img/char3.png', 31, 32);			
-		this.game.load.tilemap('sampleMap', 'tiles/sample_map2.json', null, Phaser.Tilemap.TILED_JSON);	
-		this.game.load.image('tiles', 'tiles/TileCraftGroundSet.png');
+		this.game.load.tilemap('sampleMap', 'tiles/sample_map.json', null, Phaser.Tilemap.TILED_JSON);	
+		this.game.load.image('tiles', 'tiles/RPGpack_sheet.png');
 		this.game.load.audio('backgroundMusic', 'audio/RetroMystic.ogg');
 
 		//hud
