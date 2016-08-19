@@ -1,6 +1,4 @@
-var NWarrior = NWarrior || {};
-
-NWarrior.Boot = function(){};
+NWarrior.Boot = function() {};
 
 NWarrior.Boot.prototype = {
 	preload: function() {

@@ -2,7 +2,6 @@
 * Util functions
 *
 **/
-
 $.fn.serializeObject = function() {
   var o = {};
   var a = this.serializeArray();

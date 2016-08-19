@@ -1,7 +1,3 @@
-var NWarrior = NWarrior || {},
-    gameWidth = $('.game__wrapper').width(),
-    gameHeight = window.innerHeight;
-
 NWarrior.game = function() {
 	this.init();
 }
@@ -11,6 +7,9 @@ NWarrior.game.prototype = {
 		if(!localStorage.getItem('NWarriorToken')) {
 			window.location.assign('/');
 		}
+
+		var gameWidth = $('.game__wrapper').width(),
+    		gameHeight = window.innerHeight;
 
 		NWarrior.game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, 'phaser');
 

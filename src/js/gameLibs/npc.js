@@ -1,5 +1,3 @@
-var NWarrior = NWarrior || {};
-
 NWarrior.Npc = function(game){
 		this.type;
 

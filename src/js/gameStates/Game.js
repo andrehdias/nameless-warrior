@@ -1,5 +1,3 @@
-var NWarrior = NWarrior || {};
-
 NWarrior.Game = function(){
 	this.npcsNumber = 10;
 };

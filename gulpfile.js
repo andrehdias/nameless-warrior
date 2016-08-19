@@ -29,9 +29,9 @@ gulp.task('serve', ['sass'], function() {
 //Generate scripts file for the site
 gulp.task('scripts', function() {
   return gulp.src([
+                config.dirs.JS+'libs/*.js',
                 config.dirs.JS+'gameLibs/*.js',
-                config.dirs.JS+'gameStates/*.js',                
-                config.dirs.JS+'libs/*.js'
+                config.dirs.JS+'gameStates/*.js'
               ])
     .pipe(concat('scripts.min.js'))
     .pipe(uglify())

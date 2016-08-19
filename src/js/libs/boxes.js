@@ -3,14 +3,14 @@
 *
 **/
 
-Boxes = function(trigger, target){
+NWarrior.Boxes = function(trigger, target){
 	this.trigger = trigger;
 	this.target = target;		
 
 	this.bindEvents();
 };
 
-Boxes.prototype = {
+NWarrior.Boxes.prototype = {
 	//binds events to elements according to the selector passed as parameter
 	bindEvents: function() {
 				var _this = this,

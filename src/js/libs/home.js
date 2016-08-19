@@ -2,7 +2,7 @@
 * Homepage handling component
 *
 **/
-Home = function() {	
+NWarrior.Home = function() {	
 	this.formsSelector = "form";
 
 	this.menuNotLogged = $('.menu--not-logged');
@@ -17,7 +17,7 @@ Home = function() {
 	this.checkLogin();
 };
 
-Home.prototype = {
+NWarrior.Home.prototype = {
 	bindEvents: function() {
 		var _this = this,
 		forms = $(this.formsSelector);

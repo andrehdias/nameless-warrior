@@ -1,5 +1,3 @@
-var NWarrior = NWarrior || {};
-
 NWarrior.Character = function(game) {
 	this.class;
 	this.nickname;

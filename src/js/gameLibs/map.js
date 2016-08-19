@@ -1,5 +1,3 @@
-var NWarrior = NWarrior || {};
-
 NWarrior.Map = function(game) {
 		this.game = game;
 
