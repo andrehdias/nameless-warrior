@@ -173,7 +173,7 @@ section {
 .game {
 	&__wrapper {
     padding: 0;
-		width: 80%;
+		width: 83%;
 		height: 100%;
     float: left;
 	}
@@ -183,10 +183,10 @@ section {
   &__wrapper {
     padding: 0px 10px;
     float: left;
-    width: 20%;
+    width: 17%;
     height: 100%;
 
-    border-right: 3px solid $white;
+    border-left: 3px solid $white;
     background-color: $blue;
 
     text-align: left;
@@ -203,16 +203,78 @@ section {
     .stats__wrapper {
       margin: 10px 0;          		    	
 			
-			ul {
+			.attributes__list,
+			.stats__list {
 	    	font-size: 14px;
 	    	padding: 0 10px 0 0;      	
 	    	margin-bottom: 15px;
 
 	    	li {
 	    		line-height: 16px;
+	    		position: relative;					
 
-	    		progress {
-	    			width: 87%;
+	    		.progress {	    			
+						margin-bottom: 5px;
+
+	    			&[value],	
+	    			&[value]::-webkit-progress-value{
+							-webkit-appearance: none;
+							-moz-appearance: none;
+							appearance: none;
+
+		    			width: 100%;
+		    			height: 22px;
+
+		    			border: 0;
+		    			border-radius: 4px;
+		    			background-color: $light-blue;
+		    		}
+
+		    		&.progress--health[value],
+		    		&.progress--health[value]::-webkit-progress-value {
+		    			background-color: $red;							
+		    		}
+
+	    			&.progress--stamina[value],
+		    		&.progress--stamina[value]::-webkit-progress-value {
+	    				background-color: $green;
+	    			}
+
+	    			&.progress--mana[value],
+		    		&.progress--mana[value]::-webkit-progress-value {
+		    			background-color: $dark-blue;
+	    			}
+
+		    		&[value]::-webkit-progress-bar {
+		    			background-color: #333;
+		    			border-radius: 4px;
+		    		}
+	    		}
+	    	}
+
+	    	&.attributes__list {
+					.progress {	  
+						margin-bottom: 3px;
+ 
+	    			&[value],	
+	    			&[value]::-webkit-progress-value {
+		    			width: 87%;
+		    			height: 15px;
+		    		}
+	    		}	    		
+	    	}	    	
+
+	    	&.stats__list {	    		
+					b {
+						position: absolute;						
+						left: 5px;
+						top: 3px;
+					}
+			
+	    		span {
+	    			position: absolute;
+	    			right: 5px;
+	    			top: 5px;
 	    		}
 	    	}
 			}

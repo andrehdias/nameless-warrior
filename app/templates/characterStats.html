@@ -1,50 +1,44 @@
 <h3>{Nickname}</h3>
-<p class="characterClass">{Class}</p>
+<div class="gameMenu--class">
+	<p class="characterClass">{Class}</p>	
+</div>
 <div class="stats__wrapper">
 	<ul class="stats__list">
 		<li>
-			<b>HP:</b> 100/100
-	  	<progress value="50" max="100"></progress>
+			<b>HP:</b> <span>{CurrentHealth}/{Health}</span>
+	  	<progress class="progress progress--health" value="{CurrentHealth}" max="{Health}"></progress>
 		</li>
 		<li>
-			<b>Mana:</b> 100/100
-	  	<progress value="50" max="100"></progress>
+			<b>Mana:</b> <span>{CurrentMana}/{Mana}</span>
+	  	<progress class="progress progress--mana" value="{CurrentMana}" max="{Mana}"></progress>
 		</li>
 		<li>
-			<b>Stamina:</b> {Stamina}/100
-	  	<progress value="50" max="100"></progress>
-		</li>
-		<li>
-			<b>Sleep:</b> {Sleep}/100
-	  	<progress value="50" max="100"></progress>
-		</li>
-		<li>
-			<b>Hunger:</b> {Hunger}/100
-	  	<progress value="50" max="100"></progress>
+			<b>Stamina:</b> <span>{CurrentStamina}/{Stamina}</span>
+	  	<progress class="progress progress--stamina" value="{Stamina}" max="{CurrentStamina}"></progress>
 		</li>
 	</ul>
 
-	<h4>Attributes</h4>
 	<ul class="attributes__list">
 	  <li>
-	  	<b>Str:</b> {Strength}
-	  	<progress value="50" max="100"></progress> XP
+	  	<b>Str:</b> {Strength} ({StrengthXP}% XP)
 	  </li>
 	  <li>
-	  	<b>Con:</b> {Constitution}
-	  	<progress value="20" max="100"></progress> XP
+	  	<b>Con:</b> {Constitution} ({ConstitutionXP}% XP)
 	  </li>
 	  <li>
-	  	<b>Dex:</b> {Dexterity}
-	  	<progress value="60" max="100"></progress> XP
+	  	<b>Dex:</b> {Dexterity} ({DexterityXP}% XP)
 	  </li>
 	  <li>
-	  	<b>Int:</b> {Intelligence}
-	  	<progress value="20" max="100"></progress> XP 
+	  	<b>Int:</b> {Intelligence} ({IntelligenceXP}% XP)
 	  </li>
 	  <li>
-	  	<b>Cha:</b> {Charisma}
-	  	<progress value="80" max="100"></progress> XP
-	  </li>
+	  	<b>Cha:</b> {Charisma} ({CharismaXP}% XP)
+		</li>
+		<li>
+			<b>Sleep:</b> <span>{CurrentSleep}/{Sleep}</span>
+		</li>
+		<li>
+			<b>Hunger:</b> <span>{CurrentHunger}/{Hunger}</span>
+		</li>
 	</ul>     
 </div>

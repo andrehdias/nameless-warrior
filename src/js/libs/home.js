@@ -192,7 +192,11 @@ NWarrior.Home.prototype = {
 		classSelect.change(function() {
 			var classImg = $(this).val();
 
-			form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');
+			if(classImg) {
+				form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');				
+			} else {				
+				form.find('.create__img img').attr('src', '');				
+			}
 		});
 
 		stats.each(function() {

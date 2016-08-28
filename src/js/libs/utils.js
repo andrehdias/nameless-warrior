@@ -21,16 +21,18 @@ $.fn.serializeObject = function() {
 function formatClass(characterClass) {
   var classString;
 
+  console.log(characterClass)
+
   switch(characterClass) {
-    case '1':
+    case 1:
       classString = "Warrior";
       break;
 
-    case '2':
+    case 2:
       classString = "Mage";
       break;
 
-    case '3':
+    case 3:
       classString = "Archer";
       break;
   }

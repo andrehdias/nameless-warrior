@@ -15,13 +15,10 @@ NWarrior.Map.prototype = {
 
 		this.map.addTilesetImage('RPGpack_sheet', 'tiles');		
 
-		this.ground = this.map.createLayer("ground");		
+		this.ground = this.map.createLayer("Ground");		
 		this.ground.resizeWorld();						
 
-		this.object = this.map.createLayer("object");		
+		this.object = this.map.createLayer("Objects");		
 		this.object.resizeWorld();						
-
-		this.water = this.map.createLayer("water");		
-		this.water.resizeWorld();						
 	}
 }
