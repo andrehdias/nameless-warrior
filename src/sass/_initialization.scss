@@ -11,3 +11,23 @@
 	font-family: "FreePixel", Open Sans;
 	-webkit-font-smoothing: antialiased;
 }
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	overflow: hidden;
+
+	background-color: $black;
+	color: $white;
+}
+
+ul {
+	list-style: none;
+
+	li {
+		margin: 0;
+	}
+}

@@ -1,23 +1,24 @@
-<h3>{Nickname}</h3>
-<div class="gameMenu--class">
-	<p class="characterClass">{Class}</p>	
-</div>
-<div class="stats__wrapper">
-	<ul class="stats__list">
-		<li>
-			<b>HP:</b> <span>{CurrentHealth}/{Health}</span>
-	  	<progress class="progress progress--health" value="{CurrentHealth}" max="{Health}"></progress>
-		</li>
-		<li>
-			<b>Mana:</b> <span>{CurrentMana}/{Mana}</span>
-	  	<progress class="progress progress--mana" value="{CurrentMana}" max="{Mana}"></progress>
-		</li>
-		<li>
-			<b>Stamina:</b> <span>{CurrentStamina}/{Stamina}</span>
-	  	<progress class="progress progress--stamina" value="{Stamina}" max="{CurrentStamina}"></progress>
-		</li>
-	</ul>
+<h3 class="character__name">{Nickname}</h3>
+<p class="character__class">{Class}</p>	
 
+<div class="stats__wrapper">
+	<div class="stats__bars">
+		<div class="bar bar--health">
+			<span class="bar__text"><b>HP:</b> {CurrentHealth}/{Health}</span>
+			<div class="bar__value" style="width: 85%"></div>
+		</div>
+
+		<div class="bar bar--mana">
+			<span class="bar__text"><b>Mana:</b> {CurrentMana}/{Mana}</span>
+			<div class="bar__value" style="width: 75%"></div>
+		</div>
+		
+		<div class="bar bar--stamina">
+			<span class="bar__text"><b>Stamina:</b> {CurrentStamina}/{Stamina}</span>
+			<div class="bar__value" style="width: 35%"></div>
+		</div>
+	</div>
+	
 	<ul class="attributes__list">
 	  <li>
 	  	<b>Str:</b> {Strength} ({StrengthXP}% XP)
