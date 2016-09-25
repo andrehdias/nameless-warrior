@@ -1,8 +1,8 @@
-NWarrior.game = function() {
+NWarrior.GameMain = function() {
 	this.init();
 }
 
-NWarrior.game.prototype = {
+NWarrior.GameMain.prototype = {
 	init: function() {
 		if(!localStorage.getItem('NWarriorToken')) {
 			window.location.assign('/');
@@ -17,8 +17,6 @@ NWarrior.game.prototype = {
 		NWarrior.game.state.add('Game', NWarrior.Game);					
 
 		NWarrior.game.state.start('Boot');		
-
-		this.loadCharacterInfo();
 	},
 
 	loadCharacterInfo: function() {

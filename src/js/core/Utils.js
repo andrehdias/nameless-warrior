@@ -21,8 +21,6 @@ $.fn.serializeObject = function() {
 function formatClass(characterClass) {
   var classString;
 
-  console.log(characterClass)
-
   switch(characterClass) {
     case 1:
       classString = "Warrior";

@@ -25,7 +25,7 @@ NWarrior.Character.prototype.constructor = NWarrior.Character;
 NWarrior.Character.prototype.create = function() {
 	this.game.add.existing(this);
 
-  this.frame = 1;
+  this.frame = 0;
   this.game.physics.arcade.enable(this);
   this.body.collideWorldBounds = true;
   this.game.camera.follow(this);

@@ -1,9 +1,9 @@
 var gameUtils = {
   walkAnimations: function (player) {
-    player.animations.add('down', [1, 0, 2], 10, true);
-    player.animations.add('left', [4, 3, 5], 10, true);
-    player.animations.add('right', [7, 6, 8], 10, true);
-    player.animations.add('up', [10, 9, 11], 10, true);
+    player.animations.add('down', [0, 1, 2], 10, true);
+    player.animations.add('left', [3, 4, 5], 10, true);
+    player.animations.add('right', [6, 7, 8], 10, true);
+    player.animations.add('up', [9, 10, 11], 10, true);
   },
 
   walk: function(direction, character, velocity) {
@@ -11,25 +11,25 @@ var gameUtils = {
 
     switch(direction){
       case 'down':
-        this.lastFrame = 1;
+        this.lastFrame = 0;
         character.body.velocity.y = velocity;
         character.body.velocity.x = 0;
         break;
 
       case 'up':
-        this.lastFrame = 10;
+        this.lastFrame = 9;
         character.body.velocity.y = -velocity;
         character.body.velocity.x = 0;
         break;
 
       case 'left':
-        this.lastFrame = 4;
+        this.lastFrame = 3;
         character.body.velocity.x = -velocity;
         character.body.velocity.y = 0;
         break;
 
       case 'right':
-        this.lastFrame = 7;
+        this.lastFrame = 6;
         character.body.velocity.y = 0;
         character.body.velocity.x = velocity;
         break;
@@ -37,6 +37,7 @@ var gameUtils = {
       case 'stop':
         character.body.velocity.x = 0;
         character.body.velocity.y = 0;
+        character.frame = this.lastFrame;
         character.animations.stop();
         break;
     }

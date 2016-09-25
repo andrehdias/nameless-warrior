@@ -4,30 +4,51 @@
 	<meta charset="UTF-8">
 	<title>Nameless Warrior</title>
 
+	<link rel="icon" type="image/png" href="img/4.png" />
+
 	<link rel="stylesheet" href="../css/styles.min.css">
 </head>
 
 <body>
 		<section class="game__wrapper">
 			<div id="phaser" class="game"></div>
+
+			<div class="bar__wrapper">
+				<div class="bar bar--health">
+					<span class="bar__text"><b>HP:</b> 100/100</span>
+					<div class="bar__value" style="width: 85%"></div>
+				</div>
+
+				<div class="bar bar--mana">
+					<span class="bar__text"><b>Mana:</b> 100/100</span>
+					<div class="bar__value" style="width: 75%"></div>
+				</div>
+				
+				<div class="bar bar--stamina">
+					<span class="bar__text"><b>Stamina:</b> 100/100</span>
+					<div class="bar__value" style="width: 35%"></div>
+				</div>
+			</div>
+
+			<div class="skills__wrapper">
+				<div class="skills">
+					<div class="skill">1</div>
+					<div class="skill">2</div>
+					<div class="skill">3</div>
+					<div class="skill">4</div>
+					<div class="skill">5</div>
+					<div class="skill">6</div>
+					<div class="skill">7</div>
+					<div class="skill">8</div>
+					<div class="skill">9</div>
+				</div>			
+			</div>
 		</section>
-
-    <section class="gameMenu__wrapper">
-			<div class="minimap__wrapper"><p>Minimap</p></div>
-
-      <div class="stats__wrapper"></div>
-
-      <div class="itens__wrapper"></div>
-    </section>
 		
-		<script src="js/zepto.min.js"></script>
-		<script src="js/phaser.min.js"></script>
-    <script src="js/healthBar.standalone.js"></script>
-    <script src="config.js"></script>
     <script src="js/scripts.min.js"></script>    
     <script>
     	$(document).ready(function() {				
-				new NWarrior.game();
+				new NWarrior.GameMain();
 			});
     </script>
 </body>

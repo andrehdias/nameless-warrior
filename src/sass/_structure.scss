@@ -127,40 +127,10 @@ section {
 
 }
 
-.logged--info,
-.back {
+.logged--info {
 	position: absolute;
 	top: 10px;
 	left: 10px;		
-}
-
-.about {
-	&__title {
-		margin: 10px 0;
-	}
-
-	&__link {
-		position: absolute;
-		bottom: 10px;
-		right: 10px;		
-	}
-
-	&__info {
-		float: left;
-		width: 50%;
-	}
-
-	&__map {
-		float: left;
-		height: 500px;
-		width: 50%;
-	}
-
-	&__list {
-		li {
-			line-height: 20px;			
-		}
-	}
 }
 
 .menu {
@@ -175,107 +145,6 @@ section {
 
 	&--hide {
 		display: none;
-	}
-}
-
-.game {
-	&__wrapper {
-    padding: 0;
-		width: 83%;
-		height: 100%;
-    float: left;
-	}
-}
-
-.gameMenu__wrapper {
-  padding: 0px 10px;
-  float: left;
-  width: 17%;
-  height: 100%;
-
-  border-left: 3px solid $white;
-  background-color: $blue;
-
-  text-align: left;
-
-  .minimap__wrapper {
-  	width: 94%;    
-    border-radius: 4px;
-    height: 150px;
-    background: #000;       
-    margin: 10px auto;
-    padding: 60px;
-    text-align: center;
-  }
-
-  .attributes__list {
-  	
-  }
-
-	.stats {
- 		&__wrapper {
-		  margin: 10px 0;          		    	
- 		}
-
-		&__bars {
-      .bar {
-        width: 100%;
-        height: 25px;
-        margin: 5px 0;
-        border-radius: 4px;
-        background: #333;        
-        position: relative;
-        overflow: hidden;
-        
-        &__text {
-          position: absolute;
-          z-index: 2;
-          margin: 2px 5px; 
-          font-size: 12px;
-        }
-        
-        &__value {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 30px;
-          background: $red;
-          transition: all .6s;
-          
-          &:hover {
-            width: 100% !important;
-          }
-        }
-        
-        &--mana .bar__value {
-          background: $dark-blue !important;
-        }
-        
-        &--stamina .bar__value {
-          background: $green !important;
-        }
-      }
-    }
-
-  	&__list {	    		
-    	font-size: 14px;
-    	padding: 0 10px 0 0;      	
-    	margin-bottom: 15px;
-  		line-height: 16px;
-  		position: relative;					
-    	
-			b {
-				position: absolute;						
-				left: 5px;
-				top: 3px;
-			}
-	
-  		span {
-  			position: absolute;
-  			right: 5px;
-  			top: 5px;
-  		}
-  	}
 	}
 }
 

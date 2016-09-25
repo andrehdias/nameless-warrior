@@ -29,12 +29,14 @@ gulp.task('serve', ['sass'], function() {
 //Generate scripts file for the site
 gulp.task('scripts', function() {
   return gulp.src([
-                config.dirs.JS+'libs/*.js',
-                config.dirs.JS+'gameLibs/*.js',
-                config.dirs.JS+'gameStates/*.js'
+                config.dirs.JS+'libs/zepto.min.js',
+                config.dirs.JS+'libs/phaser.min.js',
+                config.dirs.JS+'core/*.js',
+                config.dirs.JS+'game/*.js',
+                config.dirs.JS+'states/*.js'
               ])
     .pipe(concat('scripts.min.js'))
-    .pipe(uglify())
+    /*.pipe(uglify())*/
     .pipe(gulp.dest(config.dirs.JSDest));
 });
 
