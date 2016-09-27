@@ -13,7 +13,11 @@ NWarrior.Npc = function(game){
 		this.hunger;
 		this.sleep;
 
-		Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'npc');
+		this.sprites = ['warrior', 'mage', 'archer'];
+
+		var rand = Math.floor((Math.random() * 2));
+
+		Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, this.sprites[rand]);
     this.create();
 };
 

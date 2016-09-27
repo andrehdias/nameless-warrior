@@ -1,9 +1,9 @@
 var gameUtils = {
   walkAnimations: function (player) {
     player.animations.add('down', [0, 1, 2], 10, true);
-    player.animations.add('left', [3, 4, 5], 10, true);
-    player.animations.add('right', [6, 7, 8], 10, true);
-    player.animations.add('up', [9, 10, 11], 10, true);
+    player.animations.add('right', [3, 4, 5], 10, true);
+    player.animations.add('up', [6, 7, 8], 10, true);
+    player.animations.add('left', [9, 10, 11], 10, true);
   },
 
   walk: function(direction, character, velocity) {
@@ -16,22 +16,22 @@ var gameUtils = {
         character.body.velocity.x = 0;
         break;
 
+      case 'right':
+        this.lastFrame = 3;
+        character.body.velocity.y = 0;
+        character.body.velocity.x = velocity;
+        break;
+
       case 'up':
-        this.lastFrame = 9;
+        this.lastFrame = 6;
         character.body.velocity.y = -velocity;
         character.body.velocity.x = 0;
         break;
 
       case 'left':
-        this.lastFrame = 3;
+        this.lastFrame = 9;
         character.body.velocity.x = -velocity;
         character.body.velocity.y = 0;
-        break;
-
-      case 'right':
-        this.lastFrame = 6;
-        character.body.velocity.y = 0;
-        character.body.velocity.x = velocity;
         break;
 
       case 'stop':
@@ -48,7 +48,7 @@ var gameUtils = {
   walkCursors: function (cursor, player, speed) {
     var direction;
 
-    speed = speed || 400;
+    speed = speed || 250;
 
 		if (cursor.left.isDown) {
       direction = 'left';

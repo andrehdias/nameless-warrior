@@ -14,7 +14,7 @@ NWarrior.Character = function(game) {
 	this.hunger;
 	this.sleep;
 
-	Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'player');
+	Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'archer');
 
 	this.create();
 };
