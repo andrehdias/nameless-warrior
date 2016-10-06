@@ -4,9 +4,9 @@ NWarrior.GameMain = function() {
 
 NWarrior.GameMain.prototype = {
 	init: function() {
-	/*	if(!localStorage.getItem('NWarriorToken')) {
+		if(!localStorage.getItem('NWarriorToken')) {
 			window.location.assign('/');
-		}*/
+		}
 
 		this.gameWidth = $('.game__wrapper').width(),
    	this.gameHeight = window.innerHeight;

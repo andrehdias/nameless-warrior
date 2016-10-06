@@ -44,27 +44,7 @@ var gameUtils = {
 
     character.animations.play(direction);
   },
-
-  walkCursors: function (cursor, player, speed) {
-    var direction;
-
-    speed = speed || 250;
-
-		if (cursor.left.isDown) {
-      direction = 'left';
-    } else if (cursor.right.isDown) {
-      direction = 'right';
-    } else if (cursor.up.isDown) {
-      direction = 'up';
-    } else if (cursor.down.isDown) {
-      direction = 'down';
-    } else {
-      direction = 'stop';
-    }
-
-    this.walk(direction, player, speed);
-  },
-
+  
   randomWalk: function(character, speed) {
     var _this = this,
         speed = speed || 150;

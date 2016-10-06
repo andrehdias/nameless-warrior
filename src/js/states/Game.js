@@ -10,9 +10,9 @@ NWarrior.Game.prototype = {
 
 		this.player = new NWarrior.Character(this.game);
 
-		for(var i = 0; i < this.npcsNumber; i++) {
+		/*for(var i = 0; i < this.npcsNumber; i++) {
 			new NWarrior.Npc(this.game);
-		}
+		}*/
 
 		this.hud = new NWarrior.Hud(this.game);
 	},
