@@ -44,6 +44,10 @@ a {
 	color: $white;
 }
 
+.hide {
+	display: none;
+}
+
 .btn {
 	height: 40px;
 	padding: 0 20px;
@@ -57,10 +61,7 @@ a {
 	border-radius: 2px;
 	background: none;
 	transition: background-color 1s;
-
-	&--border {
-		border: 1px solid $white;
-	}
+	border: 1px solid $white;
 
 	&--green {
 		background-color: $green;

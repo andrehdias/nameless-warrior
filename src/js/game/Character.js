@@ -23,7 +23,7 @@ NWarrior.Character.prototype.create = function() {
 NWarrior.Character.prototype.update = function() {
 	this.handleKeys();
 
-	this.updateStatus();
+	this.updateBars();
 };
 
 NWarrior.Character.prototype.getCharacterInfo =  function() {
@@ -54,20 +54,28 @@ NWarrior.Character.prototype.setCharacterInfo = function(data) {
 	this.int = data.intelligence;
 	this.cha = data.charisma;
 
-	this.hp;
-	this.mana;
-	this.stamina;
-	this.hunger;
-	this.sleep;
-
+	this.HP = data.health;
+	this.currentHP = data.currentHealth;
+	this.MP = data.mana;
+	this.currentMP = data.currentMana;
+	
 	console.log(this)
 
 	Phaser.Sprite.call(this, this.game, this.game.world.randomX, this.game.world.randomY, formatClass(this.charClass));
+
 	this.create();
+
+	this.updateBars();
 };
 
-NWarrior.Character.prototype.updateStatus = function() {
+NWarrior.Character.prototype.updateBars = function() {
+	var hpVal = $('.bar--health .bar__value'),
+			hpTxt = $('.bar--health .bar__text span'),
+			mpVal = $('.bar--mana .bar__value'),
+			mpTxt = $('.bar--mana .bar__text span');
 
+	hpTxt.html(this.currentHP+'/'+this.HP);
+	mpTxt.html(this.currentMP+'/'+this.MP);
 };
 
 NWarrior.Character.prototype.handleKeys = function () {

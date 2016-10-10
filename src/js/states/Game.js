@@ -18,6 +18,6 @@ NWarrior.Game.prototype = {
 	},
 
 	render: function() {
-		this.game.debug.text(this.game.time.fps || '--', 10, 660, "#000");
+		this.game.debug.text(this.game.time.fps || '--', 10, 660, "#fff");
 	}
 }

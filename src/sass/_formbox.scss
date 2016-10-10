@@ -1,8 +1,13 @@
 .formbox {
+	backface-visibility: hidden;
+	outline: 1px solid transparent;
+
 	position: fixed;
-	transform: translate(-50%, -50%);
+
+	transform: translate(-50.1%, -50.1%);
+	
 	top: -400px;
-	left: 50%;
+	left: 49.9%;
 
 	width: 30%;
   max-height: 80%;
@@ -11,6 +16,7 @@
 	z-index: 99;	
 
 	border-radius: 3px;
+	border: 1px solid $white;
 	background-color: rgba($blue, 0.8);
   color: $white;
 	text-align: left;
@@ -25,8 +31,8 @@
 
 	&__close {
 		position: absolute;
-		right: -10px;
-		top: -10px;
+		right: -13px;
+		top: -13px;
 		width: 25px;
 		height: 25px;
 		border: 2px solid $white;
@@ -34,9 +40,11 @@
 		background-color: $black;
 		text-align: center;
 
+		font-size: 15px;
+
 		i {
 			position: relative;
-			top: -1px;
+			top: -2px;
 		}
 	}
 
@@ -85,7 +93,7 @@
 	}
 
 	&.active {
-		top: 50%;				
+		top: 49.9%;				
 	}
 
 	&__character {

@@ -42,7 +42,7 @@ gulp.task('scripts', function() {
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-  return gulp.src(config.dirs.SASSFiles)
+  return gulp.src(config.dirs.SASS+'styles.scss')
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(rename('styles.min.css'))
     .pipe(gulp.dest(config.dirs.CSSDest))

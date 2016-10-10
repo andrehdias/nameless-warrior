@@ -166,20 +166,20 @@ NWarrior.Home.prototype = {
 		if(localStorage.getItem('NWarriorToken')) {
 			this.loggedInfo.find('span').html(localStorage.getItem('NWarriorEmail'));
 
-			this.loggedMenu.show();
-			this.loggedText.show();
-			this.loggedInfo.show();
-			this.menuNotLogged.hide();
-			this.notLoggedText.hide();
+			this.loggedMenu.removeClass('hide');
+			this.loggedText.removeClass('hide');
+			this.loggedInfo.removeClass('hide');
+			this.menuNotLogged.addClass('hide');
+			this.notLoggedText.addClass('hide');
 
 			this.setupCharacterCreation();
 			this.updateCharacterList();
 		} else {
-			this.loggedMenu.hide();
-			this.loggedText.hide();
-			this.loggedInfo.hide();
-			this.menuNotLogged.show();
-			this.notLoggedText.show();
+			this.loggedMenu.addClass('hide');
+			this.loggedText.addClass('hide');
+			this.loggedInfo.addClass('hide');
+			this.menuNotLogged.removeClass('hide');
+			this.notLoggedText.removeClass('hide');
 		}
 	},
 
