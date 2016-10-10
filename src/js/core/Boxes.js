@@ -18,17 +18,25 @@ NWarrior.Boxes.prototype = {
 
 		boxes.each(function() {		
 			var href = $(this).data("target"),
-					actualSection = $(href);
+					actualSection = $(href),
+					close = actualSection.find('.formbox__close');
+			
+			close.click(function(e) {
+				e.preventDefault();
+
+				overlay.removeClass('active');
+				actualSection.removeClass('active');
+			});									
+
+			overlay.click(function() {
+				overlay.removeClass('active');
+				actualSection.removeClass('active');
+			});									
 
 			$(this).click(function(e) {
 				e.preventDefault();				
 				
 				overlay.addClass('active');					
-
-				overlay.click(function() {
-					overlay.removeClass('active');
-					actualSection.removeClass('active');
-				});									
 
 				_this.closeAll();
 				

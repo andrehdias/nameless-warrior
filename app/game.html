@@ -7,44 +7,81 @@
 	<link rel="icon" type="image/png" href="img/4.png" />
 
 	<link rel="stylesheet" href="../css/styles.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 
 <body>
-		<section class="game__wrapper">
-			<div id="phaser" class="game"></div>
+  <!-- Body Overlay -->
+  <div class="overlay"></div>
 
-			<div class="bar__wrapper">
-				<div class="bar bar--health">
-					<span class="bar__text"><b>HP:</b> 100/100</span>
-					<div class="bar__value" style="width: 100%"></div>
-				</div>
+	<section class="game__wrapper">
+		<div id="phaser" class="game"></div>
 
-				<div class="bar bar--mana">
-					<span class="bar__text"><b>Mana:</b> 100/100</span>
-					<div class="bar__value" style="width: 100%"></div>
-				</div>
-				
-				<div class="bar bar--stamina">
-					<span class="bar__text"><b>Stamina:</b> 100/100</span>
-					<div class="bar__value" style="width: 100%"></div>
-				</div>
+		<div class="bar__wrapper">
+			<div class="bar bar--health">
+				<span class="bar__text"><b>HP:</b> 100/100</span>
+				<div class="bar__value" style="width: 100%"></div>
 			</div>
 
-			<div class="skills__wrapper">
-				<div class="skills">
-					<div class="skill">1</div>
-					<div class="skill">2</div>
-					<div class="skill">3</div>
-					<div class="skill">4</div>
-				</div>			
-			</div>
-		</section>
+			<div class="bar bar--mana">
+				<span class="bar__text"><b>MP:</b> 100/100</span>
+				<div class="bar__value" style="width: 100%"></div>
+			</div>				
+		</div>
+
+    <div class="buttons__wrapper">
+      <button data-target="#formbox-stats" class="btn btn--red btn--border open-formbox">Character Info <i class="fa fa-info"></i></button>
+      <button data-target="#formbox-help" class="btn btn--red btn--border open-formbox">Help <i class="fa fa-question"></i></button>
+    </div>
+
+		<div class="skills__wrapper">
+			<div class="skills">
+				<div class="skill">1</div>
+				<div class="skill">2</div>
+				<div class="skill">3</div>
+				<div class="skill">4</div>
+			</div>			
+		</div>
+	</section>
+
+	<!-- Form Boxes Beginning -->
+	<!-- Stats FormBox -->
+	<section class="formbox formbox--game" id="formbox-stats">
+    <a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+
+    <div class="itens__wrapper">
+      <h3 class="itens__title">Itens and Equipments</h3>  
+      <div class="itens__equiped"></div>
+
+      <div class="itens__inventory"></div>
+    </div>
+
+    <div class="stats__wrapper">
+  		<h3 class="stats__nickname">Nickname</h3>		
+
+      <ul class="stats__list">
+        <li>Str: 10</li>
+        <li>Con: 10</li>
+        <li>Dex: 10</li>
+        <li>Int: 10</li>
+        <li>Cha: 10</li>      
+      </ul>      
+    </div>
+	</section>
+
+  <!-- Help FormBox -->
+  <section class="formbox formbox--game" id="formbox-help">
+    <a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+
+  </section>
+	<!-- Form Boxes End -->
 		
-    <script src="js/scripts.min.js"></script>    
-    <script>
-    	$(document).ready(function() {				
-				new NWarrior.GameMain();
-			});
-    </script>
+  <script src="js/scripts.min.js"></script>    
+  <script>
+  	$(document).ready(function() {				
+      new NWarrior.Boxes('.open-formbox', '.formbox');
+			new NWarrior.GameMain();
+		});
+  </script>
 </body>
 </html>

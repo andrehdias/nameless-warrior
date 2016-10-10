@@ -1,24 +1,9 @@
 NWarrior.Character = function(game) {
-	this.class;
-	this.nickname;
-
-	this.str;
-	this.con;
-	this.dex;
-	this.int;
-	this.cha;
-
-	this.hp;
-	this.mana;
-	this.stamina;
-	this.hunger;
-	this.sleep;
+	this.game = game;
 
 	this.speed = 250;
-
-	Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'mage');
-
-	this.create();
+	
+	this.getCharacterInfo();
 };
 
 NWarrior.Character.prototype = Object.create(Phaser.Sprite.prototype);
@@ -39,6 +24,46 @@ NWarrior.Character.prototype.update = function() {
 	this.handleKeys();
 
 	this.updateStatus();
+};
+
+NWarrior.Character.prototype.getCharacterInfo =  function() {
+	var _this = this,
+			characterId = window.location.search.replace('?characterId=', ''),
+			url = config.apiURL+'characters/'+characterId,
+			data = {};
+
+	data.token = localStorage.getItem('NWarriorToken');
+
+	$.ajax({
+		type: "get",
+		url: url,
+		data: data,
+		success: function(data) {
+			_this.setCharacterInfo(data);
+		}
+	});
+};
+
+NWarrior.Character.prototype.setCharacterInfo = function(data) {
+	this.charClass = data.characterClass;
+	this.nickname = data.nickname;
+
+	this.str = data.strength;	
+	this.con = data.constitution;
+	this.dex = data.dexterity;
+	this.int = data.intelligence;
+	this.cha = data.charisma;
+
+	this.hp;
+	this.mana;
+	this.stamina;
+	this.hunger;
+	this.sleep;
+
+	console.log(this)
+
+	Phaser.Sprite.call(this, this.game, this.game.world.randomX, this.game.world.randomY, formatClass(this.charClass));
+	this.create();
 };
 
 NWarrior.Character.prototype.updateStatus = function() {

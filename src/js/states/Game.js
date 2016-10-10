@@ -8,11 +8,7 @@ NWarrior.Game.prototype = {
 
     this.game.stage.backgroundColor = "#000";
 
-		this.player = new NWarrior.Character(this.game);
-
-		/*for(var i = 0; i < this.npcsNumber; i++) {
-			new NWarrior.Npc(this.game);
-		}*/
+		this.player = new NWarrior.Character(this.game);		
 
 		this.hud = new NWarrior.Hud(this.game);
 	},

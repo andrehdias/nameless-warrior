@@ -17,5 +17,5 @@ NWarrior.GameMain.prototype = {
 		NWarrior.game.state.add('Game', NWarrior.Game);					
 
 		NWarrior.game.state.start('Boot');		
-	}
+	}	
 }

@@ -10,7 +10,6 @@
   margin: 0 auto;
 	z-index: 99;	
 
-  overflow: auto;
 	border-radius: 3px;
 	background-color: rgba($blue, 0.8);
   color: $white;
@@ -22,6 +21,23 @@
 		text-align: left;
 		font-size: 22px;
     margin: 0 0 15px 0;
+	}
+
+	&__close {
+		position: absolute;
+		right: -10px;
+		top: -10px;
+		width: 25px;
+		height: 25px;
+		border: 2px solid $white;
+		border-radius: 100px;
+		background-color: $black;
+		text-align: center;
+
+		i {
+			position: relative;
+			top: -1px;
+		}
 	}
 
 	.btn {
@@ -215,6 +231,10 @@
 	&--big {
 		width: 80%;
 		max-height: 80%;
+	}
+
+	&--game {
+		width: 50%;
 	}
 
 	@include smallViewport {		

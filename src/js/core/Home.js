@@ -96,8 +96,6 @@ NWarrior.Home.prototype = {
 				loader = $('.loader'),
 				url = config.apiURL+target;
 
-				console.log(url)
-
 		loader.addClass('active');
 
 		data.token = localStorage.getItem('NWarriorToken');

@@ -58,6 +58,10 @@ a {
 	background: none;
 	transition: background-color 1s;
 
+	&--border {
+		border: 1px solid $white;
+	}
+
 	&--green {
 		background-color: $green;
 

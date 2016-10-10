@@ -9,6 +9,7 @@
 	<link rel="icon" type="image/png" href="img/4.png" />
 
 	<link rel="stylesheet" href="css/styles.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -56,6 +57,8 @@
 	<!-- Form Boxes Beginning -->
 	<!-- Login Formbox -->
 	<section class="formbox" id="formbox-login">
+		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+
 		<h3 class="formbox__title">Login</h3>
 		<form action="" data-target="users/login" name="form_login" id="form_login">
 
@@ -76,6 +79,8 @@
 
 	<!-- Sign Up Formbox -->
 	<section class="formbox" id="formbox-signup">
+		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+
 		<form action="" data-target="users" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Sign Up</h3>
 
@@ -99,18 +104,20 @@
 
 	<!-- Select Character Formbox -->
 	<section class="formbox formbox--big formbox__character" id="formbox-select">
+		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+
 		<button class="btn btn--red open-formbox btn--absolute-right" data-target="#formbox-create">New Character</button>
 
 		<h2 class="formbox__title">Select Character</h2>
 
-		<div class="character__wrapper">
-
-		</div>
+		<div class="character__wrapper"></div>
 	</section>
 
 
 	<!-- Create Character Formbox -->
 	<section class="formbox formbox__create" id="formbox-create">
+		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+		
 		<h2 class="formbox__title">New Character</h2>
 
 		<form action="" name="form_create" data-target="characters">
