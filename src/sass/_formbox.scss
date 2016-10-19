@@ -33,18 +33,17 @@
 		position: absolute;
 		right: -13px;
 		top: -13px;
-		width: 25px;
-		height: 25px;
+		width: 27px;
+		height: 26px;
 		border: 2px solid $white;
 		border-radius: 100px;
 		background-color: $black;
-		text-align: center;
-
 		font-size: 15px;
 
 		i {
 			position: relative;
-			top: -2px;
+			top: -1px;
+			left: 5px;
 		}
 	}
 
@@ -228,6 +227,28 @@
 		}
 
 	}
+
+	&__info {
+    .itens {
+      &__wrapper {
+        width: 70%;
+        float: left;        
+      }
+    }
+
+    .stats {
+      &__wrapper {
+        width: 30%;
+        float: left;
+      }
+
+      &__list {
+      	li {
+      		line-height: 20px;
+      	}
+      }
+    }
+  }
 
 	&__result {
 		margin-top: 5px;

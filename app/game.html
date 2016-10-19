@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 
-<body>
+<body id="gameWrapper">
   <!-- Body Overlay -->
   <div class="overlay"></div>
 
@@ -30,8 +30,9 @@
 		</div>
 
     <div class="buttons__wrapper">
-      <button data-target="#formbox-stats" class="btn btn--red btn--border open-formbox">Character Info <i class="fa fa-info"></i></button>
-      <button data-target="#formbox-help" class="btn btn--red btn--border open-formbox">Help <i class="fa fa-question"></i></button>
+      <button data-target="#formbox-stats" class="btn btn--red open-formbox">Character Info <i class="fa fa-info"></i></button>
+      <button title="Help & Controls" data-target="#formbox-help" class="btn btn--red btn--no-pading open-formbox"><i class="fa fa-question"></i></button>
+      <button title="Enter Fullscreen" class="btn btn--red btn--no-pading toggle-fullscreen"><i class="fa fa-arrows"></i></button>
     </div>
 
 		<div class="skills__wrapper">
@@ -42,11 +43,27 @@
 				<div class="skill">4</div>
 			</div>			
 		</div>
+
+		<div class="dialog__wrapper">
+			<div class="dialog__left-border"></div>
+			<div class="dialog__right-border"></div>
+			<div class="dialog__top-border"></div>
+			<div class="dialog__bottom-border"></div>
+
+			<span class="dialog__top-left-corner"></span>
+			<span class="dialog__top-right-corner"></span>
+			<span class="dialog__bottom-left-corner"></span>
+			<span class="dialog__bottom-right-corner"></span>
+
+			<span>Hello World!</span>
+
+			<span class="dialog__arrow"></span>
+		</div>
 	</section>
 
 	<!-- Form Boxes Beginning -->
 	<!-- Stats FormBox -->
-	<section class="formbox formbox--game" id="formbox-stats">
+	<section class="formbox formbox__info formbox--game" id="formbox-stats">
     <a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
     <div class="itens__wrapper">
@@ -72,6 +89,8 @@
   <!-- Help FormBox -->
   <section class="formbox formbox--game" id="formbox-help">
     <a href="" class="formbox__close"><i class="fa fa-close"></i></a>
+
+    <h3 class="formbox__title">Help & Controls</h3>
 
   </section>
 	<!-- Form Boxes End -->

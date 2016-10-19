@@ -17,6 +17,13 @@ gulp.task('serve', ['sass'], function() {
     server: {
       baseDir: config.dirs.baseDir
     },
+    notify: {
+      styles: {
+          top: 'auto',
+          bottom: '10px',
+          right: '10px'
+      }
+    },
     open: false
   });
 

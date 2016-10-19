@@ -6,9 +6,15 @@ NWarrior.Game.prototype = {
 	create: function() {
 		this.game.time.advancedTiming = true;
 
-    this.game.stage.backgroundColor = "#000";
+    this.game.stage.backgroundColor = "#333";
 
 		this.player = new NWarrior.Character(this.game);		
+
+		this.npcs = this.game.add.group();
+
+		for (var i = 0; i < this.npcsNumber; i++) {
+			this.npcs[i] = new NWarrior.Npc(this.game);			
+		};
 
 		this.hud = new NWarrior.Hud(this.game);
 	},

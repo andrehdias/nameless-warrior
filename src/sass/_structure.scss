@@ -9,7 +9,7 @@
 .overlay {
 	min-width: 100%;
 	min-height: 100%;
-	background-color: rgba($black, 0.8);
+	background-color: rgba($black, 0.9);
 	position: fixed;
 	z-index: 9;
 	display: none;
@@ -91,6 +91,10 @@ a {
 		position: absolute;
 		right: 20px;
 		top: 0px;
+	}
+
+	&--no-pading {
+		padding: 0 !important;
 	}
 }
 

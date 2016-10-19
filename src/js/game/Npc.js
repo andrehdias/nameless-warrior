@@ -13,7 +13,7 @@ NWarrior.Npc = function(game){
 		this.hunger;
 		this.sleep;
 
-		this.sprites = ['warrior', 'mage', 'archer'];
+		this.sprites = ['Warrior', 'Mage', 'Archer'];
 
 		var rand = Math.floor((Math.random() * 2));
 

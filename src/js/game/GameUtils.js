@@ -11,25 +11,25 @@ var gameUtils = {
 
     switch(direction){
       case 'down':
-        this.lastFrame = 0;
+        character.lastFrame = 0;
         character.body.velocity.y = velocity;
         character.body.velocity.x = 0;
         break;
 
       case 'right':
-        this.lastFrame = 3;
+        character.lastFrame = 3;
         character.body.velocity.y = 0;
         character.body.velocity.x = velocity;
         break;
 
       case 'up':
-        this.lastFrame = 6;
+        character.lastFrame = 6;
         character.body.velocity.y = -velocity;
         character.body.velocity.x = 0;
         break;
 
       case 'left':
-        this.lastFrame = 9;
+        character.lastFrame = 9;
         character.body.velocity.x = -velocity;
         character.body.velocity.y = 0;
         break;
@@ -37,7 +37,7 @@ var gameUtils = {
       case 'stop':
         character.body.velocity.x = 0;
         character.body.velocity.y = 0;
-        character.frame = this.lastFrame;
+        character.frame = character.lastFrame;
         character.animations.stop();
         break;
     }

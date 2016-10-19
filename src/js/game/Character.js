@@ -59,8 +59,6 @@ NWarrior.Character.prototype.setCharacterInfo = function(data) {
 	this.MP = data.mana;
 	this.currentMP = data.currentMana;
 	
-	console.log(this)
-
 	Phaser.Sprite.call(this, this.game, this.game.world.randomX, this.game.world.randomY, formatClass(this.charClass));
 
 	this.create();

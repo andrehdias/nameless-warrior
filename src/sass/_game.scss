@@ -1,28 +1,33 @@
 .game__wrapper {
   padding: 0;
-	width: 100%;
-	height: 100%;
+  margin: 0 auto;
+	width: 984px;
+	height: 506px;
 	position: relative;  
+  top: 50%;
+  transform: translate(0, -50%);
+  border-radius: 4px;
+  
 
-	.minimap__wrapper {
-		position: absolute;
-		top: 20px;
-		right: 20px;
+  .minimap__wrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     border-radius: 4px;
     height: 150px;
     background: rgba(#000, 0.6);       
     margin: 10px auto;
     padding: 60px;
     text-align: center;
-		border: 1px solid $white;
+    border: 1px solid $white;
   }
 
   .skills__wrapper {
 		position: absolute;
-		bottom: 20px;
+		top: 20px;
 		left: 50%;
 		transform: translate(-50%, 0);
-		z-index: 2;
+		z-index: 99;  
 		height: 42px;
 		width: auto;
 		background-color: rgba($blue, 0.6);
@@ -92,26 +97,107 @@
     .btn {
       padding: 0 8px;
       height: 30px;
-      min-width: 50px; 
+      min-width: 35px; 
     }
-  }
+  }  
 
-  .formbox__info {
-    .itens {
+  .dialog {
+    &__wrapper {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 50%;
+      height: 100px;
+      background-color: rgba($cocoa-brown, 0.8);
 
-      &__wrapper {
-        width: 50%;
-        float: left;
-        
+      .dialog__bottom-border {
+        width: 100%;
+        height: 8px;
+        position: absolute;        
+        bottom: -8px;
+        background: url(../img/ui/barra_c2.png);         
+      } 
+
+      .dialog__top-border {
+        width: 100%;
+        height: 8px;
+        position: absolute;        
+        top: -8px;
+        background: url(../img/ui/barra_a2.png);         
+      }  
+
+      .dialog__left-border {
+        width: 8px;
+        height: 100%;
+        position: absolute;
+        left: -8px;        
+        background: url(../img/ui/barra_b1.png);
+      }
+
+      .dialog__right-border {
+        width: 8px;
+        height: 100%;
+        position: absolute;
+        right: -8px;        
+        background: url(../img/ui/barra_b1.png);
+      }
+
+      .dialog__top-left-corner {
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        z-index: 2;
+        left: -8px;
+        top: -8px;
+        background: url(../img/ui/barra_a1.png);
+      }
+
+      .dialog__top-right-corner {
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        z-index: 2;
+        right: -8px;
+        top: -8px;
+        background: url(../img/ui/barra_a3.png); 
+      }
+
+      .dialog__bottom-left-corner {
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        z-index: 2;
+        left: -8px;
+        bottom: -8px;
+        background: url(../img/ui/barra_c1.png);  
+      }
+
+      .dialog__bottom-right-corner {
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        z-index: 2;
+        right: -8px;
+        bottom: -8px;
+        background: url(../img/ui/barra_c3.png);   
       }
     }
 
-    .stats {
+    &__arrow {
+      background: url(../img/ui/arrow.png) no-repeat;
+      width: 12px;
+      height: 9px;
 
-      &__wrapper {
-        width: 50%;
-        float: left;
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
 
+      animation: arrow_anim 1s steps(6) infinite;
+
+      @keyframes arrow_anim {
+        from { bottom: 10px; }
+          to { bottom: 15px; }
       }
     }
   }
