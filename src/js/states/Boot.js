@@ -2,11 +2,20 @@ NWarrior.Boot = function() {};
 
 NWarrior.Boot.prototype = {
 	preload: function() {		
-		this.game.load.spritesheet('Warrior', 'img/classes/swordman_walk.png', 32, 32);			
+		this.game.load.spritesheet('SwordsMan', 'img/classes/swordman_walk.png', 32, 32);			
+		this.game.load.spritesheet('SwordsMan_attack', 'img/classes/swordman_attack.png', 32, 32);			
+		this.game.load.spritesheet('SwordsMan_sleep', 'img/classes/swordman_sleep.png', 32, 32);			
+		this.game.load.spritesheet('SwordsMan_dead', 'img/classes/swordman_dead.png', 32, 32);			
+
 		this.game.load.spritesheet('Archer', 'img/classes/archer_walk.png', 32, 32);			
+		this.game.load.spritesheet('Archer_attack', 'img/classes/archer_attack.png', 32, 32);			
+		this.game.load.spritesheet('Archer_sleep', 'img/classes/archer_sleep.png', 32, 32);			
+		this.game.load.spritesheet('Archer_dead', 'img/classes/archer_dead.png', 32, 32);			
+
 		this.game.load.spritesheet('Mage', 'img/classes/mage_walk.png', 32, 32);			
-		this.game.load.tilemap('sampleMap', 'tiles/sample_map3.json', null, Phaser.Tilemap.TILED_JSON);	
-		this.game.load.image('tiles', 'tiles/RPGpack_sheet.png');
+		this.game.load.spritesheet('Mage_attack', 'img/classes/mage_attack.png', 32, 32);			
+		this.game.load.spritesheet('Mage_sleep', 'img/classes/mage_sleep.png', 32, 32);			
+		this.game.load.spritesheet('Mage_dead', 'img/classesSwordsMan/mage_dead.png', 32, 32);			
 	},
 
 	create: function() {

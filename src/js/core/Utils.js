@@ -23,7 +23,7 @@ function formatClass(characterClass) {
 
   switch(characterClass) {
     case 1:
-      classString = "Warrior";
+      classString = "SwordsMan";
       break;
 
     case 2:

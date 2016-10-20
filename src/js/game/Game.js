@@ -19,6 +19,7 @@ NWarrior.GameMain.prototype = {
 		NWarrior.game.state.start('Boot');		
 
 		this.bind();
+		this.uiStyle();
 	},
 
 	bind: function() {
@@ -43,6 +44,13 @@ NWarrior.GameMain.prototype = {
 		      document.webkitCancelFullScreen();  
 		    }  
 		  }  
+		});
+	},
+
+	uiStyle: function() {
+		$('.ui-style').each(function() {
+			console.log(this)
+			$(this).append('<div class="ui-style__left-border"></div><div class="ui-style__right-border"></div><div class="ui-style__top-border"></div><div class="ui-style__bottom-border"></div><div class="ui-style__top-left-corner"></div><div class="ui-style__top-right-corner"></div><div class="ui-style__bottom-left-corner"></div><div class="ui-style__bottom-right-corner"></div>');
 		});
 	}
 }
