@@ -49,7 +49,6 @@ NWarrior.GameMain.prototype = {
 
 	uiStyle: function() {
 		$('.ui-style').each(function() {
-			console.log(this)
 			$(this).append('<div class="ui-style__left-border"></div><div class="ui-style__right-border"></div><div class="ui-style__top-border"></div><div class="ui-style__bottom-border"></div><div class="ui-style__top-left-corner"></div><div class="ui-style__top-right-corner"></div><div class="ui-style__bottom-left-corner"></div><div class="ui-style__bottom-right-corner"></div>');
 		});
 	}

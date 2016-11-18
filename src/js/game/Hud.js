@@ -1,18 +1,16 @@
 NWarrior.Hud = function(game){
 	this.game = game;
-	this.create();
+	this.bind();
 };
 
 NWarrior.Hud.prototype = {
-	create: function() {
-    
-	},
-
-	turnAudio: function(audio) {
-		if(this.music.mute == true) {
-			this.music.mute = false;
-		} else {
-			this.music.mute = true;
-		}
+	bind: function() {
+    document.addEventListener('keydown', function(e) {
+    	console.log(e.keyCode)
+    	if (e.keyCode == Phaser.Keyboard.SPACE) {
+    		
+    		document.querySelector('.dialog__wrapper').classList.add('hide');
+    	}
+    });
 	}
 }

@@ -15,7 +15,7 @@ NWarrior.Boot.prototype = {
 		this.game.load.spritesheet('Mage', 'img/classes/mage_walk.png', 32, 32);			
 		this.game.load.spritesheet('Mage_attack', 'img/classes/mage_attack.png', 32, 32);			
 		this.game.load.spritesheet('Mage_sleep', 'img/classes/mage_sleep.png', 32, 32);			
-		this.game.load.spritesheet('Mage_dead', 'img/classesSwordsMan/mage_dead.png', 32, 32);			
+		this.game.load.spritesheet('Mage_dead', 'img/classes/mage_dead.png', 32, 32);			
 	},
 
 	create: function() {

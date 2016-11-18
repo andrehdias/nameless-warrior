@@ -1,6 +1,5 @@
 NWarrior.Character = function(game) {
 	this.game = game;
-
 	this.speed = 250;
 	
 	this.getCharacterInfo();
@@ -64,6 +63,8 @@ NWarrior.Character.prototype.setCharacterInfo = function(data) {
 	this.create();
 
 	this.updateBars();
+
+	this.bind();
 };
 
 NWarrior.Character.prototype.updateBars = function() {
@@ -79,7 +80,8 @@ NWarrior.Character.prototype.updateBars = function() {
 NWarrior.Character.prototype.handleKeys = function () {
   var direction,
       input = this.game.input,
-      running = input.keyboard.isDown(Phaser.Keyboard.SHIFT);
+      running = input.keyboard.isDown(Phaser.Keyboard.S),
+      ENTER = false;
 
   speed = (running) ? this.speed + 250 : this.speed;
 
@@ -98,3 +100,10 @@ NWarrior.Character.prototype.handleKeys = function () {
   gameUtils.walk(direction, this, speed);
 };
 
+NWarrior.Character.prototype.bind = function () {
+	document.addEventListener('keydown', function(e) {
+		if (e.keyCode == Phaser.Keyboard.A) {
+			console.log('attack')
+		}
+	});
+};

@@ -4,8 +4,8 @@
 	width: 980px;
 	height: 502px;
 	position: relative;  
-  top: 50%;
-  transform: translate(0, -50%);
+  top: 49.9%;
+  transform: translate(0, -50.1%);
   border-radius: 4px;
   
   .bar {    
@@ -25,10 +25,12 @@
 
     &__wrapper {
       position: absolute;
-      top: 20px;
-      left: 20px;                     
-      padding: 5px;
-      background-color: rgba($cocoa-brown, 1);
+      top: 0px;
+      left: 0px;                     
+      width: 100%;
+      padding: 3px 60px;
+      background-color: $black;
+      text-align: left;
  		}
     
     &__text {
