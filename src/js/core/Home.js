@@ -2,23 +2,27 @@
 * Homepage handling component
 *
 **/
-NWarrior.Home = function() {	
-	this.formsSelector = "form";
 
-	this.menuNotLogged = $('.menu--not-logged');
-	this.loggedMenu = $('.menu--logged');
+import config from 'config';
+import Util from 'Utils';
 
-	this.notLoggedText = $('.not-logged--text');
-	this.loggedText = $('.logged--text');
+export default class Home {
+	constructor() {
+		this.formsSelector = "form";
 
-	this.loggedInfo = $('.logged--info');
+		this.menuNotLogged = $('.menu--not-logged');
+		this.loggedMenu = $('.menu--logged');
 
-	this.bindEvents();
-	this.checkLogin();
-};
+		this.notLoggedText = $('.not-logged--text');
+		this.loggedText = $('.logged--text');
 
-NWarrior.Home.prototype = {
-	bindEvents: function() {
+		this.loggedInfo = $('.logged--info');
+
+		this.bindEvents();
+		this.checkLogin();		
+	}
+
+	bindEvents() {
 		var _this = this,
 		forms = $(this.formsSelector);
 
@@ -48,9 +52,9 @@ NWarrior.Home.prototype = {
 
 			window.location.assign('/game.html?characterId=' + characterId);
 		});
-	},
+	}
 
-	validation: function(target, form, result) {
+	validation(target, form, result) {
 		var invalid = false;
 
 		switch(target) {
@@ -77,9 +81,9 @@ NWarrior.Home.prototype = {
 		}
 
 		return invalid;
-	},
+	}
 
-	cleanForms: function(form, target) {
+	cleanForms(form, target) {
 		form.find('input[type=text]:not([readonly])').val('');
 
 		switch(target) {
@@ -89,9 +93,9 @@ NWarrior.Home.prototype = {
 
 				break;
 		}
-	},
+	}
 
-	ajaxPOST: function(target, result, data) {
+	ajaxPOST(target, result, data) {
 		var _this = this,
 				loader = $('.loader'),
 				url = config.apiURL+target;
@@ -130,9 +134,9 @@ NWarrior.Home.prototype = {
 					_this.logout();
 			}
 		});
-	},
+	}
 
-	handleSignUp: function(data, result) {
+	handleSignUp(data, result) {
 		result.html(data.message);
 
 		if(data.created) {
@@ -141,9 +145,9 @@ NWarrior.Home.prototype = {
 				$('[data-target="#formbox-login"]').click();
 			}, 500);
 		}
-	},
+	}
 
-	handleLogin: function(data, result) {
+	handleLogin(data, result) {
 		result.html(data.message);
 
 		if(data.logged) {
@@ -154,15 +158,15 @@ NWarrior.Home.prototype = {
 			this.saveSession(data);
 			this.checkLogin();
 		}
-	},
+	}
 
-	saveSession: function(data) {
+	saveSession(data) {
 		localStorage.setItem('NWarriorUserID', data.userId);
 		localStorage.setItem('NWarriorEmail', data.email);
     localStorage.setItem('NWarriorToken', data.token);
-	},
+	}
 
-	checkLogin: function() {
+	checkLogin() {
 		if(localStorage.getItem('NWarriorToken')) {
 			this.loggedInfo.find('span').html(localStorage.getItem('NWarriorEmail'));
 
@@ -181,9 +185,9 @@ NWarrior.Home.prototype = {
 			this.menuNotLogged.removeClass('hide');
 			this.notLoggedText.removeClass('hide');
 		}
-	},
+	}
 
-	setupCharacterCreation: function() {
+	setupCharacterCreation() {
 		var form = $('[name="form_create"]'),
 				stats = form.find('.stats__group'),
 				remainingStats = form.find('.remaining-stats'),
@@ -240,9 +244,9 @@ NWarrior.Home.prototype = {
 		});
 
 		$('[name=userId]').val(localStorage.getItem('NWarriorUserID'));
-	},
+	}
 
-	handleCharacterCreation: function(data, result) {
+	handleCharacterCreation(data, result) {
 		result.html(data.message);
 
 		setTimeout(function() {
@@ -254,9 +258,9 @@ NWarrior.Home.prototype = {
 		}, 500);
 
 		this.updateCharacterList();
-	},
+	}
 
-	updateCharacterList: function() {
+	updateCharacterList() {
 		var _this = this,
 				loader = $('.loader'),
 				userId = localStorage.getItem('NWarriorUserID'),
@@ -267,7 +271,7 @@ NWarrior.Home.prototype = {
 
 		$('.character__wrapper > *').remove();
 
-		getTemplate('characterSelection', function(template) {
+		Util.getTemplate('characterSelection', function(template) {
 			var characterTemplate = template,
 					data = {};
 
@@ -305,10 +309,10 @@ NWarrior.Home.prototype = {
 				}
 			});
 		});
-	},	
+	}
 
-	logout: function() {
+	logout() {
 		localStorage.clear();
 		location.reload();
 	}
-};
+}

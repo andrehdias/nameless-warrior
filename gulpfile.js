@@ -8,6 +8,13 @@ var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     uglify      = require('gulp-uglify'),
+    path        = require('path'),
+    buffer      = require('gulp-buffer'),
+    source      = require('vinyl-source-stream'),
+    buffer      = require('gulp-buffer'),
+    exorcist    = require('exorcist'),
+    babelify    = require('babelify'),
+    browserify  = require('browserify'),
     config      = require('./nwarrior.json'); //JSON with directories configuration
 
 
@@ -35,17 +42,30 @@ gulp.task('serve', ['sass'], function() {
 
 //Generate scripts file for the site
 gulp.task('scripts', function() {
-  return gulp.src([
-                config.dirs.JS+'libs/zepto.min.js',
-                config.dirs.JS+'libs/phaser.min.js',
-                config.dirs.JS+'core/*.js',
-                config.dirs.JS+'game/*.js',
-                config.dirs.JS+'states/*.js'
-              ])
-    .pipe(concat('scripts.min.js'))
-    /*.pipe(uglify())*/
-    .pipe(gulp.dest(config.dirs.JSDest));
+  return browserify({
+              paths: [config.dirs.JS],
+              entries: path.join(config.dirs.JS, 'index.js'),
+              debug: true,
+              transform: [
+                  [
+                      babelify, {
+                          presets: ["es2015"]
+                      }
+                  ]
+              ]
+          })
+          .transform(babelify)
+          .bundle().on('error', function(error) {
+              console.log(error.message);
+              this.emit('end');
+          })
+          .pipe(exorcist(config.dirs.JSDest))
+          .pipe(source('scripts.min.js'))
+          .pipe(buffer())
+          .pipe(uglify())
+          .pipe(gulp.dest(config.dirs.JSDest));
 });
+
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
