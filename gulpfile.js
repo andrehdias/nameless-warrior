@@ -43,21 +43,21 @@ gulp.task('serve', ['sass'], function() {
 //Generate scripts file for the site
 gulp.task('scripts', function() {
   return browserify({
-              paths: [config.dirs.JS],
-              entries: path.join(config.dirs.JS, 'index.js'),
-              debug: true,
-              transform: [
-                  [
-                      babelify, {
-                          presets: ["es2015"]
-                      }
-                  ]
-              ]
+            paths: [config.dirs.JS],
+            entries: path.join(config.dirs.JS, 'index.js'),
+            debug: true,
+            transform: [
+                [
+                    babelify, {
+                        presets: ["es2015"]
+                    }
+                ]
+            ]
           })
           .transform(babelify)
           .bundle().on('error', function(error) {
-              console.log(error.message);
-              this.emit('end');
+            console.log(error.message);
+            this.emit('end');
           })
           .pipe(exorcist(config.dirs.JSDest))
           .pipe(source('scripts.min.js'))
@@ -69,7 +69,7 @@ gulp.task('scripts', function() {
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-  return gulp.src(config.dirs.SASS+'styles.scss')
+  return gulp.src(path.join(config.dirs.SASS, 'styles.scss'))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(rename('styles.min.css'))
     .pipe(gulp.dest(config.dirs.CSSDest))

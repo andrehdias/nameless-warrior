@@ -2,12 +2,15 @@
 * Homepage handling component
 *
 **/
-
 import config from 'config';
-import Util from 'Utils';
+import Utils from './Utils';
+import Boxes from './Boxes';
 
 export default class Home {
 	constructor() {
+		this.utils = new Utils();
+		this.boxes = new Boxes('.open-formbox', '.formbox');
+
 		this.formsSelector = "form";
 
 		this.menuNotLogged = $('.menu--not-logged');
@@ -23,16 +26,16 @@ export default class Home {
 	}
 
 	bindEvents() {
-		var _this = this,
-		forms = $(this.formsSelector);
+		let _this = this,
+				forms = $(this.formsSelector);
 
 		forms.each(function() {
-			var form = $(this),
+			let form = $(this),
 					formTarget = form.data("target"),
 					result = form.find('.formbox__result');
 
 			form.submit(function(e) {
-				var data = $(this).serializeObject();
+				let data = _this.utils.serializeObject($(this));
 
 				e.preventDefault();
 
@@ -48,18 +51,18 @@ export default class Home {
 		});
 
 		$('.character__wrapper').on('click', '.character', function(e) {
-			var characterId = $(this).data('character-id');
+			let characterId = $(this).data('character-id');
 
 			window.location.assign('/game.html?characterId=' + characterId);
 		});
 	}
 
 	validation(target, form, result) {
-		var invalid = false;
+		let invalid = false;
 
 		switch(target) {
 			case 'users' :
-				var password = form.find('[name=signupPassword]').val(),
+				let password = form.find('[name=signupPassword]').val(),
 						repeatPassword = form.find('[name=signupRepeatPassword]').val();
 
 			  if (password != repeatPassword) {
@@ -70,7 +73,7 @@ export default class Home {
 				break;
 
 			case 'characters':
-				var remainingStats = form.find('.remaining-stats').html();
+				let remainingStats = form.find('.remaining-stats').html();
 
 				if(remainingStats != 0) {					
 					result.html('You must distribute all attributes!');
@@ -96,7 +99,7 @@ export default class Home {
 	}
 
 	ajaxPOST(target, result, data) {
-		var _this = this,
+		let _this = this,
 				loader = $('.loader'),
 				url = config.apiURL+target;
 
@@ -108,10 +111,10 @@ export default class Home {
 			type: "POST",
 			url: url,
 			data: data,
-			success: function(data) {
+			success: function(data) {				
 		    loader.removeClass('active');
 
-		    if(data.failedAuth) {		    		    
+		  	if(data.failedAuth) {		    		    
 		    	return _this.logout();
 		    }
 
@@ -188,13 +191,13 @@ export default class Home {
 	}
 
 	setupCharacterCreation() {
-		var form = $('[name="form_create"]'),
+		let form = $('[name="form_create"]'),
 				stats = form.find('.stats__group'),
 				remainingStats = form.find('.remaining-stats'),
 				classSelect = form.find('[name=characterClass]');
 
 		classSelect.change(function() {
-			var classImg = $(this).val();
+			let classImg = $(this).val();
 
 			if(classImg) {
 				form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');				
@@ -204,7 +207,7 @@ export default class Home {
 		});
 
 		stats.each(function() {
-			var	statsGroup = $(this),
+			let	statsGroup = $(this),
 					plusButton = statsGroup.find('.stats__btn--plus'),
 					minusButton = statsGroup.find('.stats__btn--minus'),
 					statsInput = statsGroup.find('.stats__input');
@@ -212,7 +215,7 @@ export default class Home {
 			plusButton.click(function(e) {
 				e.preventDefault();
 
-				var remainingStatsVal = remainingStats.html(),
+				let remainingStatsVal = remainingStats.html(),
 						statsVal = statsInput.val();
 
 				if(remainingStatsVal > 0) {
@@ -229,7 +232,7 @@ export default class Home {
 			minusButton.click(function(e) {
 				e.preventDefault();
 
-				var remainingStatsVal = remainingStats.html(),
+				let remainingStatsVal = remainingStats.html(),
 						statsVal = statsInput.val();
 
 				if(remainingStatsVal < 10 && statsVal > 5) {
@@ -261,7 +264,7 @@ export default class Home {
 	}
 
 	updateCharacterList() {
-		var _this = this,
+		let _this = this,
 				loader = $('.loader'),
 				userId = localStorage.getItem('NWarriorUserID'),
 				url = config.apiURL+'characters/byUser/'+userId,
@@ -271,8 +274,8 @@ export default class Home {
 
 		$('.character__wrapper > *').remove();
 
-		Util.getTemplate('characterSelection', function(template) {
-			var characterTemplate = template,
+		this.utils.getTemplate('characterSelection', function(template) {
+			let characterTemplate = template,
 					data = {};
 
 			data.token = localStorage.getItem('NWarriorToken');
@@ -285,12 +288,12 @@ export default class Home {
 			    loader.removeClass('active');
 
 			    if(data.length) {
-				    for (var i in data) {
-				    	var character = data[i],
+				    for (let i in data) {
+				    	let character = data[i],
 									template = characterTemplate;
 
 							template = template.replace('{Nickname}', character.nickname);
-							template = template.replace('{CharacterClass}', formatClass(character.characterClass));
+							template = template.replace('{CharacterClass}', _this.utils.formatClass(character.characterClass));
 							template = template.replace('{Strength}', character.strength);
 							template = template.replace('{Constitution}', character.constitution);
 							template = template.replace('{Dexterity}', character.dexterity);

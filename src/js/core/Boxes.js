@@ -2,16 +2,16 @@
 * FormBoxes handling component
 *
 **/
-NWarrior.Boxes = function(trigger, target){
-	this.trigger = trigger;
-	this.target = target;		
+export default class Boxes {
+	constructor(trigger, target) {
+		this.trigger = trigger;
+		this.target = target;		
 
-	this.bindEvents();
-};
+		this.bindEvents();		
+	}
 
-NWarrior.Boxes.prototype = {
 	//binds events to elements according to the selector passed as parameter
-	bindEvents: function() {
+	bindEvents() {
 				var _this = this,
 				boxes = $(this.trigger),
 				overlay = $('.overlay');
@@ -43,9 +43,9 @@ NWarrior.Boxes.prototype = {
 				actualSection.addClass('active');									
 			});
 		}); 		
-	},
+	}
 
-	closeAll: function() {
+	closeAll() {
 		var _this = this,
 				boxes = $('.formbox');				
 		

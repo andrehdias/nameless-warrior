@@ -60,8 +60,9 @@ a {
 	outline: none;
 	border-radius: 2px;
 	background: none;
+	background-color: rgba($black, 0.8);
+	border: 1px solid $white;
 	transition: background-color 1s;
-	// border: 1px solid $white;
 
 	&--green {
 		background-color: $green;

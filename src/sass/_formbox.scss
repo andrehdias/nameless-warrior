@@ -16,8 +16,8 @@
 	z-index: 99;	
 
 	border-radius: 3px;
-	// border: 1px solid $white;
-	background-color: rgba($blue, 0.8);
+	border: 2px solid $white;
+	background-color: rgba($black, 0.8);
   color: $white;
 	text-align: left;
 
@@ -140,7 +140,7 @@
 			}
 
 			&:hover {
-				background-color: rgba($blue, 0.8);
+				background-color: rgba($grey, 0.4);
 			}
 
 			@include largeViewport {

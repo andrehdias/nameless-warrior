@@ -42,13 +42,13 @@
 			<p class="logged--text hide">Welcome, create or select your character and have fun!</p>
 
 			<ul class="menu menu--not-logged hide">
-				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
-				<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
+				<li><button data-target="#formbox-login" class="btn open-formbox">Login</button></li>
+				<li><button data-target="#formbox-signup" class="btn open-formbox">Sign Up</button></li>
 			</ul>
 
 			<ul class="menu menu--logged hide">
-				<li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
-				<li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
+				<li><button data-target="#formbox-select" class="btn open-formbox">Select Character</button></li>
+				<li><button data-target="#formbox-create" class="btn open-formbox">Create Character</button></li>
 			</ul>
 		</div>
 	</section>
@@ -81,7 +81,7 @@
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
 		<h3 class="formbox__title">Login</h3>
-		<form action="" data-target="users/login" name="form_login" id="form_login">
+		<form action="javascript:;" data-target="users/login" name="form_login" id="form_login">
 
 			<label for="loginEmail" class="formbox__label">Email: </label>
 			<input class="formbox__input" type="email" id="loginEmail" name="loginEmail" placeholder="Enter E-mail" required>
@@ -92,7 +92,7 @@
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn btn--red">Login</button>
+				<button class="btn">Login</button>
 			</div>
 		</form>
 	</section>
@@ -102,7 +102,7 @@
 	<section class="formbox" id="formbox-signup">
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
-		<form action="" data-target="users" name="form_signup" id="form_signup">
+		<form action="javascript:;" data-target="users" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Sign Up</h3>
 
 			<label for="signupEmail" class="formbox__label">Email: </label>
@@ -117,7 +117,7 @@
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn btn--red">Sign Up</button>
+				<button class="btn">Sign Up</button>
 			</div>
 		</form>
 	</section>
@@ -127,7 +127,7 @@
 	<section class="formbox formbox--big formbox__character" id="formbox-select">
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
-		<button class="btn btn--red open-formbox btn--absolute-right" data-target="#formbox-create">New Character</button>
+		<button class="btn open-formbox btn--absolute-right" data-target="#formbox-create">New Character</button>
 
 		<h2 class="formbox__title">Select Character</h2>
 
@@ -141,7 +141,7 @@
 		
 		<h2 class="formbox__title">New Character</h2>
 
-		<form action="" name="form_create" data-target="characters">
+		<form action="javascript:;" name="form_create" data-target="characters">
 			<input type="hidden" name="userId">
 
 			<div class="formbox__group--half">
@@ -207,7 +207,7 @@
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn btn--red">Create</button>
+				<button class="btn">Create</button>
 			</div>
 		</form>
 	</section>
