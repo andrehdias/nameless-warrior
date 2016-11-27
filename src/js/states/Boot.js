@@ -1,7 +1,5 @@
-NWarrior.Boot = function() {};
-
-NWarrior.Boot.prototype = {
-	preload: function() {		
+export default class Boot extends Phaser.State {
+	preload() {		
 		this.game.load.spritesheet('SwordsMan', 'img/classes/swordman_walk.png', 32, 32);			
 		this.game.load.spritesheet('SwordsMan_attack', 'img/classes/swordman_attack.png', 32, 32);			
 		this.game.load.spritesheet('SwordsMan_sleep', 'img/classes/swordman_sleep.png', 32, 32);			
@@ -16,16 +14,16 @@ NWarrior.Boot.prototype = {
 		this.game.load.spritesheet('Mage_attack', 'img/classes/mage_attack.png', 32, 32);			
 		this.game.load.spritesheet('Mage_sleep', 'img/classes/mage_sleep.png', 32, 32);			
 		this.game.load.spritesheet('Mage_dead', 'img/classes/mage_dead.png', 32, 32);			
-	},
+	}
 
-	create: function() {
-		NWarrior.game.state.start('Game');
-	},
+	create() {
+		this.game.state.start('Game');
+	}
 
-	setLoader: function() {
+	setLoader() {
 		this.loadingStyle = { font: "18px Helvetica", fill: "#fff"},
 		this.loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Loading...", this.loadingStyle);
 		
 		this.loading.anchor.setTo(0.5);
-	}
+	}	
 }

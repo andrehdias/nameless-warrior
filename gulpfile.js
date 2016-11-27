@@ -59,8 +59,8 @@ gulp.task('scripts', function() {
             console.log(error.message);
             this.emit('end');
           })
-          .pipe(exorcist(config.dirs.JSDest))
-          .pipe(source('scripts.min.js'))
+          .pipe(exorcist(path.join(config.dirs.JSDest, 'scripts.js.map')))
+          .pipe(source('scripts.js'))
           .pipe(buffer())
           .pipe(uglify())
           .pipe(gulp.dest(config.dirs.JSDest));

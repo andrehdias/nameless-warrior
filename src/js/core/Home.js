@@ -5,13 +5,14 @@
 import config from 'config';
 import Utils from './Utils';
 import Boxes from './Boxes';
+import Game from '../game/Game';
 
 export default class Home {
 	constructor() {
 		this.utils = new Utils();
 		this.boxes = new Boxes('.open-formbox', '.formbox');
 
-		this.formsSelector = "form";
+		this.formsSelector = ".form";
 
 		this.menuNotLogged = $('.menu--not-logged');
 		this.loggedMenu = $('.menu--logged');
@@ -53,7 +54,11 @@ export default class Home {
 		$('.character__wrapper').on('click', '.character', function(e) {
 			let characterId = $(this).data('character-id');
 
-			window.location.assign('/game.html?characterId=' + characterId);
+		  localStorage.setItem('NWarriorCharID', characterId);
+
+			_this.boxes.closeAll();
+			
+			new Game();
 		});
 	}
 

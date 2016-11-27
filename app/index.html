@@ -81,7 +81,7 @@
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
 		<h3 class="formbox__title">Login</h3>
-		<form action="javascript:;" data-target="users/login" name="form_login" id="form_login">
+		<form action="javascript:;" class="form" data-target="users/login" name="form_login" id="form_login">
 
 			<label for="loginEmail" class="formbox__label">Email: </label>
 			<input class="formbox__input" type="email" id="loginEmail" name="loginEmail" placeholder="Enter E-mail" required>
@@ -102,7 +102,7 @@
 	<section class="formbox" id="formbox-signup">
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
-		<form action="javascript:;" data-target="users" name="form_signup" id="form_signup">
+		<form action="javascript:;" class="form" data-target="users" name="form_signup" id="form_signup">
 			<h3 class="formbox__title">Sign Up</h3>
 
 			<label for="signupEmail" class="formbox__label">Email: </label>
@@ -141,7 +141,7 @@
 		
 		<h2 class="formbox__title">New Character</h2>
 
-		<form action="javascript:;" name="form_create" data-target="characters">
+		<form action="javascript:;" class="form" name="form_create" data-target="characters">
 			<input type="hidden" name="userId">
 
 			<div class="formbox__group--half">
@@ -215,6 +215,6 @@
 
 	<script src="js/zepto.min.js"></script>
 	<script src="js/phaser.min.js"></script>
-	<script src="js/scripts.min.js"></script>
+	<script src="js/scripts.js"></script>
 </body>
 </html>

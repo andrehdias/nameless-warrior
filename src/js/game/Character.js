@@ -1,109 +1,95 @@
-NWarrior.Character = function(game) {
-	this.game = game;
-	this.speed = 250;
-	
-	this.getCharacterInfo();
-};
+import config from 'config';
+import Movement from './Movement';
 
-NWarrior.Character.prototype = Object.create(Phaser.Sprite.prototype);
-NWarrior.Character.prototype.constructor = NWarrior.Character;
+export default class Character extends Phaser.Sprite {
+	constructor(game, data) {
+		super(game, game.world.randomX, game.world.randomY, data.characterClass);
 
-NWarrior.Character.prototype.create = function() {
-	this.game.add.existing(this);
+		this.setCharacterInfo(data);
 
-  this.frame = 0;
-  this.game.physics.arcade.enable(this);
-  this.body.collideWorldBounds = true;
-  this.game.camera.follow(this);
+		this.create();
+	}
 
-  gameUtils.walkAnimations(this);
-};
+	create() {
+		this.movement = new Movement();
 
-NWarrior.Character.prototype.update = function() {
-	this.handleKeys();
+		this.game.add.existing(this);
+	  this.frame = 0;
 
-	this.updateBars();
-};
+	  this.game.physics.arcade.enable(this);
 
-NWarrior.Character.prototype.getCharacterInfo =  function() {
-	var _this = this,
-			characterId = window.location.search.replace('?characterId=', ''),
-			url = config.apiURL+'characters/'+characterId,
-			data = {};
+	  this.body.collideWorldBounds = true;
 
-	data.token = localStorage.getItem('NWarriorToken');
+	  this.game.camera.follow(this);
 
-	$.ajax({
-		type: "get",
-		url: url,
-		data: data,
-		success: function(data) {
-			_this.setCharacterInfo(data);
-		}
-	});
-};
+	  this.movement.setupAnimations(this);
 
-NWarrior.Character.prototype.setCharacterInfo = function(data) {
-	this.charClass = data.characterClass;
-	this.nickname = data.nickname;
+	  this.speed = 200;	  
+	}
 
-	this.str = data.strength;	
-	this.con = data.constitution;
-	this.dex = data.dexterity;
-	this.int = data.intelligence;
-	this.cha = data.charisma;
+	update() {
+		this.handleKeys();
+		this.updateBars();
+	}
 
-	this.HP = data.health;
-	this.currentHP = data.currentHealth;
-	this.MP = data.mana;
-	this.currentMP = data.currentMana;
-	
-	Phaser.Sprite.call(this, this.game, this.game.world.randomX, this.game.world.randomY, formatClass(this.charClass));
+	setCharacterInfo(data) {
+		this.charClass = data.characterClass;
+		this.nickname = data.nickname;
 
-	this.create();
+		this.str = data.strength;	
+		this.con = data.constitution;
+		this.dex = data.dexterity;
+		this.int = data.intelligence;
+		this.cha = data.charisma;
 
-	this.updateBars();
+		this.HP = data.health;
+		this.currentHP = data.currentHealth;
+		this.MP = data.mana;
+		this.currentMP = data.currentMana;		
 
-	this.bind();
-};
+		this.create();
 
-NWarrior.Character.prototype.updateBars = function() {
-	var hpVal = $('.bar--health .bar__value'),
-			hpTxt = $('.bar--health .bar__text span'),
-			mpVal = $('.bar--mana .bar__value'),
-			mpTxt = $('.bar--mana .bar__text span');
+		this.bind();
+	}
 
-	hpTxt.html(this.currentHP+'/'+this.HP);
-	mpTxt.html(this.currentMP+'/'+this.MP);
-};
+	updateBars() {
+		let hpVal = $('.bar--health .bar__value'),
+				hpTxt = $('.bar--health .bar__text span'),
+				mpVal = $('.bar--mana .bar__value'),
+				mpTxt = $('.bar--mana .bar__text span');
 
-NWarrior.Character.prototype.handleKeys = function () {
-  var direction,
-      input = this.game.input,
-      running = input.keyboard.isDown(Phaser.Keyboard.S),
-      ENTER = false;
+		hpTxt.html(this.currentHP+'/'+this.HP);
+		mpTxt.html(this.currentMP+'/'+this.MP);
+	}
 
-  speed = (running) ? this.speed + 250 : this.speed;
+	handleKeys() {
+	  let direction,
+	      input = this.game.input,
+	      running = input.keyboard.isDown(Phaser.Keyboard.S),
+	  		speed = (running) ? this.speed + 250 : this.speed;
 
-	if (input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-    direction = 'left';
-  } else if (input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-    direction = 'right';
-  } else if (input.keyboard.isDown(Phaser.Keyboard.UP)) {
-    direction = 'up';
-  } else if (input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-    direction = 'down';
-  } else {
-    direction = 'stop';
-  }
+		if (input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+	    direction = 'left';
+	  } else if (input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+	    direction = 'right';
+	  } else if (input.keyboard.isDown(Phaser.Keyboard.UP)) {
+	    direction = 'up';
+	  } else if (input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+	    direction = 'down';
+	  } else {
+	    direction = 'stop';
+	  }
 
-  gameUtils.walk(direction, this, speed);
-};
+	  this.movement.walk(direction, this, speed);
+	}
 
-NWarrior.Character.prototype.bind = function () {
-	document.addEventListener('keydown', function(e) {
-		if (e.keyCode == Phaser.Keyboard.A) {
-			console.log('attack')
-		}
-	});
-};
+	bind() {
+		document.addEventListener('keydown', function(e) {
+			if (e.keyCode == Phaser.Keyboard.A) {
+				console.log('attack')
+			}
+		});
+	}
+}
+
+

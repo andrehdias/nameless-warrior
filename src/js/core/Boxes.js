@@ -52,5 +52,7 @@ export default class Boxes {
 		boxes.each(function() {
 			$(this).removeClass('active');
 		});
+
+		$('.overlay').removeClass('active');
 	}
 }
