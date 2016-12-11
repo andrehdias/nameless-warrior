@@ -12,31 +12,31 @@ export default class Boxes {
 
 	//binds events to elements according to the selector passed as parameter
 	bindEvents() {
-				var _this = this,
+		let _this = this,
 				boxes = $(this.trigger),
 				overlay = $('.overlay');
 
 		boxes.each(function() {		
-			var href = $(this).data("target"),
+			let href = $(this).data("target"),
 					actualSection = $(href),
 					close = actualSection.find('.formbox__close');
 			
-			close.click(function(e) {
+			close.click((e) => {				
 				e.preventDefault();
 
-				overlay.removeClass('active');
+				overlay.addClass('hide');
 				actualSection.removeClass('active');
 			});									
 
-			overlay.click(function() {
-				overlay.removeClass('active');
+			overlay.click(() => {				
+				overlay.addClass('hide');
 				actualSection.removeClass('active');
 			});									
 
-			$(this).click(function(e) {
+			$(this).click((e) => {				
 				e.preventDefault();				
 				
-				overlay.addClass('active');					
+				overlay.removeClass('hide');
 
 				_this.closeAll();
 				
@@ -45,14 +45,13 @@ export default class Boxes {
 		}); 		
 	}
 
-	closeAll() {
-		var _this = this,
-				boxes = $('.formbox');				
+	closeAll() {		
+		let boxes = $('.formbox');				
 		
 		boxes.each(function() {
 			$(this).removeClass('active');
 		});
 
-		$('.overlay').removeClass('active');
+		$('.overlay').addClass('hide');
 	}
 }

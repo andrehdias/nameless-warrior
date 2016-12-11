@@ -12,11 +12,6 @@
 	background-color: rgba($black, 0.9);
 	position: fixed;
 	z-index: 9;
-	display: none;
-
-	&.active {
-		display: block;
-	}
 }
 
 .loader {
@@ -29,10 +24,6 @@
 	color: $white;
 	text-align: center;
 	font-size: 20px;
-
-	&.active {
-		display: block;
-	}
 
 	p {
 		@include absoluteCenter;
@@ -62,7 +53,12 @@ a {
 	background: none;
 	background-color: rgba($black, 0.8);
 	border: 1px solid $white;
-	transition: background-color 1s;
+	transition: all 1s;
+
+	&:hover {
+		background-color: $white;
+		color: $black;		
+	}
 
 	&--green {
 		background-color: $green;

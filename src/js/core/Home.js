@@ -57,6 +57,9 @@ export default class Home {
 		  localStorage.setItem('NWarriorCharID', characterId);
 
 			_this.boxes.closeAll();
+
+			$('.content').addClass('hide');		
+			$('.game__wrapper').removeClass('hide');
 			
 			new Game();
 		});
@@ -148,8 +151,8 @@ export default class Home {
 		result.html(data.message);
 
 		if(data.created) {
-			setTimeout(function() {
-				$('.overlay').click();
+			setTimeout(() => {
+				this.boxes.closeAll();
 				$('[data-target="#formbox-login"]').click();
 			}, 500);
 		}
@@ -159,8 +162,8 @@ export default class Home {
 		result.html(data.message);
 
 		if(data.logged) {
-			setTimeout(function() {
-				$('.overlay').click();
+			setTimeout(() => {
+				this.boxes.closeAll();
 			}, 500);
 
 			this.saveSession(data);
@@ -257,8 +260,8 @@ export default class Home {
 	handleCharacterCreation(data, result) {
 		result.html(data.message);
 
-		setTimeout(function() {
-			$('.overlay').click();
+		setTimeout(() => {
+			this.boxes.closeAll();
 			$('[data-target="#formbox-select"]').click();
 			result.html('');
 			$('[name=characterClass]').val('');

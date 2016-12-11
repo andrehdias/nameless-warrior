@@ -17,7 +17,7 @@
 
 	border-radius: 3px;
 	border: 2px solid $white;
-	background-color: rgba($black, 0.8);
+	background-color: rgba($black, 0.9);
   color: $white;
 	text-align: left;
 
@@ -67,8 +67,10 @@
 		margin-bottom: 5px;
 		padding: 10px;
 		font-size: 18px;
-		border: none;
+		border: 2px solid $white;
 		border-radius: 2px;
+		color: $white;
+		background-color: rgba($black, 1);
 		transition: background-color 0.5s;
 
 		&[type=radio] {
@@ -80,7 +82,7 @@
 
 		&:hover,
 		&:focus {
-			background-color: rgba($white, 0.8);
+			background-color: rgba($black, 0.8);
 		}
 	}
 

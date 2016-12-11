@@ -1,22 +1,16 @@
-import BootState from '../states/Boot';
-import GameState from '../states/Game';
+import * as states from '../states';
 
 export default class Game {
 	constructor() {
 		if(!localStorage.getItem('NWarriorToken')) {
 			window.location.assign('/');
-		}
+		}		
 
-		$('.content').addClass('hide');		
-		$('.game__wrapper').removeClass('hide');
+		const sizes = { w: 980, h: 502 };
 
-		this.gameWidth = 980;
-   	this.gameHeight = 502;
+		this.game = new Phaser.Game(sizes.w, sizes.h, Phaser.AUTO, 'phaser');
 
-		this.game = new Phaser.Game(this.gameWidth, this.gameHeight, Phaser.AUTO, 'phaser');
-
-		this.game.state.add('Boot', BootState);
-		this.game.state.add('Game', GameState);					
+		Object.keys(states).forEach(state => this.game.state.add(state, states[state]));
 
 		this.game.state.start('Boot');		
 
