@@ -53,11 +53,11 @@ a {
 	background: none;
 	background-color: rgba($black, 0.8);
 	border: 1px solid $white;
-	transition: all 1s;
+	transition: background-color 1s;
 
 	&:hover {
 		background-color: $white;
-		color: $black;		
+		color: $black;
 	}
 
 	&--green {
@@ -87,7 +87,6 @@ a {
 	&--absolute-right {
 		position: absolute;
 		right: 20px;
-		top: 0px;
 	}
 
 	&--no-pading {
@@ -136,7 +135,7 @@ section {
 .logged--info {
 	position: absolute;
 	top: 10px;
-	left: 10px;		
+	left: 10px;
 }
 
 .menu {
@@ -153,6 +152,7 @@ section {
 		display: none;
 	}
 }
+
 
 //Github Ribbon CSS. Thanks to http://tholman.com/github-corners/
 .github-corner:hover .octo-arm{

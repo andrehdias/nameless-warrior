@@ -1,19 +1,18 @@
 .formbox {
 	backface-visibility: hidden;
 	outline: 1px solid transparent;
-
 	position: fixed;
-
+	opacity: 0;
 	transform: translate(-50.1%, -50.1%);
-	
-	top: -400px;
+
+	top: 49.9%;
 	left: 49.9%;
 
 	width: 30%;
   max-height: 80%;
 	padding: 20px;
   margin: 0 auto;
-	z-index: 99;	
+	z-index: 99;
 
 	border-radius: 3px;
 	border: 2px solid $white;
@@ -21,7 +20,11 @@
   color: $white;
 	text-align: left;
 
-	transition: top 0.6s;
+	transition: opacity 0.6s;
+
+	&.active {
+		opacity: 1;
+	}
 
 	&__title {
 		text-align: left;
@@ -31,13 +34,11 @@
 
 	&__close {
 		position: absolute;
-		right: -13px;
-		top: -13px;
+		right: 10px;
+		top: 15px;
 		width: 27px;
 		height: 26px;
-		border: 2px solid $white;
 		border-radius: 100px;
-		background-color: $black;
 		font-size: 15px;
 
 		i {
@@ -62,7 +63,7 @@
 	}
 
 	&__input {
-		width: 100%;		
+		width: 100%;
 		height: 50px;
 		margin-bottom: 5px;
 		padding: 10px;
@@ -77,12 +78,24 @@
 			width: auto;
 			height: auto;
 			margin-top: 3px;
-			vertical-align: middle;			
+			vertical-align: middle;
 		}
 
 		&:hover,
 		&:focus {
 			background-color: rgba($black, 0.8);
+		}
+
+		&::-webkit-input-placeholder,
+		&:-moz-placeholder, /* Firefox 18- */
+		&::-moz-placeholder,  /* Firefox 19+ */
+		&:-ms-input-placeholder {
+		   color: $white;
+			 opacity: 1;
+		}
+
+		&:-webkit-autofill {
+			-webkit-box-shadow: 0 0 0px 1000px white inset;
 		}
 	}
 
@@ -90,17 +103,15 @@
 		margin-top: 5px;
 		width: 100%;
 		display: inline-block;
-		font-weight: bold;		
-	}
-
-	&.active {
-		top: 49.9%;				
+		font-weight: bold;
 	}
 
 	&__character {
+		padding-bottom: 70px;
+
 		.character {
 			transition: background-color 0.5s;
-			width: 25%;			
+			width: 25%;
 			padding: 20px;
 			cursor: pointer;
 			display: inline-block;
@@ -124,7 +135,7 @@
 				.character__stats {
 					font-size: 12px;
 					line-height: 17px;
-					margin: 10px 0;			
+					margin: 10px 0;
 					display: inline-block;
 
 					b {
@@ -149,29 +160,33 @@
 				width: 50%;
 			}
 		}
+
+		.btn {
+			bottom: 20px;
+		}
 	}
 
-	&__create {		
+	&__create {
 		.create__info {
 			width: 100%;
 
-			.create__stats {							
+			.create__stats {
 				font-size: 14px;
 				width: 50%;
 				display: inline-block;
-				
+
 				.stats__title {
 					margin-top: 4px;
-					font-size: 16px;					
+					font-size: 16px;
 				}
 
 				.stats__label {
 					width: 48%;
-					display: inline-block;					
+					display: inline-block;
 				}
 
 				.stats__input {
-					width: 25px;					
+					width: 25px;
 					text-align: center;
 					border: none;
 					height: 20px;
@@ -191,7 +206,7 @@
 					width: 12px;
 					color: $white;
 					background: none;
-					font-size: 11px;				
+					font-size: 11px;
 					outline: none;
 					cursor: pointer;
 
@@ -200,7 +215,7 @@
 						position: absolute;
 						width: 0;
 						height: 0;
-						top: 1px;					
+						top: 1px;
 						border: 7px solid transparent;
 					}
 
@@ -211,13 +226,13 @@
 
 					&--minus:before {
 						right: 0;
-						border-right-color: $white;	
+						border-right-color: $white;
 					}
 				}
 			}
 
-			.create__img {															
-				text-align: center;						
+			.create__img {
+				text-align: center;
 				width: 47%;
 				display: inline-block;
 
@@ -225,7 +240,7 @@
 					position: relative;
 					top: -20px;
 				}
-			}			
+			}
 		}
 
 	}
@@ -234,7 +249,7 @@
     .itens {
       &__wrapper {
         width: 70%;
-        float: left;        
+        float: left;
       }
     }
 
@@ -268,7 +283,7 @@
 		width: 50%;
 	}
 
-	@include smallViewport {		
+	@include smallViewport {
 		width: 100%;
 	}
 
