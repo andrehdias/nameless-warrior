@@ -21,20 +21,16 @@ export default class Boxes {
 					actualSection = $(href),
 					close = actualSection.find('.formbox__close');
 
-			actualSection.addClass('hide');
-
 			close.click((e) => {
 				e.preventDefault();
 
 				overlay.addClass('hide');
 				actualSection.removeClass('active');
-				actualSection.addClass('hide');
 			});
 
 			overlay.click(() => {
 				overlay.addClass('hide');
 				actualSection.removeClass('active');
-				actualSection.addClass('hide');
 			});
 
 			$(this).click((e) => {
@@ -43,7 +39,7 @@ export default class Boxes {
 				_this.closeAll();
 
 				overlay.removeClass('hide');
-				actualSection.removeClass('hide');
+			
 				actualSection.addClass('active');
 			});
 		});

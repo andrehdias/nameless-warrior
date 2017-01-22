@@ -1,11 +1,12 @@
 .formbox {
 	backface-visibility: hidden;
 	outline: 1px solid transparent;
+
 	position: fixed;
-	opacity: 0;
+
 	transform: translate(-50.1%, -50.1%);
 
-	top: 49.9%;
+	top: -400px;
 	left: 49.9%;
 
 	width: 30%;
@@ -20,11 +21,7 @@
   color: $white;
 	text-align: left;
 
-	transition: opacity 0.6s;
-
-	&.active {
-		opacity: 1;
-	}
+	transition: top 0.6s;
 
 	&__title {
 		text-align: left;
@@ -104,6 +101,10 @@
 		width: 100%;
 		display: inline-block;
 		font-weight: bold;
+	}
+
+	&.active {
+		top: 49.9%;
 	}
 
 	&__character {

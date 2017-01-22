@@ -11,6 +11,7 @@ export default class Character extends Phaser.Sprite {
 
 	create() {
 		this.game.add.existing(this);
+
 	  this.frame = 0;
 
 	  this.game.physics.arcade.enable(this);
@@ -21,7 +22,7 @@ export default class Character extends Phaser.Sprite {
 
 	  this.setupAnimations(this);
 
-	  this.speed = 300;	  
+	  this.speed = 300;
 	}
 
 	update() {
@@ -33,7 +34,7 @@ export default class Character extends Phaser.Sprite {
 		this.charClass = data.characterClass;
 		this.nickname = data.nickname;
 
-		this.str = data.strength;	
+		this.str = data.strength;
 		this.con = data.constitution;
 		this.dex = data.dexterity;
 		this.int = data.intelligence;
@@ -42,11 +43,9 @@ export default class Character extends Phaser.Sprite {
 		this.HP = data.health;
 		this.currentHP = data.currentHealth;
 		this.MP = data.mana;
-		this.currentMP = data.currentMana;		
+		this.currentMP = data.currentMana;
 
 		this.create();
-
-		this.bind();
 	}
 
 	updateBars() {
@@ -61,7 +60,6 @@ export default class Character extends Phaser.Sprite {
 
 	handleKeys() {
 	  let direction,
-	  		attack = false,
 	      input = this.game.input,
 	      running = input.keyboard.isDown(Phaser.Keyboard.S),
 	  		speed = (running) ? this.speed + 250 : this.speed;
@@ -74,70 +72,72 @@ export default class Character extends Phaser.Sprite {
 	    direction = 'up';
 	  } else if (input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
 	    direction = 'down';
-	  } else if (input.keyboard.isDown(Phaser.Keyboard.A)) {
-			this.attack(this);				  	
-			!attack;
+	  } else if (input.keyboard.isDown(Phaser.Keyboard.A) || this.attacking) {
+			this.attack();
+			this.attacking = true;
 	  } else if (input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
 	  	$('.dialog__wrapper').addClass('hide');
-	  } else {
+	  } else if(!this.attacking) {
 	    direction = 'stop';
 	  }
 
-	  if(!attack)
-	  	this.walk(direction, this, speed);
+	  if(!this.attacking) {
+			this.walk(direction, speed);
+		}
 	}
 
-	setupAnimations(character) {
-    character.animations.add('down', [0, 1, 2], 10, true);
-    character.animations.add('right', [3, 4, 5], 10, true);
-    character.animations.add('up', [6, 7, 8], 10, true);
-    character.animations.add('left', [9, 10, 11], 10, true);    
+	setupAnimations() {
+    this.animations.add('down', [0, 1, 2], 10, true);
+    this.animations.add('right', [3, 4, 5], 10, true);
+    this.animations.add('up', [6, 7, 8], 10, true);
+    this.animations.add('left', [9, 10, 11], 10, true);
   }
 
-  walk(direction, character, speed = 50) {
+  walk(direction, speed = 50) {
     switch(direction){
       case 'down':
-        character.lastFrame = 0;
-        character.body.velocity.y = speed;
-        character.body.velocity.x = 0;
+        this.lastFrame = 0;
+        this.body.velocity.y = speed;
+        this.body.velocity.x = 0;
         break;
 
       case 'right':
-        character.lastFrame = 3;
-        character.body.velocity.y = 0;
-        character.body.velocity.x = speed;
+        this.lastFrame = 3;
+        this.body.velocity.y = 0;
+        this.body.velocity.x = speed;
         break;
 
       case 'up':
-        character.lastFrame = 6;
-        character.body.velocity.y = -speed;
-        character.body.velocity.x = 0;
+        this.lastFrame = 6;
+        this.body.velocity.y = -speed;
+        this.body.velocity.x = 0;
         break;
 
       case 'left':
-        character.lastFrame = 9;
-        character.body.velocity.x = -speed;
-        character.body.velocity.y = 0;
+        this.lastFrame = 9;
+        this.body.velocity.x = -speed;
+        this.body.velocity.y = 0;
         break;
 
       case 'stop':
-        character.body.velocity.x = 0;
-        character.body.velocity.y = 0;
-        character.frame = character.lastFrame;
-        character.animations.stop();
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        this.frame = this.lastFrame;
+        this.animations.stop();
         break;
     }
 
-    character.animations.play(direction);
+    this.animations.play(direction);
   }
 
-  attack(character) {
-    let frame = character.lastFrame || 0,
+  attack() {
+    let frame = this.lastFrame || 0,
         direction = this.getDirection(frame),
-        sprite = character.charClass+'_attack';
+        sprite = this.charClass+'_attack';
 
-    character.loadTexture(sprite);    
-    character.animations.play(direction);    
+    this.loadTexture(sprite);
+		this.setupAnimations()
+    this.animations.play(direction);
   }
 
   getDirection(frame) {
@@ -159,34 +159,32 @@ export default class Character extends Phaser.Sprite {
         break;
     }
   }
-  
-  randomWalk(character, speed = 150) {    
+
+  randomWalk(speed = 150) {
     setInterval(() => {
       let direction = Math.floor(Math.random() * (6 - 1)) + 1;
 
       switch(direction){
         case 1:
-          this.walk('down', character, speed);
-          break;
+          this.walk('down', speed);
+					break;
 
         case 2:
-          this.walk('up', character, speed);
+          this.walk('up', speed);
           break;
 
         case 3:
-          this.walk('left', character, speed);
+          this.walk('left', speed);
           break;
 
         case 4:
-          this.walk('right', character, speed);
+          this.walk('right', speed);
           break;
 
         case 5:
-          this.walk('stop', character, speed);
+          this.walk('stop', speed);
           break;
       }
     }, 1000);
   }
 }
-
-
