@@ -42,13 +42,13 @@
 			<p class="logged--text hide">Welcome, create or select your character and have fun!</p>
 
 			<ul class="menu menu--not-logged hide">
-				<li><button data-target="#formbox-login" class="btn open-formbox">Login</button></li>
-				<li><button data-target="#formbox-signup" class="btn open-formbox">Sign Up</button></li>
+				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
+				<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
 			</ul>
 
 			<ul class="menu menu--logged hide">
-				<li><button data-target="#formbox-select" class="btn open-formbox">Select Character</button></li>
-				<li><button data-target="#formbox-create" class="btn open-formbox">Create Character</button></li>
+				<li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
+				<li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
 			</ul>
 		</div>
 	</section>
@@ -65,19 +65,19 @@
 			<div class="bar bar--mana">
 				<span class="bar__text"><b>MP</b> <span></span></span>
 				<div class="bar__value" style="width: 100%"></div>
-			</div>				
+			</div>
 		</div>
 
-		<div class="dialog__wrapper ui-style">			
+		<div class="dialog__wrapper ui-style">
 			<span>Welcome to Nameless Warrior!</span>
 
 			<span class="dialog__arrow"></span>
 		</div>
-	</section>		
+	</section>
 
 	<!-- Form Boxes Beginning -->
 	<!-- Login Formbox -->
-	<section class="formbox" id="formbox-login">
+	<section class="formbox ui-style" id="formbox-login">
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
 		<h3 class="formbox__title">Login</h3>
@@ -92,7 +92,7 @@
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn">Login</button>
+				<button class="btn btn--red">Login</button>
 			</div>
 		</form>
 	</section>
@@ -117,7 +117,7 @@
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn">Sign Up</button>
+				<button class="btn btn--blue">Sign Up</button>
 			</div>
 		</form>
 	</section>
@@ -127,7 +127,7 @@
 	<section class="formbox formbox--big formbox__character" id="formbox-select">
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
-		<button class="btn open-formbox btn--absolute-right" data-target="#formbox-create">New Character</button>
+		<button class="btn btn--red open-formbox btn--absolute-right" data-target="#formbox-create">New Character</button>
 
 		<h2 class="formbox__title">Select Character</h2>
 
@@ -138,7 +138,7 @@
 	<!-- Create Character Formbox -->
 	<section class="formbox formbox__create" id="formbox-create">
 		<a href="" class="formbox__close"><i class="fa fa-close"></i></a>
-		
+
 		<h2 class="formbox__title">New Character</h2>
 
 		<form action="javascript:;" class="form" name="form_create" data-target="characters">
@@ -157,7 +157,7 @@
 					<option value="2">Mage</option>
 					<option value="3">Archer</option>
 				</select>
-			</div>			
+			</div>
 
 			<div class="create__info">
 				<div class="create__stats form__group--half">
@@ -207,7 +207,7 @@
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn">Create</button>
+				<button class="btn btn--red">Create</button>
 			</div>
 		</form>
 	</section>

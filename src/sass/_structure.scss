@@ -52,13 +52,7 @@ a {
 	border-radius: 2px;
 	background: none;
 	background-color: rgba($black, 0.8);
-	border: 1px solid $white;
 	transition: background-color 1s;
-
-	&:hover {
-		background-color: $white;
-		color: $black;
-	}
 
 	&--green {
 		background-color: $green;
@@ -69,18 +63,18 @@ a {
 	}
 
 	&--blue {
-		background-color: $blue;
+		background-color: $dark-blue;
 
 		&:hover {
-			background-color: $light-blue;
+			background-color: $blue;
 		}
 	}
 
 	&--red {
-		background-color: $red;
+		background-color: $dark-red;
 
 		&:hover {
-			background-color: $light-red;
+			background-color: $red;
 		}
 	}
 

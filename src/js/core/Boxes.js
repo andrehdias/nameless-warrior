@@ -39,7 +39,7 @@ export default class Boxes {
 				_this.closeAll();
 
 				overlay.removeClass('hide');
-			
+
 				actualSection.addClass('active');
 			});
 		});
