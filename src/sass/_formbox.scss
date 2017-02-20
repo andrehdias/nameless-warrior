@@ -17,7 +17,7 @@
 
 	border-radius: 3px;
 	border: 2px solid $white;
-	background-color: rgba($black, 0.9);
+	background-color: rgba($dark-blue, 0.8);
   color: $white;
 	text-align: left;
 
@@ -47,6 +47,7 @@
 
 	.btn {
 		margin-top: 15px;
+    border: 2px solid $white;
 	}
 
 	.formbox__group {
@@ -67,8 +68,6 @@
 		font-size: 18px;
 		border: 2px solid $white;
 		border-radius: 2px;
-		color: $white;
-		background-color: rgba($black, 1);
 		transition: background-color 0.5s;
 
 		&[type=radio] {
@@ -76,11 +75,6 @@
 			height: auto;
 			margin-top: 3px;
 			vertical-align: middle;
-		}
-
-		&:hover,
-		&:focus {
-			background-color: rgba($black, 0.8);
 		}
 
 		&::-webkit-input-placeholder,
@@ -154,7 +148,7 @@
 			}
 
 			&:hover {
-				background-color: rgba($grey, 0.4);
+				background-color: rgba($blue, 0.4);
 			}
 
 			@include largeViewport {

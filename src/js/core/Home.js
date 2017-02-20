@@ -23,7 +23,7 @@ export default class Home {
 		this.loggedInfo = $('.logged--info');
 
 		this.bindEvents();
-		this.checkLogin();		
+		this.checkLogin();
 	}
 
 	bindEvents() {
@@ -48,7 +48,7 @@ export default class Home {
 		});
 
 		$('.logout').click(function() {
-			_this.logout();			
+			_this.logout();
 		});
 
 		$('.character__wrapper').on('click', '.character', function(e) {
@@ -58,9 +58,9 @@ export default class Home {
 
 			_this.boxes.closeAll();
 
-			$('.content').addClass('hide');		
+			$('.content').addClass('hide');
 			$('.game__wrapper').removeClass('hide');
-			
+
 			new Game();
 		});
 	}
@@ -83,7 +83,7 @@ export default class Home {
 			case 'characters':
 				let remainingStats = form.find('.remaining-stats').html();
 
-				if(remainingStats != 0) {					
+				if(remainingStats != 0) {
 					result.html('You must distribute all attributes!');
 					invalid = true;
 				}
@@ -119,10 +119,10 @@ export default class Home {
 			type: "POST",
 			url: url,
 			data: data,
-			success: function(data) {				
+			success: function(data) {
 		    loader.removeClass('active');
 
-		  	if(data.failedAuth) {		    		    
+		  	if(data.failedAuth) {
 		    	return _this.logout();
 		    }
 
@@ -140,7 +140,7 @@ export default class Home {
 		    		break;
 		    }
 			},
-			error: function(xhr, errorType, error) {				
+			error: function(xhr, errorType, error) {
 				if(errorType == 403)
 					_this.logout();
 			}
@@ -208,9 +208,9 @@ export default class Home {
 			let classImg = $(this).val();
 
 			if(classImg) {
-				form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');				
-			} else {				
-				form.find('.create__img img').attr('src', '');				
+				form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');
+			} else {
+				form.find('.create__img img').attr('src', '');
 			}
 		});
 
@@ -289,7 +289,7 @@ export default class Home {
 			data.token = localStorage.getItem('NWarriorToken');
 
 			$.ajax({
-				url: url, 
+				url: url,
 				type: "get",
 				data: data,
 				success: function(data) {
@@ -315,7 +315,7 @@ export default class Home {
 			    	characterList.append('<p>No characters found! Press "New Character" to create your first!</p>')
 			    }
 			  },
-				error: function(xhr, errorType, error) {				
+				error: function(xhr, errorType, error) {
 					_this.logout();
 				}
 			});

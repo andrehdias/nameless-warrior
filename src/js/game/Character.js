@@ -7,7 +7,20 @@ export default class Character extends Phaser.Sprite {
 		this.setCharacterInfo(data);
 
 		this.create();
+    this.bind();
 	}
+
+  bind() {
+    console.log('bindd');
+
+    $(document).on('keydown', ev => {
+      const key = ev.key;
+
+      if(key === 'a') {
+        this.attack();
+      }
+    });
+  }
 
 	create() {
 		this.game.add.existing(this);
@@ -49,10 +62,10 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	updateBars() {
-		let hpVal = $('.bar--health .bar__value'),
-				hpTxt = $('.bar--health .bar__text span'),
-				mpVal = $('.bar--mana .bar__value'),
-				mpTxt = $('.bar--mana .bar__text span');
+		const hpVal = $('.bar--health .bar__value'),
+          hpTxt = $('.bar--health .bar__text span'),
+          mpVal = $('.bar--mana .bar__value'),
+          mpTxt = $('.bar--mana .bar__text span');
 
 		hpTxt.html(this.currentHP+'/'+this.HP);
 		mpTxt.html(this.currentMP+'/'+this.MP);
@@ -72,18 +85,11 @@ export default class Character extends Phaser.Sprite {
 	    direction = 'up';
 	  } else if (input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
 	    direction = 'down';
-	  } else if (input.keyboard.isDown(Phaser.Keyboard.A) || this.attacking) {
-			this.attack();
-			this.attacking = true;
-	  } else if (input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
-	  	$('.dialog__wrapper').addClass('hide');
-	  } else if(!this.attacking) {
+	  } else {
 	    direction = 'stop';
 	  }
 
-	  if(!this.attacking) {
-			this.walk(direction, speed);
-		}
+		this.walk(direction, speed);
 	}
 
 	setupAnimations() {
@@ -131,12 +137,17 @@ export default class Character extends Phaser.Sprite {
   }
 
   attack() {
-    let frame = this.lastFrame || 0,
-        direction = this.getDirection(frame),
-        sprite = this.charClass+'_attack';
+    const frame = this.lastFrame || 0,
+          direction = this.getDirection(frame),
+          sprite = this.charClass+'_attack';
 
     this.loadTexture(sprite);
-		this.setupAnimations()
+
+		this.animations.add('down', [0, 1, 2], 10, false);
+    this.animations.add('right', [3, 4, 5], 10, false);
+    this.animations.add('up', [6, 7, 8], 10, false);
+    this.animations.add('left', [9, 10, 11], 10, false);
+
     this.animations.play(direction);
   }
 
