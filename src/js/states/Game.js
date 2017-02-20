@@ -11,21 +11,21 @@ export default class Game extends Phaser.State {
     this.game.stage.backgroundColor = "#333";
 
 
-    //TO DO - Create Maps Class
+    //TODO - Create Maps Class
     this.map = this.game.add.tilemap('forest_dummy');
 
-    const game_width = this.map.widthInPixels,
-	  const	game_height = this.map.heightInPixels;
+    const gameWidth = this.map.widthInPixels;
+	  const	gameHeight = this.map.heightInPixels;
 
-	  this.game.world.setBounds(0, 0, game_width, game_height);
+	  this.game.world.setBounds(0, 0, gameWidth, gameHeight);
 
-    this.map.addTilesetImage('sprites_background_64x64', 'sprites_background_64x64');
+    this.map.addTilesetImage('sprites_background_32x32', 'sprites_background_32x32');
 
     this.groundLayer = this.map.createLayer('Ground');
     this.treesLayer = this.map.createLayer('Trees');
     this.objectsLayer = this.map.createLayer('Objects');
 
-    this.groundLayer.resizeWorld();
+    // this.groundLayer.resizeWorld();
 
 
     this.getCharacterInfo();
