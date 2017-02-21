@@ -25,7 +25,7 @@ export default class Game extends Phaser.State {
     this.treesLayer = this.map.createLayer('Trees');
     this.objectsLayer = this.map.createLayer('Objects');
 
-    // this.groundLayer.resizeWorld();
+    this.groundLayer.resizeWorld();
 
     this.getCharacterInfo();
 	}

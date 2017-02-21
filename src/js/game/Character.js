@@ -1,59 +1,17 @@
 import config from 'config';
+import GLOBALS from '../core/Globals';
 
 export default class Character extends Phaser.Sprite {
-	constructor(game, data) {
+	constructor(game, data, type = GLOBALS.PLAYER) {
 		super(game, game.world.randomX, game.world.randomY, data.characterClass);
+
+    this.type = type;
 
 		this.setCharacterInfo(data);
 
-		this.create();
-    this.bind();
-	}
-
-  bind() {
-    $(document).on('keydown', ev => {
-      const key = ev.key;
-
-      if(key === 'Enter') {
-        $('.dialog__wrapper').addClass('hide');
-      }
-
-      if(key === 'a') {
-        this.attack();
-      }
-    });
-
-    for (const id in this.animations._anims) {
-      const anim = this.animations._anims[id];
-
-      anim.onComplete.add(() => {
-        if(this.attacking) {
-          this.loadTexture(this.characterClass);
-          this.attacking = false;
-        }
-      }, this);
+    if(this.type === GLOBALS.player) {
+      this.bind();
     }
-  }
-
-	create() {
-		this.game.add.existing(this);
-
-	  this.frame = 0;
-
-	  this.game.physics.arcade.enable(this);
-
-	  this.body.collideWorldBounds = true;
-
-	  this.game.camera.follow(this);
-
-	  this.setupAnimations();
-
-	  this.speed = 250;
-	}
-
-	update() {
-		this.handleWalking();
-		this.updateBars();
 	}
 
 	setCharacterInfo(data) {
@@ -71,8 +29,46 @@ export default class Character extends Phaser.Sprite {
 		this.MP = data.mana;
 		this.currentMP = data.currentMana;
 
+	  this.frame = 0;
+	  this.speed = 225;
+
 		this.create();
 	}
+
+  bind() {
+    $(document).on('keydown', ev => {
+      const key = ev.key;
+
+      if(key === 'Enter') {
+        $('.dialog__wrapper').addClass('hide');
+      }
+
+      if(key === 'a') {
+        if(!this.attacking) {
+          this.attack();
+        }
+      }
+    });
+
+    this.setupAttackEndCallback();
+  }
+
+	create() {
+		this.game.add.existing(this);
+	  this.game.physics.arcade.enable(this);
+	  this.body.collideWorldBounds = true;
+	  this.game.camera.follow(this);
+
+	  this.setupAnimations();
+	}
+
+	update() {
+    if(this.type === GLOBALS.PLAYER) {
+      this.handleWalking();
+      this.updateBars();
+    }
+	}
+
 
 	updateBars() {
 		const hpVal = $('.bar--health .bar__value'),
@@ -139,11 +135,10 @@ export default class Character extends Phaser.Sprite {
         break;
 
       case 'stop':
-        this.body.velocity.x = 0;
-        this.body.velocity.y = 0;
-        this.frame = this.lastFrame;
-
         if(!this.attacking) {
+          this.body.velocity.x = 0;
+          this.body.velocity.y = 0;
+          this.frame = this.lastFrame;
           this.animations.stop();
         }
 
@@ -160,10 +155,11 @@ export default class Character extends Phaser.Sprite {
 
     this.loadTexture(sprite);
 
+    this.anchor.setTo(0.25, 0.25);
+
     this.attacking = true;
 
     this.animations.play(direction);
-
   }
 
   getDirection(frame) {
@@ -212,5 +208,21 @@ export default class Character extends Phaser.Sprite {
           break;
       }
     }, 1000);
+  }
+
+  setupAttackEndCallback() {
+    for (const id in this.animations._anims) {
+      const anim = this.animations._anims[id];
+
+      anim.onComplete.add(() => {
+        if(this.attacking) {
+          this.loadTexture(this.characterClass);
+
+          this.anchor.setTo(0, 0);
+
+          this.attacking = false;
+        }
+      }, this);
+    }
   }
 }
