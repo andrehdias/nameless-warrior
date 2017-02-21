@@ -11,15 +11,28 @@ export default class Character extends Phaser.Sprite {
 	}
 
   bind() {
-    console.log('bindd');
-
     $(document).on('keydown', ev => {
       const key = ev.key;
+
+      if(key === 'Enter') {
+        $('.dialog__wrapper').addClass('hide');
+      }
 
       if(key === 'a') {
         this.attack();
       }
     });
+
+    for (const id in this.animations._anims) {
+      const anim = this.animations._anims[id];
+
+      anim.onComplete.add(() => {
+        if(this.attacking) {
+          this.loadTexture(this.characterClass);
+          this.attacking = false;
+        }
+      }, this);
+    }
   }
 
 	create() {
@@ -33,18 +46,18 @@ export default class Character extends Phaser.Sprite {
 
 	  this.game.camera.follow(this);
 
-	  this.setupAnimations(this);
+	  this.setupAnimations();
 
-	  this.speed = 300;
+	  this.speed = 250;
 	}
 
 	update() {
-		this.handleKeys();
+		this.handleWalking();
 		this.updateBars();
 	}
 
 	setCharacterInfo(data) {
-		this.charClass = data.characterClass;
+		this.characterClass = data.characterClass;
 		this.nickname = data.nickname;
 
 		this.str = data.strength;
@@ -71,7 +84,7 @@ export default class Character extends Phaser.Sprite {
 		mpTxt.html(this.currentMP+'/'+this.MP);
 	}
 
-	handleKeys() {
+	handleWalking() {
 	  let direction,
 	      input = this.game.input,
 	      running = input.keyboard.isDown(Phaser.Keyboard.S),
@@ -93,10 +106,10 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	setupAnimations() {
-    this.animations.add('down', [0, 1, 2], 10, true);
-    this.animations.add('right', [3, 4, 5], 10, true);
-    this.animations.add('up', [6, 7, 8], 10, true);
-    this.animations.add('left', [9, 10, 11], 10, true);
+    this.animations.add('down', [0, 1, 2], 10, false);
+    this.animations.add('right', [3, 4, 5], 10, false);
+    this.animations.add('up', [6, 7, 8], 10, false);
+    this.animations.add('left', [9, 10, 11], 10, false);
   }
 
   walk(direction, speed = 50) {
@@ -129,7 +142,11 @@ export default class Character extends Phaser.Sprite {
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         this.frame = this.lastFrame;
-        this.animations.stop();
+
+        if(!this.attacking) {
+          this.animations.stop();
+        }
+
         break;
     }
 
@@ -139,16 +156,14 @@ export default class Character extends Phaser.Sprite {
   attack() {
     const frame = this.lastFrame || 0,
           direction = this.getDirection(frame),
-          sprite = this.charClass+'_attack';
+          sprite = this.characterClass+'_attack';
 
     this.loadTexture(sprite);
 
-		this.animations.add('down', [0, 1, 2], 10, false);
-    this.animations.add('right', [3, 4, 5], 10, false);
-    this.animations.add('up', [6, 7, 8], 10, false);
-    this.animations.add('left', [9, 10, 11], 10, false);
+    this.attacking = true;
 
     this.animations.play(direction);
+
   }
 
   getDirection(frame) {

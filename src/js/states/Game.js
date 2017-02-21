@@ -27,7 +27,6 @@ export default class Game extends Phaser.State {
 
     // this.groundLayer.resizeWorld();
 
-
     this.getCharacterInfo();
 	}
 
@@ -36,7 +35,7 @@ export default class Game extends Phaser.State {
 	}
 
 	render() {
-		this.game.debug.text(this.game.time.fps || '--', 10, 50, "#fff");
+		this.game.debug.text(this.game.time.fps || '--', 10, 20, "#fff");
 	}
 
 	getCharacterInfo() {

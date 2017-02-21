@@ -2,7 +2,7 @@ import * as states from '../states';
 
 export default class Game {
 	constructor() {
-		const sizes = { w: 980, h: 502 };
+		const sizes = { w: 980, h: 470 };
 
 		if(!localStorage.getItem('NWarriorToken')) {
 			window.location.assign('/');
