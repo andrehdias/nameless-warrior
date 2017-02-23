@@ -1,3 +1,4 @@
+import GLOBALS from '../core/Globals';
 import config from 'config';
 import Character from '../game/Character';
 import Utils from '../core/Utils';
@@ -26,13 +27,33 @@ export default class Game extends Phaser.State {
     this.objectsLayer = this.map.createLayer('Objects');
 
     this.groundLayer.resizeWorld();
+    this.treesLayer.resizeWorld();
+    this.objectsLayer.resizeWorld();
 
     this.getCharacterInfo();
+
+    this.enemys = [];
+
+    for(let i = 0; i < 2; i++) {
+      this.enemys.push(new Character(this.game, {characterClass: 'Mage', health: 100, currentHealth: 100}, GLOBALS.ENEMY))
+    }
 	}
 
 	update() {
-
+    this.game.physics.arcade.collide(this.player, this.enemys, this.collisionHandler);
 	}
+
+  collisionHandler(player, enemy) {
+    console.log(enemy.HP)
+
+    if(player.attacking) {
+      enemy.HP = enemy.HP - 33;
+
+      console.log(enemy.HP)
+    }
+
+    console.log(arguments)
+  }
 
 	render() {
 		this.game.debug.text(this.game.time.fps || '--', 10, 20, "#fff");

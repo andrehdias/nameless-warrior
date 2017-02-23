@@ -1,15 +1,16 @@
-import config from 'config';
 import GLOBALS from '../core/Globals';
+import config from 'config';
 
 export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER) {
 		super(game, game.world.randomX, game.world.randomY, data.characterClass);
 
     this.type = type;
+    this.input = this.game.input;
 
 		this.setCharacterInfo(data);
 
-    if(this.type === GLOBALS.player) {
+    if(this.type === GLOBALS.PLAYER) {
       this.bind();
     }
 	}
@@ -43,7 +44,7 @@ export default class Character extends Phaser.Sprite {
         $('.dialog__wrapper').addClass('hide');
       }
 
-      if(key === 'a') {
+      if(key === 'a' || key === 'A') {
         if(!this.attacking) {
           this.attack();
         }
@@ -60,6 +61,11 @@ export default class Character extends Phaser.Sprite {
 	  this.game.camera.follow(this);
 
 	  this.setupAnimations();
+
+    if(this.type === GLOBALS.ENEMY) {
+      this.body.immovable = true;
+      this.randomWalk();
+    }
 	}
 
 	update() {
@@ -67,8 +73,11 @@ export default class Character extends Phaser.Sprite {
       this.handleWalking();
       this.updateBars();
     }
-	}
 
+    if(this.currentHP <= 0) {
+      this.kill();
+    }
+	}
 
 	updateBars() {
 		const hpVal = $('.bar--health .bar__value'),
@@ -81,18 +90,18 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	handleWalking() {
-	  let direction,
-	      input = this.game.input,
-	      running = input.keyboard.isDown(Phaser.Keyboard.S),
-	  		speed = (running) ? this.speed + 250 : this.speed;
+	  const running = this.input.keyboard.isDown(Phaser.Keyboard.S);
+	  const speed = (running) ? this.speed + 50 : this.speed;
 
-		if (input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+	  let direction;
+
+		if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
 	    direction = 'left';
-	  } else if (input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+	  } else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
 	    direction = 'right';
-	  } else if (input.keyboard.isDown(Phaser.Keyboard.UP)) {
+	  } else if (this.input.keyboard.isDown(Phaser.Keyboard.UP)) {
 	    direction = 'up';
-	  } else if (input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+	  } else if (this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
 	    direction = 'down';
 	  } else {
 	    direction = 'stop';
@@ -102,10 +111,12 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	setupAnimations() {
-    this.animations.add('down', [0, 1, 2], 10, false);
-    this.animations.add('right', [3, 4, 5], 10, false);
-    this.animations.add('up', [6, 7, 8], 10, false);
-    this.animations.add('left', [9, 10, 11], 10, false);
+    const loop = this.type === GLOBALS.ENEMY;
+
+    this.animations.add('down', [0, 1, 2], 10, loop);
+    this.animations.add('right', [3, 4, 5], 10, loop);
+    this.animations.add('up', [6, 7, 8], 10, loop);
+    this.animations.add('left', [9, 10, 11], 10, loop);
   }
 
   walk(direction, speed = 50) {
@@ -182,7 +193,7 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
-  randomWalk(speed = 150) {
+  randomWalk(speed = 100) {
     setInterval(() => {
       let direction = Math.floor(Math.random() * (6 - 1)) + 1;
 
