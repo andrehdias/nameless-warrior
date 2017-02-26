@@ -300,7 +300,6 @@ export default class Home {
 				    	let character = data[i],
 									template = characterTemplate;
 
-							template = template.replace('{Nickname}', character.nickname);
 							template = template.replace('{CharacterClass}', _this.utils.formatClass(character.characterClass));
 							template = template.replace('{Strength}', character.strength);
 							template = template.replace('{Constitution}', character.constitution);

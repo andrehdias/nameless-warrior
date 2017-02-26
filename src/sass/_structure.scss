@@ -37,6 +37,19 @@ a {
 
 .hide {
 	display: none;
+
+  &--medium {
+    @include mediumViewport {
+      display: none;
+    }
+  }
+}
+
+.show--medium {
+  display: none;
+  @include mediumViewport {
+    display: block !important;
+  }
 }
 
 .btn {
@@ -115,7 +128,15 @@ section {
 		h1 {
 			font-size: 90px;
 			text-align: center;
-			margin: 40px 0;
+			margin: 25px 0;
+
+      @include mediumViewport {
+        font-size: 60px;
+      }
+
+      @include smallViewport {
+        line-height: 50px;
+      }
 		}
 
 		p {

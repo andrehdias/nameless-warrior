@@ -17,7 +17,6 @@ export default class Character extends Phaser.Sprite {
 
 	setCharacterInfo(data) {
 		this.characterClass = data.characterClass;
-		this.nickname = data.nickname;
 
 		this.str = data.strength;
 		this.con = data.constitution;
@@ -75,7 +74,7 @@ export default class Character extends Phaser.Sprite {
     }
 
     if(this.currentHP <= 0) {
-      this.kill();
+      this.destroy();
     }
 	}
 

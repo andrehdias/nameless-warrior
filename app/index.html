@@ -28,7 +28,7 @@
 	<!-- Loader -->
 	<div class="loader"><p>Loading...</p></div>
 
-	<div class="logged--info hide">
+	<div class="logged--info hide hide--medium">
 		User: <span></span> <br>
 		<a href="" class="link logout">Logout</a>
 	</div>
@@ -37,19 +37,21 @@
 		<div class="intro">
 			<h1>Nameless Warrior</h1>
 
-			<p class="not-logged--text hide">RPG web game with retro style and built entirely in <i>javascript</i>. <br> Create your account, log in and have fun!</p>
+			<p class="not-logged--text hide hide--medium">RPG web game with retro style and built entirely in <i>javascript</i>. <br> Create your account, log in and have fun!</p>
 
-			<p class="logged--text hide">Welcome, create or select your character and have fun!</p>
+			<p class="logged--text hide hide--medium">Welcome, create or select your character and have fun!</p>
 
-			<ul class="menu menu--not-logged hide">
+			<ul class="menu menu--not-logged hide  hide--medium">
 				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
 				<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
 			</ul>
 
-			<ul class="menu menu--logged hide">
+			<ul class="menu menu--logged hide  hide--medium">
 				<li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
 				<li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
 			</ul>
+
+      <p class="show--medium">This game was designed for bigger resolutions!</p>
 		</div>
 	</section>
 
@@ -143,23 +145,17 @@
 
 		<form action="javascript:;" class="form" name="form_create" data-target="characters">
 			<input type="hidden" name="userId">
+			<input type="hidden" name="characterClass" id="">
 
-			<div class="formbox__group--half">
-				<label for="characterNickname" class="formbox__label">Nickname:</label>
-				<input class="formbox__input" type="text" name="characterNickname" id="characterNickname" placeholder="Enter Nickname" required>
-			</div>
+      <p>To start, please select a character class below. Hover to see each class description</p>
 
-			<div class="formbox__group--half">
-				<label for="characterClass" class="formbox__label">Class:</label>
-				<select name="characterClass" id="" class="formbox__input" required>
-					<option value="">Select a class</option>
-					<option value="1">SwordsMan</option>
-					<option value="2">Mage</option>
-					<option value="3">Archer</option>
-				</select>
-			</div>
+      <div class="formbox__group">
+        <div class="formbox__group__character formbox__group--one-third"><img src="img/classes/1.png" alt=""></div>
+        <div class="formbox__group__character formbox__group--one-third"><img src="img/classes/2.png" alt=""></div>
+        <div class="formbox__group__character formbox__group--one-third"><img src="img/classes/3.png" alt=""></div>
+      </div>
 
-			<div class="create__info">
+			<div class="create__info hide">
 				<div class="create__stats form__group--half">
 					<h3 class="stats__title">Attribute Points:</h3>
 
@@ -199,15 +195,13 @@
 					</div>
 				</div>
 
-				<div class="create__img form__group--half"><img src="" alt=""></div>
-
 				<p class="stats__counter">Remaining attribute points: <b class="remaining-stats">10</b></p>
 			</div>
 
 			<p class="formbox__result"></p>
 
 			<div class="text-center">
-				<button class="btn btn--red">Create</button>
+				<button class="btn btn--red hide">Create</button>
 			</div>
 		</form>
 	</section>
