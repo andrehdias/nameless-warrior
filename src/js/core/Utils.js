@@ -1,7 +1,5 @@
-/**
-* Util functions
-*
-**/
+import GLOBALS from '../core/Globals';
+
 export default class Utils {
   constructor() {}
 
@@ -10,15 +8,15 @@ export default class Utils {
 
     switch(characterClass) {
       case 1:
-        classString = "SwordsMan";
+        classString = GLOBALS.SWORDSMAN;
         break;
 
       case 2:
-        classString = "Mage";
+        classString = GLOBALS.MAGE;
         break;
 
       case 3:
-        classString = "Archer";
+        classString = GLOBALS.ARCHER;
         break;
     }
 
@@ -48,5 +46,4 @@ export default class Utils {
 
     return o;
   };
-
 }

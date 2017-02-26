@@ -31,6 +31,7 @@ export default class Character extends Phaser.Sprite {
 
 	  this.frame = 0;
 	  this.speed = 225;
+    this.alive = true;
 
 		this.create();
 	}
@@ -72,10 +73,6 @@ export default class Character extends Phaser.Sprite {
       this.handleWalking();
       this.updateBars();
     }
-
-    if(this.currentHP <= 0) {
-      this.destroy();
-    }
 	}
 
 	updateBars() {
@@ -112,6 +109,7 @@ export default class Character extends Phaser.Sprite {
 	setupAnimations() {
     const loop = this.type === GLOBALS.ENEMY;
 
+    this.animations.add('dead', [0, 1, 2], 3, true);
     this.animations.add('down', [0, 1, 2], 10, loop);
     this.animations.add('right', [3, 4, 5], 10, loop);
     this.animations.add('up', [6, 7, 8], 10, loop);
@@ -192,8 +190,16 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
+  setupDeadAnimation() {
+    const sprite = this.characterClass+'_dead';
+
+    this.loadTexture(sprite);
+    this.anchor.setTo(0.25, 0.25);
+    this.animations.play('dead');
+  }
+
   randomWalk(speed = 100) {
-    setInterval(() => {
+    this.randomWalkInterval = setInterval(() => {
       let direction = Math.floor(Math.random() * (6 - 1)) + 1;
 
       switch(direction){
@@ -233,6 +239,37 @@ export default class Character extends Phaser.Sprite {
           this.attacking = false;
         }
       }, this);
+    }
+  }
+
+  receiveAttack(character) {
+    if(!this.receivingAttack) {
+      this.receivingAttack = true;
+
+      console.log(this.lastFrame, this.currentHP)
+
+      this.currentHP = this.currentHP - (character.str * 2);
+
+      if(this.currentHP <= 0) {
+        this.alive = false;
+
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+
+        if(this.type === GLOBALS.ENEMY) {
+          console.log('enemy', this.randomWalkInterval)
+          clearInterval(this.randomWalkInterval);
+          console.log('enemy', this.randomWalkInterval)
+        }
+
+        this.setupDeadAnimation();
+      }
+
+      console.log(this.currentHP)
+
+      setTimeout(() => {
+        this.receivingAttack = false;
+      }, 800);
     }
   }
 }

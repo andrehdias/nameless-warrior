@@ -35,7 +35,7 @@ export default class Game extends Phaser.State {
     this.enemys = [];
 
     for(let i = 0; i < 2; i++) {
-      this.enemys.push(new Character(this.game, {characterClass: 'Mage', health: 100, currentHealth: 100}, GLOBALS.ENEMY))
+      this.enemys.push(new Character(this.game, {characterClass: GLOBALS.SWORDSMAN, health: 100, currentHealth: 100}, GLOBALS.ENEMY))
     }
 	}
 
@@ -44,15 +44,9 @@ export default class Game extends Phaser.State {
 	}
 
   collisionHandler(player, enemy) {
-    console.log(enemy.HP)
-
     if(player.attacking) {
-      enemy.HP = enemy.HP - 33;
-
-      console.log(enemy.HP)
+      enemy.receiveAttack(player);
     }
-
-    console.log(arguments)
   }
 
 	render() {
