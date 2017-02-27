@@ -79,6 +79,7 @@
       width: 50%;
       height: 100px;
       background-color: rgba($cocoa-brown, 1);
+      text-align: left;
     }
 
     &__arrow {
@@ -96,6 +97,12 @@
         from { bottom: 10px; }
           to { bottom: 15px; }
       }
+    }
+
+    &__text {
+      padding: 5px 10px;
+      display: block;
+      line-height: 18px;
     }
   }
 

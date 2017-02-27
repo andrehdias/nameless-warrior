@@ -40,10 +40,6 @@ export default class Character extends Phaser.Sprite {
     $(document).on('keydown', ev => {
       const key = ev.key;
 
-      if(key === 'Enter') {
-        $('.dialog__wrapper').addClass('hide');
-      }
-
       if(key === 'a' || key === 'A') {
         if(!this.attacking) {
           this.attack();
@@ -58,7 +54,10 @@ export default class Character extends Phaser.Sprite {
 		this.game.add.existing(this);
 	  this.game.physics.arcade.enable(this);
 	  this.body.collideWorldBounds = true;
-	  this.game.camera.follow(this);
+
+    if(this.type === GLOBALS.PLAYER) {
+	    this.game.camera.follow(this);
+    }
 
 	  this.setupAnimations();
 
@@ -246,8 +245,6 @@ export default class Character extends Phaser.Sprite {
     if(!this.receivingAttack) {
       this.receivingAttack = true;
 
-      console.log(this.lastFrame, this.currentHP)
-
       this.currentHP = this.currentHP - (character.str * 2);
 
       if(this.currentHP <= 0) {
@@ -257,15 +254,11 @@ export default class Character extends Phaser.Sprite {
         this.body.velocity.y = 0;
 
         if(this.type === GLOBALS.ENEMY) {
-          console.log('enemy', this.randomWalkInterval)
           clearInterval(this.randomWalkInterval);
-          console.log('enemy', this.randomWalkInterval)
         }
 
         this.setupDeadAnimation();
       }
-
-      console.log(this.currentHP)
 
       setTimeout(() => {
         this.receivingAttack = false;
