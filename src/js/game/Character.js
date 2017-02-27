@@ -5,6 +5,8 @@ export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER) {
 		super(game, game.world.randomX, game.world.randomY, data.characterClass);
 
+    this.anchor.setTo(0.5, 0.5);
+
     this.type = type;
     this.input = this.game.input;
 
@@ -102,7 +104,12 @@ export default class Character extends Phaser.Sprite {
 	    direction = 'stop';
 	  }
 
-		this.walk(direction, speed);
+    if(!this.attacking) {
+		  this.walk(direction, speed);
+    } else {
+      this.body.velocity.x = 0;
+      this.body.velocity.y = 0;
+    }
 	}
 
 	setupAnimations() {
@@ -161,8 +168,9 @@ export default class Character extends Phaser.Sprite {
           sprite = this.characterClass+'_attack';
 
     this.loadTexture(sprite);
+    this.anchor.setTo(0.5, 0.5);
 
-    this.anchor.setTo(0.25, 0.25);
+    this.game.camera.follow(null);
 
     this.attacking = true;
 
@@ -193,7 +201,8 @@ export default class Character extends Phaser.Sprite {
     const sprite = this.characterClass+'_dead';
 
     this.loadTexture(sprite);
-    this.anchor.setTo(0.25, 0.25);
+    this.anchor.setTo(0.5, 0.5);
+
     this.animations.play('dead');
   }
 
@@ -233,7 +242,9 @@ export default class Character extends Phaser.Sprite {
         if(this.attacking) {
           this.loadTexture(this.characterClass);
 
-          this.anchor.setTo(0, 0);
+          this.anchor.setTo(0.5, 0.5);
+
+          this.game.camera.follow(this);
 
           this.attacking = false;
         }

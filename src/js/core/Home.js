@@ -63,6 +63,13 @@ export default class Home {
 
 			new Game();
 		});
+
+    $('.formbox__group__character').on('click', (e) => {
+      const selectedClass = $(e.currentTarget);
+
+      $('.formbox__group__character').removeClass('active');
+      selectedClass.addClass('active');
+    });
 	}
 
 	validation(target, form, result) {

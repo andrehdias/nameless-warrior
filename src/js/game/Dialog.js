@@ -6,7 +6,7 @@ export default class Dialog {
     this.$dialogWrapper = $('.dialog__wrapper');
     this.$dialogText = this.$dialogWrapper.find('.dialog__text');
 
-    this.actualLine = 0;
+    this.actualLine = 1;
     this.numberOfLines = this.data.lines.length;
 
     this.setup();

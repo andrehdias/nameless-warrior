@@ -64,6 +64,10 @@ export default class Game extends Phaser.State {
 			success: (data) => {
 				data.characterClass = this.utils.formatClass(data.characterClass);
 				this.player = new Character(this.game, data);
+
+        this.game.debug.bodyInfo(this.player, 32, 32);
+
+        this.game.debug.body(this.player);
 			}
 		});
 	}
