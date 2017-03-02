@@ -22,6 +22,8 @@ export default class Home {
 
 		this.loggedInfo = $('.logged--info');
 
+    $('.tooltip').tooltipster();
+
 		this.bindEvents();
 		this.checkLogin();
 	}
@@ -63,13 +65,6 @@ export default class Home {
 
 			new Game();
 		});
-
-    $('.formbox__group__character').on('click', (e) => {
-      const selectedClass = $(e.currentTarget);
-
-      $('.formbox__group__character').removeClass('active');
-      selectedClass.addClass('active');
-    });
 	}
 
 	validation(target, form, result) {
@@ -208,18 +203,14 @@ export default class Home {
 	setupCharacterCreation() {
 		let form = $('[name="form_create"]'),
 				stats = form.find('.stats__group'),
-				remainingStats = form.find('.remaining-stats'),
-				classSelect = form.find('[name=characterClass]');
+				remainingStats = form.find('.remaining-stats');
 
-		classSelect.change(function() {
-			let classImg = $(this).val();
+		$('.formbox__group__character').on('click', (e) => {
+      const selectedClass = $(e.currentTarget);
 
-			if(classImg) {
-				form.find('.create__img img').attr('src', 'img/classes/'+classImg+'.png');
-			} else {
-				form.find('.create__img img').attr('src', '');
-			}
-		});
+      $('.formbox__group__character').removeClass('active');
+      selectedClass.addClass('active');
+    });
 
 		stats.each(function() {
 			let	statsGroup = $(this),

@@ -65,7 +65,7 @@
 
     &__character {
       cursor: pointer;
-      transition: 500ms background;
+      transition: 500ms background, 500ms opacity;
       text-align: center;
       padding: 20px 0;
       margin-top: 20px;
@@ -74,34 +74,41 @@
       background-repeat: no-repeat;
       background-position: center;
       flex-grow: 1;
+      opacity: 0.3;
+
+      &.active {
+        opacity: 1;
+      }
 
       &:hover {
         background-color: $dark-blue;
         background-repeat: no-repeat;
-        background-size: 80%;
       }
 
       &--swordsman {
         background-image: url(../img/classes/1.png);
 
-        &:hover {
-            background-image: url(../img/gifs/swordsman_attack.gif) !important;
+        &.active:hover {
+          background-size: 80%;
+          background-image: url(../img/gifs/swordsman_attack.gif) !important;
         }
       }
 
       &--mage {
         background-image: url(../img/classes/2.png);
 
-        &:hover {
-            background-image: url(../img/gifs/mage_attack.gif) !important;
+        &.active:hover {
+          background-image: url(../img/gifs/mage_attack.gif) !important;
+          background-size: 80%;
         }
       }
 
       &--archer {
         background-image: url(../img/classes/3.png);
 
-        &:hover {
-            background-image: url(../img/gifs/archer_attack.gif) !important;
+        &.active:hover {
+          background-image: url(../img/gifs/archer_attack.gif) !important;
+          background-size: 80%;
         }
       }
     }
