@@ -170,6 +170,9 @@ export default class Character extends Phaser.Sprite {
     this.loadTexture(sprite);
     this.anchor.setTo(0.5, 0.5);
 
+    this.body.width = 64;
+    this.body.height = 64;
+
     this.game.camera.follow(null);
 
     this.attacking = true;
@@ -203,33 +206,38 @@ export default class Character extends Phaser.Sprite {
     this.loadTexture(sprite);
     this.anchor.setTo(0.5, 0.5);
 
+    this.body.width = 64;
+    this.body.height = 64;
+
     this.animations.play('dead');
   }
 
   randomWalk(speed = 100) {
     this.randomWalkInterval = setInterval(() => {
-      let direction = Math.floor(Math.random() * (6 - 1)) + 1;
+      const direction = Math.floor(Math.random() * (6 - 1)) + 1;
 
-      switch(direction){
-        case 1:
-          this.walk('down', speed);
-					break;
+      if(!this.receivingAttack && this.alive) {
+        switch(direction){
+          case 1:
+            this.walk('down', speed);
+            break;
 
-        case 2:
-          this.walk('up', speed);
-          break;
+          case 2:
+            this.walk('up', speed);
+            break;
 
-        case 3:
-          this.walk('left', speed);
-          break;
+          case 3:
+            this.walk('left', speed);
+            break;
 
-        case 4:
-          this.walk('right', speed);
-          break;
+          case 4:
+            this.walk('right', speed);
+            break;
 
-        case 5:
-          this.walk('stop', speed);
-          break;
+          case 5:
+            this.walk('stop', speed);
+            break;
+        }
       }
     }, 1000);
   }
@@ -244,6 +252,9 @@ export default class Character extends Phaser.Sprite {
 
           this.anchor.setTo(0.5, 0.5);
 
+          this.body.width = 32;
+          this.body.height = 32;
+
           this.game.camera.follow(this);
 
           this.attacking = false;
@@ -252,7 +263,40 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
+  stepBack(direction) {
+    this.body.velocity.x = 0;
+    this.body.velocity.y = 0;
+
+    switch(direction) {
+      case 'up':
+        this.body.velocity.y = -200;
+        break;
+
+      case 'down':
+        this.body.velocity.y = 200;
+        break;
+
+      case 'left':
+        this.body.velocity.x = -200;
+        break;
+
+      case 'right':
+        this.body.velocity.x = 200;
+        break;
+    }
+
+    this.animations.stop();
+
+    setTimeout(() => {
+      this.body.velocity.x = 0;
+      this.body.velocity.y = 0;
+    }, 500);
+  }
+
   receiveAttack(character) {
+    const frame = character.lastFrame || 0,
+          direction = this.getDirection(frame);
+
     if(!this.receivingAttack) {
       this.receivingAttack = true;
 
@@ -261,19 +305,18 @@ export default class Character extends Phaser.Sprite {
       if(this.currentHP <= 0) {
         this.alive = false;
 
-        this.body.velocity.x = 0;
-        this.body.velocity.y = 0;
-
         if(this.type === GLOBALS.ENEMY) {
           clearInterval(this.randomWalkInterval);
         }
 
         this.setupDeadAnimation();
+      } else {
+        this.stepBack(direction);
       }
 
       setTimeout(() => {
         this.receivingAttack = false;
-      }, 800);
+      }, 500);
     }
   }
 }

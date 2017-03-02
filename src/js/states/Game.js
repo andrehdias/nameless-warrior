@@ -7,6 +7,8 @@ import Utils from '../core/Utils';
 
 export default class Game extends Phaser.State {
 	create() {
+    this.debug = config.debug;
+
 		this.game.time.advancedTiming = true;
 
 		this.utils = new Utils();
@@ -24,10 +26,10 @@ export default class Game extends Phaser.State {
         ]
       },
       () => {
-        this.enemys = [];
+        this.enemies = [];
 
         for(let i = 0; i < 2; i++) {
-          this.enemys.push(new Character(this.game, {characterClass: GLOBALS.SWORDSMAN, health: 100, currentHealth: 100}, GLOBALS.ENEMY))
+          this.enemies.push(new Character(this.game, {characterClass: GLOBALS.SWORDSMAN, health: 100, currentHealth: 100}, GLOBALS.ENEMY))
           this.welcomeDialogFinished = true;
         }
       }
@@ -36,12 +38,27 @@ export default class Game extends Phaser.State {
 
 	update() {
     if(this.welcomeDialogFinished) {
-      this.game.physics.arcade.collide(this.player, this.enemys, this.collisionHandler);
+      this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
     }
 	}
 
 	render() {
-		this.game.debug.text(this.game.time.fps || '--', 10, 20, "#fff");
+    if(this.debug) {
+      this.game.debug.text(this.game.time.fps || '--', 10, 20, "#fff");
+
+      if(this.player) {
+          this.game.debug.bodyInfo(this.player, 32, 32);
+          this.game.debug.body(this.player);
+      }
+
+      if(this.enemies) {
+        for (var key in this.enemies) {
+          const enemy = this.enemies[key];
+
+          this.game.debug.body(enemy);
+        }
+      }
+    }
 	}
 
   collisionHandler(player, enemy) {
@@ -64,10 +81,6 @@ export default class Game extends Phaser.State {
 			success: (data) => {
 				data.characterClass = this.utils.formatClass(data.characterClass);
 				this.player = new Character(this.game, data);
-
-        this.game.debug.bodyInfo(this.player, 32, 32);
-
-        this.game.debug.body(this.player);
 			}
 		});
 	}
