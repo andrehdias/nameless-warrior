@@ -57,11 +57,10 @@
 
 	.formbox__group {
 		width: 100%;
-		display: inline-block;
+		display: flex;
 
     &--one-third {
       width: 30%;
-      display: inline-block;
     }
 
     &__character {
@@ -71,9 +70,39 @@
       padding: 20px 0;
       margin-top: 20px;
       border-radius: 3px;
+      min-height: 120px;
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-grow: 1;
 
       &:hover {
-        background: $dark-blue;
+        background-color: $dark-blue;
+        background-repeat: no-repeat;
+        background-size: 80%;
+      }
+
+      &--swordsman {
+        background-image: url(../img/classes/1.png);
+
+        &:hover {
+            background-image: url(../img/gifs/swordsman_attack.gif) !important;
+        }
+      }
+
+      &--mage {
+        background-image: url(../img/classes/2.png);
+
+        &:hover {
+            background-image: url(../img/gifs/mage_attack.gif) !important;
+        }
+      }
+
+      &--archer {
+        background-image: url(../img/classes/3.png);
+
+        &:hover {
+            background-image: url(../img/gifs/archer_attack.gif) !important;
+        }
       }
     }
 	}
@@ -300,6 +329,10 @@
 	}
 
 	@include largeViewport {
-		width: 70%;
+		width: 50%;
+
+    &--big {
+      width: 70%;
+    }
 	}
 }
