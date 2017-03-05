@@ -22,7 +22,9 @@ export default class Home {
 
 		this.loggedInfo = $('.logged--info');
 
-    $('.tooltip').tooltipster();
+    $('.tooltip').tooltipster({
+      contentAsHTML: true
+    });
 
 		this.bindEvents();
 		this.checkLogin();
@@ -72,8 +74,8 @@ export default class Home {
 
 		switch(target) {
 			case 'users' :
-				let password = form.find('[name=signupPassword]').val(),
-						repeatPassword = form.find('[name=signupRepeatPassword]').val();
+				const password = form.find('[name=signupPassword]').val(),
+						  repeatPassword = form.find('[name=signupRepeatPassword]').val();
 
 			  if (password != repeatPassword) {
           result.html('The passwords must be equal!');
@@ -83,15 +85,19 @@ export default class Home {
 				break;
 
 			case 'characters':
-				let remainingStats = form.find('.remaining-stats').html();
+				const remainingStats = form.find('.remaining-stats').html(),
+              selectedClass = form.find('[name="characterClass"]').val();
 
-				if(remainingStats != 0) {
+				if(selectedClass === "") {
+          result.html('You must select a character class!');
+					invalid = true;
+        } else if(remainingStats != 0) {
 					result.html('You must distribute all attributes!');
 					invalid = true;
-				}
+		    }
 
 				break;
-		}
+    }
 
 		return invalid;
 	}
@@ -109,9 +115,9 @@ export default class Home {
 	}
 
 	ajaxPOST(target, result, data) {
-		let _this = this,
-				loader = $('.loader'),
-				url = config.apiURL+target;
+		const _this = this,
+          loader = $('.loader'),
+          url = config.apiURL+target;
 
 		loader.addClass('active');
 
@@ -201,22 +207,25 @@ export default class Home {
 	}
 
 	setupCharacterCreation() {
-		let form = $('[name="form_create"]'),
-				stats = form.find('.stats__group'),
-				remainingStats = form.find('.remaining-stats');
+		const form = $('[name="form_create"]'),
+          selectedClass = form.find('[name="characterClass"]'),
+          stats = form.find('.stats__group'),
+          remainingStats = form.find('.remaining-stats');
 
 		$('.formbox__group__character').on('click', (e) => {
-      const selectedClass = $(e.currentTarget);
+      const currentClass = $(e.currentTarget),
+            classNumber = currentClass.data('characterClass');
 
       $('.formbox__group__character').removeClass('active');
-      selectedClass.addClass('active');
+      currentClass.addClass('active');
+      selectedClass.val(classNumber);
     });
 
 		stats.each(function() {
-			let	statsGroup = $(this),
-					plusButton = statsGroup.find('.stats__btn--plus'),
-					minusButton = statsGroup.find('.stats__btn--minus'),
-					statsInput = statsGroup.find('.stats__input');
+			const	statsGroup = $(this),
+            plusButton = statsGroup.find('.stats__btn--plus'),
+            minusButton = statsGroup.find('.stats__btn--minus'),
+            statsInput = statsGroup.find('.stats__input');
 
 			plusButton.click(function(e) {
 				e.preventDefault();
@@ -270,19 +279,20 @@ export default class Home {
 	}
 
 	updateCharacterList() {
-		let _this = this,
-				loader = $('.loader'),
-				userId = localStorage.getItem('NWarriorUserID'),
-				url = config.apiURL+'characters/byUser/'+userId,
-				characterList = $('.character__wrapper');
+		const _this = this,
+          loader = $('.loader'),
+          userId = localStorage.getItem('NWarriorUserID'),
+          url = config.apiURL+'characters/byUser/'+userId,
+          characterList = $('.character__wrapper');
 
 		loader.addClass('active');
 
 		$('.character__wrapper > *').remove();
 
 		this.utils.getTemplate('characterSelection', function(template) {
-			let characterTemplate = template,
-					data = {};
+			const characterTemplate = template;
+
+		  let	data = {};
 
 			data.token = localStorage.getItem('NWarriorToken');
 

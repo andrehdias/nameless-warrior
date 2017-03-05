@@ -30,6 +30,7 @@
 
 	<div class="logged--info hide hide--medium">
 		User: <span></span> <br>
+    <a href="/" class="link">Home</a>
 		<a href="" class="link logout">Logout</a>
 	</div>
 
@@ -147,55 +148,57 @@
 			<input type="hidden" name="userId">
 			<input type="hidden" name="characterClass" id="">
 
-      <p>To start, please select a character class below. Hover to see each class description</p>
+      <p class="create__disclaimer">To start, please select a character class below and distribute the attribute points. Hover to see each class and attribute description</p>
 
       <div class="formbox__group">
-        <div class="formbox__group__character formbox__group__character--swordsman formbox__group--one-third active tooltip" title="<b>Swordsman:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis fugit rerum alias iste aliquid ad reiciendis, sapiente quae incidunt pariatur maxime quas aut odio animi ipsum facilis earum obcaecati ab!"></div>
-        <div class="formbox__group__character formbox__group__character--mage formbox__group--one-third active"></div>
-        <div class="formbox__group__character formbox__group__character--archer formbox__group--one-third active"></div>
+        <div data-character-class="1" class="formbox__group__character formbox__group__character--swordsman formbox__group--one-third active tooltip" title="<b>Swordsman:</b> Character that uses swords, shields and heavy armors."></div>
+        <div data-character-class="2" class="formbox__group__character formbox__group__character--mage formbox__group--one-third active tooltip" title="<b>Mage:</b> Character that casts spells and uses equipments like magic staffs and tunics."></div>
+        <div data-character-class="3" class="formbox__group__character formbox__group__character--archer formbox__group--one-third active tooltip" title="<b>Archer:</b> Character that uses bow and arrow and can equip light armors."></div>
       </div>
 
 			<div class="create__info">
-				<div class="create__stats form__group--half">
+				<div class="create__stats form__group">
 					<h3 class="stats__title">Attribute Points:</h3>
 
 					<div class="stats__group">
-						<label for="" class="stats__label">Strength:</label>
+						<label for="" class="stats__label tooltip" title="<b>Strength:</b> Defines the strength of physical attacks.">Strength: <b>(?)</b></label>
 						<button class="stats__btn stats__btn--minus"></button>
 						<input type="text" name="strength" class="stats__input" value="5" readonly>
 						<button class="stats__btn stats__btn--plus"></button>
 					</div>
 
 					<div class="stats__group">
-						<label for="" class="stats__label">Constitution:</label>
+						<label for="" class="stats__label tooltip" title="<b>Constitution</b> Defines the resistance and the amount of HP of the character.">Constitution: <b>(?)</b></label>
 						<button class="stats__btn stats__btn--minus"></button>
 						<input type="text" name="constitution" class="stats__input" value="5" readonly>
 						<button class="stats__btn stats__btn--plus"></button>
 					</div>
 
 					<div class="stats__group">
-						<label for="" class="stats__label">Dexterity:</label>
+						<label for="" class="stats__label tooltip" title="<b>Dexterity</b> Defines the attack speed and the chance of avoiding enemy attacks.">Dexterity: <b>(?)</b></label>
 						<button class="stats__btn stats__btn--minus"></button>
 						<input type="text" name="dexterity" class="stats__input" value="5" readonly>
 						<button class="stats__btn stats__btn--plus"></button>
 					</div>
 
 					<div class="stats__group">
-						<label for="" class="stats__label">Intelligence:</label>
+						<label for="" class="stats__label tooltip" title="<b>Intelligence</b> Defines the strength of the spells cast by the character.">Intelligence: <b>(?)</b></label>
 						<button class="stats__btn stats__btn--minus"></button>
 						<input type="text" name="intelligence" class="stats__input" value="5" readonly>
 						<button class="stats__btn stats__btn--plus"></button>
 					</div>
 
 					<div class="stats__group">
-						<label for="" class="stats__label">Charisma:</label>
+						<label for="" class="stats__label tooltip" title="<b>Charisma</b> Defines the persuasiveness of the character when talking to NPCs (Non Player Characters).
+">Charisma: <b>(?)</b></label>
 						<button class="stats__btn stats__btn--minus"></button>
 						<input type="text" name="charisma" class="stats__input" value="5" readonly>
 						<button class="stats__btn stats__btn--plus"></button>
 					</div>
+
+				  <p class="stats__counter">Remaining attribute points: <b class="remaining-stats">10</b></p>
 				</div>
 
-				<p class="stats__counter">Remaining attribute points: <b class="remaining-stats">10</b></p>
 			</div>
 
 			<p class="formbox__result"></p>
