@@ -7,7 +7,7 @@ import Utils from '../core/Utils';
 
 export default class Game extends Phaser.State {
 	create() {
-    this.debug = config.debug;
+    this.debug = false;
 
 		this.game.time.advancedTiming = true;
 
@@ -34,6 +34,8 @@ export default class Game extends Phaser.State {
         }
       }
     );
+
+    this.bind()
 	}
 
 	update() {
@@ -46,12 +48,12 @@ export default class Game extends Phaser.State {
     if(this.debug) {
       this.game.debug.text(this.game.time.fps || '--', 10, 20, "#fff");
 
-      if(this.player) {
+      if(this.player && this.debug) {
           this.game.debug.bodyInfo(this.player, 32, 32);
           this.game.debug.body(this.player);
       }
 
-      if(this.enemies) {
+      if(this.enemies && this.debug) {
         for (var key in this.enemies) {
           const enemy = this.enemies[key];
 
@@ -84,4 +86,16 @@ export default class Game extends Phaser.State {
 			}
 		});
 	}
+
+  bind() {
+    $('[name=debug-mode]').change((e) => {
+      const checkbox = $(e.currentTarget);
+
+      if(checkbox.is(':checked')) {
+        this.debug = true;
+      } else {
+        this.debug = false;
+      }
+    })
+  }
 }
