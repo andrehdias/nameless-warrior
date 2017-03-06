@@ -1,11 +1,11 @@
 import Home from 'core/Home';
 
 class Main {
-	constructor() {		
+	constructor() {
 		new Home();
 	}
 }
 
 $(document).ready(() => {
-	new Main();		
+	new Main();
 })

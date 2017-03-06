@@ -17,12 +17,10 @@ export default class Map {
     this.groundLayer = this.map.createLayer('Ground');
     this.groundOverlapLayer = this.map.createLayer('Ground_overlap');
     this.collideLayer = this.map.createLayer('Collide');
-    this.collideOverlapLayer = this.map.createLayer('Collide_overlap');
 
     this.groundLayer.resizeWorld();
     this.groundOverlapLayer.resizeWorld();
     this.collideLayer.resizeWorld();
-    this.collideOverlapLayer.resizeWorld();
 
     this.map.currentLayer = 3;
 
