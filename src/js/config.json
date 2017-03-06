@@ -1,4 +1,3 @@
 {
-	"apiURL": "http://test.namelesswarrior.com:8080/",
-  "debug": "true"
+	"apiURL": "http://test.namelesswarrior.com:8080/"
 }

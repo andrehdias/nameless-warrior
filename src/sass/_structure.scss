@@ -130,11 +130,12 @@ section {
 			text-align: center;
 			margin: 25px 0;
 
-      @include mediumViewport {
-        font-size: 60px;
+      @include mediumLargeViewport {
+        font-size: 70px;
       }
 
-      @include smallViewport {
+      @include mediumViewport {
+        font-size: 60px;
         line-height: 50px;
       }
 		}

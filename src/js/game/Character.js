@@ -39,7 +39,7 @@ export default class Character extends Phaser.Sprite {
 	}
 
   bind() {
-    $(document).on('keydown', ev => {
+    $(window).on('keydown', ev => {
       const key = ev.key;
 
       if(key === 'a' || key === 'A') {
@@ -87,8 +87,7 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	handleWalking() {
-	  const running = this.input.keyboard.isDown(Phaser.Keyboard.S);
-	  const speed = (running) ? this.speed + 50 : this.speed;
+	  const speed = this.speed;
 
 	  let direction;
 
@@ -269,19 +268,19 @@ export default class Character extends Phaser.Sprite {
 
     switch(direction) {
       case 'up':
-        this.body.velocity.y = -200;
+        this.body.velocity.y = -250;
         break;
 
       case 'down':
-        this.body.velocity.y = 200;
+        this.body.velocity.y = 250;
         break;
 
       case 'left':
-        this.body.velocity.x = -200;
+        this.body.velocity.x = -250;
         break;
 
       case 'right':
-        this.body.velocity.x = 200;
+        this.body.velocity.x = 250;
         break;
     }
 
@@ -307,6 +306,8 @@ export default class Character extends Phaser.Sprite {
 
         if(this.type === GLOBALS.ENEMY) {
           clearInterval(this.randomWalkInterval);
+          this.body.velocity.x = 0;
+          this.body.velocity.y = 0;
         }
 
         this.setupDeadAnimation();
@@ -316,7 +317,7 @@ export default class Character extends Phaser.Sprite {
 
       setTimeout(() => {
         this.receivingAttack = false;
-      }, 500);
+      }, 300);
     }
   }
 }

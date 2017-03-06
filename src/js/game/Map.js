@@ -12,14 +12,23 @@ export default class Map {
 
 	  this.game.world.setBounds(0, 0, gameWidth, gameHeight);
 
-    this.map.addTilesetImage('sprites_background_32x32', 'sprites_background_32x32');
+    this.map.addTilesetImage('sprites_background_v2_32x32', 'sprites_background_v2_32x32');
 
     this.groundLayer = this.map.createLayer('Ground');
-    this.treesLayer = this.map.createLayer('Trees');
-    this.objectsLayer = this.map.createLayer('Objects');
+    this.groundOverlapLayer = this.map.createLayer('Ground_overlap');
+    this.collideLayer = this.map.createLayer('Collide');
 
     this.groundLayer.resizeWorld();
-    this.treesLayer.resizeWorld();
-    this.objectsLayer.resizeWorld();
+    this.groundOverlapLayer.resizeWorld();
+    this.collideLayer.resizeWorld();
+
+    this.map.currentLayer = 3;
+
+    this.map.setCollisionBetween(1, 10000, true, this.collideLayer);
+  }
+
+  renderLastLayer() {
+    this.passLayer = this.map.createLayer('Pass');
+    this.passLayer.resizeWorld();
   }
 }

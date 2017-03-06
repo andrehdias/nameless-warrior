@@ -13,6 +13,7 @@ $light-green: lighten($green, 10%);
 
 $red: #d45455;
 $dark-red: darken($red, 20%);
+$darker-red: darken($red, 30%);
 $light-red: lighten($red, 10%);
 
 $grey: #c9c9c9;
@@ -21,4 +22,5 @@ $dark-grey: #333;
 /* VIEWPORTS */
 $small-viewport: 460px;
 $medium-viewport: 768px;
+$medium-large-viewport: 1024px;
 $large-viewport: 1300px;

@@ -19,8 +19,12 @@ export default class Dialog {
   }
 
   bind() {
-    $(document).on('keydown', ev => {
+    this.event = $(document).on('keydown', ev => {
       const key = ev.key;
+
+      if(this.actualLine === this.numberOfLines) {
+        this.event.unbind();
+      }
 
       if(key === 'Enter') {
         this.nextLine();

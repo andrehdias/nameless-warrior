@@ -68,7 +68,7 @@
       transition: 500ms background, 500ms opacity;
       text-align: center;
       padding: 20px 0;
-      margin-top: 20px;
+      margin-top: 5px;
       border-radius: 3px;
       min-height: 120px;
       background-repeat: no-repeat;
@@ -167,6 +167,9 @@
 
 			&__wrapper {
         display: flex;
+        flex-wrap: wrap;
+        max-height: 360px;
+        overflow: auto;
 			}
 
 			&__nickname {
@@ -215,12 +218,15 @@
 	}
 
 	&__create {
+    .create__disclaimer {
+      font-size: 15px;
+    }
+
 		.create__info {
 			width: 100%;
 
 			.create__stats {
 				font-size: 14px;
-				width: 50%;
 				display: inline-block;
 
 				.stats__title {
@@ -229,7 +235,7 @@
 				}
 
 				.stats__label {
-					width: 48%;
+					width: 140px;
 					display: inline-block;
 				}
 
@@ -244,7 +250,7 @@
 				}
 
 				.stats__counter {
-					margin: 5px 0;
+					margin-top: 8px;
 				}
 
 				.stats__btn {
@@ -320,6 +326,7 @@
 		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
+    color: $darker-red;
 	}
 
 	&--big {
