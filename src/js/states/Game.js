@@ -42,6 +42,18 @@ export default class Game extends Phaser.State {
     if(this.welcomeDialogFinished) {
       this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
     }
+
+    if(this.player) {
+      this.game.physics.arcade.collide(this.player, this.map.collideLayer);
+    }
+
+    if(this.enemies) {
+      for (var key in this.enemies) {
+        if(this.enemies[key].alive) {
+          this.game.physics.arcade.collide(this.enemies[key], this.map.collideLayer);
+        }
+      }
+    }
 	}
 
 	render() {

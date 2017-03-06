@@ -15,8 +15,8 @@ export default class Boot extends Phaser.State {
 		this.game.load.spritesheet('Mage_sleep', 'img/classes/mage_sleep.png', 64, 64);
 		this.game.load.spritesheet('Mage_dead', 'img/classes/mage_dead.png', 64, 64);
 
-    this.game.load.tilemap('forest_dummy', 'tiles/forest_dummy.json', null, Phaser.Tilemap.TILED_JSON);
-    this.game.load.image('sprites_background_32x32', 'tiles/sprites_background_32x32.png');
+    this.game.load.tilemap('forest_dummy', 'tiles/forest_middle_left.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.image('sprites_background_v2_32x32', 'tiles/sprites_background_v2_32x32.png');
 	}
 
 	create() {
