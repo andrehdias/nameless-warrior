@@ -95,6 +95,7 @@ export default class Game extends Phaser.State {
 			success: (data) => {
 				data.characterClass = this.utils.formatClass(data.characterClass);
 				this.player = new Character(this.game, data);
+        this.map.renderLastLayer();
 			}
 		});
 	}

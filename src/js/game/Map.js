@@ -18,18 +18,19 @@ export default class Map {
     this.groundOverlapLayer = this.map.createLayer('Ground_overlap');
     this.collideLayer = this.map.createLayer('Collide');
     this.collideOverlapLayer = this.map.createLayer('Collide_overlap');
-    this.passLayer = this.map.createLayer('Pass');
 
     this.groundLayer.resizeWorld();
     this.groundOverlapLayer.resizeWorld();
     this.collideLayer.resizeWorld();
     this.collideOverlapLayer.resizeWorld();
-    this.passLayer.resizeWorld();
-
-    console.log(this.passLayer)
 
     this.map.currentLayer = 3;
 
     this.map.setCollisionBetween(1, 10000, true, this.collideLayer);
+  }
+
+  renderLastLayer() {
+    this.passLayer = this.map.createLayer('Pass');
+    this.passLayer.resizeWorld();
   }
 }
