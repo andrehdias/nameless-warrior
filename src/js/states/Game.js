@@ -26,12 +26,6 @@ export default class Game extends Phaser.State {
         ]
       },
       () => {
-        this.enemies = [];
-
-        for(let i = 0; i < 2; i++) {
-          this.enemies.push(new Character(this.game, {characterClass: GLOBALS.SWORDSMAN, health: 100, currentHealth: 100}, GLOBALS.ENEMY))
-          this.welcomeDialogFinished = true;
-        }
       }
     );
 
@@ -94,7 +88,15 @@ export default class Game extends Phaser.State {
 			data: data,
 			success: (data) => {
 				data.characterClass = this.utils.formatClass(data.characterClass);
+
 				this.player = new Character(this.game, data);
+        this.enemies = [];
+
+        for(let i = 0; i < 2; i++) {
+          this.enemies.push(new Character(this.game, {characterClass: GLOBALS.SWORDSMAN, health: 100, currentHealth: 100}, GLOBALS.ENEMY))
+          this.welcomeDialogFinished = true;
+        }
+
         this.map.renderLastLayer();
 			}
 		});
