@@ -205,8 +205,8 @@ export default class Character extends Phaser.Sprite {
     this.loadTexture(sprite);
     this.anchor.setTo(0.5, 0.5);
 
-    this.body.width = 40;
-    this.body.height = 40;
+    this.body.width = 64;
+    this.body.height = 64;
 
     this.animations.play('dead');
   }

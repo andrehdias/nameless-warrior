@@ -26,6 +26,8 @@ export default class Map {
     this.collideOverlapLayer.resizeWorld();
     this.passLayer.resizeWorld();
 
+    console.log(this.passLayer)
+
     this.map.currentLayer = 3;
 
     this.map.setCollisionBetween(1, 10000, true, this.collideLayer);
