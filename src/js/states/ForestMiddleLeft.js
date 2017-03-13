@@ -4,7 +4,7 @@ import Character from '../game/Character';
 import Map from '../game/Map';
 import Dialog from '../game/Dialog';
 
-export default class Game extends Phaser.State {
+export default class ForestMiddle extends Phaser.State {
   init(characterData) {
     this.characterData = characterData;
 
@@ -16,13 +16,13 @@ export default class Game extends Phaser.State {
 
 		this.game.time.advancedTiming = true;
 
-    this.map = new Map(this.game, {map: 'Forest_top_left'});
+    this.map = new Map(this.game, {map: 'Forest_middle_left'});
 
-    this.player = new Character(this.game, this.characterData);
+    this.player = new Character(this.game, this.characterData, GLOBALS.PLAYER, 300, 300);
     this.enemies = [];
 
-    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY))
-    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY))
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450))
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150))
 
     this.map.renderLastLayer();
 

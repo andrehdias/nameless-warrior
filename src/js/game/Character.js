@@ -2,8 +2,8 @@ import GLOBALS from '../core/Globals';
 import config from 'config';
 
 export default class Character extends Phaser.Sprite {
-	constructor(game, data, type = GLOBALS.PLAYER) {
-		super(game, game.world.randomX, game.world.randomY, data.characterClass);
+	constructor(game, data, type = GLOBALS.PLAYER, x, y) {
+		super(game, x, y, data.characterClass);
 
     this.anchor.setTo(0.5, 0.5);
 

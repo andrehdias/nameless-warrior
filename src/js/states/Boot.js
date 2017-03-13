@@ -59,7 +59,7 @@ export default class Boot extends Phaser.State {
 			data: data,
 			success: (data) => {
       	data.characterClass = Utils.formatClass(data.characterClass);
-		    this.game.state.start('Game', true, false, data);
+		    this.game.state.start('ForestTopLeft', true, false, data);
 			}
 		});
 	}
