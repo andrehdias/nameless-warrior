@@ -3,19 +3,28 @@ import config from 'config';
 import Character from '../game/Character';
 import Map from '../game/Map';
 import Dialog from '../game/Dialog';
-import Utils from '../core/Utils';
 
 export default class Game extends Phaser.State {
+  init(characterData) {
+    this.characterData = characterData;
+
+    console.log(characterData)
+  }
+
 	create() {
     this.debug = false;
 
 		this.game.time.advancedTiming = true;
 
-		this.utils = new Utils();
+    this.map = new Map(this.game, {map: 'Forest_top_left'});
 
-    this.map = new Map(this.game);
+    this.player = new Character(this.game, this.characterData);
+    this.enemies = [];
 
-    this.getCharacterInfo();
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY))
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY))
+
+    this.map.renderLastLayer();
 
     this.welcome = new Dialog(
       {
@@ -26,6 +35,7 @@ export default class Game extends Phaser.State {
         ]
       },
       () => {
+        this.welcomeDialogFinished = true;
       }
     );
 
@@ -45,6 +55,8 @@ export default class Game extends Phaser.State {
       for (var key in this.enemies) {
         if(this.enemies[key].alive) {
           this.game.physics.arcade.collide(this.enemies[key], this.map.collideLayer);
+
+          this.enemies[key].checkPlayerPosition(this.player);
         }
       }
     }
@@ -74,33 +86,6 @@ export default class Game extends Phaser.State {
       enemy.receiveAttack(player);
     }
   }
-
-	getCharacterInfo() {
-		const characterId = localStorage.getItem('NWarriorCharID'),
-          url = config.apiURL+'characters/'+characterId,
-          data = {};
-
-		data.token = localStorage.getItem('NWarriorToken');
-
-		$.ajax({
-			type: "get",
-			url: url,
-			data: data,
-			success: (data) => {
-				data.characterClass = this.utils.formatClass(data.characterClass);
-
-				this.player = new Character(this.game, data);
-        this.enemies = [];
-
-        for(let i = 0; i < 2; i++) {
-          this.enemies.push(new Character(this.game, {characterClass: GLOBALS.SWORDSMAN, health: 100, currentHealth: 100}, GLOBALS.ENEMY))
-          this.welcomeDialogFinished = true;
-        }
-
-        this.map.renderLastLayer();
-			}
-		});
-	}
 
   bind() {
     $('[name=debug-mode]').change((e) => {

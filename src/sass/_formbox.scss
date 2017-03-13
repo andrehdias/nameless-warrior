@@ -65,7 +65,7 @@
 
     &__character {
       cursor: pointer;
-      transition: 500ms background, 500ms opacity;
+      // transition: 500ms background, 500ms opacity;
       text-align: center;
       padding: 20px 0;
       margin-top: 5px;
@@ -326,7 +326,10 @@
 		font-size: 18px;
 		font-weight: bold;
 		text-align: center;
-    color: $darker-red;
+
+    &--red {
+      color: $darker-red;
+    }
 	}
 
 	&--big {

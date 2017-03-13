@@ -5,11 +5,10 @@
 import config from 'config';
 import Utils from './Utils';
 import Boxes from './Boxes';
-import Game from '../game/Game';
+import StartGame from '../game/StartGame';
 
 export default class Home {
 	constructor() {
-		this.utils = new Utils();
 		this.boxes = new Boxes('.open-formbox', '.formbox');
 
 		this.formsSelector = ".form";
@@ -40,7 +39,7 @@ export default class Home {
 					result = form.find('.formbox__result');
 
 			form.submit(function(e) {
-				let data = _this.utils.serializeObject($(this));
+				let data = Utils.serializeObject($(this));
 
 				e.preventDefault();
 
@@ -65,7 +64,7 @@ export default class Home {
 			$('.content').addClass('hide');
 			$('.game__wrapper').removeClass('hide');
 
-			new Game();
+			new StartGame();
 		});
 	}
 
@@ -289,7 +288,7 @@ export default class Home {
 
 		$('.character__wrapper > *').remove();
 
-		this.utils.getTemplate('characterSelection', function(template) {
+		Utils.getTemplate('characterSelection', function(template) {
 			const characterTemplate = template;
 
 		  let	data = {};
@@ -308,7 +307,7 @@ export default class Home {
 				    	let character = data[i],
 									template = characterTemplate;
 
-							template = template.replace('{CharacterClass}', _this.utils.formatClass(character.characterClass));
+							template = template.replace('{CharacterClass}', Utils.formatClass(character.characterClass));
 							template = template.replace('{Strength}', character.strength);
 							template = template.replace('{Constitution}', character.constitution);
 							template = template.replace('{Dexterity}', character.dexterity);

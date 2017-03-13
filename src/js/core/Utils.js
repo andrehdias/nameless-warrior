@@ -1,9 +1,7 @@
 import GLOBALS from '../core/Globals';
 
 export default class Utils {
-  constructor() {}
-
-  formatClass(characterClass) {
+  static formatClass(characterClass) {
     let classString;
 
     switch(characterClass) {
@@ -23,13 +21,13 @@ export default class Utils {
     return classString;
   }
 
-  getTemplate(template, cb) {
+  static getTemplate(template, cb) {
     $.get('templates/'+template+'.html', (response) => {
       cb(response);
     });
   }
 
-  serializeObject(obj) {
+  static serializeObject(obj) {
     let o = {},
         a = obj.serializeArray();
 

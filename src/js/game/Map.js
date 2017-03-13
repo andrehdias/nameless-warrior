@@ -3,9 +3,11 @@ import config from 'config';
 import Utils from '../core/Utils';
 
 export default class Map {
-  constructor(game) {
+  constructor(game, options) {
+    this.options = options;
+
     this.game = game;
-    this.map = this.game.add.tilemap('forest_dummy');
+    this.map = this.game.add.tilemap(this.options.map);
 
     const gameWidth = this.map.widthInPixels;
 	  const	gameHeight = this.map.heightInPixels;

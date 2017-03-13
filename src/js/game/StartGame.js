@@ -1,6 +1,6 @@
 import * as states from '../states';
 
-export default class Game {
+export default class StartGame {
 	constructor() {
 		const sizes = { w: 980, h: 470 };
 

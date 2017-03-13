@@ -74,6 +74,10 @@ export default class Character extends Phaser.Sprite {
       this.handleWalking();
       this.updateBars();
     }
+
+    if(this.type === GLOBALS.ENEMY && this.playerNear) {
+
+    }
 	}
 
 	updateBars() {
@@ -112,13 +116,18 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	setupAnimations() {
-    const loop = this.type === GLOBALS.ENEMY;
-
-    this.animations.add('dead', [0, 1, 2], 3, true);
-    this.animations.add('down', [0, 1, 2], 10, loop);
-    this.animations.add('right', [3, 4, 5], 10, loop);
-    this.animations.add('up', [6, 7, 8], 10, loop);
-    this.animations.add('left', [9, 10, 11], 10, loop);
+    if(this.type === GLOBALS.PLAYER) {
+      this.animations.add('dead', [0, 1, 2], 3, true);
+      this.animations.add('down', [0, 1, 2], 10, false);
+      this.animations.add('right', [3, 4, 5], 10, false);
+      this.animations.add('up', [6, 7, 8], 10, false);
+      this.animations.add('left', [9, 10, 11], 10, false);
+    } else if (this.type === GLOBALS.ENEMY) {
+      this.animations.add('down', [1, 2, 3], 10, true);
+      this.animations.add('right', [4, 5, 6], 10, true);
+      this.animations.add('up', [7, 8, 9], 10, true);
+      this.animations.add('left', [10, 11, 12], 10, true);
+    }
   }
 
   walk(direction, speed = 50) {
@@ -215,7 +224,11 @@ export default class Character extends Phaser.Sprite {
     this.randomWalkInterval = setInterval(() => {
       const direction = Math.floor(Math.random() * (6 - 1)) + 1;
 
-      if(!this.receivingAttack && this.alive) {
+      if(this.playerNear) {
+        this.findPlayer();
+      }
+
+      if(!this.receivingAttack && !this.playerNear && this.alive) {
         switch(direction){
           case 1:
             this.walk('down', speed);
@@ -238,7 +251,11 @@ export default class Character extends Phaser.Sprite {
             break;
         }
       }
-    }, 1000);
+    }, 800);
+  }
+
+  findPlayer() {
+
   }
 
   setupAttackEndCallback() {
@@ -308,9 +325,9 @@ export default class Character extends Phaser.Sprite {
           clearInterval(this.randomWalkInterval);
           this.body.velocity.x = 0;
           this.body.velocity.y = 0;
+        } else if (this.type === GLOBALS.PLAYER) {
+          this.setupDeadAnimation();
         }
-
-        this.setupDeadAnimation();
       } else {
         this.stepBack(direction);
       }
@@ -318,6 +335,18 @@ export default class Character extends Phaser.Sprite {
       setTimeout(() => {
         this.receivingAttack = false;
       }, 300);
+    }
+  }
+
+  checkPlayerPosition(player) {
+    const playerX = player.body.x,
+          playerY = player.body.y,
+          proximity = 100;
+
+    if((this.body.x <= (playerX - proximity) || this.body.x <= (playerX + proximity)) && (this.body.y <= (playerY - proximity) || this.body.y <= (playerY + proximity))) {
+      this.playerNear = true;
+    } else {
+      this.playerNear = false;
     }
   }
 }

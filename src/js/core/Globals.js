@@ -4,7 +4,11 @@ const GLOBALS = {
   ENEMY: 'enemy',
   SWORDSMAN: 'SwordsMan',
   MAGE: 'Mage',
-  ARCHER: 'Archer'
+  ARCHER: 'Archer',
+  ENEMIES: {
+    SLIME: 'Slime',
+    MUSHROOM: 'Mushroom'
+  }
 }
 
 export default GLOBALS;
