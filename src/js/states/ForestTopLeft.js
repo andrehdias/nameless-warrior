@@ -7,8 +7,6 @@ import Dialog from '../game/Dialog';
 export default class ForestTopLeft extends Phaser.State {
   init(characterData) {
     this.characterData = characterData;
-
-    console.log(characterData)
   }
 
 	create() {

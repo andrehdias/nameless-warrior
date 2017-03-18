@@ -40,7 +40,7 @@ export default class Boot extends Phaser.State {
 	}
 
 	setLoader() {
-		this.loadingStyle = { font: "18px Helvetica", fill: "#fff"},
+		this.loadingStyle = { font: "18px FreePixel", fill: "#fff"},
 		this.loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Loading...", this.loadingStyle);
 
 		this.loading.anchor.setTo(0.5);

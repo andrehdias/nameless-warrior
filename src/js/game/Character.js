@@ -95,13 +95,13 @@ export default class Character extends Phaser.Sprite {
 
 	  let direction;
 
-		if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+		if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
 	    direction = 'left';
-	  } else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
 	    direction = 'right';
-	  } else if (this.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
 	    direction = 'up';
-	  } else if (this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
 	    direction = 'down';
 	  } else {
 	    direction = 'stop';

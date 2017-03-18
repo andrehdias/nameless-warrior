@@ -30,16 +30,16 @@ export default class Home {
 	}
 
 	bindEvents() {
-		let _this = this,
-				forms = $(this.formsSelector);
+		const _this = this,
+				  forms = $(this.formsSelector);
 
 		forms.each(function() {
-			let form = $(this),
-					formTarget = form.data("target"),
-					result = form.find('.formbox__result');
+			const form = $(this),
+            formTarget = form.data("target"),
+            result = form.find('.formbox__result');
 
 			form.submit(function(e) {
-				let data = Utils.serializeObject($(this));
+				const data = Utils.serializeObject($(this));
 
 				e.preventDefault();
 
@@ -55,7 +55,7 @@ export default class Home {
 		});
 
 		$('.character__wrapper').on('click', '.character', function(e) {
-			let characterId = $(this).data('character-id');
+			const characterId = $(this).data('character-id');
 
 		  localStorage.setItem('NWarriorCharID', characterId);
 
