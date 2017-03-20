@@ -5,10 +5,10 @@ import Map from '../game/Map';
 import Dialog from '../game/Dialog';
 
 export default class ForestMiddle extends Phaser.State {
-  init(characterData) {
+  init(characterData, previousMap) {
     this.characterData = characterData;
 
-    console.log(characterData)
+    this.previousMap = previousMap;
   }
 
 	create() {
@@ -16,31 +16,28 @@ export default class ForestMiddle extends Phaser.State {
 
 		this.game.time.advancedTiming = true;
 
-    this.map = new Map(this.game, {map: 'Forest_middle_left'});
+    this.map = new Map(this.game, {map: GLOBALS.MAPS.FOREST_MIDDLE_LEFT});
 
-    this.player = new Character(this.game, this.characterData, GLOBALS.PLAYER, 300, 300);
+    this.playerPosition = this.getPlayerPosition();
+
+    this.player = new Character(this.game, this.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y);
     this.enemies = [];
-
-    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450))
-    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150))
 
     this.map.renderLastLayer();
 
-    this.welcome = new Dialog(
-      {
-        lines: [
-          "Welcome to Nameless Warrior! (Press ENTER to advance)",
-          "Use the Arrow Keys to move your character! (Press ENTER to advance)",
-          "Use the \"A\" key to attack your enemies(Press ENTER to advance)"
-        ]
-      },
-      () => {
-        this.welcomeDialogFinished = true;
-      }
-    );
-
     this.bind()
 	}
+
+  getPlayerPosition() {
+    if(this.previousMap) {
+      switch(this.previousMap) {
+        case GLOBALS.MAPS.FOREST_TOP_LEFT:
+          return {x: 750, y: 0};
+      }
+    } else {
+      return {x: this.characterData.lastXPosition, y: this.characterData.lastYPosition};
+    }
+  }
 
 	update() {
     if(this.welcomeDialogFinished) {

@@ -5,10 +5,11 @@ export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER, x, y) {
 		super(game, x, y, data.characterClass);
 
+    console.log(this.game.input)
+
     this.anchor.setTo(0.5, 0.5);
 
     this.type = type;
-    this.input = this.game.input;
 
 		this.setCharacterInfo(data);
 
@@ -343,7 +344,9 @@ export default class Character extends Phaser.Sprite {
           playerY = player.body.y,
           proximity = 100;
 
-    if((this.body.x <= (playerX - proximity) || this.body.x <= (playerX + proximity)) && (this.body.y <= (playerY - proximity) || this.body.y <= (playerY + proximity))) {
+    if((this.body.x <= (playerX - proximity)
+        || this.body.x <= (playerX + proximity)) && (this.body.y <= (playerY - proximity)
+        || this.body.y <= (playerY + proximity))) {
       this.playerNear = true;
     } else {
       this.playerNear = false;

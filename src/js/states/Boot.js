@@ -24,14 +24,14 @@ export default class Boot extends Phaser.State {
 
 
     //Enemies
-		this.game.load.spritesheet('Slime', 'img/enemies/slime.png', 32, 32);
-		this.game.load.spritesheet('Mushroom', 'img/enemies/mushroom.png', 32, 32);
+		this.game.load.spritesheet(GLOBALS.ENEMIES.SLIME, 'img/enemies/slime.png', 32, 32);
+		this.game.load.spritesheet(GLOBALS.ENEMIES.MUSHROOM, 'img/enemies/mushroom.png', 32, 32);
 
 
     //Maps
-    this.game.load.tilemap('Forest_top_left', 'tiles/forest_top_left.json', null, Phaser.Tilemap.TILED_JSON);
-    this.game.load.tilemap('Forest_middle_left', 'tiles/forest_middle_left.json', null, Phaser.Tilemap.TILED_JSON);
-    this.game.load.tilemap('Forest_bottom_left', 'tiles/forest_bottom_left.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(GLOBALS.MAPS.FOREST_TOP_LEFT, 'tiles/forest_top_left.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(GLOBALS.MAPS.FOREST_MIDDLE_LEFT, 'tiles/forest_middle_left.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(GLOBALS.MAPS.FOREST_BOTTOM_LEFT, 'tiles/forest_bottom_left.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('sprites_background_v2_32x32', 'tiles/sprites_background_v2_32x32.png');
 	}
 
@@ -59,6 +59,9 @@ export default class Boot extends Phaser.State {
 			data: data,
 			success: (data) => {
       	data.characterClass = Utils.formatClass(data.characterClass);
+        data.lastXPosition = 300;
+        data.lastYPosition = 300;
+
 		    this.game.state.start('ForestTopLeft', true, false, data);
 			}
 		});

@@ -27,16 +27,14 @@ export default class Map {
     this.map.currentLayer = 3;
 
     this.map.setCollisionBetween(1, 10000, true, this.collideLayer);
-
-    var index = this.map.getTile(14, 14, this.collideLayer, true).index;
-
-    this.map.setTileIndexCallback([index], () => {
-      console.log('hey')
-    });
   }
 
   renderLastLayer() {
     this.passLayer = this.map.createLayer('Pass');
     this.passLayer.resizeWorld();
+  }
+
+  addMapTransition(x, y, w, h, callback) {
+    this.map.setTileLocationCallback(x, y, w, h, callback, this, this.groundLayer);
   }
 }
