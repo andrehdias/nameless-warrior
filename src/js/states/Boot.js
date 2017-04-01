@@ -62,7 +62,13 @@ export default class Boot extends Phaser.State {
         data.lastXPosition = 300;
         data.lastYPosition = 300;
 
-		    this.game.state.start('ForestTopLeft', true, false, data);
+        const options = {
+          characterData: data,
+          previousMap: false,
+          map: GLOBALS.MAPS.FOREST_TOP_LEFT
+        }
+
+		    this.game.state.start('ForestTopLeft', true, false, options);
 			}
 		});
 	}

@@ -5,8 +5,6 @@ export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER, x, y) {
 		super(game, x, y, data.characterClass);
 
-    console.log(this.game.input)
-
     this.anchor.setTo(0.5, 0.5);
 
     this.type = type;

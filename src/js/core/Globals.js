@@ -13,6 +13,12 @@ const GLOBALS = {
     FOREST_TOP_LEFT: 'forest_top_left',
     FOREST_MIDDLE_LEFT: 'forest_middle_left',
     FOREST_BOTTOM_LEFT: 'forest_bottom_left'
+  },
+  DIRECTIONS: {
+    TOP: 'top',
+    BOTTOM: 'bottom',
+    LEFT: 'left',
+    RIGHT: 'right'
   }
 }
 

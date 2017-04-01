@@ -11,6 +11,8 @@
 
 	width: 30%;
   max-height: 80%;
+  max-width: 450px;
+
 	padding: 20px;
   margin: 0 auto;
 	z-index: 99;
@@ -335,6 +337,7 @@
 	&--big {
 		width: 80%;
 		max-height: 80%;
+    max-width: 1200px;
 	}
 
 	&--game {
