@@ -10,5 +10,13 @@ export default class ForestTopRight extends MapState {
 
   addMapTransitions() {
     super.addMapTransitions();
+
+    this.map.addMapTransition(0, 4, 1, 35, () => {
+      this.changeMap('ForestTopMiddle', GLOBALS.DIRECTIONS.RIGHT);
+    }, this);
+
+    this.map.addMapTransition(1, 39, 38, 1, () => {
+      this.changeMap('ForestMiddleRight', GLOBALS.DIRECTIONS.UP);
+    }, this);
   }
 }

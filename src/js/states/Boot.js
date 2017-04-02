@@ -65,16 +65,15 @@ export default class Boot extends Phaser.State {
 			data: data,
 			success: (data) => {
       	data.characterClass = Utils.formatClass(data.characterClass);
-        data.lastXPosition = 300;
-        data.lastYPosition = 300;
+
+        const map = data.lastMap || 'ForestBottomMiddle';
 
         const options = {
           characterData: data,
-          previousMap: false,
-          map: GLOBALS.MAPS.FOREST_TOP_LEFT
+          previousMap: false
         }
 
-		    this.game.state.start('ForestTopLeft', true, false, options);
+		    this.game.state.start(Utils.humanize(map), true, false, options);
 			}
 		});
 	}

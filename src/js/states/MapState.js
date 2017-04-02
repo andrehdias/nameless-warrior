@@ -14,9 +14,6 @@ export default class MapState extends Phaser.State {
     }
 
     this.playerPositionThreshold = 32;
-
-    this.playerPosition = this.getPlayerPosition();
-    this.playerFirstPosition = this.playerPosition;
   }
 
   create() {
@@ -26,9 +23,10 @@ export default class MapState extends Phaser.State {
 
     this.map = new Map(this.game, {map: this.mapName});
 
-    this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y);
+    this.playerPosition = this.getPlayerPosition();
+    this.playerFirstPosition = this.playerPosition;
 
-    console.log(this.playerInitialDirection)
+    this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y);
 
     if(this.options.previousMap) {
       this.player.turnSprite(this.playerInitialDirection);
@@ -90,33 +88,43 @@ export default class MapState extends Phaser.State {
 
   getPlayerPosition() {
     if(this.options.previousMap) {
+      let initialPosition = 0;
+
+      if(this.options.firstPositionThreshold) {
+        initialPosition += this.options.firstPositionThreshold;
+      }
+
       switch(this.options.enterPosition) {
         case GLOBALS.DIRECTIONS.UP:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.UP;
-          return {x: this.options.playerLastPosition.x + 16, y: 0}
+          return {x: this.options.playerLastPosition.x + 16, y: initialPosition}
 
           break;
 
         case GLOBALS.DIRECTIONS.DOWN:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.DOWN;
-          return {x: this.options.playerLastPosition.x + 16, y: this.map.tilemap.heightInPixels - 32}
+          return {x: this.options.playerLastPosition.x + 16, y: this.map.tilemap.heightInPixels - 32 + initialPosition}
 
           break;
 
         case GLOBALS.DIRECTIONS.LEFT:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.RIGHT;
-          return {x: 0, y: this.options.playerLastPosition.y + 16}
+          return {x: initialPosition, y: this.options.playerLastPosition.y + 16}
 
           break;
 
         case GLOBALS.DIRECTIONS.RIGHT:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.LEFT;
-          return {x: this.map.tilemap.widthInPixels - 32, y: this.options.playerLastPosition.y + 16}
+          return {x: this.map.tilemap.widthInPixels - 32 + initialPosition, y: this.options.playerLastPosition.y + 16}
 
           break;
       }
     } else {
-      return {x: this.options.characterData.lastXPosition - 32, y: this.options.characterData.lastYPosition};
+      if(this.options.characterData.lastPositionX !== 0) {
+        return {x: this.options.characterData.lastPositionX - 32, y: this.options.characterData.lastPositionY};
+      } else {
+        return {x: 300, y: 300};
+      }
     }
   }
 
@@ -136,6 +144,10 @@ export default class MapState extends Phaser.State {
         this.debug = false;
       }
     });
+
+    setTimeout(() => {
+      this.saveCharacterPosition();
+    }, 5000)
   }
 
   checkShouldChangeMap() {
@@ -167,7 +179,7 @@ export default class MapState extends Phaser.State {
         break;
 
       case GLOBALS.DIRECTIONS.RIGHT:
-        if((this.playerFirstPosition.x + this.playerPositionThreshold) >= playerCurrentPosition.x) {
+        if((this.playerFirstPosition.x - this.playerPositionThreshold) >= playerCurrentPosition.x) {
           this.shouldChangeMap = true;
         }
 
@@ -179,7 +191,7 @@ export default class MapState extends Phaser.State {
     this.willChangeMap = false;
   }
 
-  changeMap(state, enterPosition) {
+  changeMap(state, enterPosition, threshold) {
     if(!this.shouldChangeMap) {return;}
 
     const playerCurrentPosition = {
@@ -194,12 +206,33 @@ export default class MapState extends Phaser.State {
         characterData: this.options.characterData,
         previousMap: this.mapName,
         enterPosition: enterPosition,
-        playerLastPosition: playerCurrentPosition
+        playerLastPosition: playerCurrentPosition,
+        firstPositionThreshold: threshold
       }
 
       setTimeout(() => {
         this.game.state.start(state, true, false, options);
       }, 100);
     }
+  }
+
+  saveCharacterPosition() {
+    const characterId = localStorage.getItem('NWarriorCharID'),
+          url = config.apiURL+'characters/updateLocation/'+characterId,
+          data = {
+            lastPositionX: this.player.body.x,
+            lastPositionY: this.player.body.y,
+            lastMap: this.mapName,
+            token: localStorage.getItem('NWarriorToken')
+          };
+
+    $.ajax({
+			type: "put",
+			url: url,
+			data: data,
+			success: (data) => {
+        console.log(data)
+      }
+    });
   }
 }
