@@ -145,9 +145,9 @@ export default class MapState extends Phaser.State {
       }
     });
 
-    setTimeout(() => {
+    this.saveLocationInterval = setInterval(() => {
       this.saveCharacterPosition();
-    }, 5000)
+    }, 5000);
   }
 
   checkShouldChangeMap() {
@@ -194,6 +194,8 @@ export default class MapState extends Phaser.State {
   changeMap(state, enterPosition, threshold) {
     if(!this.shouldChangeMap) {return;}
 
+    clearInterval(this.saveLocationInterval);
+
     const playerCurrentPosition = {
       x: this.player.body.x,
       y: this.player.body.y
@@ -231,7 +233,7 @@ export default class MapState extends Phaser.State {
 			url: url,
 			data: data,
 			success: (data) => {
-        console.log(data)
+        console.log("Location Saved!")
       }
     });
   }
