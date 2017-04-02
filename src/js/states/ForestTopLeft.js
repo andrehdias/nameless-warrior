@@ -3,6 +3,12 @@ import MapState from './MapState';
 import Dialog from '../game/Dialog';
 
 export default class ForestTopLeft extends MapState {
+  init(options) {
+    this.mapName = GLOBALS.MAPS.FOREST_TOP_LEFT;
+
+    return super.init(options);
+  }
+
   create() {
     super.create();
 
@@ -10,9 +16,9 @@ export default class ForestTopLeft extends MapState {
       this.welcome = new Dialog(
         {
           lines: [
-            "Welcome to Nameless Warrior! (Press ENTER to advance)",
+            "Welcome to <strong>Nameless Warrior Beta</strong>! Forgive me for any bugs (or don't)). (Press ENTER to advance)",
             "Use the Arrow Keys to move your character! (Press ENTER to advance)",
-            "Use the \"A\" key to attack your enemies (Press ENTER to advance)"
+            "Use the <strong>\"A\"</strong> key to attack your enemies (Press ENTER to advance)"
           ]
         },
         () => {
@@ -22,37 +28,15 @@ export default class ForestTopLeft extends MapState {
     }
   }
 
-  getPlayerPosition() {
-    if(this.options.previousMap) {
-      switch(this.options.previousMap) {
-        case GLOBALS.MAPS.FOREST_MIDDLE_LEFT:
-          return {x: 760, y: 1248};
-      }
-    } else {
-      return super.getPlayerPosition();
-    }
-  }
-
   addMapTransitions() {
     super.addMapTransitions();
 
-    this.map.addMapTransition(21, 39, 3, 1, () => {
-      if(!this.shouldChangeMap) {return;}
+    this.map.addMapTransition(39, 4, 1, 35, () => {
+      this.changeMap('ForestTopMiddle', GLOBALS.DIRECTIONS.LEFT);
+    }, this);
 
-      if(!this.willChangeMap) {
-        this.willChangeMap = true;
-
-        const options = {
-          characterData: this.options.characterData,
-          previousMap: GLOBALS.MAPS.FOREST_TOP_LEFT,
-          map: GLOBALS.MAPS.FOREST_MIDDLE_LEFT,
-          enterPosition: GLOBALS.DIRECTIONS.TOP
-        }
-
-        setTimeout(() => {
-          this.game.state.start('ForestMiddleLeft', true, false, options);
-        }, 100);
-      }
+    this.map.addMapTransition(21, 39, 18, 1, () => {
+      this.changeMap('ForestMiddleLeft', GLOBALS.DIRECTIONS.UP);
     }, this);
   }
 }

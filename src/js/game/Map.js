@@ -7,34 +7,34 @@ export default class Map {
     this.options = options;
 
     this.game = game;
-    this.map = this.game.add.tilemap(this.options.map);
+    this.tilemap = this.game.add.tilemap(this.options.map);
 
-    const gameWidth = this.map.widthInPixels;
-	  const	gameHeight = this.map.heightInPixels;
+    const gameWidth = this.tilemap.widthInPixels;
+	  const	gameHeight = this.tilemap.heightInPixels;
 
 	  this.game.world.setBounds(0, 0, gameWidth, gameHeight);
 
-    this.map.addTilesetImage('sprites_background_v2_32x32', 'sprites_background_v2_32x32');
+    this.tilemap.addTilesetImage('sprites_background_32x32_v3', 'sprites_background_32x32_v3');
 
-    this.groundLayer = this.map.createLayer('Ground');
-    this.groundOverlapLayer = this.map.createLayer('Ground_overlap');
-    this.collideLayer = this.map.createLayer('Collide');
+    this.groundLayer = this.tilemap.createLayer('Ground');
+    this.groundOverlapLayer = this.tilemap.createLayer('Ground_overlap');
+    this.collideLayer = this.tilemap.createLayer('Collide');
 
     this.groundLayer.resizeWorld();
     this.groundOverlapLayer.resizeWorld();
     this.collideLayer.resizeWorld();
 
-    this.map.currentLayer = 3;
+    this.tilemap.currentLayer = 3;
 
-    this.map.setCollisionBetween(1, 10000, true, this.collideLayer);
+    this.tilemap.setCollisionBetween(1, 10000, true, this.collideLayer);
   }
 
   renderLastLayer() {
-    this.passLayer = this.map.createLayer('Pass');
+    this.passLayer = this.tilemap.createLayer('Pass');
     this.passLayer.resizeWorld();
   }
 
   addMapTransition(x, y, w, h, callback) {
-    this.map.setTileLocationCallback(x, y, w, h, callback, this, this.groundLayer);
+    this.tilemap.setTileLocationCallback(x, y, w, h, callback, this, this.groundLayer);
   }
 }

@@ -1,3 +1,10 @@
 export {default as Boot} from './Boot';
 export {default as ForestTopLeft} from './ForestTopLeft';
+export {default as ForestTopMiddle} from './ForestTopMiddle';
+export {default as ForestTopRight} from './ForestTopRight';
 export {default as ForestMiddleLeft} from './ForestMiddleLeft';
+export {default as ForestMiddleRight} from './ForestMiddleRight';
+export {default as ForestBottomLeft} from './ForestBottomLeft';
+export {default as ForestBottomMiddle} from './ForestBottomMiddle';
+export {default as ForestBottomRight} from './ForestBottomRight';
+export {default as UselessCity} from './UselessCity';

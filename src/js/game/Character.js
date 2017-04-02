@@ -95,15 +95,15 @@ export default class Character extends Phaser.Sprite {
 	  let direction;
 
 		if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-	    direction = 'left';
+	    direction = GLOBALS.DIRECTIONS.LEFT;
 	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-	    direction = 'right';
+	    direction = GLOBALS.DIRECTIONS.RIGHT;
 	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-	    direction = 'up';
+	    direction = GLOBALS.DIRECTIONS.UP;
 	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-	    direction = 'down';
+	    direction = GLOBALS.DIRECTIONS.DOWN;
 	  } else {
-	    direction = 'stop';
+	    direction = GLOBALS.DIRECTIONS.STOP;
 	  }
 
     if(!this.attacking) {
@@ -117,45 +117,69 @@ export default class Character extends Phaser.Sprite {
 	setupAnimations() {
     if(this.type === GLOBALS.PLAYER) {
       this.animations.add('dead', [0, 1, 2], 3, true);
-      this.animations.add('down', [0, 1, 2], 10, false);
-      this.animations.add('right', [3, 4, 5], 10, false);
-      this.animations.add('up', [6, 7, 8], 10, false);
-      this.animations.add('left', [9, 10, 11], 10, false);
+      this.animations.add(GLOBALS.DIRECTIONS.DOWN, [0, 1, 2], 10, false);
+      this.animations.add(GLOBALS.DIRECTIONS.RIGHT, [3, 4, 5], 10, false);
+      this.animations.add(GLOBALS.DIRECTIONS.UP, [6, 7, 8], 10, false);
+      this.animations.add(GLOBALS.DIRECTIONS.LEFT, [9, 10, 11], 10, false);
     } else if (this.type === GLOBALS.ENEMY) {
-      this.animations.add('down', [1, 2, 3], 10, true);
-      this.animations.add('right', [4, 5, 6], 10, true);
-      this.animations.add('up', [7, 8, 9], 10, true);
-      this.animations.add('left', [10, 11, 12], 10, true);
+      this.animations.add(GLOBALS.DIRECTIONS.DOWN, [1, 2, 3], 10, true);
+      this.animations.add(GLOBALS.DIRECTIONS.RIGHT, [4, 5, 6], 10, true);
+      this.animations.add(GLOBALS.DIRECTIONS.UP, [7, 8, 9], 10, true);
+      this.animations.add(GLOBALS.DIRECTIONS.LEFT, [10, 11, 12], 10, true);
     }
+  }
+
+  turnSprite(direction) {
+    let frame;
+
+    switch(direction) {
+      case GLOBALS.DIRECTIONS.UP:
+        frame = 0;
+        break;
+
+      case GLOBALS.DIRECTIONS.RIGHT:
+        frame = 3;
+        break;
+
+      case GLOBALS.DIRECTIONS.DOWN:
+        frame = 6;
+        break;
+
+      case GLOBALS.DIRECTIONS.LEFT:
+        frame = 9;
+        break;
+    }
+
+    this.frame = frame;
   }
 
   walk(direction, speed = 50) {
     switch(direction){
-      case 'down':
+      case GLOBALS.DIRECTIONS.DOWN:
         this.lastFrame = 0;
         this.body.velocity.y = speed;
         this.body.velocity.x = 0;
         break;
 
-      case 'right':
+      case GLOBALS.DIRECTIONS.RIGHT:
         this.lastFrame = 3;
         this.body.velocity.y = 0;
         this.body.velocity.x = speed;
         break;
 
-      case 'up':
+      case GLOBALS.DIRECTIONS.UP:
         this.lastFrame = 6;
         this.body.velocity.y = -speed;
         this.body.velocity.x = 0;
         break;
 
-      case 'left':
+      case GLOBALS.DIRECTIONS.LEFT:
         this.lastFrame = 9;
         this.body.velocity.x = -speed;
         this.body.velocity.y = 0;
         break;
 
-      case 'stop':
+      case GLOBALS.DIRECTIONS.STOP:
         if(!this.attacking) {
           this.body.velocity.x = 0;
           this.body.velocity.y = 0;
@@ -190,19 +214,19 @@ export default class Character extends Phaser.Sprite {
   getDirection(frame) {
     switch(frame) {
       case 0:
-        return 'down';
+        return GLOBALS.DIRECTIONS.DOWN;
         break;
 
       case 3:
-        return 'right';
+        return GLOBALS.DIRECTIONS.RIGHT;
         break;
 
       case 6:
-        return 'up';
+        return GLOBALS.DIRECTIONS.UP;
         break;
 
       case 9:
-        return 'left';
+        return GLOBALS.DIRECTIONS.LEFT;
         break;
     }
   }
@@ -230,23 +254,23 @@ export default class Character extends Phaser.Sprite {
       if(!this.receivingAttack && !this.playerNear && this.alive) {
         switch(direction){
           case 1:
-            this.walk('down', speed);
+            this.walk(GLOBALS.DIRECTIONS.DOWN, speed);
             break;
 
           case 2:
-            this.walk('up', speed);
+            this.walk(GLOBALS.DIRECTIONS.UP, speed);
             break;
 
           case 3:
-            this.walk('left', speed);
+            this.walk(GLOBALS.DIRECTIONS.LEFT, speed);
             break;
 
           case 4:
-            this.walk('right', speed);
+            this.walk(GLOBALS.DIRECTIONS.RIGHT, speed);
             break;
 
           case 5:
-            this.walk('stop', speed);
+            this.walk(GLOBALS.DIRECTIONS.STOP, speed);
             break;
         }
       }
@@ -283,19 +307,19 @@ export default class Character extends Phaser.Sprite {
     this.body.velocity.y = 0;
 
     switch(direction) {
-      case 'up':
+      case GLOBALS.DIRECTIONS.UP:
         this.body.velocity.y = -250;
         break;
 
-      case 'down':
+      case GLOBALS.DIRECTIONS.DOWN:
         this.body.velocity.y = 250;
         break;
 
-      case 'left':
+      case GLOBALS.DIRECTIONS.LEFT:
         this.body.velocity.x = -250;
         break;
 
-      case 'right':
+      case GLOBALS.DIRECTIONS.RIGHT:
         this.body.velocity.x = 250;
         break;
     }
