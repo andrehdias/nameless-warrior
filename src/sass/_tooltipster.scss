@@ -241,7 +241,7 @@
 /* .tooltipster-box */
 
 .tooltipster-sidetip .tooltipster-box {
-	background: rgba($dark-blue, 0.9);
+	background: $dark-blue;
 	border: 2px solid $white;;
 	border-radius: 4px;
 }
@@ -324,28 +324,32 @@ corresponds to the arrow we want to display */
 
 .tooltipster-sidetip .tooltipster-arrow-background {
 	border: 10px solid transparent;
+
+  -moz-background-clip: padding;     /* Firefox 3.6 */
+  -webkit-background-clip: padding;  /* Safari 4? Chrome 6? */
+  background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
 }
 
 .tooltipster-sidetip.tooltipster-bottom .tooltipster-arrow-background {
-	border-bottom-color: rgba($dark-blue, 0.9);
+	border-bottom-color: $dark-blue;
 	left: 0px;
 	top: 3px;
 }
 
 .tooltipster-sidetip.tooltipster-left .tooltipster-arrow-background {
-	border-left-color: rgba($dark-blue, 0.9);
+	border-left-color: $dark-blue;
 	left: -3px;
 	top: 0px;
 }
 
 .tooltipster-sidetip.tooltipster-right .tooltipster-arrow-background {
-	border-right-color: rgba($dark-blue, 0.9);
+	border-right-color: $dark-blue;
 	left: 3px;
 	top: 0px;
 }
 
 .tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background {
-	border-top-color: rgba($dark-blue, 0.9);
+	border-top-color: $dark-blue;
 	left: 0px;
 	top: -3px;
 }

@@ -5,6 +5,12 @@ import Map from '../game/Map';
 
 export default class MapState extends Phaser.State {
   init(options) {
+    this.player = null;
+
+    if(!this.isCity) {
+      this.enemies = [];
+    }
+
     this.options = options;
 
     if(!this.options.previousMap) {
@@ -32,10 +38,11 @@ export default class MapState extends Phaser.State {
       this.player.turnSprite(this.playerInitialDirection);
     }
 
-    this.enemies = [];
+    if(!this.isCity) {
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150));
+    }
 
-    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450));
-    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150));
 
     this.map.renderLastLayer();
 
@@ -45,7 +52,9 @@ export default class MapState extends Phaser.State {
   }
 
 	update() {
-    this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
+    if(!this.isCity) {
+      this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
+    }
 
     if(this.options.previousMap) {
       this.checkShouldChangeMap();

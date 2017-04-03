@@ -4,6 +4,7 @@ import MapState from './MapState';
 export default class UselessCity extends MapState {
   init(options) {
     this.mapName = GLOBALS.MAPS.USELESS_CITY;
+    this.isCity = true;
 
     super.init(options);
   }
