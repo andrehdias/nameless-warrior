@@ -121,6 +121,12 @@
       display: block;
       line-height: 18px;
     }
+
+    &__instructions {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+    }
   }
 
   .ui-style {

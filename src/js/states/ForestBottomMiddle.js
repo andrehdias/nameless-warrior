@@ -10,9 +10,9 @@ export default class ForestBottomMiddle extends MapState {
       this.welcome = new Dialog(
         {
           lines: [
-            "Welcome to <strong>Nameless Warrior Beta</strong>! Forgive me for any bugs (or don't)). (Press ENTER to advance)",
-            "Use the Arrow Keys to move your character! (Press ENTER to advance)",
-            "Use the <strong>\"A\"</strong> key to attack your enemies (Press ENTER to advance)"
+            "Welcome to <strong>Nameless Warrior Beta</strong>! Forgive me for any bugs (or don't).",
+            "Use the Arrow Keys to move your character!",
+            "Use the <strong>\"A\"</strong> key to attack your enemies"
           ]
         },
         () => {
@@ -27,11 +27,11 @@ export default class ForestBottomMiddle extends MapState {
   addMapTransitions() {
     super.addMapTransitions();
 
-    this.map.addMapTransition(39, 4, 1, 35, () => {
+    this.map.addMapTransition(39, 3, 1, 35, () => {
       this.changeMap('ForestBottomRight', GLOBALS.DIRECTIONS.LEFT);
     }, this);
 
-    this.map.addMapTransition(0, 4, 1, 35, () => {
+    this.map.addMapTransition(0, 3, 1, 35, () => {
       this.changeMap('ForestBottomLeft', GLOBALS.DIRECTIONS.RIGHT);
     }, this);
 

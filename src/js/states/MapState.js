@@ -7,6 +7,8 @@ export default class MapState extends Phaser.State {
   init(options) {
     this.player = null;
 
+    $(window).unbind('keydown');
+
     if(!this.isCity) {
       this.enemies = [];
     }
@@ -20,6 +22,8 @@ export default class MapState extends Phaser.State {
     }
 
     this.playerPositionThreshold = 32;
+
+    console.log(this)
   }
 
   create() {
@@ -39,10 +43,11 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.isCity) {
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 350, 250));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 200, 250));
     }
-
 
     this.map.renderLastLayer();
 

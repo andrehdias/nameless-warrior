@@ -30,6 +30,11 @@ const GLOBALS = {
     LEFT: 'left',
     RIGHT: 'right',
     STOP: 'stop'
+  },
+
+  TEXT_STYLES: {
+    DAMAGE: { font: "14px FreePixel", fontWeight: 'Bold', fill: "#000", wordWrap: true, wordWrapWidth: 32, align: "center" },
+    LOADING: { font: "18px FreePixel", fill: "#fff"}
   }
 }
 

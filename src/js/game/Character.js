@@ -7,16 +7,14 @@ export default class Character extends Phaser.Sprite {
 
     this.anchor.setTo(0.5, 0.5);
 
+    this.textY = 12;
+
     this.type = type;
 
 		this.setCharacterInfo(data);
-
-    if(this.type === GLOBALS.PLAYER) {
-      this.bind();
-    }
 	}
 
-	setCharacterInfo(data) {
+	setCharacterInfo(data, update = false) {
 		this.characterClass = data.characterClass;
 
 		this.str = data.strength;
@@ -31,10 +29,12 @@ export default class Character extends Phaser.Sprite {
 		this.currentMP = data.currentMana;
 
 	  this.frame = 0;
-	  this.speed = 225;
+	  this.speed = 200 + (this.dex * 2);
     this.alive = true;
 
-		this.create();
+    if(!update) {
+		  this.create();
+    }
 	}
 
   bind() {
@@ -66,6 +66,10 @@ export default class Character extends Phaser.Sprite {
       this.body.immovable = true;
       this.randomWalk();
     }
+
+    if(this.type === GLOBALS.PLAYER) {
+      this.bind();
+    }
 	}
 
 	update() {
@@ -76,6 +80,13 @@ export default class Character extends Phaser.Sprite {
 
     if(this.type === GLOBALS.ENEMY && this.playerNear) {
 
+    }
+
+    if(this.text && this.body) {
+      this.textY -= 1;
+
+      this.text.x = Math.floor(this.body.x + this.body.width / 2);
+      this.text.y = Math.floor(this.body.y + this.body.height / 2 + this.textY);
     }
 	}
 
@@ -329,7 +340,7 @@ export default class Character extends Phaser.Sprite {
     setTimeout(() => {
       this.body.velocity.x = 0;
       this.body.velocity.y = 0;
-    }, 500);
+    }, 400);
   }
 
   receiveAttack(character) {
@@ -339,21 +350,49 @@ export default class Character extends Phaser.Sprite {
     if(!this.receivingAttack) {
       this.receivingAttack = true;
 
-      this.currentHP = this.currentHP - (character.str * 2);
+      const bonus = Math.floor(Math.random() * (10 - 1)) + 1;
+      const miss = Math.floor(Math.random() * (6 - 1)) + 1;
+      const damage = (character.str * 2) + bonus;
 
-      if(this.currentHP <= 0) {
-        this.alive = false;
+      this.textY = 12;
 
-        if(this.type === GLOBALS.ENEMY) {
-          clearInterval(this.randomWalkInterval);
-          this.body.velocity.x = 0;
-          this.body.velocity.y = 0;
-        } else if (this.type === GLOBALS.PLAYER) {
-          this.setupDeadAnimation();
+      if(miss > 4) {
+        if(this.text) {
+          this.text.text = 'miss';
+        } else {
+          this.text = this.game.add.text(0, 0, 'miss', GLOBALS.TEXT_STYLES.DAMAGE);
+          this.text.anchor.set(0.5);
         }
       } else {
-        this.stepBack(direction);
+        this.currentHP = this.currentHP - damage;
+
+        if(this.text) {
+          this.text.text = damage;
+        } else {
+          this.text = this.game.add.text(0, 0, damage, GLOBALS.TEXT_STYLES.DAMAGE);
+          this.text.anchor.set(0.5);
+        }
+
+        if(this.currentHP <= 0) {
+          this.alive = false;
+
+          if(this.type === GLOBALS.ENEMY) {
+            clearInterval(this.randomWalkInterval);
+            this.body.velocity.x = 0;
+            this.body.velocity.y = 0;
+            this.body.destroy();
+            this.kill();
+          } else if (this.type === GLOBALS.PLAYER) {
+            this.setupDeadAnimation();
+          }
+        } else {
+          this.stepBack(direction);
+        }
       }
+
+      setTimeout(() => {
+        this.text.text = '';
+      }, 500);
 
       setTimeout(() => {
         this.receivingAttack = false;
