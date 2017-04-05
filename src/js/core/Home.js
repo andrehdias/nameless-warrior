@@ -307,6 +307,7 @@ export default class Home {
 				    	let character = data[i],
 									template = characterTemplate;
 
+							template = template.replace('{LastSaved}', Utils.formatDate(character.updatedAt));
 							template = template.replace('{CharacterClass}', Utils.formatClass(character.characterClass));
 							template = template.replace('{Strength}', character.strength);
 							template = template.replace('{Constitution}', character.constitution);

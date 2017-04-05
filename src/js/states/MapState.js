@@ -22,8 +22,6 @@ export default class MapState extends Phaser.State {
     }
 
     this.playerPositionThreshold = 32;
-
-    console.log(this)
   }
 
   create() {
@@ -36,17 +34,17 @@ export default class MapState extends Phaser.State {
     this.playerPosition = this.getPlayerPosition();
     this.playerFirstPosition = this.playerPosition;
 
-    this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y);
+    this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y, this.map);
 
     if(this.options.previousMap) {
       this.player.turnSprite(this.playerInitialDirection);
     }
 
     if(!this.isCity) {
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 350, 250));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 200, 250));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 350, 250, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 200, 250, this.map));
     }
 
     this.map.renderLastLayer();
@@ -82,20 +80,18 @@ export default class MapState extends Phaser.State {
 	}
 
 	render() {
-    if(this.debug) {
-      this.game.debug.text(this.game.time.fps || '--', 10, 20, "#fff");
+    this.game.debug.text('fps: '+this.game.time.fps || '--', 10, 20, "#fff");
 
-      if(this.player && this.debug) {
-          this.game.debug.bodyInfo(this.player, 32, 32);
-          this.game.debug.body(this.player);
-      }
+    if(this.player && this.debug) {
+        this.game.debug.bodyInfo(this.player, 32, 32);
+        this.game.debug.body(this.player);
+    }
 
-      if(this.enemies && this.debug) {
-        for (let key in this.enemies) {
-          const enemy = this.enemies[key];
+    if(this.enemies && this.debug) {
+      for (let key in this.enemies) {
+        const enemy = this.enemies[key];
 
-          this.game.debug.body(enemy);
-        }
+        this.game.debug.body(enemy);
       }
     }
 	}
@@ -149,19 +145,13 @@ export default class MapState extends Phaser.State {
   }
 
   bind() {
-    $('[name=debug-mode]').change((e) => {
-      const checkbox = $(e.currentTarget);
-
-      if(checkbox.is(':checked')) {
-        this.debug = true;
-      } else {
-        this.debug = false;
-      }
-    });
-
     this.saveLocationInterval = setInterval(() => {
-      this.saveCharacterPosition();
-    }, 5000);
+      this.player.saveCharacterPosition(this.mapName);
+
+      setTimeout(() => {
+        this.player.saveCharacterStatus();
+      }, 5000);
+    }, 10000);
   }
 
   checkShouldChangeMap() {
@@ -230,25 +220,5 @@ export default class MapState extends Phaser.State {
         this.game.state.start(state, true, false, options);
       }, 100);
     }
-  }
-
-  saveCharacterPosition() {
-    const characterId = localStorage.getItem('NWarriorCharID'),
-          url = config.apiURL+'characters/updateLocation/'+characterId,
-          data = {
-            lastPositionX: this.player.body.x,
-            lastPositionY: this.player.body.y,
-            lastMap: this.mapName,
-            token: localStorage.getItem('NWarriorToken')
-          };
-
-    $.ajax({
-			type: "put",
-			url: url,
-			data: data,
-			success: (data) => {
-        console.log("Location Saved!")
-      }
-    });
   }
 }

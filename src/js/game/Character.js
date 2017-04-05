@@ -2,10 +2,14 @@ import GLOBALS from '../core/Globals';
 import config from 'config';
 
 export default class Character extends Phaser.Sprite {
-	constructor(game, data, type = GLOBALS.PLAYER, x, y) {
+	constructor(game, data, type = GLOBALS.PLAYER, x, y, map) {
 		super(game, x, y, data.characterClass);
 
     this.anchor.setTo(0.5, 0.5);
+
+    this.map = map;
+
+    this.mapBorderThreshold = 100;
 
     this.textY = 12;
 
@@ -18,10 +22,15 @@ export default class Character extends Phaser.Sprite {
 		this.characterClass = data.characterClass;
 
 		this.str = data.strength;
+		this.strXP = data.strengthXP;
 		this.con = data.constitution;
+		this.conXP = data.constitutionXP;
 		this.dex = data.dexterity;
+		this.dexXP = data.dexterityXP;
 		this.int = data.intelligence;
+		this.intXP = data.intelligenceXP;
 		this.cha = data.charisma;
+		this.chaXP = data.charismaXP;
 
 		this.HP = data.health;
 		this.currentHP = data.currentHealth;
@@ -29,7 +38,7 @@ export default class Character extends Phaser.Sprite {
 		this.currentMP = data.currentMana;
 
 	  this.frame = 0;
-	  this.speed = 200 + (this.dex * 2);
+	  this.speed = 220 + (this.dex * 2);
     this.alive = true;
 
     if(!update) {
@@ -39,9 +48,9 @@ export default class Character extends Phaser.Sprite {
 
   bind() {
     $(window).on('keydown', ev => {
-      const key = ev.key;
+      const key = ev.keyCode;
 
-      if(key === 'a' || key === 'A') {
+      if(key === GLOBALS.KEY_CODES.A) {
         if(!this.attacking) {
           this.attack();
         }
@@ -254,12 +263,36 @@ export default class Character extends Phaser.Sprite {
     this.animations.play('dead');
   }
 
+  checkMapBorderProximity() {
+    const characterPosition = { x: this.body.x, y: this.body.y },
+          mapLimits = { x: this.map.width, y: this.map.height };
+
+    if(characterPosition.x >= (mapLimits.x - this.mapBorderThreshold)) {
+      return GLOBALS.DIRECTIONS.LEFT;
+    } else if (characterPosition.x >= this.mapBorderThreshold) {
+      return GLOBALS.DIRECTIONS.RIGHT;
+    } else if (characterPosition.y <= (mapLimits.y - this.mapBorderThreshold)) {
+      return GLOBALS.DIRECTIONS.UP;
+    } else if (characterPosition.y >= this.mapBorderThreshold) {
+      return GLOBALS.DIRECTIONS.DOWN;
+    } else {
+      return false;
+    }
+  }
+
   randomWalk(speed = 100) {
     this.randomWalkInterval = setInterval(() => {
       const direction = Math.floor(Math.random() * (6 - 1)) + 1;
 
+      // checkMapBorder = this.checkMapBorderProximity()
+
       if(this.playerNear) {
         this.findPlayer();
+        return;
+      }
+      if(this.checkMapBorder) {
+        this.walk(checkMapBorder, speed);
+        return;
       }
 
       if(!this.receivingAttack && !this.playerNear && this.alive) {
@@ -412,5 +445,56 @@ export default class Character extends Phaser.Sprite {
     } else {
       this.playerNear = false;
     }
+  }
+
+  saveCharacterStatus() {
+    const characterId = localStorage.getItem('NWarriorCharID'),
+          url = config.apiURL+'characters/updateStatus/'+characterId,
+          data = {
+            strength: this.str,
+            strengthXP: this.strXP,
+            constitution: this.con,
+            constitutionXP: this.conXP,
+            dexterity: this.dex,
+            dexterityXP: this.dexXP,
+            int: this.intelligence,
+            intXP: this.intelligenceXP,
+            cha: this.charisma,
+            chaXP: this.charismaXP,
+            health: this.HP,
+            currentHealth: this.currentHealth,
+            mana: this.MP,
+            currentMana: this.currentMana,
+            token: localStorage.getItem('NWarriorToken')
+          };
+
+    $.ajax({
+			type: "put",
+			url: url,
+			data: data,
+			success: (data) => {
+        console.log("Status Saved!")
+      }
+    });
+  }
+
+  saveCharacterPosition(mapName) {
+    const characterId = localStorage.getItem('NWarriorCharID'),
+          url = config.apiURL+'characters/updateLocation/'+characterId,
+          data = {
+            lastPositionX: this.body.x,
+            lastPositionY: this.body.y,
+            lastMap: mapName,
+            token: localStorage.getItem('NWarriorToken')
+          };
+
+    $.ajax({
+			type: "put",
+			url: url,
+			data: data,
+			success: (data) => {
+        console.log("Location Saved!")
+      }
+    });
   }
 }

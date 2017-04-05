@@ -1,3 +1,5 @@
+import GLOBALS from '../core/Globals';
+
 export default class Dialog {
   constructor(data, cb) {
     this.data = data;
@@ -26,7 +28,7 @@ export default class Dialog {
         this.event.unbind();
       }
 
-      if(key === 13) {
+      if(key === GLOBALS.KEY_CODES.ENTER) {
         this.nextLine();
       }
     });

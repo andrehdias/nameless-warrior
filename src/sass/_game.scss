@@ -8,23 +8,6 @@
   transform: translate(0, -50.1%);
   border-radius: 4px;
 
-  .debug__wrapper {
-    position: absolute;
-    right: 10px;
-    top: 0;
-
-    label {
-      position: relative;
-      top: -2px;
-
-    }
-
-    input {
-      margin-top: 10px;
-      display: inline-block;
-    }
-  }
-
   .bar {
     width: 90px;
     height: 6px;

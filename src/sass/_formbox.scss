@@ -174,12 +174,13 @@
         overflow: auto;
 			}
 
+      &__date {
+        font-size: 14px;
+      }
+
 			&__nickname {
 				font-size: 16px;
-			}
-
-			&__class {
-				font-size: 14px;
+        line-height: 10px;
 			}
 
 			&__info {

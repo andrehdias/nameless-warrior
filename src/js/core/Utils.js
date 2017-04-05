@@ -52,4 +52,15 @@ export default class Utils {
     }
     return frags.join('');
   }
+
+  static formatDate(timestamp) {
+    const date = new Date(timestamp),
+          day = date.getDate(),
+          month = date.getMonth() + 1,
+          year = date.getFullYear(),
+          hours = date.getHours(),
+          minutes = date.getMinutes();
+
+    return month+'-'+day+'-'+year+' '+hours+':'+minutes;
+  }
 }
