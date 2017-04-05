@@ -38,7 +38,7 @@ export default class Character extends Phaser.Sprite {
 		this.charismaXP = data.charismaXP;
 
 		this.health = data.health;
-		this.currentHealth = data.currentHealth - 5;
+		this.currentHealth = data.currentHealth;
 		this.mana = data.mana;
 		this.currentMana = data.currentMana;
 
