@@ -1,5 +1,6 @@
 import GLOBALS from '../core/Globals';
 import config from 'config';
+import Utils from '../core/Utils';
 
 export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER, x, y, map) {
@@ -8,41 +9,49 @@ export default class Character extends Phaser.Sprite {
     this.anchor.setTo(0.5, 0.5);
 
     this.map = map;
-
     this.mapBorderThreshold = 100;
 
     this.textY = 12;
 
     this.type = type;
+    this.frame = 0;
+    this.alive = true;
 
 		this.setCharacterInfo(data);
 	}
 
 	setCharacterInfo(data, update = false) {
+    data = data || this;
+
+    this.classNumber = data.classNumber;
 		this.characterClass = data.characterClass;
 
-		this.str = data.strength;
-		this.strXP = data.strengthXP;
-		this.con = data.constitution;
-		this.conXP = data.constitutionXP;
-		this.dex = data.dexterity;
-		this.dexXP = data.dexterityXP;
-		this.int = data.intelligence;
-		this.intXP = data.intelligenceXP;
-		this.cha = data.charisma;
-		this.chaXP = data.charismaXP;
+		this.strength = data.strength;
+		this.strengthXP = data.strengthXP;
+		this.constitution = data.constitution;
+		this.constitutionXP = data.constitutionXP;
+		this.dexterity = data.dexterity;
+		this.dexterityXP = data.dexterityXP;
+		this.intelligence = data.intelligence;
+		this.intelligenceXP = data.intelligenceXP;
+		this.charisma = data.charisma;
+		this.charismaXP = data.charismaXP;
 
-		this.HP = data.health;
-		this.currentHP = data.currentHealth;
-		this.MP = data.mana;
-		this.currentMP = data.currentMana;
+		this.health = data.health;
+		this.currentHealth = data.currentHealth - 5;
+		this.mana = data.mana;
+		this.currentMana = data.currentMana;
 
-	  this.frame = 0;
-	  this.speed = 220 + (this.dex * 2);
-    this.alive = true;
+    this.updatedAt = data.updatedAt;
+
+	  this.speed = 220 + (this.dexterity * 2);
 
     if(!update) {
 		  this.create();
+    }
+
+    if(this.type === GLOBALS.PLAYER) {
+      this.updateCharacterStatusFormbox();
     }
 	}
 
@@ -105,8 +114,8 @@ export default class Character extends Phaser.Sprite {
           mpVal = $('.bar--mana .bar__value'),
           mpTxt = $('.bar--mana .bar__text span');
 
-		hpTxt.html(this.currentHP+'/'+this.HP);
-		mpTxt.html(this.currentMP+'/'+this.MP);
+		hpTxt.html(this.currentHealth+'/'+this.health);
+		mpTxt.html(this.currentMana+'/'+this.mana);
 	}
 
 	handleWalking() {
@@ -373,7 +382,7 @@ export default class Character extends Phaser.Sprite {
     setTimeout(() => {
       this.body.velocity.x = 0;
       this.body.velocity.y = 0;
-    }, 400);
+    }, 250);
   }
 
   receiveAttack(character) {
@@ -385,7 +394,7 @@ export default class Character extends Phaser.Sprite {
 
       const bonus = Math.floor(Math.random() * (10 - 1)) + 1;
       const miss = Math.floor(Math.random() * (6 - 1)) + 1;
-      const damage = (character.str * 2) + bonus;
+      const damage = (character.strength * 2) + bonus;
 
       this.textY = 12;
 
@@ -397,7 +406,7 @@ export default class Character extends Phaser.Sprite {
           this.text.anchor.set(0.5);
         }
       } else {
-        this.currentHP = this.currentHP - damage;
+        this.currentHealth = this.currentHealth - damage;
 
         if(this.text) {
           this.text.text = damage;
@@ -406,7 +415,7 @@ export default class Character extends Phaser.Sprite {
           this.text.anchor.set(0.5);
         }
 
-        if(this.currentHP <= 0) {
+        if(this.currentHealth <= 0) {
           this.alive = false;
 
           if(this.type === GLOBALS.ENEMY) {
@@ -449,31 +458,33 @@ export default class Character extends Phaser.Sprite {
 
   saveCharacterStatus() {
     const characterId = localStorage.getItem('NWarriorCharID'),
-          url = config.apiURL+'characters/updateStatus/'+characterId,
-          data = {
-            strength: this.str,
-            strengthXP: this.strXP,
-            constitution: this.con,
-            constitutionXP: this.conXP,
-            dexterity: this.dex,
-            dexterityXP: this.dexXP,
-            int: this.intelligence,
-            intXP: this.intelligenceXP,
-            cha: this.charisma,
-            chaXP: this.charismaXP,
-            health: this.HP,
-            currentHealth: this.currentHealth,
-            mana: this.MP,
-            currentMana: this.currentMana,
-            token: localStorage.getItem('NWarriorToken')
-          };
+          url = config.apiURL+'characters/updateStatus/'+characterId;
+
+    const data = {
+      strength: this.strength,
+      strengthXP: this.strengthXP,
+      constitution: this.constitution,
+      constitutionXP: this.constitutionXP,
+      dexterity: this.dexterity,
+      dexterityXP: this.dexterityXP,
+      intelligence: this.intelligence,
+      intelligenceXP: this.intelligenceXP,
+      charisma: this.charisma,
+      charismaXP: this.charismaXP,
+      health: this.health,
+      currentHealth: this.currentHealth,
+      mana: this.mana,
+      currentMana: this.currentMana,
+      token: localStorage.getItem('NWarriorToken')
+    };
 
     $.ajax({
 			type: "put",
 			url: url,
 			data: data,
 			success: (data) => {
-        console.log("Status Saved!")
+        console.log("Status Saved!");
+        this.setCharacterInfo(undefined, true);
       }
     });
   }
@@ -496,5 +507,33 @@ export default class Character extends Phaser.Sprite {
         console.log("Location Saved!")
       }
     });
+  }
+
+  updateCharacterStatusFormbox() {
+    const $characterStatusWrapper = $('.character-status__wrapper');
+
+    $characterStatusWrapper.html('');
+
+		Utils.getTemplate('characterStatus', (template) => {
+      template = template.replace('{CharacterClass}', this.characterClass);
+      template = template.replace('{LastSaved}', Utils.formatDate(this.updatedAt));
+      template = template.replace('{Health}', this.health);
+      template = template.replace('{CurrentHealth}', this.currentHealth);
+      template = template.replace('{Mana}', this.mana);
+      template = template.replace('{CurrentMana}', this.currentMana);
+      template = template.replace('{Strength}', this.strength);
+      template = template.replace('{StrengthXP}', this.strengthXP);
+      template = template.replace('{Constitution}', this.constitution);
+      template = template.replace('{ConstitutionXP}', this.constitutionXP);
+      template = template.replace('{Dexterity}', this.dexterity);
+      template = template.replace('{DexterityXP}', this.dexterityXP);
+      template = template.replace('{Intelligence}', this.intelligence);
+      template = template.replace('{IntelligenceXP}', this.intelligenceXP);
+      template = template.replace('{Charisma}', this.charisma);
+      template = template.replace('{CharismaXP}', this.charismaXP);
+      template = template.replace('{ClassImg}', this.classNumber);
+
+      $characterStatusWrapper.append(template);
+		});
   }
 }

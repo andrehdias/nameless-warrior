@@ -335,6 +335,42 @@
     }
 	}
 
+  .character-status {
+    &__date {
+      font-size: 14px;
+    }
+
+    &__nickname {
+      font-size: 16px;
+      line-height: 10px;
+      margin-top: 10px;
+    }
+
+    &__stats {
+      font-size: 14px;
+      line-height: 17px;
+      margin: 10px 0;
+      display: inline-block;
+
+      b {
+        display: inline-block;
+        width: 100px;
+      }
+    }
+
+    &__img {
+      display: inline-block;
+      margin-left: 20px;
+      position: absolute;
+      top: 40%;
+      right: 20%;
+    }
+
+    &__info {
+      width: 100%;
+    }
+  }
+
 	&--big {
 		width: 80%;
 		max-height: 80%;

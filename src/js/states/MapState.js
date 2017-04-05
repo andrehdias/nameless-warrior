@@ -6,7 +6,6 @@ import Map from '../game/Map';
 export default class MapState extends Phaser.State {
   init(options) {
     this.player = null;
-
     $(window).unbind('keydown');
 
     if(!this.isCity) {
@@ -80,7 +79,7 @@ export default class MapState extends Phaser.State {
 	}
 
 	render() {
-    this.game.debug.text('fps: '+this.game.time.fps || '--', 10, 20, "#fff");
+    this.game.debug.text('fps: '+this.game.time.fps || '--', 35, 20, "#fff");
 
     if(this.player && this.debug) {
         this.game.debug.bodyInfo(this.player, 32, 32);

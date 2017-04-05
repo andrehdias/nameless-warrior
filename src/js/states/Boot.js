@@ -63,6 +63,7 @@ export default class Boot extends Phaser.State {
 			url: url,
 			data: data,
 			success: (data) => {
+        data.classNumber = data.characterClass;
       	data.characterClass = Utils.formatClass(data.characterClass);
 
         const map = data.lastMap || 'ForestBottomMiddle';

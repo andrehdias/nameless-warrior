@@ -299,7 +299,7 @@ export default class Home {
 				url: url,
 				type: "get",
 				data: data,
-				success: function(data) {
+				success: (data) => {
 			    loader.removeClass('active');
 
 			    if(data.length) {
