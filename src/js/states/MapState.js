@@ -6,6 +6,7 @@ import Map from '../game/Map';
 export default class MapState extends Phaser.State {
   init(options) {
     this.player = null;
+
     $(window).unbind('keydown');
 
     if(!this.isCity) {
@@ -13,6 +14,14 @@ export default class MapState extends Phaser.State {
     }
 
     this.options = options;
+
+    this.saveEnabled = true;
+
+    this.$saveBtn = $('.game-menu__save-btn');
+
+    this.$autoSaveCheckbox = $('.game__option--autosave');
+
+    this.autoSave = false;
 
     if(!this.options.previousMap) {
       this.shouldChangeMap = true;
@@ -40,10 +49,9 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.isCity) {
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 350, 250, this.map));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450, this.map));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 200, 250, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 950, this.map));
     }
 
     this.map.renderLastLayer();
@@ -55,7 +63,22 @@ export default class MapState extends Phaser.State {
 
 	update() {
     if(!this.isCity) {
-      this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
+      if(this.player.characterClass === GLOBALS.ARCHER) {
+        for (let arrow in this.player.arrows) {
+          if(this.player.arrows[arrow] !== null) {
+            this.game.physics.arcade.collide(this.player.arrows[arrow].object, this.enemies, (player, enemy) => {
+              player = (player.key === "arrow") ? this.player : player;
+
+              this.player.arrows[arrow].object.destroy();
+              this.player.arrows[arrow].destroyed = true;
+
+              this.collisionHandler(player, enemy);
+            });
+          }
+        }
+      } else {
+        this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
+      }
     }
 
     if(this.options.previousMap) {
@@ -138,19 +161,31 @@ export default class MapState extends Phaser.State {
   }
 
   collisionHandler(player, enemy) {
-    if(player.attacking) {
+    if(player.attacking || player.characterClass === GLOBALS.ARCHER) {
       enemy.receiveAttack(player);
     }
   }
 
   bind() {
-    this.saveLocationInterval = setInterval(() => {
-      this.player.saveCharacterPosition(this.mapName);
-
-      setTimeout(() => {
-        this.player.saveCharacterStatus();
+    if(this.saveEnabled) {
+      this.saveLocationInterval = setInterval(() => {
+        if(this.autoSave) {
+          this.player.saveCharacterStatus(this.mapName);
+        }
       }, 5000);
-    }, 10000);
+
+      this.$saveBtn.click(() => {
+        this.player.saveCharacterStatus(this.mapName);
+      });
+
+      this.$autoSaveCheckbox.change((e) => {
+        if(this.$autoSaveCheckbox.is(':checked')) {
+          this.autoSave = true;
+        } else {
+          this.autoSave = false;
+        }
+      })
+    }
   }
 
   checkShouldChangeMap() {
@@ -198,6 +233,7 @@ export default class MapState extends Phaser.State {
     if(!this.shouldChangeMap) {return;}
 
     clearInterval(this.saveLocationInterval);
+    clearInterval(this.saveStatusInterval);
 
     const playerCurrentPosition = {
       x: this.player.body.x,

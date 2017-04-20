@@ -65,13 +65,16 @@
 				<div class="bar__value" style="width: 100%"></div>
 			</div>
 
-			<div class="bar bar--mana">
+			<div class="bar bar--mana hide">
 				<span class="bar__text"><b>MP</b> <span></span></span>
 				<div class="bar__value" style="width: 100%"></div>
 			</div>
 
       <div class="game-menu__wrapper">
         <ul class="game-menu">
+          <li>
+            <a href="javascript:;" class="game-menu__save-btn">Save Game</a>
+          </li>
           <li>
             <a href="javascript:;" class="open-formbox" data-target="#formbox-status">Status</a>
           </li>
@@ -82,7 +85,6 @@
       </div>
 		</div>
 
-
 		<div class="dialog__wrapper ui-style hide">
 			<span class="dialog__text"></span>
 
@@ -90,6 +92,12 @@
 
 			<span class="dialog__arrow"></span>
 		</div>
+
+    <div class="game__options">
+      <div class="game__option">
+        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is checked, the game will save automatically every 5 seconds" for="autosave">Auto Save</label>
+      </div>
+    </div>
 	</section>
 
 	<!-- Form Boxes Beginning -->
@@ -235,7 +243,27 @@
   <section class="formbox" id="formbox-help">
     <a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
-    <h3>Help & Controls</h3>
+    <h3>Controls</h3>
+
+    <div class="character-status__info">
+      <ul class="character-status__stats">
+        <li><strong>Arrow Keys:</strong> Move Character </li>
+        <li><strong>A:</strong> Attack </li>
+        <li><strong>ENTER:</strong> Jump Dialogs </li>
+      </ul>
+    </div>
+
+    <h3>Status</h3>
+
+    <div class="character-status__info">
+      <ul class="character-status__stats">
+        <li><strong>Strength:</strong> Defines the strength of physical attacks</li>
+        <li><strong>Constitution:</strong> Defines the resistance and the amount of HP of the character</li>
+        <li><strong>Dexterity:</strong> Defines the attack speed and the chance of avoiding enemy attacks</li>
+        <li><strong>Intelligence:</strong> Defines the strength of the spells cast by the character</li>
+        <li><strong>Charisma</strong> Defines the persuasiveness of the character when talking to NPCs (Non Player Characters)</li>
+      </ul>
+    </div>
   </section>
 	<!-- Form Boxes End -->
 

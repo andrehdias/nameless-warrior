@@ -24,8 +24,8 @@ export default class Boot extends Phaser.State {
 
 
     //Enemies
-		this.game.load.spritesheet(GLOBALS.ENEMIES.SLIME, 'img/enemies/slime.png', 32, 32);
-		this.game.load.spritesheet(GLOBALS.ENEMIES.MUSHROOM, 'img/enemies/mushroom.png', 32, 32);
+		this.game.load.spritesheet(GLOBALS.ENEMIES.SLIME, 'img/enemies/slime-2.png', 32, 32);
+		this.game.load.spritesheet(GLOBALS.ENEMIES.MUSHROOM, 'img/enemies/mushroom-2.png', 32, 32);
 
 
     //Maps
@@ -39,6 +39,10 @@ export default class Boot extends Phaser.State {
     this.game.load.tilemap(GLOBALS.MAPS.FOREST_BOTTOM_RIGHT, 'tiles/forest_bottom_right.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.tilemap(GLOBALS.MAPS.USELESS_CITY, 'tiles/useless_city.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('sprites_background_32x32_v3', 'tiles/sprites_background_32x32_v3.png');
+
+
+    //Objects
+    this.game.load.image('arrow', 'img/classes/arrow.png');
 	}
 
 	create() {

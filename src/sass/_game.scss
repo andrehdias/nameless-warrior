@@ -92,6 +92,16 @@
     }
   }
 
+  .game__options {
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+
+    .game__option {
+
+    }
+  }
+
   .dialog {
     &__wrapper {
       position: absolute;
