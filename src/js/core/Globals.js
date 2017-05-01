@@ -34,6 +34,7 @@ const GLOBALS = {
 
   TEXT_STYLES: {
     DAMAGE: { font: "14px FreePixel", fontWeight: 'Bold', fill: "#000", wordWrap: true, wordWrapWidth: 32, align: "center" },
+    DEAD: { font: "20px FreePixel", fontWeight: 'Bold', fill: "#fff", align: "center" },
     LOADING: { font: "18px FreePixel", fill: "#fff"}
   },
 

@@ -8,7 +8,7 @@ export default class Dialog {
     this.$dialogWrapper = $('.dialog__wrapper');
     this.$dialogText = this.$dialogWrapper.find('.dialog__text');
 
-    this.actualLine = 1;
+    this.currentLine = 1;
     this.numberOfLines = this.data.lines.length;
 
     this.setup();
@@ -24,23 +24,23 @@ export default class Dialog {
     this.event = $(document).on('keydown', ev => {
       const key = ev.keyCode;
 
-      if(this.actualLine === this.numberOfLines) {
-        this.event.unbind();
-      }
-
       if(key === GLOBALS.KEY_CODES.ENTER) {
         this.nextLine();
+      }
+
+      if(this.currentLine > this.numberOfLines) {
+        this.event.unbind();
       }
     });
   }
 
   nextLine() {
-    if(this.actualLine === this.numberOfLines) {
+    if(this.currentLine === this.numberOfLines) {
       this.$dialogWrapper.addClass('hide');
       this.cb();
     } else {
-      this.actualLine++;
-      this.$dialogText.html(this.data.lines[this.actualLine - 1]);
+      this.currentLine++;
+      this.$dialogText.html(this.data.lines[this.currentLine - 1]);
     }
   }
 }
