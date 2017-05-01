@@ -98,7 +98,54 @@
     bottom: -40px;
 
     .game__option {
+      input[type=checkbox] {
+        display: none;
 
+        &:checked {
+          & + label:after {
+              margin-left: 16px;
+          }
+
+          & + label:before {
+              background: $light-red;
+          }
+        }
+
+        & + label {
+          padding-left: 50px;
+          cursor: pointer;
+
+          &:before {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 0;
+            top: 2px;
+            width: 30px; /* x*5 */
+            height: 12px; /* x*3 */
+            border-radius: 8px; /* x*2 */
+            background: $white;
+            border: 3px solid $red;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+          }
+
+          &:after {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 0px;
+            top: 0px;
+            width: 16px; /* x*3 */
+            height: 16px; /* x*3 */
+            border-radius: 8px; /* x*2 */
+            background: $blue;
+            border: 3px solid $red;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+          }
+        }
+      }
     }
   }
 

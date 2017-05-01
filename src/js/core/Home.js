@@ -108,6 +108,8 @@ export default class Home {
 			case 'characters':
 				form.find('.stats__input').val(5);
 				form.find('.stats__counter').val(10);
+        form.find('.formbox__group__character').addClass('active');
+        form.find('[name=characterClass]').val('');
 
 				break;
 		}
@@ -270,8 +272,7 @@ export default class Home {
 			this.boxes.closeAll();
 			$('[data-target="#formbox-select"]').click();
 			result.html('');
-			$('[name=characterClass]').val('');
-			$('.create__img img').attr('src', '');
+      $('.remaining-stats').html(10);
 		}, 500);
 
 		this.updateCharacterList();

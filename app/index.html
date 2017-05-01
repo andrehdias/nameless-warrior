@@ -65,11 +65,6 @@
 				<div class="bar__value" style="width: 100%"></div>
 			</div>
 
-			<div class="bar bar--mana hide">
-				<span class="bar__text"><b>MP</b> <span></span></span>
-				<div class="bar__value" style="width: 100%"></div>
-			</div>
-
       <div class="game-menu__wrapper">
         <ul class="game-menu">
           <li>
@@ -95,7 +90,7 @@
 
     <div class="game__options">
       <div class="game__option">
-        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is checked, the game will save automatically every 5 seconds" for="autosave">Auto Save</label>
+        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is enabled, the game will save automatically every 5 seconds" for="autosave">Auto Save (?)</label>
       </div>
     </div>
 	</section>
@@ -174,7 +169,6 @@
 
       <div class="formbox__group">
         <div data-character-class="1" class="formbox__group__character formbox__group__character--swordsman formbox__group--one-third active tooltip" title="<b>Swordsman:</b> Character that uses swords, shields and heavy armors."></div>
-        <div data-character-class="2" class="formbox__group__character formbox__group__character--mage formbox__group--one-third active tooltip" title="<b>Mage:</b> Character that casts spells and uses equipments like magic staffs and tunics."></div>
         <div data-character-class="3" class="formbox__group__character formbox__group__character--archer formbox__group--one-third active tooltip" title="<b>Archer:</b> Character that uses bow and arrow and can equip light armors."></div>
       </div>
 
@@ -203,20 +197,8 @@
 						<button class="stats__btn stats__btn--plus"></button>
 					</div>
 
-					<div class="stats__group">
-						<label for="" class="stats__label tooltip" title="<b>Intelligence</b> Defines the strength of the spells cast by the character.">Intelligence: <b>(?)</b></label>
-						<button class="stats__btn stats__btn--minus"></button>
-						<input type="text" name="intelligence" class="stats__input" value="5" readonly>
-						<button class="stats__btn stats__btn--plus"></button>
-					</div>
-
-					<div class="stats__group">
-						<label for="" class="stats__label tooltip" title="<b>Charisma</b> Defines the persuasiveness of the character when talking to NPCs (Non Player Characters).
-">Charisma: <b>(?)</b></label>
-						<button class="stats__btn stats__btn--minus"></button>
-						<input type="text" name="charisma" class="stats__input" value="5" readonly>
-						<button class="stats__btn stats__btn--plus"></button>
-					</div>
+					<input type="hidden" name="charisma" class="stats__input" value="5" readonly>
+					<input type="hidden" name="intelligence" class="stats__input" value="5" readonly>
 
 				  <p class="stats__counter">Remaining attribute points: <b class="remaining-stats">10</b></p>
 				</div>
