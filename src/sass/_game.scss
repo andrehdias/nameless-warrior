@@ -8,6 +8,20 @@
   transform: translate(0, -50.1%);
   border-radius: 4px;
 
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($dark-grey, 0.7);
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+
   .bar {
     width: 90px;
     height: 6px;
@@ -111,7 +125,7 @@
         }
 
         & + label {
-          padding-left: 50px;
+          padding-left: 45px;
           cursor: pointer;
 
           &:before {

@@ -38,6 +38,7 @@ export default class Boot extends Phaser.State {
     this.game.load.tilemap(GLOBALS.MAPS.FOREST_BOTTOM_MIDDLE, 'tiles/forest_bottom_middle.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.tilemap(GLOBALS.MAPS.FOREST_BOTTOM_RIGHT, 'tiles/forest_bottom_right.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.tilemap(GLOBALS.MAPS.USELESS_CITY, 'tiles/useless_city.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(GLOBALS.MAPS.HOUSE_01, 'tiles/house_01.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('sprites_background_32x32_v3', 'tiles/sprites_background_32x32_v3.png');
 
 

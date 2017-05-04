@@ -57,7 +57,9 @@
 	</section>
 
 	<section class="game__wrapper hide ui-style">
-		<div id="phaser" class="game"></div>
+		<div id="phaser" class="game">
+      <div class="game__wrapper__overlay"></div>
+    </div>
 
 		<div class="bar__wrapper">
 			<div class="bar bar--health">
@@ -90,7 +92,7 @@
 
     <div class="game__options">
       <div class="game__option">
-        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is enabled, the game will save automatically every 5 seconds" for="autosave">Auto Save (?)</label>
+        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is enabled, the game will save automatically every 10 seconds" for="autosave">Auto Save (?)</label>
       </div>
     </div>
 	</section>
@@ -230,7 +232,7 @@
     <div class="character-status__info">
       <ul class="character-status__stats">
         <li><strong>Arrow Keys:</strong> Move Character </li>
-        <li><strong>A:</strong> Attack </li>
+        <li><strong>A:</strong> Attack or interact with NPCs (Non-player characters) </li>
         <li><strong>ENTER:</strong> Jump Dialogs </li>
       </ul>
     </div>
@@ -241,9 +243,7 @@
       <ul class="character-status__stats">
         <li><strong>Strength:</strong> Defines the strength of physical attacks</li>
         <li><strong>Constitution:</strong> Defines the resistance and the amount of HP of the character</li>
-        <li><strong>Dexterity:</strong> Defines the attack speed and the chance of avoiding enemy attacks</li>
-        <li><strong>Intelligence:</strong> Defines the strength of the spells cast by the character</li>
-        <li><strong>Charisma</strong> Defines the persuasiveness of the character when talking to NPCs (Non Player Characters)</li>
+        <li><strong>Dexterity:</strong> Defines the strength of ranged attacks and the chance of avoiding enemies</li>
       </ul>
     </div>
   </section>

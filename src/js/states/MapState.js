@@ -16,6 +16,9 @@ export default class MapState extends Phaser.State {
 
     this.options = options;
 
+    this.$overlay = $('.game__wrapper__overlay');
+    this.$overlay.removeClass('active');
+
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
     this.autoSave = localStorage.getItem('NWarriorAutoSave');
@@ -38,7 +41,7 @@ export default class MapState extends Phaser.State {
 
 		this.game.time.advancedTiming = true;
 
-    this.map = new Map(this.game, {map: this.mapName});
+    this.map = new Map(this.game, {map: this.mapName, isHouse: this.isHouse, isCity: this.isCity});
 
     this.playerPosition = this.getPlayerPosition();
     this.playerFirstPosition = this.playerPosition;
@@ -103,6 +106,15 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.deadDialog && !this.player.alive) {
+      this.$overlay.addClass('active');
+
+      if(this.enemies) {
+        for (let key in this.enemies) {
+          clearInterval(this.enemies[key].randomWalkInterval);
+          this.enemies[key].kill();
+        }
+      }
+
       this.deadDialog = new Dialog(
         {
           lines: [
@@ -110,7 +122,13 @@ export default class MapState extends Phaser.State {
           ]
         },
         () => {
-          this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+          this.player.currentHealth = this.player.health;
+          this.player.saveCharacterStatus();
+
+
+          setTimeout(() => {
+            this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+          }, 1000);
         }
       );
     }
@@ -186,7 +204,7 @@ export default class MapState extends Phaser.State {
       if(this.autoSave) {
         this.player.saveCharacterStatus(this.mapName);
       }
-    }, 5000);
+    }, 10000);
 
     this.$saveBtn.click(() => {
       this.player.saveCharacterStatus(this.mapName);

@@ -21,7 +21,8 @@ const GLOBALS = {
     FOREST_BOTTOM_LEFT: 'forest_bottom_left',
     FOREST_BOTTOM_MIDDLE: 'forest_bottom_middle',
     FOREST_BOTTOM_RIGHT: 'forest_bottom_right',
-    USELESS_CITY: 'useless_city'
+    USELESS_CITY: 'useless_city',
+    HOUSE_01: 'house_01'
   },
 
   DIRECTIONS: {

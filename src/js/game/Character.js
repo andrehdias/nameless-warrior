@@ -68,15 +68,17 @@ export default class Character extends Phaser.Sprite {
 	}
 
   bind() {
-    $(window).on('keydown', ev => {
-      const key = ev.keyCode;
+    if(!this.map.isCity) {
+      $(window).on('keydown', ev => {
+        const key = ev.keyCode;
 
-      if(key === GLOBALS.KEY_CODES.A) {
-        if(!this.attacking) {
-          this.attack();
+        if(key === GLOBALS.KEY_CODES.A) {
+          if(!this.attacking) {
+            this.attack();
+          }
         }
-      }
-    });
+      });
+    }
 
     this.setupAttackEndCallback();
   }
@@ -104,6 +106,15 @@ export default class Character extends Phaser.Sprite {
 
 	update() {
     if(this.type === GLOBALS.PLAYER) {
+      if(!this.healing && this.currentHealth !== this.health && this.alive && !this.inCombat) {
+        this.currentHealth++;
+        this.healing = true;
+
+        setTimeout(() => {
+          this.healing = false;
+        }, 1000);
+      }
+
       if(!this.alive) {
         this.animations.play('dead');
         this.body.velocity.x = 0;
@@ -119,7 +130,7 @@ export default class Character extends Phaser.Sprite {
       this.updateBars();
     }
 
-    if(this.text && this.body && this.currentHealth > 0) {
+    if(this.text && this.body && this.alive) {
       this.textY -= 1;
 
       this.text.x = Math.floor(this.body.x + this.body.width / 2);
@@ -136,16 +147,21 @@ export default class Character extends Phaser.Sprite {
     let hpPercentage = (this.currentHealth / (this.health * 100)) * 10000;
 
     hpPercentage = hpPercentage.toFixed(0)+"%";
+    hpVal.css('width', hpPercentage);
 
 		hpTxt.html(this.currentHealth+'/'+this.health);
 		mpTxt.html(this.currentMana+'/'+this.mana);
-    hpVal.css('width', hpPercentage);
 	}
 
 	handleWalking() {
 	  const speed = this.speed;
-
 	  let direction;
+
+    if(this.attacking) {
+      this.body.velocity.x = 0;
+      this.body.velocity.y = 0;
+      return;
+    }
 
 		if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
 	    direction = GLOBALS.DIRECTIONS.LEFT;
@@ -159,7 +175,7 @@ export default class Character extends Phaser.Sprite {
 	    direction = GLOBALS.DIRECTIONS.STOP;
 	  }
 
-    if(!this.attacking && !this.receivingAttack) {
+    if(!this.receivingAttack) {
 		  this.walk(direction, speed);
     }
 	}
@@ -358,6 +374,9 @@ export default class Character extends Phaser.Sprite {
   setupDeadAnimation() {
     const sprite = this.characterClass+'_dead';
 
+    this.attacking = false;
+    this.receivingAttack = false;
+
     this.loadTexture(sprite);
     this.anchor.setTo(0.5, 0.5);
 
@@ -394,7 +413,7 @@ export default class Character extends Phaser.Sprite {
       this.randomWalkActive = true;
 
       if(this.playerNear) {
-        this.walk(GLOBALS.DIRECTIONS.STOP);
+        this.walk(this.playerDirection, speed);
         return;
       }
 
@@ -455,6 +474,8 @@ export default class Character extends Phaser.Sprite {
       return;
     }
 
+    const timeoutTime = (this.type === GLOBALS.PLAYER) ? 150 : 200;
+
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 
@@ -481,7 +502,7 @@ export default class Character extends Phaser.Sprite {
     setTimeout(() => {
       this.body.velocity.x = 0;
       this.body.velocity.y = 0;
-    }, 250);
+    }, timeoutTime);
   }
 
   receiveAttack(character) {
@@ -493,9 +514,9 @@ export default class Character extends Phaser.Sprite {
     if(!this.receivingAttack) {
       this.receivingAttack = true;
 
-      const dexModifier = character.dexterity / 5;
+      const dexModifier = (character.type === GLOBALS.PLAYER) ? character.dexterity / 5 : 0;
       const bonus = Math.floor(Math.random() * (10 - 1)) + 1;
-      const miss = Math.floor(Math.random() * (7 - 1)) + 1 + dexModifier;
+      const miss = Math.floor(Math.random() * (7 - 1)) + 1 - dexModifier;
 
       if(character.characterClass === GLOBALS.SWORDSMAN || character.type === GLOBALS.ENEMY) {
         damage = (character.strength * 2) + bonus;
@@ -583,28 +604,51 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
+  checkProximity(character1, character2, threshold, saveDirection) {
+    const character1X = character1.body.x,
+          character1Y = character1.body.y,
+          character2X = character2.body.x,
+          character2Y = character2.body.y;
+
+    if(((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold)))
+      && ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold)))) {
+      if(saveDirection) {
+        if((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold))) {
+          this.playerDirection = GLOBALS.DIRECTIONS.RIGHT;
+        } else if ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold))) {
+          this.playerDirection = GLOBALS.DIRECTIONS.UP;
+        }
+      } else {
+        this.playerDirection = null;
+      }
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   checkPlayerPosition(player) {
-    const playerX = player.body.x,
-          playerY = player.body.y,
-          proximity = this.playerProximityTreshold,
-          attackProximity = 32;
+    const attackProximity = 32;
 
-    if(((this.body.x >= (playerX - attackProximity)) && (this.body.x <= (playerX + attackProximity)))
-      && ((this.body.y >= (playerY - attackProximity)) && (this.body.y <= (playerY + attackProximity)))) {
+    const playerProximity = this.checkProximity(this, player, this.playerProximityTreshold);
+    const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
+
+    if(playerProximity) {
       this.playerNear = true;
+    } else {
+      this.playerNear = false;
+    }
 
+    if(enemyAttackProximity) {
       this.lastFrame = (this.getOppositeDirectionFrame(player.lastFrame));
       this.frame = this.lastFrame;
-      this.body.velocity.x = 0;
-      this.body.velocity.y = 0;
       this.animations.stop();
 
       if(!this.attacking && player.alive) {
         this.attacking = true;
         player.receiveAttack(this);
       }
-    } else {
-      this.playerNear = false;
     }
   }
 
