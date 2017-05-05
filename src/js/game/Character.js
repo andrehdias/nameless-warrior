@@ -10,7 +10,7 @@ export default class Character extends Phaser.Sprite {
 
     this.map = map;
     this.mapBorderThreshold = 100;
-    this.playerProximityTreshold = 120;
+    this.playerProximityTreshold = 160;
 
     this.lastDirection = GLOBALS.DIRECTIONS.DOWN;
 
@@ -618,28 +618,41 @@ export default class Character extends Phaser.Sprite {
           character2X = character2.body.x,
           character2Y = character2.body.y;
 
+    let verticalDirection,
+        verticalDistance,
+        horizontalDirection,
+        horizontalDistance;
+
     if(((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold)))
       && ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold)))) {
 
       if(saveDirection) {
-        if(character1Y === character2Y) {
-          if (character1Y <= (character2Y + threshold)) {
-            this.playerDirection = GLOBALS.DIRECTIONS.UP;
-          } else if (character1Y >= (character2Y - threshold)) {
-            this.playerDirection = GLOBALS.DIRECTIONS.DOWN;
-          }
+        if (character1Y <= (character2Y - threshold) && (character1Y < character2Y)) {
+          verticalDirection = GLOBALS.DIRECTIONS.DOWN;
+          verticalDistance = character2Y - character1Y;
+        } else if (character1Y >= (character2Y - threshold) && (character1Y > character2Y)) {
+          verticalDirection = GLOBALS.DIRECTIONS.UP;
+          verticalDistance = character1Y - character2Y;
+        }
+
+        if((character1X >= (character2X - threshold)) && (character1X < character2X)) {
+          horizontalDirection = GLOBALS.DIRECTIONS.RIGHT;
+          horizontalDistance = character2X - character1X;
+        } else if (character1X <= (character2X + threshold) && (character1X > character2X)) {
+          horizontalDirection = GLOBALS.DIRECTIONS.LEFT;
+          horizontalDistance = character1X - character2X;
+        }
+
+        if(verticalDistance > horizontalDistance) {
+          this.playerDirection = verticalDirection;
         } else {
-          if(character1X >= (character2X + threshold)) {
-            this.playerDirection = GLOBALS.DIRECTIONS.LEFT;
-          } else if (character1X <= (character2X - threshold)) {
-            this.playerDirection = GLOBALS.DIRECTIONS.RIGHT;
-          }
+          this.playerDirection = horizontalDirection;
         }
       } else {
         this.playerDirection = null;
       }
 
-      console.log(this.playerDirection)
+      console.log(this.playerDirection, horizontalDistance, verticalDistance)
 
       return true;
     } else {
