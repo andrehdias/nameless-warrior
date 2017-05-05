@@ -26,10 +26,6 @@ export default class Character extends Phaser.Sprite {
     if(this.characterClass === GLOBALS.ARCHER) {
       this.arrows = [];
     }
-
-    if(this.characterClass === GLOBALS.MAGE) {
-      $('.bar--mana').removeClass('hide');
-    }
 	}
 
 	setCharacterInfo(data, update = false) {
@@ -53,6 +49,8 @@ export default class Character extends Phaser.Sprite {
 		this.currentHealth = data.currentHealth;
 		this.mana = data.mana;
 		this.currentMana = data.currentMana;
+
+    this.isHostile = data.isHostile;
 
     this.updatedAt = data.updatedAt;
 
@@ -78,9 +76,9 @@ export default class Character extends Phaser.Sprite {
           }
         }
       });
-    }
 
-    this.setupAttackEndCallback();
+      this.setupAttackEndCallback();
+    }
   }
 
 	create() {
@@ -412,8 +410,12 @@ export default class Character extends Phaser.Sprite {
 
       this.randomWalkActive = true;
 
+      if(this.attacking) {
+        return;
+      }
+
       if(this.playerNear) {
-        this.walk(this.playerDirection, speed);
+        this.walk(this.playerDirection, speed * 1.5);
         return;
       }
 
@@ -547,23 +549,9 @@ export default class Character extends Phaser.Sprite {
           this.text.anchor.set(0.5);
         }
 
-        if(this.currentHealth <= 0) {
-          this.alive = false;
+        this.checkDeath();
 
-          if(this.currentHealth < 0) {
-            this.currentHealth = 0;
-          }
-
-          if(this.type === GLOBALS.ENEMY) {
-            clearInterval(this.randomWalkInterval);
-            this.body.velocity.x = 0;
-            this.body.velocity.y = 0;
-            this.body.destroy();
-            this.kill();
-          } else if (this.type === GLOBALS.PLAYER) {
-            this.setupDeadAnimation();
-          }
-        } else {
+        if(this.alive) {
           this.stepBack(direction);
         }
       }
@@ -581,6 +569,26 @@ export default class Character extends Phaser.Sprite {
       setTimeout(() => {
         this.receivingAttack = false;
       }, 300);
+    }
+  }
+
+  checkDeath() {
+    if(this.currentHealth <= 0) {
+      this.alive = false;
+
+      if(this.currentHealth < 0) {
+        this.currentHealth = 0;
+      }
+
+      if(this.type === GLOBALS.ENEMY) {
+        clearInterval(this.randomWalkInterval);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        this.body.destroy();
+        this.kill();
+      } else if (this.type === GLOBALS.PLAYER) {
+        this.setupDeadAnimation();
+      }
     }
   }
 
@@ -612,15 +620,26 @@ export default class Character extends Phaser.Sprite {
 
     if(((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold)))
       && ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold)))) {
+
       if(saveDirection) {
-        if((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold))) {
-          this.playerDirection = GLOBALS.DIRECTIONS.RIGHT;
-        } else if ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold))) {
-          this.playerDirection = GLOBALS.DIRECTIONS.UP;
+        if(character1Y === character2Y) {
+          if (character1Y <= (character2Y + threshold)) {
+            this.playerDirection = GLOBALS.DIRECTIONS.UP;
+          } else if (character1Y >= (character2Y - threshold)) {
+            this.playerDirection = GLOBALS.DIRECTIONS.DOWN;
+          }
+        } else {
+          if(character1X >= (character2X + threshold)) {
+            this.playerDirection = GLOBALS.DIRECTIONS.LEFT;
+          } else if (character1X <= (character2X - threshold)) {
+            this.playerDirection = GLOBALS.DIRECTIONS.RIGHT;
+          }
         }
       } else {
         this.playerDirection = null;
       }
+
+      console.log(this.playerDirection)
 
       return true;
     } else {
@@ -631,14 +650,9 @@ export default class Character extends Phaser.Sprite {
   checkPlayerPosition(player) {
     const attackProximity = 32;
 
-    const playerProximity = this.checkProximity(this, player, this.playerProximityTreshold);
-    const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
+    this.playerNear = this.checkProximity(this, player, this.playerProximityTreshold, this.isHostile);
 
-    if(playerProximity) {
-      this.playerNear = true;
-    } else {
-      this.playerNear = false;
-    }
+    const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
 
     if(enemyAttackProximity) {
       this.lastFrame = (this.getOppositeDirectionFrame(player.lastFrame));

@@ -11,6 +11,8 @@ export default class Dialog {
     this.currentLine = 1;
     this.numberOfLines = this.data.lines.length;
 
+    console.log(data)
+
     this.setup();
     this.bind();
   }
