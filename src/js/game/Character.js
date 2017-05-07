@@ -10,7 +10,6 @@ export default class Character extends Phaser.Sprite {
 
     this.map = map;
     this.mapBorderThreshold = 100;
-    this.playerProximityTreshold = 160;
 
     this.lastDirection = GLOBALS.DIRECTIONS.DOWN;
 
@@ -44,6 +43,8 @@ export default class Character extends Phaser.Sprite {
 		this.intelligenceXP = data.intelligenceXP;
 		this.charisma = data.charisma;
 		this.charismaXP = data.charismaXP;
+
+    this.firstDialog = data.firstDialog;
 
 		this.health = data.health;
 		this.currentHealth = data.currentHealth;
@@ -179,7 +180,7 @@ export default class Character extends Phaser.Sprite {
 	}
 
   handleArrows() {
-    const speed = this.dexterity * 1.00;
+    const speed = this.dexterity * 1.25;
 
     this.arrows.forEach((arrow) => {
       if(!arrow.destroyed) {
@@ -414,7 +415,7 @@ export default class Character extends Phaser.Sprite {
         return;
       }
 
-      if(this.playerNear) {
+      if(this.playerNear && this.playerDirection) {
         this.walk(this.playerDirection, speed * 1.5);
         return;
       }
@@ -652,7 +653,7 @@ export default class Character extends Phaser.Sprite {
         this.playerDirection = null;
       }
 
-      console.log(this.playerDirection, horizontalDistance, verticalDistance)
+      // console.log(this.playerDirection, horizontalDistance, verticalDistance)
 
       return true;
     } else {
@@ -661,9 +662,10 @@ export default class Character extends Phaser.Sprite {
   }
 
   checkPlayerPosition(player) {
-    const attackProximity = 32;
+    const attackProximity = 32,
+          playerProximity = (player.characterClass === GLOBALS.ARCHER) ? 260 : 160;
 
-    this.playerNear = this.checkProximity(this, player, this.playerProximityTreshold, this.isHostile);
+    this.playerNear = this.checkProximity(this, player, playerProximity, this.isHostile);
 
     const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
 
@@ -700,6 +702,7 @@ export default class Character extends Phaser.Sprite {
             lastPositionX: this.body.x,
             lastPositionY: this.body.y,
             lastMap: mapName,
+            firstDialog: this.firstDialog,
             token: localStorage.getItem('NWarriorToken')
           };
 

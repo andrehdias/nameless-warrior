@@ -1,25 +1,9 @@
 import GLOBALS from '../core/Globals';
 import MapState from './MapState';
-import Dialog from '../game/Dialog';
 
 export default class ForestBottomMiddle extends MapState {
   init(options) {
     this.mapName = GLOBALS.MAPS.FOREST_BOTTOM_MIDDLE;
-
-    if(!this.welcomeDone) {
-      this.welcome = new Dialog(
-        {
-          lines: [
-            "Welcome to <strong>Nameless Warrior Beta</strong>! Forgive me for any bugs (or don't).",
-            "Use the Arrow Keys to move your character!",
-            "Use the <strong>\"A\"</strong> key to attack your enemies"
-          ]
-        },
-        () => {
-          this.welcomeDone = true;
-        }
-      );
-    }
 
     return super.init(options);
   }

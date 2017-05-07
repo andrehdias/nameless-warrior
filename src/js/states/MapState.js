@@ -12,6 +12,12 @@ export default class MapState extends Phaser.State {
 
     if(!this.isCity) {
       this.enemies = [];
+
+      this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_DESCENT);
+      this.music.loop = true;
+    } else {
+      this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_TOWN);
+      this.music.loop = true;
     }
 
     this.options = options;
@@ -21,12 +27,26 @@ export default class MapState extends Phaser.State {
 
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
-    this.autoSave = localStorage.getItem('NWarriorAutoSave');
+    this.autoSave = (localStorage.getItem('NWarriorAutoSave') === 'true');
+
+    this.musicOn = (localStorage.getItem('NWarriorMusicOn') === 'true');
+    this.$musicCheckbox = $('.game__option--music');
 
     this.deadDialog = false;
 
     if(this.autoSave) {
       this.$autoSaveCheckbox.prop('checked', true);
+    }
+
+    if(this.musicOn) {
+      this.$musicCheckbox.prop('checked', true);
+
+      if(this.music) {
+        this.music.volume = 0.3;
+        this.music.play();
+      }
+    } else {
+      this.$musicCheckbox.prop('checked', false);
     }
 
     if(!this.options.previousMap) {
@@ -56,9 +76,9 @@ export default class MapState extends Phaser.State {
 
     if(!this.isCity) {
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 450, this.map));
-      // this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
-      // this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
-      // this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
     }
 
     this.map.renderLastLayer();
@@ -66,6 +86,22 @@ export default class MapState extends Phaser.State {
     this.addMapTransitions();
 
     this.bind();
+
+    if(!this.player.firstDialog && !this.welcomeDone) {
+      this.welcome = new Dialog(
+        {
+          lines: [
+            "Welcome to the ruthless, desolated and cute world of <strong>Nameless Warrior Beta</strong>!",
+            "If you have any suggestions or want to report any bug, please send me an email :D (andresan2006@gmail.com)",
+            "Go to the <strong>Status</strong> menu to see your character status. Go to <strong>Help</strong> to see the keyboard controls and the description of the status"
+          ]
+        },
+        () => {
+          this.welcomeDone = true;
+          this.player.firstDialog = true;
+        }
+      );
+    }
   }
 
 	update() {
@@ -220,7 +256,25 @@ export default class MapState extends Phaser.State {
         this.autoSave = false;
         localStorage.setItem('NWarriorAutoSave', false);
       }
-    })
+    });
+
+    this.$musicCheckbox.change((e) => {
+      if(this.$musicCheckbox.is(':checked')) {
+        this.musicOn = true;
+        localStorage.setItem('NWarriorMusicOn', true);
+
+        if(this.music) {
+          this.music.play();
+        }
+      } else {
+        this.musicOn = false
+        localStorage.setItem('NWarriorMusicOn', false);
+
+        if(this.music) {
+          this.music.stop();
+        }
+      }
+    });
   }
 
   checkShouldChangeMap() {
@@ -267,6 +321,11 @@ export default class MapState extends Phaser.State {
   changeMap(state, enterPosition, threshold) {
     if(!this.shouldChangeMap) {return;}
 
+    if(this.music) {
+      this.music.stop();
+      this.music = null;
+    }
+
     clearInterval(this.saveLocationInterval);
     clearInterval(this.saveStatusInterval);
 
@@ -285,6 +344,7 @@ export default class MapState extends Phaser.State {
       const options = {
         characterData: this.options.characterData,
         previousMap: this.mapName,
+        previousMapMusic: this.music,
         enterPosition: enterPosition,
         playerLastPosition: playerCurrentPosition,
         firstPositionThreshold: threshold

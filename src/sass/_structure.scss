@@ -169,6 +169,16 @@ section {
 	}
 }
 
+.footer {
+  position: absolute;
+  z-index: 1;
+  left: auto;
+  right: auto;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
 
 //Github Ribbon CSS. Thanks to http://tholman.com/github-corners/
 .github-corner:hover .octo-arm{

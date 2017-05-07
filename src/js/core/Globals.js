@@ -22,7 +22,13 @@ const GLOBALS = {
     FOREST_BOTTOM_MIDDLE: 'forest_bottom_middle',
     FOREST_BOTTOM_RIGHT: 'forest_bottom_right',
     USELESS_CITY: 'useless_city',
-    HOUSE_01: 'house_01'
+    HOUSE_01: 'house_01',
+    HOUSE_02: 'house_02'
+  },
+
+  MUSICS: {
+    SAD_TOWN: 'SadTown',
+    SAD_DESCENT: 'SadDescent'
   },
 
   DIRECTIONS: {
