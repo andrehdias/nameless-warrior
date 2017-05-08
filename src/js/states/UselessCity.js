@@ -16,7 +16,7 @@ export default class UselessCity extends MapState {
       this.changeMap('ForestBottomMiddle', GLOBALS.DIRECTIONS.UP, 96);
     }, this);
 
-    this.map.addMapTransition(15, 27, 1, 1, () => {
+    this.map.addMapTransition(14, 27, 1, 1, () => {
       this.changeMap('House01', GLOBALS.DIRECTIONS.DOWN, 96);
     }, this);
   }

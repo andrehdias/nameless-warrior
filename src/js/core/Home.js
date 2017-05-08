@@ -13,6 +13,8 @@ export default class Home {
 
 		this.formsSelector = ".form";
 
+    this.isChrome = Utils.isChrome();
+
 		this.menuNotLogged = $('.menu--not-logged');
 		this.loggedMenu = $('.menu--logged');
 
@@ -27,6 +29,10 @@ export default class Home {
 
 		this.bindEvents();
 		this.checkLogin();
+
+    if(!this.isChrome) {
+      $('.footer').removeClass('hide');
+    }
 	}
 
 	bindEvents() {

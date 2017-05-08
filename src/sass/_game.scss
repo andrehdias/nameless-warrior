@@ -14,8 +14,19 @@
     left: 0;
     right: 0;
     bottom: 0;
+    transition: opacity 1s;
     background: rgba($dark-grey, 0.7);
     display: none;
+
+    &--grey {
+      background: rgba($dark-grey, 0.7);
+      z-index: 999;
+    }
+
+    &--night {
+      background: $night-blue;
+      z-index: 99;
+    }
 
     &.active {
       display: block;
@@ -39,12 +50,14 @@
 
     &__wrapper {
       position: absolute;
+      z-index: 9999;
       top: 0px;
       left: 0px;
       width: 100%;
       padding: 3px 35px;
       background-color: $black;
       text-align: left;
+      max-height: 30px;
  		}
 
     &__text {
@@ -91,12 +104,20 @@
       word-wrap: normal;
     }
 
+    &__message {
+      margin: 0 auto;
+      font-size: 14px;
+      color: $white;
+      display: block;
+      top: -25px;
+      text-align: center;
+      position: relative;
+    }
+
     li {
       display: inline-block;
-      padding: 0 15px 0 5px;
+      padding: 0 0 0 10px;
       margin: 0 !important;
-
-      border-right: 1px solid $white;
 
       &:last-child {
         border: none;
@@ -113,6 +134,12 @@
     }
   }
 
+  .game__time {
+    position: absolute;
+    left: 0;
+    bottom: -40px;
+  }
+
   .game__options {
     position: absolute;
     right: 0;
@@ -122,6 +149,11 @@
       display: inline-block;
       position: relative;
       margin-left: 15px;
+
+      &-time {
+        position: absolute;
+        left: 0;
+      }
 
       input[type=checkbox] {
         display: none;

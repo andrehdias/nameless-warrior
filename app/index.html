@@ -36,29 +36,32 @@
 
 	<section class="content">
 		<div class="intro">
-			<h1>Nameless Warrior</h1>
+			<h1 class="">Nameless Warrior</h1>
 
-			<p class="not-logged--text hide hide--medium">RPG web game with retro style and built entirely in <i>javascript</i>. <br> Create your account, log in and have fun!</p>
+      <div class="intro__content">
+        <p class="not-logged--text hide hide--medium">RPG web game with retro style and built entirely in <i>javascript</i>. <br> Create your account, log in and have fun!</p>
 
-			<p class="logged--text hide hide--medium">Welcome, create or select your character and have fun!</p>
+        <p class="logged--text hide hide--medium">Welcome, create or select your character and have fun!</p>
 
-			<ul class="menu menu--not-logged hide  hide--medium">
-				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
-				<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
-			</ul>
+        <ul class="menu menu--not-logged hide  hide--medium">
+          <li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
+          <li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
+        </ul>
 
-			<ul class="menu menu--logged hide  hide--medium">
-				<li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
-				<li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
-			</ul>
+        <ul class="menu menu--logged hide  hide--medium">
+          <li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
+          <li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
+        </ul>
 
-      <p class="show--medium">This game was designed for bigger resolutions!</p>
+        <p class="show--medium">This game was designed for bigger resolutions!</p>
+      </div>
 		</div>
 	</section>
 
 	<section class="game__wrapper hide ui-style">
 		<div id="phaser" class="game">
-      <div class="game__wrapper__overlay"></div>
+      <div class="game__wrapper__overlay game__wrapper__overlay--grey"></div>
+      <div class="game__wrapper__overlay game__wrapper__overlay--night"></div>
     </div>
 
 		<div class="bar__wrapper">
@@ -66,6 +69,10 @@
 				<span class="bar__text"><b>HP</b> <span></span></span>
 				<div class="bar__value" style="width: 100%"></div>
 			</div>
+
+      <div class="game-menu__message hide">
+        <p>The game was saved succesfully!</p>
+      </div>
 
       <div class="game-menu__wrapper">
         <ul class="game-menu">
@@ -90,6 +97,10 @@
 			<span class="dialog__arrow"></span>
 		</div>
 
+    <div class="game__time">
+      <span class="game__time-hours"></span>:<span class="game__time-minutes"></span> <span class="game__time-type"></span>
+    </div>
+
     <ul class="game__options">
       <li class="game__option">
         <input type="checkbox" class="game__option--music" id="music" name="music"> <label for="music">Music</label>
@@ -100,7 +111,7 @@
     </ul>
 	</section>
 
-  <footer class="footer">
+  <footer class="footer hide">
     <p>This game was designed to work with the latest version of Google Chrome. Play on other browsers at your own risk</p>
   </footer>
 

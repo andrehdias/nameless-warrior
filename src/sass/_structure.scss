@@ -119,6 +119,19 @@ section {
 	.intro {
 		color: $white;
 		padding: 60px 0;
+    // background: url(../img/logo.png) no-repeat;
+    // background-position: center;
+    // background-size: 70%;
+    // min-height: 500px;
+    // position: relative;
+
+    // &__content {
+    //   position: absolute;
+    //   bottom: 100px;
+    //   left: 50%;
+    //   width: 100%;
+    //   transform: translateX(-50%);
+    // }
 
 		img {
 			width: 90%;
@@ -129,10 +142,6 @@ section {
 			font-size: 90px;
 			text-align: center;
 			margin: 25px 0;
-
-      @include mediumLargeViewport {
-        font-size: 70px;
-      }
 
       @include mediumViewport {
         font-size: 60px;

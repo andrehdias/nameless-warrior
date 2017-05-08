@@ -3,6 +3,7 @@ import config from 'config';
 import Character from '../game/Character';
 import Map from '../game/Map';
 import Dialog from '../game/Dialog';
+import Utils from '../core/Utils';
 
 export default class MapState extends Phaser.State {
   init(options) {
@@ -22,8 +23,10 @@ export default class MapState extends Phaser.State {
 
     this.options = options;
 
-    this.$overlay = $('.game__wrapper__overlay');
-    this.$overlay.removeClass('active');
+    this.$overlayDead = $('.game__wrapper__overlay--grey');
+    this.$overlayDead.removeClass('active');
+
+    this.$saveText = $('.game-menu__message');
 
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
@@ -56,6 +59,11 @@ export default class MapState extends Phaser.State {
     }
 
     this.playerPositionThreshold = 32;
+
+    this.$gameTimeHours = $('.game__time-hours');
+    this.$gameTimeMinutes = $('.game__time-minutes');
+    this.$gameTimeType = $('.game__time-type');
+    this.$overlayNight = $('.game__wrapper__overlay--night');
   }
 
   create() {
@@ -69,6 +77,8 @@ export default class MapState extends Phaser.State {
     this.playerFirstPosition = this.playerPosition;
 
     this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y, this.map);
+
+    this.handleTime();
 
     if(this.options.previousMap) {
       this.player.turnSprite(this.playerInitialDirection);
@@ -144,7 +154,7 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.deadDialog && !this.player.alive) {
-      this.$overlay.addClass('active');
+      this.$overlayDead.addClass('active');
 
       if(this.enemies) {
         for (let key in this.enemies) {
@@ -241,11 +251,23 @@ export default class MapState extends Phaser.State {
     this.saveLocationInterval = setInterval(() => {
       if(this.autoSave) {
         this.player.saveCharacterStatus(this.mapName);
+
+        this.$saveText.removeClass('hide');
+
+        setTimeout(() => {
+          this.$saveText.addClass('hide');
+        }, 3000);
       }
     }, 10000);
 
     this.$saveBtn.click(() => {
       this.player.saveCharacterStatus(this.mapName);
+
+      this.$saveText.removeClass('hide');
+
+      setTimeout(() => {
+        this.$saveText.addClass('hide');
+      }, 3000);
     });
 
     this.$autoSaveCheckbox.change((e) => {
@@ -275,6 +297,10 @@ export default class MapState extends Phaser.State {
         }
       }
     });
+
+    this.timeInverval = setInterval(() => {
+      this.handleTime();
+    }, 5000);
   }
 
   checkShouldChangeMap() {
@@ -321,6 +347,8 @@ export default class MapState extends Phaser.State {
   changeMap(state, enterPosition, threshold) {
     if(!this.shouldChangeMap) {return;}
 
+    this.player.saveCharacterStatus();
+
     if(this.music) {
       this.music.stop();
       this.music = null;
@@ -328,6 +356,7 @@ export default class MapState extends Phaser.State {
 
     clearInterval(this.saveLocationInterval);
     clearInterval(this.saveStatusInterval);
+    clearInterval(this.timeInverval);
 
     for (let key in this.enemies) {
       clearInterval(this.enemies[key].randomWalkInterval);
@@ -353,6 +382,44 @@ export default class MapState extends Phaser.State {
       setTimeout(() => {
         this.game.state.start(state, true, false, options);
       }, 100);
+    }
+  }
+
+  handleTime() {
+    const hours = Utils.addZero(this.player.gameTimeHours),
+          minutes = Utils.addZero(this.player.gameTimeMinutes),
+          date = new Date();
+
+    date.setUTCHours(hours);
+    date.setUTCMinutes(minutes);
+
+    date.setUTCMinutes(date.getUTCMinutes() + 5);
+
+    this.player.gameTimeHours = Utils.addZero(date.getUTCHours());
+    this.player.gameTimeMinutes = Utils.addZero(date.getUTCMinutes());
+
+    this.$gameTimeHours.html(this.player.gameTimeHours);
+    this.$gameTimeMinutes.html(this.player.gameTimeMinutes);
+    this.$gameTimeType.html((this.player.gameTimeHours >= 12) ? 'PM' : 'AM');
+
+    this.setNightOverlay(this.player.gameTimeHours);
+  }
+
+  setNightOverlay(hours) {
+    if(hours >= 19 || hours <= 6) {
+      this.$overlayNight.addClass('active');
+
+      let opacity;
+
+      if(hours >= 19 && hours <= 21) {
+        this.$overlayNight.css('opacity', 0.45);
+      } else if ((hours == 22 || hours == 23) || (hours >= 0 && hours <= 4)) {
+        this.$overlayNight.css('opacity', 0.55);
+      } else if (hours == 5 || hours == 6) {
+        this.$overlayNight.css('opacity', 0.35);
+      }
+    } else {
+      this.$overlayNight.removeClass('active');
     }
   }
 }

@@ -46,6 +46,9 @@ export default class Character extends Phaser.Sprite {
 
     this.firstDialog = data.firstDialog;
 
+    this.gameTimeHours = data.gameTimeHours;
+    this.gameTimeMinutes = data.gameTimeMinutes;
+
 		this.health = data.health;
 		this.currentHealth = data.currentHealth;
 		this.mana = data.mana;
@@ -517,7 +520,7 @@ export default class Character extends Phaser.Sprite {
     if(!this.receivingAttack) {
       this.receivingAttack = true;
 
-      const dexModifier = (character.type === GLOBALS.PLAYER) ? character.dexterity / 5 : 0;
+      const dexModifier = (character.type === GLOBALS.PLAYER) ? (character.dexterity / 5) : 0;
       const bonus = Math.floor(Math.random() * (10 - 1)) + 1;
       const miss = Math.floor(Math.random() * (7 - 1)) + 1 - dexModifier;
 
@@ -536,8 +539,33 @@ export default class Character extends Phaser.Sprite {
           this.text = this.game.add.text(0, 0, 'miss', GLOBALS.TEXT_STYLES.DAMAGE);
           this.text.anchor.set(0.5);
         }
+
+        if(this.type === GLOBALS.PLAYER) {
+          this.dexterityXP += 0.05;
+
+          if(this.dexterityXP >= 100) {
+            this.dexterity++;
+            this.dexterityXP = 0;
+          }
+        }
       } else {
         this.currentHealth = this.currentHealth - damage;
+
+        if(character.characterClass === GLOBALS.ARCHER) {
+          character.dexterityXP += 0.05;
+
+          if(character.dexterityXP >= 100) {
+            character.dexterity++;
+            character.dexterityXP = 0;
+          }
+        } else if (character.characterClass === GLOBALS.ARCHER) {
+          character.strengthXP += 0.05;
+
+          if(character.strengthXP >= 100) {
+            character.strength++;
+            character.strengthXP = 0;
+          }
+        }
 
         if(this.text) {
           if(this.currentHealth <= 0) {
@@ -703,6 +731,8 @@ export default class Character extends Phaser.Sprite {
             lastPositionY: this.body.y,
             lastMap: mapName,
             firstDialog: this.firstDialog,
+            gameTimeHours: this.gameTimeHours,
+            gameTimeMinutes: this.gameTimeMinutes,
             token: localStorage.getItem('NWarriorToken')
           };
 
