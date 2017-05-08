@@ -39,15 +39,19 @@ export default class Home {
 		const _this = this,
 				  forms = $(this.formsSelector);
 
-		forms.each(function() {
-			const form = $(this),
+		forms.each((_, currentForm) => {
+			const form = $(currentForm),
             formTarget = form.data("target"),
             result = form.find('.formbox__result');
 
-			form.submit(function(e) {
-				const data = Utils.serializeObject($(this));
-
+			form.submit((e) => {
 				e.preventDefault();
+
+				let data = Utils.serializeObject($(e.currentTarget));
+
+        if(formTarget === 'characters') {
+          data = this.handleCharacterData(data);
+        }
 
 				if(!_this.validation(formTarget, form, result)) {
 					_this.ajaxPOST(formTarget, result, data);
@@ -73,6 +77,15 @@ export default class Home {
 			new StartGame();
 		});
 	}
+
+  handleCharacterData(data) {
+    const health = 100 + (data.constitution) * 2;
+
+    data.health = health;
+    data.currentHealth = health;
+
+    return data;
+  }
 
 	validation(target, form, result) {
 		let invalid = false;

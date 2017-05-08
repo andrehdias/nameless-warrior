@@ -532,6 +532,13 @@ export default class Character extends Phaser.Sprite {
 
       this.textY = 12;
 
+      this.constitutionXP += 0.25;
+
+      if(this.constitutionXP >= 100) {
+        this.constitution += 1;
+        this.constitutionXP = 0;
+      }
+
       if(miss > 4) {
         if(this.text) {
           this.text.text = 'miss';
@@ -541,10 +548,10 @@ export default class Character extends Phaser.Sprite {
         }
 
         if(this.type === GLOBALS.PLAYER) {
-          this.dexterityXP += 0.05;
+          this.dexterityXP += 0.5;
 
           if(this.dexterityXP >= 100) {
-            this.dexterity++;
+            this.dexterity += 1;
             this.dexterityXP = 0;
           }
         }
@@ -552,14 +559,14 @@ export default class Character extends Phaser.Sprite {
         this.currentHealth = this.currentHealth - damage;
 
         if(character.characterClass === GLOBALS.ARCHER) {
-          character.dexterityXP += 0.05;
+          character.dexterityXP += 0.5;
 
           if(character.dexterityXP >= 100) {
             character.dexterity++;
             character.dexterityXP = 0;
           }
-        } else if (character.characterClass === GLOBALS.ARCHER) {
-          character.strengthXP += 0.05;
+        } else if (character.characterClass === GLOBALS.SWORDSMAN) {
+          character.strengthXP += 0.5;
 
           if(character.strengthXP >= 100) {
             character.strength++;
@@ -709,7 +716,7 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
-  saveCharacterStatus(mapName) {
+  saveCharacterStatus(mapName, cb = null) {
     const characterId = localStorage.getItem('NWarriorCharID'),
           url = config.apiURL+'characters/updateCharacter/'+characterId,
           data = {
@@ -727,8 +734,8 @@ export default class Character extends Phaser.Sprite {
             currentHealth: this.currentHealth,
             mana: this.mana,
             currentMana: this.currentMana,
-            lastPositionX: this.body.x,
-            lastPositionY: this.body.y,
+            lastPositionX: this.x,
+            lastPositionY: this.y,
             lastMap: mapName,
             firstDialog: this.firstDialog,
             gameTimeHours: this.gameTimeHours,
@@ -736,12 +743,18 @@ export default class Character extends Phaser.Sprite {
             token: localStorage.getItem('NWarriorToken')
           };
 
+    console.log(data)
+
     $.ajax({
 			type: "put",
 			url: url,
 			data: data,
 			success: (data) => {
-        console.log("Character Saved!")
+        this.updateCharacterStatusFormbox();
+
+        if(cb) {
+          cb();
+        }
       }
     });
   }
@@ -756,18 +769,12 @@ export default class Character extends Phaser.Sprite {
       template = template.replace('{LastSaved}', Utils.formatDate(this.updatedAt));
       template = template.replace('{Health}', this.health);
       template = template.replace('{CurrentHealth}', this.currentHealth);
-      template = template.replace('{Mana}', this.mana);
-      template = template.replace('{CurrentMana}', this.currentMana);
       template = template.replace('{Strength}', this.strength);
-      template = template.replace('{StrengthXP}', this.strengthXP);
+      template = template.replace('{StrengthXP}', this.strengthXP.toFixed(2));
       template = template.replace('{Constitution}', this.constitution);
-      template = template.replace('{ConstitutionXP}', this.constitutionXP);
+      template = template.replace('{ConstitutionXP}', this.constitutionXP.toFixed(2));
       template = template.replace('{Dexterity}', this.dexterity);
-      template = template.replace('{DexterityXP}', this.dexterityXP);
-      template = template.replace('{Intelligence}', this.intelligence);
-      template = template.replace('{IntelligenceXP}', this.intelligenceXP);
-      template = template.replace('{Charisma}', this.charisma);
-      template = template.replace('{CharismaXP}', this.charismaXP);
+      template = template.replace('{DexterityXP}', this.dexterityXP.toFixed(2));
       template = template.replace('{ClassImg}', this.classNumber);
 
       $characterStatusWrapper.append(template);

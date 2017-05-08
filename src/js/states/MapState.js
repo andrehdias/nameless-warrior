@@ -97,7 +97,7 @@ export default class MapState extends Phaser.State {
 
     this.bind();
 
-    if(!this.player.firstDialog && !this.welcomeDone) {
+    if(!this.player.firstDialog) {
       this.welcome = new Dialog(
         {
           lines: [
@@ -107,7 +107,6 @@ export default class MapState extends Phaser.State {
           ]
         },
         () => {
-          this.welcomeDone = true;
           this.player.firstDialog = true;
         }
       );
@@ -171,12 +170,11 @@ export default class MapState extends Phaser.State {
         },
         () => {
           this.player.currentHealth = this.player.health;
-          this.player.saveCharacterStatus();
-
-
-          setTimeout(() => {
-            this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
-          }, 1000);
+          this.player.saveCharacterStatus(this.mapName, () => {
+            setTimeout(() => {
+              this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+            }, 1000);
+          });
         }
       );
     }
@@ -250,24 +248,24 @@ export default class MapState extends Phaser.State {
   bind() {
     this.saveLocationInterval = setInterval(() => {
       if(this.autoSave) {
-        this.player.saveCharacterStatus(this.mapName);
+        this.player.saveCharacterStatus(this.mapName, () => {
+          this.$saveText.removeClass('hide');
 
+          setTimeout(() => {
+            this.$saveText.addClass('hide');
+          }, 3000);
+        });
+      }
+    }, 10000);
+
+    this.$saveBtn.click(() => {
+      this.player.saveCharacterStatus(this.mapName, () => {
         this.$saveText.removeClass('hide');
 
         setTimeout(() => {
           this.$saveText.addClass('hide');
         }, 3000);
-      }
-    }, 10000);
-
-    this.$saveBtn.click(() => {
-      this.player.saveCharacterStatus(this.mapName);
-
-      this.$saveText.removeClass('hide');
-
-      setTimeout(() => {
-        this.$saveText.addClass('hide');
-      }, 3000);
+      });
     });
 
     this.$autoSaveCheckbox.change((e) => {
@@ -347,42 +345,44 @@ export default class MapState extends Phaser.State {
   changeMap(state, enterPosition, threshold) {
     if(!this.shouldChangeMap) {return;}
 
-    this.player.saveCharacterStatus();
+    this.shouldChangeMap = false;
+    this.autoSave = false;
 
-    if(this.music) {
-      this.music.stop();
-      this.music = null;
-    }
-
-    clearInterval(this.saveLocationInterval);
-    clearInterval(this.saveStatusInterval);
-    clearInterval(this.timeInverval);
-
-    for (let key in this.enemies) {
-      clearInterval(this.enemies[key].randomWalkInterval);
-    }
-
-    const playerCurrentPosition = {
-      x: this.player.body.x,
-      y: this.player.body.y
-    }
-
-    if(!this.willChangeMap) {
-      this.willChangeMap = true;
-
-      const options = {
-        characterData: this.options.characterData,
-        previousMap: this.mapName,
-        previousMapMusic: this.music,
-        enterPosition: enterPosition,
-        playerLastPosition: playerCurrentPosition,
-        firstPositionThreshold: threshold
+    this.player.saveCharacterStatus(this.mapName, () => {
+      if(this.music) {
+        this.music.stop();
+        this.music = null;
       }
 
-      setTimeout(() => {
-        this.game.state.start(state, true, false, options);
-      }, 100);
-    }
+      clearInterval(this.saveStatusInterval);
+      clearInterval(this.timeInverval);
+
+      for (let key in this.enemies) {
+        clearInterval(this.enemies[key].randomWalkInterval);
+      }
+
+      const playerCurrentPosition = {
+        x: this.player.body.x,
+        y: this.player.body.y
+      }
+
+      if(!this.willChangeMap) {
+        this.willChangeMap = true;
+
+        const options = {
+          characterData: this.options.characterData,
+          previousMap: this.mapName,
+          previousMapMusic: this.music,
+          enterPosition: enterPosition,
+          playerLastPosition: playerCurrentPosition,
+          firstPositionThreshold: threshold
+        }
+
+        setTimeout(() => {
+          this.game.state.start(state, true, false, options);
+        }, 100);
+      }
+    });
   }
 
   handleTime() {
@@ -411,12 +411,14 @@ export default class MapState extends Phaser.State {
 
       let opacity;
 
-      if(hours >= 19 && hours <= 21) {
-        this.$overlayNight.css('opacity', 0.45);
-      } else if ((hours == 22 || hours == 23) || (hours >= 0 && hours <= 4)) {
-        this.$overlayNight.css('opacity', 0.55);
-      } else if (hours == 5 || hours == 6) {
-        this.$overlayNight.css('opacity', 0.35);
+      if(!this.isHouse) {
+        if(hours >= 19 && hours <= 21) {
+          this.$overlayNight.css('opacity', 0.45);
+        } else if ((hours == 22 || hours == 23) || (hours >= 0 && hours <= 4)) {
+          this.$overlayNight.css('opacity', 0.55);
+        } else if (hours == 5 || hours == 6) {
+          this.$overlayNight.css('opacity', 0.35);
+        }
       }
     } else {
       this.$overlayNight.removeClass('active');

@@ -209,6 +209,7 @@
   .dialog {
     &__wrapper {
       position: absolute;
+      z-index: 9999;
       bottom: 20px;
       left: 50%;
       transform: translate(-50%, 0);
