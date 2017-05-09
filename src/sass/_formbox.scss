@@ -91,7 +91,7 @@
         background-image: url(../img/classes/1.png);
 
         &.active:hover {
-          background-size: 80%;
+          background-size: 60%;
           background-image: url(../img/gifs/swordsman_attack.gif) !important;
         }
       }
@@ -101,7 +101,7 @@
 
         &.active:hover {
           background-image: url(../img/gifs/mage_attack.gif) !important;
-          background-size: 80%;
+          background-size: 60%;
         }
       }
 
@@ -110,7 +110,7 @@
 
         &.active:hover {
           background-image: url(../img/gifs/archer_attack.gif) !important;
-          background-size: 80%;
+          background-size: 60%;
         }
       }
     }
@@ -166,6 +166,7 @@
 			padding: 20px;
 			cursor: pointer;
 			border-radius: 2px;
+      min-height: 160px;
 
 			&__wrapper {
         display: flex;
@@ -202,7 +203,7 @@
 					display: inline-block;
 					margin-left: 20px;
 					position: relative;
-					top: -10px;
+					top: 10px;
 				}
 			}
 

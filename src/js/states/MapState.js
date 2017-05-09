@@ -2,6 +2,7 @@ import GLOBALS from '../core/Globals';
 import config from 'config';
 import Character from '../game/Character';
 import Map from '../game/Map';
+import Dialog from '../game/Dialog';
 
 export default class MapState extends Phaser.State {
   init(options) {
@@ -15,13 +16,16 @@ export default class MapState extends Phaser.State {
 
     this.options = options;
 
-    this.saveEnabled = true;
+    this.$overlay = $('.game__wrapper__overlay');
+    this.$overlay.removeClass('active');
 
     this.$saveBtn = $('.game-menu__save-btn');
-
     this.$autoSaveCheckbox = $('.game__option--autosave');
+    this.autoSave = localStorage.getItem('NWarriorAutoSave');
 
-    this.autoSave = false;
+    if(this.autoSave) {
+      this.$autoSaveCheckbox.prop('checked', true);
+    }
 
     if(!this.options.previousMap) {
       this.shouldChangeMap = true;
@@ -37,7 +41,7 @@ export default class MapState extends Phaser.State {
 
 		this.game.time.advancedTiming = true;
 
-    this.map = new Map(this.game, {map: this.mapName});
+    this.map = new Map(this.game, {map: this.mapName, isHouse: this.isHouse, isCity: this.isCity});
 
     this.playerPosition = this.getPlayerPosition();
     this.playerFirstPosition = this.playerPosition;
@@ -49,9 +53,10 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.isCity) {
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 450, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 150, 150, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70}, GLOBALS.ENEMY, 450, 950, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 450, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
     }
 
     this.map.renderLastLayer();
@@ -98,6 +103,34 @@ export default class MapState extends Phaser.State {
           this.enemies[key].checkPlayerPosition(this.player);
         }
       }
+    }
+
+    if(!this.deadDialog && !this.player.alive) {
+      this.$overlay.addClass('active');
+
+      if(this.enemies) {
+        for (let key in this.enemies) {
+          clearInterval(this.enemies[key].randomWalkInterval);
+          this.enemies[key].kill();
+        }
+      }
+
+      this.deadDialog = new Dialog(
+        {
+          lines: [
+            "You are dead! Like everything else in your life, you have failed!"
+          ]
+        },
+        () => {
+          this.player.currentHealth = this.player.health;
+          this.player.saveCharacterStatus();
+
+
+          setTimeout(() => {
+            this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+          }, 1000);
+        }
+      );
     }
 	}
 
@@ -167,25 +200,25 @@ export default class MapState extends Phaser.State {
   }
 
   bind() {
-    if(this.saveEnabled) {
-      this.saveLocationInterval = setInterval(() => {
-        if(this.autoSave) {
-          this.player.saveCharacterStatus(this.mapName);
-        }
-      }, 5000);
-
-      this.$saveBtn.click(() => {
+    this.saveLocationInterval = setInterval(() => {
+      if(this.autoSave) {
         this.player.saveCharacterStatus(this.mapName);
-      });
+      }
+    }, 10000);
 
-      this.$autoSaveCheckbox.change((e) => {
-        if(this.$autoSaveCheckbox.is(':checked')) {
-          this.autoSave = true;
-        } else {
-          this.autoSave = false;
-        }
-      })
-    }
+    this.$saveBtn.click(() => {
+      this.player.saveCharacterStatus(this.mapName);
+    });
+
+    this.$autoSaveCheckbox.change((e) => {
+      if(this.$autoSaveCheckbox.is(':checked')) {
+        this.autoSave = true;
+        localStorage.setItem('NWarriorAutoSave', true);
+      } else {
+        this.autoSave = false;
+        localStorage.setItem('NWarriorAutoSave', false);
+      }
+    })
   }
 
   checkShouldChangeMap() {
@@ -234,6 +267,10 @@ export default class MapState extends Phaser.State {
 
     clearInterval(this.saveLocationInterval);
     clearInterval(this.saveStatusInterval);
+
+    for (let key in this.enemies) {
+      clearInterval(this.enemies[key].randomWalkInterval);
+    }
 
     const playerCurrentPosition = {
       x: this.player.body.x,

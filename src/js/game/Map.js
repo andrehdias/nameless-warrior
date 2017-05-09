@@ -6,6 +6,9 @@ export default class Map {
   constructor(game, options) {
     this.options = options;
 
+    this.isCity = options.isCity;
+    this.isHouse = options.isHouse;
+
     this.game = game;
     this.tilemap = this.game.add.tilemap(this.options.map);
 
@@ -20,10 +23,6 @@ export default class Map {
     this.groundOverlapLayer = this.tilemap.createLayer('Ground_overlap');
     this.collideLayer = this.tilemap.createLayer('Collide');
 
-    this.groundLayer.resizeWorld();
-    this.groundOverlapLayer.resizeWorld();
-    this.collideLayer.resizeWorld();
-
     this.tilemap.currentLayer = 3;
 
     this.tilemap.setCollisionBetween(1, 10000, true, this.collideLayer);
@@ -31,6 +30,21 @@ export default class Map {
 
   renderLastLayer() {
     this.passLayer = this.tilemap.createLayer('Pass');
+
+    if(this.isHouse) {
+      this.groundLayer.position.set(this.game.world.centerX, this.game.world.centerY);
+      this.groundLayer.fixedToCamera = false;
+      this.groundOverlapLayer.position.set(this.game.world.centerX, this.game.world.centerY);
+      this.groundOverlapLayer.fixedToCamera = false;
+      this.collideLayer.position.set(this.game.world.centerX, this.game.world.centerY);
+      this.collideLayer.fixedToCamera = false;
+      this.passLayer.position.set(this.game.world.centerX, this.game.world.centerY);
+      this.passLayer.fixedToCamera = false;
+    }
+
+    this.groundLayer.resizeWorld();
+    this.groundOverlapLayer.resizeWorld();
+    this.collideLayer.resizeWorld();
     this.passLayer.resizeWorld();
   }
 

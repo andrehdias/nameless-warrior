@@ -21,7 +21,8 @@ const GLOBALS = {
     FOREST_BOTTOM_LEFT: 'forest_bottom_left',
     FOREST_BOTTOM_MIDDLE: 'forest_bottom_middle',
     FOREST_BOTTOM_RIGHT: 'forest_bottom_right',
-    USELESS_CITY: 'useless_city'
+    USELESS_CITY: 'useless_city',
+    HOUSE_01: 'house_01'
   },
 
   DIRECTIONS: {
@@ -34,6 +35,7 @@ const GLOBALS = {
 
   TEXT_STYLES: {
     DAMAGE: { font: "14px FreePixel", fontWeight: 'Bold', fill: "#000", wordWrap: true, wordWrapWidth: 32, align: "center" },
+    DEAD: { font: "20px FreePixel", fontWeight: 'Bold', fill: "#fff", align: "center" },
     LOADING: { font: "18px FreePixel", fill: "#fff"}
   },
 
