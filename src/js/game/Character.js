@@ -415,6 +415,8 @@ export default class Character extends Phaser.Sprite {
       this.randomWalkActive = true;
 
       if(this.attacking) {
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
         return;
       }
 
@@ -663,7 +665,7 @@ export default class Character extends Phaser.Sprite {
       && ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold)))) {
 
       if(saveDirection) {
-        if (character1Y <= (character2Y - threshold) && (character1Y < character2Y)) {
+        if (character1Y <= (character2Y + threshold) && (character1Y < character2Y)) {
           verticalDirection = GLOBALS.DIRECTIONS.DOWN;
           verticalDistance = character2Y - character1Y;
         } else if (character1Y >= (character2Y - threshold) && (character1Y > character2Y)) {
@@ -687,8 +689,6 @@ export default class Character extends Phaser.Sprite {
       } else {
         this.playerDirection = null;
       }
-
-      // console.log(this.playerDirection, horizontalDistance, verticalDistance)
 
       return true;
     } else {
@@ -742,8 +742,6 @@ export default class Character extends Phaser.Sprite {
             gameTimeMinutes: this.gameTimeMinutes,
             token: localStorage.getItem('NWarriorToken')
           };
-
-    console.log(data)
 
     $.ajax({
 			type: "put",

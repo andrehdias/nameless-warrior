@@ -52,11 +52,7 @@ export default class MapState extends Phaser.State {
       this.$musicCheckbox.prop('checked', false);
     }
 
-    if(!this.options.previousMap) {
-      this.shouldChangeMap = true;
-    } else {
-      this.shouldChangeMap = false;
-    }
+    this.shouldChangeMap = true;
 
     this.playerPositionThreshold = 32;
 
@@ -74,6 +70,7 @@ export default class MapState extends Phaser.State {
     this.map = new Map(this.game, {map: this.mapName, isHouse: this.isHouse, isCity: this.isCity});
 
     this.playerPosition = this.getPlayerPosition();
+
     this.playerFirstPosition = this.playerPosition;
 
     this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y, this.map);
@@ -131,10 +128,6 @@ export default class MapState extends Phaser.State {
       } else {
         this.game.physics.arcade.collide(this.player, this.enemies, this.collisionHandler);
       }
-    }
-
-    if(this.options.previousMap) {
-      this.checkShouldChangeMap();
     }
 
     if(this.player) {
@@ -199,40 +192,47 @@ export default class MapState extends Phaser.State {
 
   getPlayerPosition() {
     if(this.options.previousMap) {
-      let initialPosition = 0;
+      let initialPosition = 0,
+          position;
 
       if(this.options.firstPositionThreshold) {
         initialPosition += this.options.firstPositionThreshold;
       }
 
-      switch(this.options.enterPosition) {
+      switch(this.options.enterDirection) {
         case GLOBALS.DIRECTIONS.UP:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.UP;
-          return {x: this.options.playerLastPosition.x + 16, y: initialPosition}
+          position = {x: this.options.playerLastPosition.x + 16, y: initialPosition}
 
           break;
 
         case GLOBALS.DIRECTIONS.DOWN:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.DOWN;
-          return {x: this.options.playerLastPosition.x + 16, y: this.map.tilemap.heightInPixels - 32 + initialPosition}
+          position =  {x: this.options.playerLastPosition.x + 16, y: this.map.tilemap.heightInPixels - initialPosition}
 
           break;
 
         case GLOBALS.DIRECTIONS.LEFT:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.RIGHT;
-          return {x: initialPosition, y: this.options.playerLastPosition.y + 16}
+          position = {x: initialPosition, y: this.options.playerLastPosition.y + 16}
 
           break;
 
         case GLOBALS.DIRECTIONS.RIGHT:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.LEFT;
-          return {x: this.map.tilemap.widthInPixels - 32 + initialPosition, y: this.options.playerLastPosition.y + 16}
+          position = {x: this.map.tilemap.widthInPixels - initialPosition, y: this.options.playerLastPosition.y + 16}
 
           break;
       }
+
+      if(this.options.enterPosition) {
+        return this.options.enterPosition;
+      } else {
+        return position;
+      }
     } else {
       if(this.options.characterData.lastPositionX !== 0) {
-        return {x: this.options.characterData.lastPositionX - 32, y: this.options.characterData.lastPositionY};
+        return {x: this.options.characterData.lastPositionX, y: this.options.characterData.lastPositionY};
       } else {
         return {x: 300, y: 300};
       }
@@ -301,48 +301,11 @@ export default class MapState extends Phaser.State {
     }, 5000);
   }
 
-  checkShouldChangeMap() {
-    const playerCurrentPosition = {
-      x: this.player.body.x,
-      y: this.player.body.y
-    }
-
-    switch(this.options.enterPosition) {
-      case GLOBALS.DIRECTIONS.UP:
-        if((this.playerFirstPosition.y + this.playerPositionThreshold) <= playerCurrentPosition.y) {
-          this.shouldChangeMap = true;
-        }
-
-        break;
-
-      case GLOBALS.DIRECTIONS.DOWN:
-        if((this.playerFirstPosition.y - this.playerPositionThreshold) >= playerCurrentPosition.y) {
-          this.shouldChangeMap = true;
-        }
-
-        break;
-
-      case GLOBALS.DIRECTIONS.LEFT:
-        if((this.playerFirstPosition.x + this.playerPositionThreshold) <= playerCurrentPosition.x) {
-          this.shouldChangeMap = true;
-        }
-
-        break;
-
-      case GLOBALS.DIRECTIONS.RIGHT:
-        if((this.playerFirstPosition.x - this.playerPositionThreshold) >= playerCurrentPosition.x) {
-          this.shouldChangeMap = true;
-        }
-
-        break;
-    }
-  }
-
   addMapTransitions() {
     this.willChangeMap = false;
   }
 
-  changeMap(state, enterPosition, threshold) {
+  changeMap(state, enterDirection, threshold, enterPosition) {
     if(!this.shouldChangeMap) {return;}
 
     this.shouldChangeMap = false;
@@ -373,6 +336,7 @@ export default class MapState extends Phaser.State {
           characterData: this.options.characterData,
           previousMap: this.mapName,
           previousMapMusic: this.music,
+          enterDirection: enterDirection,
           enterPosition: enterPosition,
           playerLastPosition: playerCurrentPosition,
           firstPositionThreshold: threshold

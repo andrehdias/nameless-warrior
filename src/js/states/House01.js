@@ -14,7 +14,7 @@ export default class House01 extends MapState {
     super.addMapTransitions();
 
     this.map.addMapTransition(4, 7, 1, 1, () => {
-      this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN, 0);
+      this.changeMap('UselessCity', GLOBALS.DIRECTIONS.UP, 0, {x: 466, y: 920});
     }, this);
   }
 }
