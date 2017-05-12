@@ -8,7 +8,7 @@ export default class StartGame {
 			window.location.assign('/');
 		}
 
-		this.game = new Phaser.Game(sizes.w, sizes.h, Phaser.AUTO, 'phaser');
+		this.game = new Phaser.Game(sizes.w, sizes.h, Phaser.AUTO, 'phaser', null, false, false);
 
 		Object.keys(states).forEach(state => this.game.state.add(state, states[state]));
 

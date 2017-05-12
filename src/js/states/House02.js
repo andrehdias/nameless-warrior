@@ -13,8 +13,8 @@ export default class House02 extends MapState {
   addMapTransitions() {
     super.addMapTransitions();
 
-    // this.map.addMapTransition(19, 39, 4, 1, () => {
-    //   this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN, 96);
-    // }, this);
+    this.map.addMapTransition(4, 7, 1, 1, () => {
+      this.changeMap('UselessCity', GLOBALS.DIRECTIONS.UP, 0, {x: 766, y: 620});
+    }, this);
   }
 }

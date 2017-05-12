@@ -9,6 +9,8 @@ export default class MapState extends Phaser.State {
   init(options) {
     this.player = null;
 
+    this.game.stage.smoothing = false;
+
     $(window).unbind('keydown');
 
     if(!this.isCity) {
