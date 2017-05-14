@@ -25,6 +25,9 @@ export default class MapState extends Phaser.State {
 
     this.options = options;
 
+    this.$overlayLoading = $('.game__wrapper__overlay--loading');
+    this.$overlayLoading.addClass('hide');
+
     this.$overlayDead = $('.game__wrapper__overlay--grey');
     this.$overlayDead.removeClass('active');
 
@@ -309,6 +312,8 @@ export default class MapState extends Phaser.State {
 
   changeMap(state, enterDirection, threshold, enterPosition) {
     if(!this.shouldChangeMap) {return;}
+
+    this.$overlayLoading.removeClass('hide');
 
     this.shouldChangeMap = false;
     this.autoSave = false;

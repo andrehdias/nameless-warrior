@@ -119,19 +119,19 @@ section {
 	.intro {
 		color: $white;
 		padding: 60px 0;
-    // background: url(../img/logo.png) no-repeat;
-    // background-position: center;
-    // background-size: 70%;
-    // min-height: 500px;
-    // position: relative;
+    background: url(../img/logo.png) no-repeat;
+    background-position: center;
+    background-size: 80%;
+    min-height: 500px;
+    position: relative;
 
-    // &__content {
-    //   position: absolute;
-    //   bottom: 100px;
-    //   left: 50%;
-    //   width: 100%;
-    //   transform: translateX(-50%);
-    // }
+    &__content {
+      position: absolute;
+      top: calc(50% + 40px);
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+    }
 
 		img {
 			width: 90%;

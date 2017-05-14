@@ -743,6 +743,8 @@ export default class Character extends Phaser.Sprite {
             token: localStorage.getItem('NWarriorToken')
           };
 
+    console.log(data)
+
     $.ajax({
 			type: "put",
 			url: url,
