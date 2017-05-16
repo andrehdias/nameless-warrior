@@ -121,9 +121,13 @@ section {
 		padding: 60px 0;
     background: url(../img/logo.png) no-repeat;
     background-position: center;
-    background-size: 80%;
-    min-height: 500px;
+    background-size: auto 100%;
+    min-height: 600px;
     position: relative;
+
+    @include mediumViewport {
+      background-size: 100% auto;
+    }
 
     &__content {
       position: absolute;

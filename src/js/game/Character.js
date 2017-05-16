@@ -745,6 +745,8 @@ export default class Character extends Phaser.Sprite {
 
     console.log(data)
 
+    debugger;
+
     $.ajax({
 			type: "put",
 			url: url,
