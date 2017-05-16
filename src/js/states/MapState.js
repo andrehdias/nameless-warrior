@@ -26,7 +26,7 @@ export default class MapState extends Phaser.State {
     this.options = options;
 
     this.$overlayLoading = $('.game__wrapper__overlay--loading');
-    this.$overlayLoading.addClass('hide');
+    this.$overlayLoading.removeClass('active');
 
     this.$overlayDead = $('.game__wrapper__overlay--grey');
     this.$overlayDead.removeClass('active');
@@ -36,6 +36,8 @@ export default class MapState extends Phaser.State {
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
     this.autoSave = (localStorage.getItem('NWarriorAutoSave') === 'true');
+
+    this.$saveBtn.unbind('click');
 
     this.musicOn = (localStorage.getItem('NWarriorMusicOn') === 'true');
     this.$musicCheckbox = $('.game__option--music');
@@ -251,7 +253,7 @@ export default class MapState extends Phaser.State {
   }
 
   bind() {
-    this.saveLocationInterval = setInterval(() => {
+    this.saveCharacterInterval = setInterval(() => {
       if(this.autoSave) {
         this.player.saveCharacterStatus(this.mapName, () => {
           this.$saveText.removeClass('hide');
@@ -263,7 +265,9 @@ export default class MapState extends Phaser.State {
       }
     }, 10000);
 
-    this.$saveBtn.click(() => {
+    this.player.updateCharacterStatusFormbox();
+
+    this.$saveBtn.on('click', () => {
       this.player.saveCharacterStatus(this.mapName, () => {
         this.$saveText.removeClass('hide');
 
@@ -313,7 +317,11 @@ export default class MapState extends Phaser.State {
   changeMap(state, enterDirection, threshold, enterPosition) {
     if(!this.shouldChangeMap) {return;}
 
-    this.$overlayLoading.removeClass('hide');
+    setTimeout(() => {
+      this.$overlayLoading.addClass('active');
+      this.$overlayNight.removeClass('active');
+      this.$overlayDead.removeClass('active');
+    }, 50);
 
     this.shouldChangeMap = false;
     this.autoSave = false;
@@ -324,7 +332,7 @@ export default class MapState extends Phaser.State {
         this.music = null;
       }
 
-      clearInterval(this.saveStatusInterval);
+      clearInterval(this.saveCharacterInterval);
       clearInterval(this.timeInverval);
 
       for (let key in this.enemies) {
@@ -339,19 +347,34 @@ export default class MapState extends Phaser.State {
       if(!this.willChangeMap) {
         this.willChangeMap = true;
 
-        const options = {
-          characterData: this.options.characterData,
-          previousMap: this.mapName,
-          previousMapMusic: this.music,
-          enterDirection: enterDirection,
-          enterPosition: enterPosition,
-          playerLastPosition: playerCurrentPosition,
-          firstPositionThreshold: threshold
-        }
+        const characterId = localStorage.getItem('NWarriorCharID'),
+              url = config.apiURL+'characters/'+characterId,
+              data = {};
 
-        setTimeout(() => {
-          this.game.state.start(state, true, false, options);
-        }, 100);
+        data.token = localStorage.getItem('NWarriorToken');
+
+        $.ajax({
+          type: "get",
+          url: url,
+          data: data,
+          success: (data) => {
+            data.classNumber = data.characterClass;
+      	    data.characterClass = Utils.formatClass(data.characterClass);
+
+            const options = {
+              characterData: data,
+              previousMap: this.mapName,
+              enterDirection: enterDirection,
+              enterPosition: enterPosition,
+              playerLastPosition: playerCurrentPosition,
+              firstPositionThreshold: threshold
+            }
+
+            setTimeout(() => {
+              this.game.state.start(state, true, false, options);
+            }, 100);
+          }
+        });
       }
     });
   }
@@ -373,7 +396,9 @@ export default class MapState extends Phaser.State {
     this.$gameTimeMinutes.html(this.player.gameTimeMinutes);
     this.$gameTimeType.html((this.player.gameTimeHours >= 12) ? 'PM' : 'AM');
 
-    this.setNightOverlay(this.player.gameTimeHours);
+    if(!this.isHouse) {
+      this.setNightOverlay(this.player.gameTimeHours);
+    }
   }
 
   setNightOverlay(hours) {

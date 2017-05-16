@@ -594,6 +594,12 @@ export default class Character extends Phaser.Sprite {
         }
       }
 
+      if(this.type === GLOBALS.PLAYER) {
+        this.updateCharacterStatusFormbox();
+      } else {
+        character.updateCharacterStatusFormbox();
+      }
+
       if(character.type === GLOBALS.ENEMY) {
         setTimeout(() => {
           character.attacking = false;
@@ -743,10 +749,6 @@ export default class Character extends Phaser.Sprite {
             token: localStorage.getItem('NWarriorToken')
           };
 
-    console.log(data)
-
-    debugger;
-
     $.ajax({
 			type: "put",
 			url: url,
@@ -764,9 +766,9 @@ export default class Character extends Phaser.Sprite {
   updateCharacterStatusFormbox() {
     const $characterStatusWrapper = $('.character-status__wrapper');
 
-    $characterStatusWrapper.html('');
-
 		Utils.getTemplate('characterStatus', (template) => {
+      $characterStatusWrapper.html('');
+
       template = template.replace('{CharacterClass}', this.characterClass);
       template = template.replace('{LastSaved}', Utils.formatDate(this.updatedAt));
       template = template.replace('{Health}', this.health);
