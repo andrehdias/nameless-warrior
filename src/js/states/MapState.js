@@ -3,37 +3,70 @@ import config from 'config';
 import Character from '../game/Character';
 import Map from '../game/Map';
 import Dialog from '../game/Dialog';
+import Utils from '../core/Utils';
 
 export default class MapState extends Phaser.State {
   init(options) {
     this.player = null;
 
+    this.game.stage.smoothing = false;
+
     $(window).unbind('keydown');
 
     if(!this.isCity) {
       this.enemies = [];
+
+      this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_DESCENT);
+      this.music.loop = true;
+    } else {
+      this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_TOWN);
+      this.music.loop = true;
     }
 
     this.options = options;
 
-    this.$overlay = $('.game__wrapper__overlay');
-    this.$overlay.removeClass('active');
+    this.$overlayLoading = $('.game__wrapper__overlay--loading');
+    this.$overlayLoading.removeClass('active');
+
+    this.$overlayDead = $('.game__wrapper__overlay--grey');
+    this.$overlayDead.removeClass('active');
+
+    this.$saveText = $('.game-menu__message');
 
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
-    this.autoSave = localStorage.getItem('NWarriorAutoSave');
+    this.autoSave = (localStorage.getItem('NWarriorAutoSave') === 'true');
+
+    this.$saveBtn.unbind('click');
+
+    this.musicOn = (localStorage.getItem('NWarriorMusicOn') === 'true');
+    this.$musicCheckbox = $('.game__option--music');
+
+    this.deadDialog = false;
 
     if(this.autoSave) {
       this.$autoSaveCheckbox.prop('checked', true);
     }
 
-    if(!this.options.previousMap) {
-      this.shouldChangeMap = true;
+    if(this.musicOn) {
+      this.$musicCheckbox.prop('checked', true);
+
+      if(this.music) {
+        this.music.volume = 0.3;
+        this.music.play();
+      }
     } else {
-      this.shouldChangeMap = false;
+      this.$musicCheckbox.prop('checked', false);
     }
 
+    this.shouldChangeMap = true;
+
     this.playerPositionThreshold = 32;
+
+    this.$gameTimeHours = $('.game__time-hours');
+    this.$gameTimeMinutes = $('.game__time-minutes');
+    this.$gameTimeType = $('.game__time-type');
+    this.$overlayNight = $('.game__wrapper__overlay--night');
   }
 
   create() {
@@ -44,19 +77,22 @@ export default class MapState extends Phaser.State {
     this.map = new Map(this.game, {map: this.mapName, isHouse: this.isHouse, isCity: this.isCity});
 
     this.playerPosition = this.getPlayerPosition();
+
     this.playerFirstPosition = this.playerPosition;
 
     this.player = new Character(this.game, this.options.characterData, GLOBALS.PLAYER, this.playerPosition.x, this.playerPosition.y, this.map);
+
+    this.handleTime();
 
     if(this.options.previousMap) {
       this.player.turnSprite(this.playerInitialDirection);
     }
 
     if(!this.isCity) {
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 450, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 450, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
     }
 
     this.map.renderLastLayer();
@@ -64,6 +100,21 @@ export default class MapState extends Phaser.State {
     this.addMapTransitions();
 
     this.bind();
+
+    if(!this.player.firstDialog) {
+      this.welcome = new Dialog(
+        {
+          lines: [
+            "Welcome to the ruthless, desolated and cute world of <strong>Nameless Warrior Beta</strong>!",
+            "If you have any suggestions or want to report any bug, please send me an email :D (andresan2006@gmail.com)",
+            "Go to the <strong>Status</strong> menu to see your character status. Go to <strong>Help</strong> to see the keyboard controls and the description of the status"
+          ]
+        },
+        () => {
+          this.player.firstDialog = true;
+        }
+      );
+    }
   }
 
 	update() {
@@ -86,10 +137,6 @@ export default class MapState extends Phaser.State {
       }
     }
 
-    if(this.options.previousMap) {
-      this.checkShouldChangeMap();
-    }
-
     if(this.player) {
       this.game.physics.arcade.collide(this.player, this.map.collideLayer);
       this.game.physics.arcade.collide(this.player, this.map.groundLayer);
@@ -106,7 +153,7 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.deadDialog && !this.player.alive) {
-      this.$overlay.addClass('active');
+      this.$overlayDead.addClass('active');
 
       if(this.enemies) {
         for (let key in this.enemies) {
@@ -123,12 +170,11 @@ export default class MapState extends Phaser.State {
         },
         () => {
           this.player.currentHealth = this.player.health;
-          this.player.saveCharacterStatus();
-
-
-          setTimeout(() => {
-            this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
-          }, 1000);
+          this.player.saveCharacterStatus(this.mapName, () => {
+            setTimeout(() => {
+              this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+            }, 1000);
+          });
         }
       );
     }
@@ -153,40 +199,47 @@ export default class MapState extends Phaser.State {
 
   getPlayerPosition() {
     if(this.options.previousMap) {
-      let initialPosition = 0;
+      let initialPosition = 0,
+          position;
 
       if(this.options.firstPositionThreshold) {
         initialPosition += this.options.firstPositionThreshold;
       }
 
-      switch(this.options.enterPosition) {
+      switch(this.options.enterDirection) {
         case GLOBALS.DIRECTIONS.UP:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.UP;
-          return {x: this.options.playerLastPosition.x + 16, y: initialPosition}
+          position = {x: this.options.playerLastPosition.x + 16, y: initialPosition}
 
           break;
 
         case GLOBALS.DIRECTIONS.DOWN:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.DOWN;
-          return {x: this.options.playerLastPosition.x + 16, y: this.map.tilemap.heightInPixels - 32 + initialPosition}
+          position =  {x: this.options.playerLastPosition.x + 16, y: this.map.tilemap.heightInPixels - initialPosition}
 
           break;
 
         case GLOBALS.DIRECTIONS.LEFT:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.RIGHT;
-          return {x: initialPosition, y: this.options.playerLastPosition.y + 16}
+          position = {x: initialPosition, y: this.options.playerLastPosition.y + 16}
 
           break;
 
         case GLOBALS.DIRECTIONS.RIGHT:
           this.playerInitialDirection = GLOBALS.DIRECTIONS.LEFT;
-          return {x: this.map.tilemap.widthInPixels - 32 + initialPosition, y: this.options.playerLastPosition.y + 16}
+          position = {x: this.map.tilemap.widthInPixels - initialPosition, y: this.options.playerLastPosition.y + 16}
 
           break;
       }
+
+      if(this.options.enterPosition) {
+        return this.options.enterPosition;
+      } else {
+        return position;
+      }
     } else {
       if(this.options.characterData.lastPositionX !== 0) {
-        return {x: this.options.characterData.lastPositionX - 32, y: this.options.characterData.lastPositionY};
+        return {x: this.options.characterData.lastPositionX, y: this.options.characterData.lastPositionY};
       } else {
         return {x: 300, y: 300};
       }
@@ -200,14 +253,28 @@ export default class MapState extends Phaser.State {
   }
 
   bind() {
-    this.saveLocationInterval = setInterval(() => {
+    this.saveCharacterInterval = setInterval(() => {
       if(this.autoSave) {
-        this.player.saveCharacterStatus(this.mapName);
+        this.player.saveCharacterStatus(this.mapName, () => {
+          this.$saveText.removeClass('hide');
+
+          setTimeout(() => {
+            this.$saveText.addClass('hide');
+          }, 3000);
+        });
       }
     }, 10000);
 
-    this.$saveBtn.click(() => {
-      this.player.saveCharacterStatus(this.mapName);
+    this.player.updateCharacterStatusFormbox();
+
+    this.$saveBtn.on('click', () => {
+      this.player.saveCharacterStatus(this.mapName, () => {
+        this.$saveText.removeClass('hide');
+
+        setTimeout(() => {
+          this.$saveText.addClass('hide');
+        }, 3000);
+      });
     });
 
     this.$autoSaveCheckbox.change((e) => {
@@ -218,79 +285,143 @@ export default class MapState extends Phaser.State {
         this.autoSave = false;
         localStorage.setItem('NWarriorAutoSave', false);
       }
-    })
-  }
+    });
 
-  checkShouldChangeMap() {
-    const playerCurrentPosition = {
-      x: this.player.body.x,
-      y: this.player.body.y
-    }
+    this.$musicCheckbox.change((e) => {
+      if(this.$musicCheckbox.is(':checked')) {
+        this.musicOn = true;
+        localStorage.setItem('NWarriorMusicOn', true);
 
-    switch(this.options.enterPosition) {
-      case GLOBALS.DIRECTIONS.UP:
-        if((this.playerFirstPosition.y + this.playerPositionThreshold) <= playerCurrentPosition.y) {
-          this.shouldChangeMap = true;
+        if(this.music) {
+          this.music.play();
         }
+      } else {
+        this.musicOn = false
+        localStorage.setItem('NWarriorMusicOn', false);
 
-        break;
-
-      case GLOBALS.DIRECTIONS.DOWN:
-        if((this.playerFirstPosition.y - this.playerPositionThreshold) >= playerCurrentPosition.y) {
-          this.shouldChangeMap = true;
+        if(this.music) {
+          this.music.stop();
         }
+      }
+    });
 
-        break;
-
-      case GLOBALS.DIRECTIONS.LEFT:
-        if((this.playerFirstPosition.x + this.playerPositionThreshold) <= playerCurrentPosition.x) {
-          this.shouldChangeMap = true;
-        }
-
-        break;
-
-      case GLOBALS.DIRECTIONS.RIGHT:
-        if((this.playerFirstPosition.x - this.playerPositionThreshold) >= playerCurrentPosition.x) {
-          this.shouldChangeMap = true;
-        }
-
-        break;
-    }
+    this.timeInverval = setInterval(() => {
+      this.handleTime();
+    }, 5000);
   }
 
   addMapTransitions() {
     this.willChangeMap = false;
   }
 
-  changeMap(state, enterPosition, threshold) {
+  changeMap(state, enterDirection, threshold, enterPosition) {
     if(!this.shouldChangeMap) {return;}
 
-    clearInterval(this.saveLocationInterval);
-    clearInterval(this.saveStatusInterval);
+    setTimeout(() => {
+      this.$overlayLoading.addClass('active');
+      this.$overlayNight.removeClass('active');
+      this.$overlayDead.removeClass('active');
+    }, 50);
 
-    for (let key in this.enemies) {
-      clearInterval(this.enemies[key].randomWalkInterval);
-    }
+    this.shouldChangeMap = false;
+    this.autoSave = false;
 
-    const playerCurrentPosition = {
-      x: this.player.body.x,
-      y: this.player.body.y
-    }
-
-    if(!this.willChangeMap) {
-      this.willChangeMap = true;
-
-      const options = {
-        characterData: this.options.characterData,
-        previousMap: this.mapName,
-        enterPosition: enterPosition,
-        playerLastPosition: playerCurrentPosition,
-        firstPositionThreshold: threshold
+    this.player.saveCharacterStatus(this.mapName, () => {
+      if(this.music) {
+        this.music.stop();
+        this.music = null;
       }
 
-      setTimeout(() => {
-        this.game.state.start(state, true, false, options);
-      }, 100);
+      clearInterval(this.saveCharacterInterval);
+      clearInterval(this.timeInverval);
+
+      for (let key in this.enemies) {
+        clearInterval(this.enemies[key].randomWalkInterval);
+      }
+
+      const playerCurrentPosition = {
+        x: this.player.body.x,
+        y: this.player.body.y
+      }
+
+      if(!this.willChangeMap) {
+        this.willChangeMap = true;
+
+        const characterId = localStorage.getItem('NWarriorCharID'),
+              url = config.apiURL+'characters/'+characterId,
+              data = {};
+
+        data.token = localStorage.getItem('NWarriorToken');
+
+        $.ajax({
+          type: "get",
+          url: url,
+          data: data,
+          success: (data) => {
+            data.classNumber = data.characterClass;
+      	    data.characterClass = Utils.formatClass(data.characterClass);
+
+            const options = {
+              characterData: data,
+              previousMap: this.mapName,
+              enterDirection: enterDirection,
+              enterPosition: enterPosition,
+              playerLastPosition: playerCurrentPosition,
+              firstPositionThreshold: threshold
+            }
+
+            setTimeout(() => {
+              this.game.state.start(state, true, false, options);
+            }, 100);
+          }
+        });
+      }
+    });
+  }
+
+  handleTime() {
+    const hours = Utils.addZero(this.player.gameTimeHours),
+          minutes = Utils.addZero(this.player.gameTimeMinutes),
+          date = new Date();
+
+    date.setUTCHours(hours);
+    date.setUTCMinutes(minutes);
+
+    date.setUTCMinutes(date.getUTCMinutes() + 5);
+
+    this.player.gameTimeHours = Utils.addZero(date.getUTCHours());
+    this.player.gameTimeMinutes = Utils.addZero(date.getUTCMinutes());
+
+    this.$gameTimeHours.html(this.player.gameTimeHours);
+    this.$gameTimeMinutes.html(this.player.gameTimeMinutes);
+    this.$gameTimeType.html((this.player.gameTimeHours >= 12) ? 'PM' : 'AM');
+
+    if(!this.isHouse) {
+      this.setNightOverlay(this.player.gameTimeHours);
+    }
+  }
+
+  setNightOverlay(hours) {
+    if(hours >= 18 || hours <= 6) {
+      this.$overlayNight.addClass('active');
+
+      if(!this.isHouse) {
+        let opacity;
+
+        if(hours === 18) {
+          opacity = 0.25;
+        } else if(hours === 19) {
+          opacity = 0.40;
+        } else if (hours >= 20 || (hours >= 0 && hours <= 4)) {
+          opacity = 0.65;
+        } else if (hours === 5 || hours === 6) {
+          opacity = 0.35;
+        }
+
+        this.$overlayNight.css('opacity', opacity);
+      }
+    } else {
+      this.$overlayNight.removeClass('active');
     }
   }
 }

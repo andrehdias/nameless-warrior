@@ -9,3 +9,4 @@ export {default as ForestBottomMiddle} from './ForestBottomMiddle';
 export {default as ForestBottomRight} from './ForestBottomRight';
 export {default as UselessCity} from './UselessCity';
 export {default as House01} from './House01';
+export {default as House02} from './House02';

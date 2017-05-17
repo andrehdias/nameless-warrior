@@ -1,9 +1,9 @@
 import GLOBALS from '../core/Globals';
 import MapState from './MapState';
 
-export default class House01 extends MapState {
+export default class House02 extends MapState {
   init(options) {
-    this.mapName = GLOBALS.MAPS.HOUSE_01;
+    this.mapName = GLOBALS.MAPS.HOUSE_02;
     this.isHouse = true;
     this.isCity = true;
 
@@ -14,7 +14,7 @@ export default class House01 extends MapState {
     super.addMapTransitions();
 
     this.map.addMapTransition(4, 7, 1, 1, () => {
-      this.changeMap('UselessCity', GLOBALS.DIRECTIONS.UP, 0, {x: 466, y: 920});
+      this.changeMap('UselessCity', GLOBALS.DIRECTIONS.UP, 0, {x: 766, y: 620});
     }, this);
   }
 }

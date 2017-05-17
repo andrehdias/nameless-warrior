@@ -119,6 +119,23 @@ section {
 	.intro {
 		color: $white;
 		padding: 60px 0;
+    background: url(../img/logo.png) no-repeat;
+    background-position: center;
+    background-size: auto 100%;
+    min-height: 600px;
+    position: relative;
+
+    @include mediumViewport {
+      background-size: 100% auto;
+    }
+
+    &__content {
+      position: absolute;
+      top: calc(50% + 40px);
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+    }
 
 		img {
 			width: 90%;
@@ -129,10 +146,6 @@ section {
 			font-size: 90px;
 			text-align: center;
 			margin: 25px 0;
-
-      @include mediumLargeViewport {
-        font-size: 70px;
-      }
 
       @include mediumViewport {
         font-size: 60px;
@@ -167,6 +180,16 @@ section {
 	&--hide {
 		display: none;
 	}
+}
+
+.footer {
+  position: absolute;
+  z-index: 1;
+  left: auto;
+  right: auto;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
 }
 
 

@@ -30,18 +30,6 @@ export default class Map {
 
   renderLastLayer() {
     this.passLayer = this.tilemap.createLayer('Pass');
-
-    if(this.isHouse) {
-      this.groundLayer.position.set(this.game.world.centerX, this.game.world.centerY);
-      this.groundLayer.fixedToCamera = false;
-      this.groundOverlapLayer.position.set(this.game.world.centerX, this.game.world.centerY);
-      this.groundOverlapLayer.fixedToCamera = false;
-      this.collideLayer.position.set(this.game.world.centerX, this.game.world.centerY);
-      this.collideLayer.fixedToCamera = false;
-      this.passLayer.position.set(this.game.world.centerX, this.game.world.centerY);
-      this.passLayer.fixedToCamera = false;
-    }
-
     this.groundLayer.resizeWorld();
     this.groundOverlapLayer.resizeWorld();
     this.collideLayer.resizeWorld();

@@ -10,7 +10,6 @@ export default class Character extends Phaser.Sprite {
 
     this.map = map;
     this.mapBorderThreshold = 100;
-    this.playerProximityTreshold = 120;
 
     this.lastDirection = GLOBALS.DIRECTIONS.DOWN;
 
@@ -25,10 +24,6 @@ export default class Character extends Phaser.Sprite {
 
     if(this.characterClass === GLOBALS.ARCHER) {
       this.arrows = [];
-    }
-
-    if(this.characterClass === GLOBALS.MAGE) {
-      $('.bar--mana').removeClass('hide');
     }
 	}
 
@@ -49,10 +44,17 @@ export default class Character extends Phaser.Sprite {
 		this.charisma = data.charisma;
 		this.charismaXP = data.charismaXP;
 
+    this.firstDialog = data.firstDialog;
+
+    this.gameTimeHours = data.gameTimeHours;
+    this.gameTimeMinutes = data.gameTimeMinutes;
+
 		this.health = data.health;
 		this.currentHealth = data.currentHealth;
 		this.mana = data.mana;
 		this.currentMana = data.currentMana;
+
+    this.isHostile = data.isHostile;
 
     this.updatedAt = data.updatedAt;
 
@@ -78,9 +80,9 @@ export default class Character extends Phaser.Sprite {
           }
         }
       });
-    }
 
-    this.setupAttackEndCallback();
+      this.setupAttackEndCallback();
+    }
   }
 
 	create() {
@@ -181,7 +183,7 @@ export default class Character extends Phaser.Sprite {
 	}
 
   handleArrows() {
-    const speed = this.dexterity * 1.00;
+    const speed = this.dexterity * 1.25;
 
     this.arrows.forEach((arrow) => {
       if(!arrow.destroyed) {
@@ -412,8 +414,14 @@ export default class Character extends Phaser.Sprite {
 
       this.randomWalkActive = true;
 
-      if(this.playerNear) {
-        this.walk(this.playerDirection, speed);
+      if(this.attacking) {
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        return;
+      }
+
+      if(this.playerNear && this.playerDirection) {
+        this.walk(this.playerDirection, speed * 1.5);
         return;
       }
 
@@ -514,7 +522,7 @@ export default class Character extends Phaser.Sprite {
     if(!this.receivingAttack) {
       this.receivingAttack = true;
 
-      const dexModifier = (character.type === GLOBALS.PLAYER) ? character.dexterity / 5 : 0;
+      const dexModifier = (character.type === GLOBALS.PLAYER) ? (character.dexterity / 5) : 0;
       const bonus = Math.floor(Math.random() * (10 - 1)) + 1;
       const miss = Math.floor(Math.random() * (7 - 1)) + 1 - dexModifier;
 
@@ -526,6 +534,13 @@ export default class Character extends Phaser.Sprite {
 
       this.textY = 12;
 
+      this.constitutionXP += 0.25;
+
+      if(this.constitutionXP >= 100) {
+        this.constitution += 1;
+        this.constitutionXP = 0;
+      }
+
       if(miss > 4) {
         if(this.text) {
           this.text.text = 'miss';
@@ -533,8 +548,33 @@ export default class Character extends Phaser.Sprite {
           this.text = this.game.add.text(0, 0, 'miss', GLOBALS.TEXT_STYLES.DAMAGE);
           this.text.anchor.set(0.5);
         }
+
+        if(this.type === GLOBALS.PLAYER) {
+          this.dexterityXP += 0.5;
+
+          if(this.dexterityXP >= 100) {
+            this.dexterity += 1;
+            this.dexterityXP = 0;
+          }
+        }
       } else {
         this.currentHealth = this.currentHealth - damage;
+
+        if(character.characterClass === GLOBALS.ARCHER) {
+          character.dexterityXP += 0.5;
+
+          if(character.dexterityXP >= 100) {
+            character.dexterity++;
+            character.dexterityXP = 0;
+          }
+        } else if (character.characterClass === GLOBALS.SWORDSMAN) {
+          character.strengthXP += 0.5;
+
+          if(character.strengthXP >= 100) {
+            character.strength++;
+            character.strengthXP = 0;
+          }
+        }
 
         if(this.text) {
           if(this.currentHealth <= 0) {
@@ -547,25 +587,17 @@ export default class Character extends Phaser.Sprite {
           this.text.anchor.set(0.5);
         }
 
-        if(this.currentHealth <= 0) {
-          this.alive = false;
+        this.checkDeath();
 
-          if(this.currentHealth < 0) {
-            this.currentHealth = 0;
-          }
-
-          if(this.type === GLOBALS.ENEMY) {
-            clearInterval(this.randomWalkInterval);
-            this.body.velocity.x = 0;
-            this.body.velocity.y = 0;
-            this.body.destroy();
-            this.kill();
-          } else if (this.type === GLOBALS.PLAYER) {
-            this.setupDeadAnimation();
-          }
-        } else {
+        if(this.alive) {
           this.stepBack(direction);
         }
+      }
+
+      if(this.type === GLOBALS.PLAYER) {
+        this.updateCharacterStatusFormbox();
+      } else {
+        character.updateCharacterStatusFormbox();
       }
 
       if(character.type === GLOBALS.ENEMY) {
@@ -581,6 +613,26 @@ export default class Character extends Phaser.Sprite {
       setTimeout(() => {
         this.receivingAttack = false;
       }, 300);
+    }
+  }
+
+  checkDeath() {
+    if(this.currentHealth <= 0) {
+      this.alive = false;
+
+      if(this.currentHealth < 0) {
+        this.currentHealth = 0;
+      }
+
+      if(this.type === GLOBALS.ENEMY) {
+        clearInterval(this.randomWalkInterval);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        this.body.destroy();
+        this.kill();
+      } else if (this.type === GLOBALS.PLAYER) {
+        this.setupDeadAnimation();
+      }
     }
   }
 
@@ -610,13 +662,35 @@ export default class Character extends Phaser.Sprite {
           character2X = character2.body.x,
           character2Y = character2.body.y;
 
+    let verticalDirection,
+        verticalDistance,
+        horizontalDirection,
+        horizontalDistance;
+
     if(((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold)))
       && ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold)))) {
+
       if(saveDirection) {
-        if((character1X >= (character2X - threshold)) && (character1X <= (character2X + threshold))) {
-          this.playerDirection = GLOBALS.DIRECTIONS.RIGHT;
-        } else if ((character1Y >= (character2Y - threshold)) && (character1Y <= (character2Y + threshold))) {
-          this.playerDirection = GLOBALS.DIRECTIONS.UP;
+        if (character1Y <= (character2Y + threshold) && (character1Y < character2Y)) {
+          verticalDirection = GLOBALS.DIRECTIONS.DOWN;
+          verticalDistance = character2Y - character1Y;
+        } else if (character1Y >= (character2Y - threshold) && (character1Y > character2Y)) {
+          verticalDirection = GLOBALS.DIRECTIONS.UP;
+          verticalDistance = character1Y - character2Y;
+        }
+
+        if((character1X >= (character2X - threshold)) && (character1X < character2X)) {
+          horizontalDirection = GLOBALS.DIRECTIONS.RIGHT;
+          horizontalDistance = character2X - character1X;
+        } else if (character1X <= (character2X + threshold) && (character1X > character2X)) {
+          horizontalDirection = GLOBALS.DIRECTIONS.LEFT;
+          horizontalDistance = character1X - character2X;
+        }
+
+        if(verticalDistance > horizontalDistance) {
+          this.playerDirection = verticalDirection;
+        } else {
+          this.playerDirection = horizontalDirection;
         }
       } else {
         this.playerDirection = null;
@@ -629,16 +703,12 @@ export default class Character extends Phaser.Sprite {
   }
 
   checkPlayerPosition(player) {
-    const attackProximity = 32;
+    const attackProximity = 32,
+          playerProximity = (player.characterClass === GLOBALS.ARCHER) ? 260 : 160;
 
-    const playerProximity = this.checkProximity(this, player, this.playerProximityTreshold);
+    this.playerNear = this.checkProximity(this, player, playerProximity, this.isHostile);
+
     const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
-
-    if(playerProximity) {
-      this.playerNear = true;
-    } else {
-      this.playerNear = false;
-    }
 
     if(enemyAttackProximity) {
       this.lastFrame = (this.getOppositeDirectionFrame(player.lastFrame));
@@ -652,7 +722,7 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
-  saveCharacterStatus(mapName) {
+  saveCharacterStatus(mapName, cb = null) {
     const characterId = localStorage.getItem('NWarriorCharID'),
           url = config.apiURL+'characters/updateCharacter/'+characterId,
           data = {
@@ -670,9 +740,12 @@ export default class Character extends Phaser.Sprite {
             currentHealth: this.currentHealth,
             mana: this.mana,
             currentMana: this.currentMana,
-            lastPositionX: this.body.x,
-            lastPositionY: this.body.y,
+            lastPositionX: this.x,
+            lastPositionY: this.y,
             lastMap: mapName,
+            firstDialog: this.firstDialog,
+            gameTimeHours: this.gameTimeHours,
+            gameTimeMinutes: this.gameTimeMinutes,
             token: localStorage.getItem('NWarriorToken')
           };
 
@@ -681,7 +754,11 @@ export default class Character extends Phaser.Sprite {
 			url: url,
 			data: data,
 			success: (data) => {
-        console.log("Character Saved!")
+        this.updateCharacterStatusFormbox();
+
+        if(cb) {
+          cb();
+        }
       }
     });
   }
@@ -689,25 +766,19 @@ export default class Character extends Phaser.Sprite {
   updateCharacterStatusFormbox() {
     const $characterStatusWrapper = $('.character-status__wrapper');
 
-    $characterStatusWrapper.html('');
-
 		Utils.getTemplate('characterStatus', (template) => {
+      $characterStatusWrapper.html('');
+
       template = template.replace('{CharacterClass}', this.characterClass);
       template = template.replace('{LastSaved}', Utils.formatDate(this.updatedAt));
       template = template.replace('{Health}', this.health);
       template = template.replace('{CurrentHealth}', this.currentHealth);
-      template = template.replace('{Mana}', this.mana);
-      template = template.replace('{CurrentMana}', this.currentMana);
       template = template.replace('{Strength}', this.strength);
-      template = template.replace('{StrengthXP}', this.strengthXP);
+      template = template.replace('{StrengthXP}', this.strengthXP.toFixed(2));
       template = template.replace('{Constitution}', this.constitution);
-      template = template.replace('{ConstitutionXP}', this.constitutionXP);
+      template = template.replace('{ConstitutionXP}', this.constitutionXP.toFixed(2));
       template = template.replace('{Dexterity}', this.dexterity);
-      template = template.replace('{DexterityXP}', this.dexterityXP);
-      template = template.replace('{Intelligence}', this.intelligence);
-      template = template.replace('{IntelligenceXP}', this.intelligenceXP);
-      template = template.replace('{Charisma}', this.charisma);
-      template = template.replace('{CharismaXP}', this.charismaXP);
+      template = template.replace('{DexterityXP}', this.dexterityXP.toFixed(2));
       template = template.replace('{ClassImg}', this.classNumber);
 
       $characterStatusWrapper.append(template);

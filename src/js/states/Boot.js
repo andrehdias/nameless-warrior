@@ -18,9 +18,7 @@ export default class Boot extends Phaser.State {
 		this.game.load.spritesheet('Archer_dead', 'img/classes/archer_dead.png', 64, 64);
 
 		this.game.load.spritesheet('Mage', 'img/classes/mage_walk.png', 32, 32);
-		this.game.load.spritesheet('Mage_attack', 'img/classes/mage_attack.png', 64, 64);
 		this.game.load.spritesheet('Mage_sleep', 'img/classes/mage_sleep.png', 64, 64);
-		this.game.load.spritesheet('Mage_dead', 'img/classes/mage_dead.png', 64, 64);
 
 
     //Enemies
@@ -44,6 +42,11 @@ export default class Boot extends Phaser.State {
 
     //Objects
     this.game.load.image('arrow', 'img/classes/arrow.png');
+
+
+    //Audios
+    this.game.load.audio('SadDescent', 'audio/SadDescent.ogg');
+    this.game.load.audio('SadTown', 'audio/SadTown.ogg');
 	}
 
 	create() {
@@ -71,7 +74,7 @@ export default class Boot extends Phaser.State {
         data.classNumber = data.characterClass;
       	data.characterClass = Utils.formatClass(data.characterClass);
 
-        const map = data.lastMap || 'ForestBottomMiddle';
+        const map = data.lastMap || 'UselessCity';
 
         const options = {
           characterData: data,

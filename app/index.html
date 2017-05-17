@@ -36,29 +36,33 @@
 
 	<section class="content">
 		<div class="intro">
-			<h1>Nameless Warrior</h1>
+			<!--<h1 class="">Nameless Warrior</h1>-->
 
-			<p class="not-logged--text hide hide--medium">RPG web game with retro style and built entirely in <i>javascript</i>. <br> Create your account, log in and have fun!</p>
+      <div class="intro__content">
+        <p class="not-logged--text hide hide--medium">RPG web game with retro style and built entirely in <i>JavaScript</i> and <i>HTML 5</i>. <br> Create your account, log in and have fun!</p>
 
-			<p class="logged--text hide hide--medium">Welcome, create or select your character and have fun!</p>
+        <p class="logged--text hide hide--medium">Welcome, create or select your character and have fun!</p>
 
-			<ul class="menu menu--not-logged hide  hide--medium">
-				<li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
-				<li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
-			</ul>
+        <ul class="menu menu--not-logged hide  hide--medium">
+          <li><button data-target="#formbox-login" class="btn btn--red open-formbox">Login</button></li>
+          <li><button data-target="#formbox-signup" class="btn btn--blue open-formbox">Sign Up</button></li>
+        </ul>
 
-			<ul class="menu menu--logged hide  hide--medium">
-				<li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
-				<li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
-			</ul>
+        <ul class="menu menu--logged hide  hide--medium">
+          <li><button data-target="#formbox-select" class="btn btn--red open-formbox">Select Character</button></li>
+          <li><button data-target="#formbox-create" class="btn btn--blue open-formbox">Create Character</button></li>
+        </ul>
 
-      <p class="show--medium">This game was designed for bigger resolutions!</p>
+        <p class="show--medium">This game was designed for bigger resolutions!</p>
+      </div>
 		</div>
 	</section>
 
 	<section class="game__wrapper hide ui-style">
 		<div id="phaser" class="game">
-      <div class="game__wrapper__overlay"></div>
+      <div class="game__wrapper__overlay game__wrapper__overlay--grey"></div>
+      <div class="game__wrapper__overlay game__wrapper__overlay--night"></div>
+      <div class="game__wrapper__overlay game__wrapper__overlay--loading"><p>Please wait, or don't :(</p></div>
     </div>
 
 		<div class="bar__wrapper">
@@ -66,6 +70,10 @@
 				<span class="bar__text"><b>HP</b> <span></span></span>
 				<div class="bar__value" style="width: 100%"></div>
 			</div>
+
+      <div class="game-menu__message hide">
+        <p>The game was saved succesfully!</p>
+      </div>
 
       <div class="game-menu__wrapper">
         <ul class="game-menu">
@@ -90,12 +98,25 @@
 			<span class="dialog__arrow"></span>
 		</div>
 
-    <div class="game__options">
-      <div class="game__option">
-        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is enabled, the game will save automatically every 10 seconds" for="autosave">Auto Save (?)</label>
-      </div>
+    <div class="game__time">
+      <span class="game__time-hours"></span>:<span class="game__time-minutes"></span> <span class="game__time-type"></span>
     </div>
+
+    <ul class="game__options">
+      <li class="game__option">
+        <input type="checkbox" class="game__option--music" id="music" name="music"> <label for="music">Music</label>
+      </li>
+      <li class="game__option">
+        <input type="checkbox" class="game__option--autosave" id="autosave" name="autosave"> <label class="tooltip" title="<b>Auto Save: </b>If this is enabled, the game will save automatically every 10 seconds" for="autosave">Auto Save (?)</label>
+      </li>
+    </ul>
 	</section>
+
+  <footer class="footer hide">
+    <p>This game was designed to work with the latest version of Google Chrome. Play on other browsers at your own risk</p>
+  </footer>
+
+
 
 	<!-- Form Boxes Beginning -->
 	<!-- Login Formbox -->
@@ -170,8 +191,8 @@
       <p class="create__disclaimer">To start, please select a character class below and distribute the attribute points. Hover to see each class and attribute description</p>
 
       <div class="formbox__group">
-        <div data-character-class="1" class="formbox__group__character formbox__group__character--swordsman formbox__group--one-third active tooltip" title="<b>Swordsman:</b> Character that uses swords, shields and heavy armors."></div>
-        <div data-character-class="3" class="formbox__group__character formbox__group__character--archer formbox__group--one-third active tooltip" title="<b>Archer:</b> Character that uses bow and arrow and can equip light armors."></div>
+        <div data-character-class="1" class="formbox__group__character formbox__group__character--swordsman formbox__group--one-third active tooltip" title="<b>Swordsman:</b> Character that uses swords."></div>
+        <div data-character-class="3" class="formbox__group__character formbox__group__character--archer formbox__group--one-third active tooltip" title="<b>Archer:</b> Character that uses bow and arrow."></div>
       </div>
 
 			<div class="create__info">
@@ -193,7 +214,7 @@
 					</div>
 
 					<div class="stats__group">
-						<label for="" class="stats__label tooltip" title="<b>Dexterity</b> Defines the attack speed and the chance of avoiding enemy attacks.">Dexterity: <b>(?)</b></label>
+						<label for="" class="stats__label tooltip" title="<b>Dexterity</b> Defines the strength and speed of ranged attacks and the chance of avoiding enemy attacks">Dexterity: <b>(?)</b></label>
 						<button class="stats__btn stats__btn--minus"></button>
 						<input type="text" name="dexterity" class="stats__input" value="5" readonly>
 						<button class="stats__btn stats__btn--plus"></button>
@@ -243,7 +264,7 @@
       <ul class="character-status__stats">
         <li><strong>Strength:</strong> Defines the strength of physical attacks</li>
         <li><strong>Constitution:</strong> Defines the resistance and the amount of HP of the character</li>
-        <li><strong>Dexterity:</strong> Defines the strength of ranged attacks and the chance of avoiding enemies</li>
+        <li><strong>Dexterity:</strong>Defines the strength and speed of ranged attacks and the chance of avoiding enemy attacks</li>
       </ul>
     </div>
   </section>
@@ -254,5 +275,15 @@
 	<script src="js/tooltipster.bundle.min.js"></script>
 	<script src="js/phaser.min.js"></script>
 	<script src="js/scripts.js"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-99339237-1', 'auto');
+    ga('send', 'pageview');
+  </script>
 </body>
 </html>

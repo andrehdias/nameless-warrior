@@ -63,4 +63,12 @@ export default class Utils {
 
     return month+'-'+day+'-'+year+' '+hours+':'+minutes;
   }
+
+  static addZero(number) {
+    return ('0' + Number(number).toFixed(0)).slice(-2);
+  }
+
+  static isChrome() {
+    return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  }
 }
