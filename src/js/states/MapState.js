@@ -402,19 +402,23 @@ export default class MapState extends Phaser.State {
   }
 
   setNightOverlay(hours) {
-    if(hours >= 19 || hours <= 6) {
+    if(hours >= 18 || hours <= 6) {
       this.$overlayNight.addClass('active');
 
-      let opacity;
-
       if(!this.isHouse) {
-        if(hours >= 19 && hours <= 21) {
-          this.$overlayNight.css('opacity', 0.45);
-        } else if ((hours == 22 || hours == 23) || (hours >= 0 && hours <= 4)) {
-          this.$overlayNight.css('opacity', 0.55);
-        } else if (hours == 5 || hours == 6) {
-          this.$overlayNight.css('opacity', 0.35);
+        let opacity;
+
+        if(hours === 18) {
+          opacity = 0.25;
+        } else if(hours === 19) {
+          opacity = 0.40;
+        } else if (hours >= 20 || (hours >= 0 && hours <= 4)) {
+          opacity = 0.65;
+        } else if (hours === 5 || hours === 6) {
+          opacity = 0.35;
         }
+
+        this.$overlayNight.css('opacity', opacity);
       }
     } else {
       this.$overlayNight.removeClass('active');
