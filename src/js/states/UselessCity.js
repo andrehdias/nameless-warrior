@@ -20,8 +20,8 @@ export default class UselessCity extends MapState {
       this.changeMap('House01', GLOBALS.DIRECTIONS.DOWN, 96, {x: 144, y: 200});
     }, this);
 
-    // this.map.addMapTransition(29, 15, 1, 1, () => {
-    //   this.changeMap('House02', GLOBALS.DIRECTIONS.DOWN, 96, {x: 144, y: 200});
-    // }, this);
+    this.map.addMapTransition(28, 14, 1, 1, () => {
+      this.changeMap('House02', GLOBALS.DIRECTIONS.DOWN, 96, {x: 144, y: 200});
+    }, this);
   }
 }

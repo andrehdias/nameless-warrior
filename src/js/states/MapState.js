@@ -172,7 +172,7 @@ export default class MapState extends Phaser.State {
           this.player.currentHealth = this.player.health;
           this.player.saveCharacterStatus(this.mapName, () => {
             setTimeout(() => {
-              this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+              this.changeMap('UselessCity', GLOBALS.DIRECTIONS.UP, 0, {x: 300, y: 300});
             }, 1000);
           });
         }
