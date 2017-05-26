@@ -706,12 +706,12 @@ export default class Character extends Phaser.Sprite {
   }
 
   checkPlayerPosition(player) {
-    const attackProximity = 32,
+    const playerAsideProximity = (this.type === GLOBALS.ENEMY) ? 32 : 40,
           playerProximity = (player.characterClass === GLOBALS.ARCHER) ? 260 : 160;
 
     this.playerNear = this.checkProximity(this, player, playerProximity, this.isHostile);
 
-    this.playerAside = this.checkProximity(this, player, attackProximity);
+    this.playerAside = this.checkProximity(this, player, playerAsideProximity);
 
     if(this.playerAside && this.type === GLOBALS.ENEMY) {
       this.lastFrame = (this.getOppositeDirectionFrame(player.lastFrame));

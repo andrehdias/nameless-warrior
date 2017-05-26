@@ -46,8 +46,6 @@ export default class Dialog {
   }
 
   kill() {
-    console.log('kill')
-
     this.event.unbind('keydown');
     $(document).unbind('keydown');
 
