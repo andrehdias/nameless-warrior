@@ -155,7 +155,17 @@ export default class MapState extends Phaser.State {
     }
 
     if(this.npcs) {
-      this.game.physics.arcade.collide(this.player, this.npcs, this.npcCollisionHandler);
+      this.game.physics.arcade.collide(this.player, this.npcs);
+
+      for (let key in this.npcs) {
+        this.npcs[key].checkPlayerPosition(this.player);
+
+        if(this.npcs[key].playerAside) {
+          this.npcAside = this.npcs[key];
+        } else {
+          this.npcAside = null;
+        }
+      }
     }
 
     if(!this.deadDialog && !this.player.alive) {
@@ -258,10 +268,6 @@ export default class MapState extends Phaser.State {
     }
   }
 
-  npcCollisionHandler(player, npc) {
-    console.log(player, npc)
-  }
-
   bind() {
     this.saveCharacterInterval = setInterval(() => {
       if(this.autoSave) {
@@ -313,19 +319,52 @@ export default class MapState extends Phaser.State {
           this.music.stop();
         }
       }
+
     });
 
     this.timeInverval = setInterval(() => {
       this.handleTime();
     }, 5000);
+
+    $(window).on('keydown', ev => {
+      const key = ev.keyCode;
+
+      if(key === GLOBALS.KEY_CODES.A) {
+        if(!this.isCity) {
+          if(!this.player.attacking) {
+            this.player.attack();
+          }
+        } else if(this.npcAside && !this.npcAside.talking) {
+          this.npcAside.talk();
+        }
+      }
+    });
   }
 
   addMapTransitions() {
     this.willChangeMap = false;
   }
 
+  killDialogs() {
+    if(this.welcome) {
+      this.welcome.kill();
+    }
+
+    if(this.deadDialog) {
+      this.deadDialog.kill();
+    }
+
+    for (let key in this.npcs) {
+      if(this.npcs[key].talking) {
+        this.npcs[key].talking.kill();
+      }
+    }
+  }
+
   changeMap(state, enterDirection, threshold, enterPosition) {
     if(!this.shouldChangeMap) {return;}
+
+    this.killDialogs();
 
     setTimeout(() => {
       this.$overlayLoading.addClass('active');
@@ -418,13 +457,13 @@ export default class MapState extends Phaser.State {
       if(!this.isHouse) {
         let opacity;
 
-        if(hours === 18) {
+        if(hours == 18) {
           opacity = 0.25;
-        } else if(hours === 19) {
+        } else if(hours == 19) {
           opacity = 0.40;
         } else if (hours >= 20 || (hours >= 0 && hours <= 4)) {
           opacity = 0.65;
-        } else if (hours === 5 || hours === 6) {
+        } else if (hours == 5 || hours == 6) {
           opacity = 0.35;
         }
 

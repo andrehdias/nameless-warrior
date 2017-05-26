@@ -14,7 +14,16 @@ export default class House01 extends MapState {
   create() {
     super.create();
 
-    this.npcs.push(new Character(this.game, {characterClass: GLOBALS.MAGE, health: 70, currentHealth: 70}, GLOBALS.NPC, 155, 110, this.map));
+    this.npcs.push(new Character(this.game, {
+      characterClass: GLOBALS.MAGE,
+      health: 70,
+      currentHealth: 70,
+      name: "Kekel",
+      speech: [
+        "Hi, my name is Kekel",
+        "I have mission for you, can you please kill 10 slimes? If you do this, I can give you a reward!"
+      ]
+    }, GLOBALS.NPC, 155, 110, this.map));
   }
 
   addMapTransitions() {

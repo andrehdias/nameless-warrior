@@ -14,7 +14,16 @@ export default class House02 extends MapState {
   create() {
     super.create();
 
-    this.npcs.push(new Character(this.game, {characterClass: GLOBALS.MAGE, health: 70, currentHealth: 70}, GLOBALS.NPC, 175, 80, this.map));
+    this.npcs.push(new Character(this.game, {
+      characterClass: GLOBALS.MAGE,
+      health: 70,
+      currentHealth: 70,
+      name: "Livinho",
+      speech: [
+        "Hi, my name is Livinho",
+        "I have mission for you, can you please kill 10 mushrooms? If you do this, I can give you a reward!"
+      ]
+    }, GLOBALS.NPC, 175, 80, this.map));
   }
 
   addMapTransitions() {

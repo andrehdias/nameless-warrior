@@ -15,7 +15,18 @@ export default class UselessCity extends MapState {
 
     let npcClass = (this.player.characterClass === GLOBALS.ARCHER) ? GLOBALS.SWORDSMAN : GLOBALS.ARCHER;
 
-    this.npcs.push(new Character(this.game, {characterClass: npcClass, health: 70, currentHealth: 70}, GLOBALS.NPC, 555, 1220, this.map));
+    this.npcs.push(new Character(this.game, {
+      characterClass: npcClass,
+      health: 70,
+      currentHealth: 70,
+      name: "Lan",
+      speech: [
+        "Hi, my name is Lan",
+         "Welcome to Useless City!",
+         "Why useless? Look around! This city is really useless, as this desolated world"
+      ]
+    }, GLOBALS.NPC, 555, 1020, this.map));
+
     this.npcs[0].turnSprite(GLOBALS.DIRECTIONS.RIGHT);
   }
 

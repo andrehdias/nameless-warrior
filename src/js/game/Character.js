@@ -21,6 +21,9 @@ export default class Character extends Phaser.Sprite {
     this.alive = true;
     this.playerNear = false;
 
+    this.speech = data.speech;
+    this.name = data.name;
+
 		this.setCharacterInfo(data);
 
     if(this.characterClass === GLOBALS.ARCHER) {
@@ -70,22 +73,6 @@ export default class Character extends Phaser.Sprite {
     }
 	}
 
-  bind() {
-    if(!this.map.isCity) {
-      $(window).on('keydown', ev => {
-        const key = ev.keyCode;
-
-        if(key === GLOBALS.KEY_CODES.A) {
-          if(!this.attacking) {
-            this.attack();
-          }
-        }
-      });
-
-      this.setupAttackEndCallback();
-    }
-  }
-
 	create() {
 		this.game.add.existing(this);
 	  this.game.physics.arcade.enable(this);
@@ -105,13 +92,21 @@ export default class Character extends Phaser.Sprite {
       this.randomWalk();
     }
 
-    if(this.type === GLOBALS.PLAYER) {
-      this.bind();
+    if(this.type === GLOBALS.PLAYER && !this.map.isCity) {
+      this.setupAttackEndCallback();
     }
 	}
 
   talk() {
-
+    this.talking = new Dialog(
+      {
+        lines: this.speech,
+        name: this.name
+      },
+      () => {
+        this.talking = null;
+      }
+    );
   }
 
 	update() {
@@ -716,9 +711,9 @@ export default class Character extends Phaser.Sprite {
 
     this.playerNear = this.checkProximity(this, player, playerProximity, this.isHostile);
 
-    const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
+    this.playerAside = this.checkProximity(this, player, attackProximity);
 
-    if(enemyAttackProximity) {
+    if(this.playerAside && this.type === GLOBALS.ENEMY) {
       this.lastFrame = (this.getOppositeDirectionFrame(player.lastFrame));
       this.frame = this.lastFrame;
       this.animations.stop();
