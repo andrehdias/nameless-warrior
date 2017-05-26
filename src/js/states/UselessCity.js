@@ -1,5 +1,6 @@
 import GLOBALS from '../core/Globals';
 import MapState from './MapState';
+import Character from '../game/Character';
 
 export default class UselessCity extends MapState {
   init(options) {
@@ -7,6 +8,15 @@ export default class UselessCity extends MapState {
     this.isCity = true;
 
     super.init(options);
+  }
+
+  create() {
+    super.create();
+
+    let npcClass = (this.player.characterClass === GLOBALS.ARCHER) ? GLOBALS.SWORDSMAN : GLOBALS.ARCHER;
+
+    this.npcs.push(new Character(this.game, {characterClass: npcClass, health: 70, currentHealth: 70}, GLOBALS.NPC, 555, 1220, this.map));
+    this.npcs[0].turnSprite(GLOBALS.DIRECTIONS.RIGHT);
   }
 
   addMapTransitions() {

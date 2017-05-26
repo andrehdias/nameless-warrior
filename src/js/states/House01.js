@@ -1,5 +1,6 @@
 import GLOBALS from '../core/Globals';
 import MapState from './MapState';
+import Character from '../game/Character';
 
 export default class House01 extends MapState {
   init(options) {
@@ -8,6 +9,12 @@ export default class House01 extends MapState {
     this.isCity = true;
 
     super.init(options);
+  }
+
+  create() {
+    super.create();
+
+    this.npcs.push(new Character(this.game, {characterClass: GLOBALS.MAGE, health: 70, currentHealth: 70}, GLOBALS.NPC, 155, 110, this.map));
   }
 
   addMapTransitions() {

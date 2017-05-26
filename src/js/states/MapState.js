@@ -19,6 +19,8 @@ export default class MapState extends Phaser.State {
       this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_DESCENT);
       this.music.loop = true;
     } else {
+      this.npcs = [];
+
       this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_TOWN);
       this.music.loop = true;
     }
@@ -152,6 +154,10 @@ export default class MapState extends Phaser.State {
       }
     }
 
+    if(this.npcs) {
+      this.game.physics.arcade.collide(this.player, this.npcs, this.npcCollisionHandler);
+    }
+
     if(!this.deadDialog && !this.player.alive) {
       this.$overlayDead.addClass('active');
 
@@ -250,6 +256,10 @@ export default class MapState extends Phaser.State {
     if(player.attacking || player.characterClass === GLOBALS.ARCHER) {
       enemy.receiveAttack(player);
     }
+  }
+
+  npcCollisionHandler(player, npc) {
+    console.log(player, npc)
   }
 
   bind() {

@@ -1,6 +1,7 @@
 import GLOBALS from '../core/Globals';
 import config from 'config';
 import Utils from '../core/Utils';
+import Dialog from '../game/Dialog';
 
 export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER, x, y, map) {
@@ -96,8 +97,11 @@ export default class Character extends Phaser.Sprite {
 
 	  this.setupAnimations();
 
-    if(this.type === GLOBALS.ENEMY) {
+    if(this.type === GLOBALS.NPC || this.type === GLOBALS.ENEMY) {
       this.body.immovable = true;
+    }
+
+    if(this.type === GLOBALS.ENEMY) {
       this.randomWalk();
     }
 
@@ -105,6 +109,10 @@ export default class Character extends Phaser.Sprite {
       this.bind();
     }
 	}
+
+  talk() {
+
+  }
 
 	update() {
     if(this.type === GLOBALS.PLAYER) {
