@@ -22,6 +22,7 @@ export default class Character extends Phaser.Sprite {
     this.playerNear = false;
 
     this.speech = data.speech;
+    this.completedQuestSpeech = data.completedQuest;
     this.name = data.name;
     this.quest = data.quest;
 
@@ -100,10 +101,25 @@ export default class Character extends Phaser.Sprite {
     }
 	}
 
-  talk() {
+  talk(player) {
+    const quest = (this.quest) ? player.quests[this.quest] : null;
+
+    if(quest) {
+      quest.started = true;
+
+      if(quest.counter === 10 && !quest.done) {
+        quest.done = true;
+        player.strength += 1;
+        player.constitution += 1;
+        player.dexterity += 1;
+      }
+    }
+
+    player.updateCharacterStatusFormbox();
+
     this.talking = new Dialog(
       {
-        lines: this.speech,
+        lines: (quest.done) ? this.completedQuestSpeech : this.speech,
         name: this.name
       },
       () => {
@@ -617,7 +633,7 @@ export default class Character extends Phaser.Sprite {
           this.text.anchor.set(0.5);
         }
 
-        this.checkDeath();
+        this.checkDeath(character);
 
         if(this.alive) {
           this.stepBack(direction);
@@ -646,7 +662,21 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
-  checkDeath() {
+  checkQuests(character) {
+    if(this.characterClass === GLOBALS.ENEMIES.SLIME && character.quests.first.started) {
+      if(character.quests.first.counter !== 10) {
+        character.quests.first.counter += 1;
+      }
+    }
+
+    if(this.characterClass === GLOBALS.ENEMIES.MUSHROOM && character.quests.second.started) {
+      if(character.quests.second.counter !== 10) {
+        character.quests.second.counter += 1;
+      }
+    }
+  }
+
+  checkDeath(character) {
     if(this.currentHealth <= 0) {
       this.alive = false;
 
@@ -660,6 +690,10 @@ export default class Character extends Phaser.Sprite {
         this.body.velocity.y = 0;
         this.body.destroy();
         this.kill();
+
+        this.checkQuests(character);
+
+        character.updateCharacterStatusFormbox();
       } else if (this.type === GLOBALS.PLAYER) {
         this.setupDeadAnimation();
       }
@@ -811,6 +845,12 @@ export default class Character extends Phaser.Sprite {
       template = template.replace('{Dexterity}', this.dexterity);
       template = template.replace('{DexterityXP}', this.dexterityXP.toFixed(2));
       template = template.replace('{ClassImg}', this.classNumber);
+
+      const firstQuest = (this.quests.first.started) ? this.quests.first.counter + '/10' : 'Quest not started';
+      const secondQuest = (this.quests.second.started) ? this.quests.second.counter + '/10' : 'Quest not started';
+
+      template = template.replace('{firstQuest}', firstQuest);
+      template = template.replace('{secondQuest}', secondQuest);
 
       $characterStatusWrapper.append(template);
 		});

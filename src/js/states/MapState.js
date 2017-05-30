@@ -349,7 +349,7 @@ export default class MapState extends Phaser.State {
             this.player.attack();
           }
         } else if(this.npcAside && !this.npcAside.talking) {
-          this.npcAside.talk();
+          this.npcAside.talk(this.player);
         }
       }
     });
