@@ -18,10 +18,13 @@ export default class House02 extends MapState {
       characterClass: GLOBALS.MAGE,
       health: 70,
       currentHealth: 70,
-      name: "Livinho",
+      name: "Kekel",
+      quest: 'second',
       speech: [
-        "Hi, my name is Livinho",
-        "I have mission for you, can you please kill 10 mushrooms? If you do this, I can give you a reward!"
+        "I have mission for you, can you please kill 10 mushrooms? If you do this, I can give you a reward!",
+      ],
+      completedQuest: [
+        "Congratulations! Take this reward in experience! (+1 in all attributes)"
       ]
     }, GLOBALS.NPC, 175, 80, this.map));
   }

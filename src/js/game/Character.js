@@ -23,6 +23,7 @@ export default class Character extends Phaser.Sprite {
 
     this.speech = data.speech;
     this.name = data.name;
+    this.quest = data.quest;
 
 		this.setCharacterInfo(data);
 
@@ -47,6 +48,8 @@ export default class Character extends Phaser.Sprite {
 		this.intelligenceXP = data.intelligenceXP;
 		this.charisma = data.charisma;
 		this.charismaXP = data.charismaXP;
+
+    this.quests = data.quests;
 
     this.firstDialog = data.firstDialog;
 
@@ -135,11 +138,28 @@ export default class Character extends Phaser.Sprite {
       this.updateBars();
     }
 
-    if(this.text && this.body && this.alive) {
-      this.textY -= 1;
+    if(this.type === GLOBALS.NPC) {
+      if(this.playerAside && !this.talking) {
+        const instruction = (localStorage.getItem('NWarriorControls') === 'true') ? "Press L to talk" : "Press A to talk";
 
-      this.text.x = Math.floor(this.body.x + this.body.width / 2);
-      this.text.y = Math.floor(this.body.y + this.body.height / 2 + this.textY);
+        if(!this.text || this.text.text == '') {
+          this.text = this.game.add.text(0, 0, instruction, GLOBALS.TEXT_STYLES.NPC_TEXT);
+        }
+      } else if(this.text) {
+        this.text.text = '';
+      }
+    }
+
+    if(this.text && this.body && this.alive) {
+      if(this.type === GLOBALS.NPC) {
+        this.text.x = Math.floor(this.body.x - 36);
+        this.text.y = Math.floor(this.body.y + this.body.height / 2 - 36);
+      } else {
+        this.textY -= 1;
+
+        this.text.x = Math.floor(this.body.x + this.body.width / 2);
+        this.text.y = Math.floor(this.body.y + this.body.height / 2 + this.textY);
+      }
     }
 	}
 
@@ -159,7 +179,9 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	handleWalking() {
-	  const speed = this.speed;
+	  const speed = this.speed,
+          alternativeControls = (localStorage.getItem('NWarriorControls') === 'true');
+
 	  let direction;
 
     if(this.attacking) {
@@ -168,13 +190,18 @@ export default class Character extends Phaser.Sprite {
       return;
     }
 
-		if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+    const left = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.A) : this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT);
+    const right = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.D) : this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
+    const up = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.W) : this.game.input.keyboard.isDown(Phaser.Keyboard.UP);
+    const down = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.S) : this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN);
+
+		if (left) {
 	    direction = GLOBALS.DIRECTIONS.LEFT;
-	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+	  } else if (right) {
 	    direction = GLOBALS.DIRECTIONS.RIGHT;
-	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+	  } else if (up) {
 	    direction = GLOBALS.DIRECTIONS.UP;
-	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+	  } else if (down) {
 	    direction = GLOBALS.DIRECTIONS.DOWN;
 	  } else {
 	    direction = GLOBALS.DIRECTIONS.STOP;
@@ -706,7 +733,7 @@ export default class Character extends Phaser.Sprite {
   }
 
   checkPlayerPosition(player) {
-    const playerAsideProximity = (this.type === GLOBALS.ENEMY) ? 32 : 40,
+    const playerAsideProximity = (this.type === GLOBALS.ENEMY) ? 32 : 64,
           playerProximity = (player.characterClass === GLOBALS.ARCHER) ? 260 : 160;
 
     this.playerNear = this.checkProximity(this, player, playerProximity, this.isHostile);
@@ -749,6 +776,7 @@ export default class Character extends Phaser.Sprite {
             firstDialog: this.firstDialog,
             gameTimeHours: this.gameTimeHours,
             gameTimeMinutes: this.gameTimeMinutes,
+            quests: this.quests,
             token: localStorage.getItem('NWarriorToken')
           };
 

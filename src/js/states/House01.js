@@ -18,10 +18,13 @@ export default class House01 extends MapState {
       characterClass: GLOBALS.MAGE,
       health: 70,
       currentHealth: 70,
-      name: "Kekel",
+      name: "Livinho",
+      quest: 'first',
       speech: [
-        "Hi, my name is Kekel",
         "I have mission for you, can you please kill 10 slimes? If you do this, I can give you a reward!"
+      ],
+      completedQuest: [
+        "Congratulations! Take this reward in experience! (+1 in all attributes)"
       ]
     }, GLOBALS.NPC, 155, 110, this.map));
   }

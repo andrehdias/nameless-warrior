@@ -106,6 +106,9 @@
 
     <ul class="game__options">
       <li class="game__option">
+        <input type="checkbox" class="game__option--controls" id="controls" name="controls"> <label for="controls" class="tooltip" title="<b>Alternative Controls: </b>Open the help menu to see the alternative controls!">Alternative Controls (?)</label>
+      </li>
+      <li class="game__option">
         <input type="checkbox" class="game__option--music" id="music" name="music"> <label for="music">Music</label>
       </li>
       <li class="game__option">
@@ -250,12 +253,22 @@
   <section class="formbox" id="formbox-help">
     <a href="" class="formbox__close"><i class="fa fa-close"></i></a>
 
-    <h3>Controls</h3>
+    <h3>Default Controls: </h3>
 
     <div class="character-status__info character-status__info--full">
       <ul class="character-status__stats">
         <li><strong>Arrow Keys:</strong> Move Character </li>
         <li><strong>A:</strong> Attack or interact with NPCs (Non-player characters) </li>
+        <li><strong>ENTER:</strong> Jump Dialogs </li>
+      </ul>
+    </div>
+
+    <h3>Alternative Controls: </h3>
+
+    <div class="character-status__info character-status__info--full">
+      <ul class="character-status__stats">
+        <li><strong>W A S D Keys:</strong> Move Character </li>
+        <li><strong>L:</strong> Attack or interact with NPCs (Non-player characters) </li>
         <li><strong>ENTER:</strong> Jump Dialogs </li>
       </ul>
     </div>

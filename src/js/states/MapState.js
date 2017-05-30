@@ -35,40 +35,38 @@ export default class MapState extends Phaser.State {
 
     this.$saveText = $('.game-menu__message');
 
+    this.$gameTimeHours = $('.game__time-hours');
+    this.$gameTimeMinutes = $('.game__time-minutes');
+    this.$gameTimeType = $('.game__time-type');
+    this.$overlayNight = $('.game__wrapper__overlay--night');
+
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
     this.autoSave = (localStorage.getItem('NWarriorAutoSave') === 'true');
 
     this.$saveBtn.unbind('click');
 
-    this.musicOn = (localStorage.getItem('NWarriorMusicOn') === 'true');
+    this.musicOn = (localStorage.getItem('NWarriorMusic') === 'true');
     this.$musicCheckbox = $('.game__option--music');
 
-    this.deadDialog = false;
+    this.controlsOn = (localStorage.getItem('NWarriorControls') === 'true');
+    this.$controlsCheckbox = $('.game__option--controls');
 
-    if(this.autoSave) {
-      this.$autoSaveCheckbox.prop('checked', true);
-    }
+    this.$autoSaveCheckbox.prop('checked', this.autoSave);
+    this.$musicCheckbox.prop('checked', this.musicOn);
+    this.$controlsCheckbox.prop('checked', this.controlsOn);
 
     if(this.musicOn) {
-      this.$musicCheckbox.prop('checked', true);
-
       if(this.music) {
         this.music.volume = 0.3;
         this.music.play();
       }
-    } else {
-      this.$musicCheckbox.prop('checked', false);
     }
 
     this.shouldChangeMap = true;
+    this.deadDialog = false;
 
     this.playerPositionThreshold = 32;
-
-    this.$gameTimeHours = $('.game__time-hours');
-    this.$gameTimeMinutes = $('.game__time-minutes');
-    this.$gameTimeType = $('.game__time-type');
-    this.$overlayNight = $('.game__wrapper__overlay--night');
   }
 
   create() {
@@ -95,6 +93,11 @@ export default class MapState extends Phaser.State {
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
+
+      if(this.player.characterClass === GLOBALS.ARCHER) {
+        this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 750, 950, this.map));
+        this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 250, 650, this.map));
+      }
     }
 
     this.map.renderLastLayer();
@@ -303,17 +306,27 @@ export default class MapState extends Phaser.State {
       }
     });
 
+    this.$controlsCheckbox.change((e) => {
+      if(this.$controlsCheckbox.is(':checked')) {
+        this.controlsOn = true;
+        localStorage.setItem('NWarriorControls', true);
+      } else {
+        this.controlsOn = false;
+        localStorage.setItem('NWarriorControls', false);
+      }
+    });
+
     this.$musicCheckbox.change((e) => {
       if(this.$musicCheckbox.is(':checked')) {
         this.musicOn = true;
-        localStorage.setItem('NWarriorMusicOn', true);
+        localStorage.setItem('NWarriorMusic', true);
 
         if(this.music) {
           this.music.play();
         }
       } else {
         this.musicOn = false
-        localStorage.setItem('NWarriorMusicOn', false);
+        localStorage.setItem('NWarriorMusic', false);
 
         if(this.music) {
           this.music.stop();
@@ -327,9 +340,10 @@ export default class MapState extends Phaser.State {
     }, 5000);
 
     $(window).on('keydown', ev => {
-      const key = ev.keyCode;
+      const key = ev.keyCode,
+            actionKey = (this.controlsOn) ? GLOBALS.KEY_CODES.L : GLOBALS.KEY_CODES.A;
 
-      if(key === GLOBALS.KEY_CODES.A) {
+      if(key === actionKey) {
         if(!this.isCity) {
           if(!this.player.attacking) {
             this.player.attack();
