@@ -6,6 +6,7 @@ export default class Dialog {
     this.cb = cb;
 
     this.$dialogWrapper = $('.dialog__wrapper');
+    this.$dialogName = $('.dialog__name');
     this.$dialogText = this.$dialogWrapper.find('.dialog__text');
 
     this.currentLine = 1;
@@ -16,6 +17,7 @@ export default class Dialog {
   }
 
   setup() {
+    this.$dialogName.html(this.data.name || "");
     this.$dialogText.html(this.data.lines[0]);
     this.$dialogWrapper.removeClass('hide');
   }
@@ -27,20 +29,26 @@ export default class Dialog {
       if(key === GLOBALS.KEY_CODES.ENTER) {
         this.nextLine();
       }
-
-      if(this.currentLine > this.numberOfLines) {
-        this.event.unbind();
-      }
     });
   }
 
   nextLine() {
     if(this.currentLine === this.numberOfLines) {
+      this.event.unbind('keydown');
+      $(document).unbind('keydown');
+
       this.$dialogWrapper.addClass('hide');
       this.cb();
     } else {
       this.currentLine++;
       this.$dialogText.html(this.data.lines[this.currentLine - 1]);
     }
+  }
+
+  kill() {
+    this.event.unbind('keydown');
+    $(document).unbind('keydown');
+
+    this.$dialogWrapper.addClass('hide');
   }
 }

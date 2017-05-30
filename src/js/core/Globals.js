@@ -41,13 +41,15 @@ const GLOBALS = {
 
   TEXT_STYLES: {
     DAMAGE: { font: "14px FreePixel", fontWeight: 'Bold', fill: "#000", wordWrap: true, wordWrapWidth: 32, align: "center" },
+    NPC_TEXT: { font: "14px FreePixel", fontWeight: 'Bold', fill: "#fff", wordWrap: false, align: "center" },
     DEAD: { font: "20px FreePixel", fontWeight: 'Bold', fill: "#fff", align: "center" },
     LOADING: { font: "18px FreePixel", fill: "#fff"}
   },
 
   KEY_CODES: {
     ENTER: 13,
-    A: 65
+    A: 65,
+    L: 76
   }
 }
 

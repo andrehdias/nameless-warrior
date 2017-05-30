@@ -19,6 +19,8 @@ export default class MapState extends Phaser.State {
       this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_DESCENT);
       this.music.loop = true;
     } else {
+      this.npcs = [];
+
       this.music = this.game.add.audio(GLOBALS.MUSICS.SAD_TOWN);
       this.music.loop = true;
     }
@@ -33,40 +35,38 @@ export default class MapState extends Phaser.State {
 
     this.$saveText = $('.game-menu__message');
 
+    this.$gameTimeHours = $('.game__time-hours');
+    this.$gameTimeMinutes = $('.game__time-minutes');
+    this.$gameTimeType = $('.game__time-type');
+    this.$overlayNight = $('.game__wrapper__overlay--night');
+
     this.$saveBtn = $('.game-menu__save-btn');
     this.$autoSaveCheckbox = $('.game__option--autosave');
     this.autoSave = (localStorage.getItem('NWarriorAutoSave') === 'true');
 
     this.$saveBtn.unbind('click');
 
-    this.musicOn = (localStorage.getItem('NWarriorMusicOn') === 'true');
+    this.musicOn = (localStorage.getItem('NWarriorMusic') === 'true');
     this.$musicCheckbox = $('.game__option--music');
 
-    this.deadDialog = false;
+    this.controlsOn = (localStorage.getItem('NWarriorControls') === 'true');
+    this.$controlsCheckbox = $('.game__option--controls');
 
-    if(this.autoSave) {
-      this.$autoSaveCheckbox.prop('checked', true);
-    }
+    this.$autoSaveCheckbox.prop('checked', this.autoSave);
+    this.$musicCheckbox.prop('checked', this.musicOn);
+    this.$controlsCheckbox.prop('checked', this.controlsOn);
 
     if(this.musicOn) {
-      this.$musicCheckbox.prop('checked', true);
-
       if(this.music) {
         this.music.volume = 0.3;
         this.music.play();
       }
-    } else {
-      this.$musicCheckbox.prop('checked', false);
     }
 
     this.shouldChangeMap = true;
+    this.deadDialog = false;
 
     this.playerPositionThreshold = 32;
-
-    this.$gameTimeHours = $('.game__time-hours');
-    this.$gameTimeMinutes = $('.game__time-minutes');
-    this.$gameTimeType = $('.game__time-type');
-    this.$overlayNight = $('.game__wrapper__overlay--night');
   }
 
   create() {
@@ -93,6 +93,11 @@ export default class MapState extends Phaser.State {
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
       this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
+
+      if(this.player.characterClass === GLOBALS.ARCHER) {
+        this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 750, 950, this.map));
+        this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 250, 650, this.map));
+      }
     }
 
     this.map.renderLastLayer();
@@ -152,6 +157,20 @@ export default class MapState extends Phaser.State {
       }
     }
 
+    if(this.npcs) {
+      this.game.physics.arcade.collide(this.player, this.npcs);
+
+      for (let key in this.npcs) {
+        this.npcs[key].checkPlayerPosition(this.player);
+
+        if(this.npcs[key].playerAside) {
+          this.npcAside = this.npcs[key];
+        } else {
+          this.npcAside = null;
+        }
+      }
+    }
+
     if(!this.deadDialog && !this.player.alive) {
       this.$overlayDead.addClass('active');
 
@@ -172,7 +191,7 @@ export default class MapState extends Phaser.State {
           this.player.currentHealth = this.player.health;
           this.player.saveCharacterStatus(this.mapName, () => {
             setTimeout(() => {
-              this.changeMap('UselessCity', GLOBALS.DIRECTIONS.DOWN);
+              this.changeMap('UselessCity', GLOBALS.DIRECTIONS.UP, 0, {x: 300, y: 300});
             }, 1000);
           });
         }
@@ -287,35 +306,79 @@ export default class MapState extends Phaser.State {
       }
     });
 
+    this.$controlsCheckbox.change((e) => {
+      if(this.$controlsCheckbox.is(':checked')) {
+        this.controlsOn = true;
+        localStorage.setItem('NWarriorControls', true);
+      } else {
+        this.controlsOn = false;
+        localStorage.setItem('NWarriorControls', false);
+      }
+    });
+
     this.$musicCheckbox.change((e) => {
       if(this.$musicCheckbox.is(':checked')) {
         this.musicOn = true;
-        localStorage.setItem('NWarriorMusicOn', true);
+        localStorage.setItem('NWarriorMusic', true);
 
         if(this.music) {
           this.music.play();
         }
       } else {
         this.musicOn = false
-        localStorage.setItem('NWarriorMusicOn', false);
+        localStorage.setItem('NWarriorMusic', false);
 
         if(this.music) {
           this.music.stop();
         }
       }
+
     });
 
     this.timeInverval = setInterval(() => {
       this.handleTime();
     }, 5000);
+
+    $(window).on('keydown', ev => {
+      const key = ev.keyCode,
+            actionKey = (this.controlsOn) ? GLOBALS.KEY_CODES.L : GLOBALS.KEY_CODES.A;
+
+      if(key === actionKey) {
+        if(!this.isCity) {
+          if(!this.player.attacking) {
+            this.player.attack();
+          }
+        } else if(this.npcAside && !this.npcAside.talking) {
+          this.npcAside.talk(this.player);
+        }
+      }
+    });
   }
 
   addMapTransitions() {
     this.willChangeMap = false;
   }
 
+  killDialogs() {
+    if(this.welcome) {
+      this.welcome.kill();
+    }
+
+    if(this.deadDialog) {
+      this.deadDialog.kill();
+    }
+
+    for (let key in this.npcs) {
+      if(this.npcs[key].talking) {
+        this.npcs[key].talking.kill();
+      }
+    }
+  }
+
   changeMap(state, enterDirection, threshold, enterPosition) {
     if(!this.shouldChangeMap) {return;}
+
+    this.killDialogs();
 
     setTimeout(() => {
       this.$overlayLoading.addClass('active');
@@ -408,13 +471,13 @@ export default class MapState extends Phaser.State {
       if(!this.isHouse) {
         let opacity;
 
-        if(hours === 18) {
+        if(hours == 18) {
           opacity = 0.25;
-        } else if(hours === 19) {
+        } else if(hours == 19) {
           opacity = 0.40;
         } else if (hours >= 20 || (hours >= 0 && hours <= 4)) {
           opacity = 0.65;
-        } else if (hours === 5 || hours === 6) {
+        } else if (hours == 5 || hours == 6) {
           opacity = 0.35;
         }
 

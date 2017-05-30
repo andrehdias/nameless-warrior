@@ -1,6 +1,7 @@
 import GLOBALS from '../core/Globals';
 import config from 'config';
 import Utils from '../core/Utils';
+import Dialog from '../game/Dialog';
 
 export default class Character extends Phaser.Sprite {
 	constructor(game, data, type = GLOBALS.PLAYER, x, y, map) {
@@ -19,6 +20,11 @@ export default class Character extends Phaser.Sprite {
     this.frame = 0;
     this.alive = true;
     this.playerNear = false;
+
+    this.speech = data.speech;
+    this.completedQuestSpeech = data.completedQuest;
+    this.name = data.name;
+    this.quest = data.quest;
 
 		this.setCharacterInfo(data);
 
@@ -43,6 +49,8 @@ export default class Character extends Phaser.Sprite {
 		this.intelligenceXP = data.intelligenceXP;
 		this.charisma = data.charisma;
 		this.charismaXP = data.charismaXP;
+
+    this.quests = data.quests;
 
     this.firstDialog = data.firstDialog;
 
@@ -69,22 +77,6 @@ export default class Character extends Phaser.Sprite {
     }
 	}
 
-  bind() {
-    if(!this.map.isCity) {
-      $(window).on('keydown', ev => {
-        const key = ev.keyCode;
-
-        if(key === GLOBALS.KEY_CODES.A) {
-          if(!this.attacking) {
-            this.attack();
-          }
-        }
-      });
-
-      this.setupAttackEndCallback();
-    }
-  }
-
 	create() {
 		this.game.add.existing(this);
 	  this.game.physics.arcade.enable(this);
@@ -96,15 +88,45 @@ export default class Character extends Phaser.Sprite {
 
 	  this.setupAnimations();
 
-    if(this.type === GLOBALS.ENEMY) {
+    if(this.type === GLOBALS.NPC || this.type === GLOBALS.ENEMY) {
       this.body.immovable = true;
+    }
+
+    if(this.type === GLOBALS.ENEMY) {
       this.randomWalk();
     }
 
-    if(this.type === GLOBALS.PLAYER) {
-      this.bind();
+    if(this.type === GLOBALS.PLAYER && !this.map.isCity) {
+      this.setupAttackEndCallback();
     }
 	}
+
+  talk(player) {
+    const quest = (this.quest) ? player.quests[this.quest] : '';
+
+    if(quest) {
+      quest.started = true;
+
+      if(quest.counter === 10 && !quest.done) {
+        quest.done = true;
+        player.strength += 1;
+        player.constitution += 1;
+        player.dexterity += 1;
+      }
+    }
+
+    player.updateCharacterStatusFormbox();
+
+    this.talking = new Dialog(
+      {
+        lines: (quest.done) ? this.completedQuestSpeech : this.speech,
+        name: this.name
+      },
+      () => {
+        this.talking = null;
+      }
+    );
+  }
 
 	update() {
     if(this.type === GLOBALS.PLAYER) {
@@ -132,11 +154,28 @@ export default class Character extends Phaser.Sprite {
       this.updateBars();
     }
 
-    if(this.text && this.body && this.alive) {
-      this.textY -= 1;
+    if(this.type === GLOBALS.NPC) {
+      if(this.playerAside && !this.talking) {
+        const instruction = (localStorage.getItem('NWarriorControls') === 'true') ? "Press L to talk" : "Press A to talk";
 
-      this.text.x = Math.floor(this.body.x + this.body.width / 2);
-      this.text.y = Math.floor(this.body.y + this.body.height / 2 + this.textY);
+        if(!this.text || this.text.text == '') {
+          this.text = this.game.add.text(0, 0, instruction, GLOBALS.TEXT_STYLES.NPC_TEXT);
+        }
+      } else if(this.text) {
+        this.text.text = '';
+      }
+    }
+
+    if(this.text && this.body && this.alive) {
+      if(this.type === GLOBALS.NPC) {
+        this.text.x = Math.floor(this.body.x - 36);
+        this.text.y = Math.floor(this.body.y + this.body.height / 2 - 36);
+      } else {
+        this.textY -= 1;
+
+        this.text.x = Math.floor(this.body.x + this.body.width / 2);
+        this.text.y = Math.floor(this.body.y + this.body.height / 2 + this.textY);
+      }
     }
 	}
 
@@ -156,7 +195,9 @@ export default class Character extends Phaser.Sprite {
 	}
 
 	handleWalking() {
-	  const speed = this.speed;
+	  const speed = this.speed,
+          alternativeControls = (localStorage.getItem('NWarriorControls') === 'true');
+
 	  let direction;
 
     if(this.attacking) {
@@ -165,13 +206,18 @@ export default class Character extends Phaser.Sprite {
       return;
     }
 
-		if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+    const left = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.A) : this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT);
+    const right = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.D) : this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
+    const up = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.W) : this.game.input.keyboard.isDown(Phaser.Keyboard.UP);
+    const down = (alternativeControls) ? this.game.input.keyboard.isDown(Phaser.Keyboard.S) : this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN);
+
+		if (left) {
 	    direction = GLOBALS.DIRECTIONS.LEFT;
-	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+	  } else if (right) {
 	    direction = GLOBALS.DIRECTIONS.RIGHT;
-	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+	  } else if (up) {
 	    direction = GLOBALS.DIRECTIONS.UP;
-	  } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+	  } else if (down) {
 	    direction = GLOBALS.DIRECTIONS.DOWN;
 	  } else {
 	    direction = GLOBALS.DIRECTIONS.STOP;
@@ -587,7 +633,7 @@ export default class Character extends Phaser.Sprite {
           this.text.anchor.set(0.5);
         }
 
-        this.checkDeath();
+        this.checkDeath(character);
 
         if(this.alive) {
           this.stepBack(direction);
@@ -616,7 +662,21 @@ export default class Character extends Phaser.Sprite {
     }
   }
 
-  checkDeath() {
+  checkQuests(character) {
+    if(this.characterClass === GLOBALS.ENEMIES.SLIME && character.quests.first.started) {
+      if(character.quests.first.counter !== 10) {
+        character.quests.first.counter += 1;
+      }
+    }
+
+    if(this.characterClass === GLOBALS.ENEMIES.MUSHROOM && character.quests.second.started) {
+      if(character.quests.second.counter !== 10) {
+        character.quests.second.counter += 1;
+      }
+    }
+  }
+
+  checkDeath(character) {
     if(this.currentHealth <= 0) {
       this.alive = false;
 
@@ -630,6 +690,10 @@ export default class Character extends Phaser.Sprite {
         this.body.velocity.y = 0;
         this.body.destroy();
         this.kill();
+
+        this.checkQuests(character);
+
+        character.updateCharacterStatusFormbox();
       } else if (this.type === GLOBALS.PLAYER) {
         this.setupDeadAnimation();
       }
@@ -703,14 +767,14 @@ export default class Character extends Phaser.Sprite {
   }
 
   checkPlayerPosition(player) {
-    const attackProximity = 32,
+    const playerAsideProximity = (this.type === GLOBALS.ENEMY) ? 32 : 64,
           playerProximity = (player.characterClass === GLOBALS.ARCHER) ? 260 : 160;
 
     this.playerNear = this.checkProximity(this, player, playerProximity, this.isHostile);
 
-    const enemyAttackProximity = this.checkProximity(this, player, attackProximity);
+    this.playerAside = this.checkProximity(this, player, playerAsideProximity);
 
-    if(enemyAttackProximity) {
+    if(this.playerAside && this.type === GLOBALS.ENEMY) {
       this.lastFrame = (this.getOppositeDirectionFrame(player.lastFrame));
       this.frame = this.lastFrame;
       this.animations.stop();
@@ -746,6 +810,7 @@ export default class Character extends Phaser.Sprite {
             firstDialog: this.firstDialog,
             gameTimeHours: this.gameTimeHours,
             gameTimeMinutes: this.gameTimeMinutes,
+            quests: this.quests,
             token: localStorage.getItem('NWarriorToken')
           };
 
@@ -780,6 +845,12 @@ export default class Character extends Phaser.Sprite {
       template = template.replace('{Dexterity}', this.dexterity);
       template = template.replace('{DexterityXP}', this.dexterityXP.toFixed(2));
       template = template.replace('{ClassImg}', this.classNumber);
+
+      const firstQuest = (this.quests.first.started) ? this.quests.first.counter + '/10' : 'Quest not started';
+      const secondQuest = (this.quests.second.started) ? this.quests.second.counter + '/10' : 'Quest not started';
+
+      template = template.replace('{firstQuest}', firstQuest);
+      template = template.replace('{secondQuest}', secondQuest);
 
       $characterStatusWrapper.append(template);
 		});

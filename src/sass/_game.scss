@@ -19,7 +19,7 @@
     display: none;
 
     &--grey {
-      background: rgba($dark-grey, 0.7);
+      background: rgba($dark-grey, 0.4);
       z-index: 999;
     }
 
@@ -248,6 +248,10 @@
       }
     }
 
+    &__name {
+      padding: 5px 10px 0 10px;
+    }
+
     &__text {
       padding: 5px 10px;
       display: block;
@@ -256,7 +260,7 @@
 
     &__instructions {
       position: absolute;
-      bottom: 5px;
+      bottom: 0px;
       left: 10px;
       font-size: 14px;
     }
