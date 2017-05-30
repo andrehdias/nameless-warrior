@@ -102,7 +102,7 @@ export default class Character extends Phaser.Sprite {
 	}
 
   talk(player) {
-    const quest = (this.quest) ? player.quests[this.quest] : null;
+    const quest = (this.quest) ? player.quests[this.quest] : '';
 
     if(quest) {
       quest.started = true;
