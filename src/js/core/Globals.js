@@ -49,7 +49,9 @@ const GLOBALS = {
   KEY_CODES: {
     ENTER: 13,
     A: 65,
-    L: 76
+    L: 76,
+    ONE: 49,
+    TWO: 50
   }
 }
 

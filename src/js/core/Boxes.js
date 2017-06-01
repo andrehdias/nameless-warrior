@@ -12,9 +12,9 @@ export default class Boxes {
 
 	//binds events to elements according to the selector passed as parameter
 	bindEvents() {
-		let _this = this,
-				boxes = $(this.trigger),
-				overlay = $('.overlay');
+		const _this = this,
+          boxes = $(this.trigger),
+				  overlay = $('.overlay');
 
 		boxes.each(function() {
 			let href = $(this).data("target"),
@@ -36,11 +36,13 @@ export default class Boxes {
 			$(this).click((e) => {
 				e.preventDefault();
 
-				_this.closeAll();
-
-				overlay.removeClass('hide');
-
-				actualSection.addClass('active');
+        if(actualSection.is('.active')) {
+				  _this.closeAll();
+        } else {
+				  _this.closeAll();
+          overlay.removeClass('hide');
+          actualSection.addClass('active');
+        }
 			});
 		});
 	}

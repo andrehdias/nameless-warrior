@@ -89,15 +89,7 @@ export default class MapState extends Phaser.State {
     }
 
     if(!this.isCity) {
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 450, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
-      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
-
-      if(this.player.characterClass === GLOBALS.ARCHER) {
-        this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 750, 950, this.map));
-        this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: 5, dexterity: 5}, GLOBALS.ENEMY, 250, 650, this.map));
-      }
+      this.setupEnemies();
     }
 
     this.map.renderLastLayer();
@@ -119,6 +111,20 @@ export default class MapState extends Phaser.State {
           this.player.firstDialog = true;
         }
       );
+    }
+  }
+
+  setupEnemies() {
+    const enemyStrength = (this.player.characterClass === GLOBALS.ARCHER) ? 10 : 6;
+
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: enemyStrength, dexterity: 5}, GLOBALS.ENEMY, 450, 450, this.map));
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: enemyStrength, dexterity: 5}, GLOBALS.ENEMY, 150, 150, this.map));
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: enemyStrength, dexterity: 5}, GLOBALS.ENEMY, 450, 950, this.map));
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: enemyStrength, dexterity: 5}, GLOBALS.ENEMY, 550, 350, this.map));
+    this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.SLIME, isHostile: true, health: 70, currentHealth: 70, strength: enemyStrength, dexterity: 5}, GLOBALS.ENEMY, 750, 950, this.map));
+
+    if(this.player.characterClass === GLOBALS.ARCHER) {
+      this.enemies.push(new Character(this.game, {characterClass: GLOBALS.ENEMIES.MUSHROOM, isHostile: true, health: 70, currentHealth: 70, strength: enemyStrength, dexterity: 5}, GLOBALS.ENEMY, 250, 650, this.map));
     }
   }
 
@@ -272,6 +278,9 @@ export default class MapState extends Phaser.State {
   }
 
   bind() {
+    this.$helpLink = $('[data-target="#formbox-help"]');
+    this.$statusLink = $('[data-target="#formbox-status"]');
+
     this.saveCharacterInterval = setInterval(() => {
       if(this.autoSave) {
         this.player.saveCharacterStatus(this.mapName, () => {
@@ -343,14 +352,27 @@ export default class MapState extends Phaser.State {
       const key = ev.keyCode,
             actionKey = (this.controlsOn) ? GLOBALS.KEY_CODES.L : GLOBALS.KEY_CODES.A;
 
-      if(key === actionKey) {
-        if(!this.isCity) {
-          if(!this.player.attacking) {
-            this.player.attack();
+      switch(key) {
+        case actionKey:
+          if(!this.isCity) {
+            if(!this.player.attacking) {
+              this.player.attack();
+            }
+          } else if(this.npcAside && !this.npcAside.talking) {
+            this.npcAside.talk(this.player);
           }
-        } else if(this.npcAside && !this.npcAside.talking) {
-          this.npcAside.talk(this.player);
-        }
+
+          break;
+
+        case GLOBALS.KEY_CODES.ONE:
+          this.$statusLink.click();
+
+          break;
+
+        case GLOBALS.KEY_CODES.TWO:
+          this.$helpLink.click();
+
+          break;
       }
     });
   }
